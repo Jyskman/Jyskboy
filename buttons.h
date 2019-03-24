@@ -18,7 +18,7 @@ public:
 button_input(int a);	// constructor
 
 int nr_buttons = 15;
-int button_array[3][15];
+int button_array[4][15];
 
 
 void updateState();	

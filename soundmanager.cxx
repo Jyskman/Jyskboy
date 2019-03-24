@@ -14,6 +14,7 @@
 std::vector<int> FX_Req; // global variable for requests of FX sound
 std::vector<Mix_Chunk> FX;
 
+
 Mix_Music *gMusic = NULL;
 Mix_Chunk *gScratch = NULL;
 Mix_Chunk *gHigh = NULL;
@@ -108,9 +109,17 @@ soundmanager::soundmanager() {
 	Load_audio();
 };
 
-void soundmanager::Play_FX() {
-	//Mix_PlayChannel( -1, &FXsound, 0 );
+void soundmanager::Play_FX( Mix_Chunk& parameter ) {
+	//Mix_PlayChannel( -1, &FX.at(0), 0 );
+	Mix_PlayChannel( -1, &parameter, 0 );
 };
 
-
-
+void soundmanager::Play_Music() {
+	
+	if( Mix_PlayingMusic() == 0 )
+		{
+			//Play the music
+			Mix_PlayMusic( gMusic, -1 );
+		}	
+	
+};
