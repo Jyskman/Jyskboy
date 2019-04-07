@@ -38,7 +38,7 @@ void Load_audio() {
 
 
 	
-    gMusic = Mix_LoadMUS( "./audio/beat.wav" );
+    gMusic = Mix_LoadMUS( "./audio/mystery.wav" );
     if( gMusic == NULL )
     {
         printf( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );
@@ -46,28 +46,28 @@ void Load_audio() {
     }
 	
 	//Load sound effects
-    gScratch = Mix_LoadWAV( "./audio/scratch.wav" );
+    gScratch = Mix_LoadWAV( "./audio/Jump.wav" );
     if( gScratch == NULL )
     {
         printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
         //~ success = false;
     }
     
-    gHigh = Mix_LoadWAV( "./audio/high.wav" );
+    gHigh = Mix_LoadWAV( "./audio/laser.wav" );
     if( gHigh == NULL )
     {
         printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
         //~ success = false;
     }
     
-    gMedium = Mix_LoadWAV( "./audio/medium.wav" );
+    gMedium = Mix_LoadWAV( "./audio/laser_2.wav" );
     if( gMedium == NULL )
     {
         printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
         //~ success = false;
     }
     
-    gLow = Mix_LoadWAV( "./audio/low.wav" );
+    gLow = Mix_LoadWAV( "./audio/explosion.wav" );
     if( gLow == NULL )
     {
         printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
