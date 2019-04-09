@@ -53,8 +53,8 @@ void enemy::setY(int y) {
 }
 
 unsigned char enemy::getChar(int pos) {
-	return imported_sprite[pos];
-	//return imported.at(pos);
+	//~ return imported_sprite[pos];
+	return imported.at(pos);
 }
 
 unsigned char enemy::getVector(int pos) {

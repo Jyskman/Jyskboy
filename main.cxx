@@ -1482,7 +1482,9 @@ wiringPiSetup () ;
 					buttons.printAll();
 					audio.Play_Music();
 					if ( buttons.getJumpstate() == 1 ) {
-						audio.Play_FX(FX.at(0));
+						
+							audio.Play_FX(FX.at(0));
+										
 					}
 				
 			}

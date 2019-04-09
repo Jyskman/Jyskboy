@@ -16,10 +16,10 @@ std::vector<Mix_Chunk> FX;
 
 
 Mix_Music *gMusic = NULL;
-Mix_Chunk *gScratch = NULL;
-Mix_Chunk *gHigh = NULL;
-Mix_Chunk *gMedium = NULL;
-Mix_Chunk *gLow = NULL;
+Mix_Chunk *gJump = NULL;
+Mix_Chunk *gLaser = NULL;
+Mix_Chunk *gLaser_2 = NULL;
+Mix_Chunk *gExplosion = NULL;
 
 void Load_audio() {
 
@@ -46,53 +46,61 @@ void Load_audio() {
     }
 	
 	//Load sound effects
-    gScratch = Mix_LoadWAV( "./audio/Jump.wav" );
-    if( gScratch == NULL )
+    gJump = Mix_LoadWAV( "./audio/Jump.wav" );
+    if( gJump == NULL )
     {
         printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
         //~ success = false;
     }
     
-    gHigh = Mix_LoadWAV( "./audio/laser.wav" );
-    if( gHigh == NULL )
+    gLaser = Mix_LoadWAV( "./audio/laser.wav" );
+    if( gLaser == NULL )
     {
         printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
         //~ success = false;
     }
     
-    gMedium = Mix_LoadWAV( "./audio/laser_2.wav" );
-    if( gMedium == NULL )
+    gLaser_2 = Mix_LoadWAV( "./audio/laser_2.wav" );
+    if( gLaser_2 == NULL )
     {
         printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
         //~ success = false;
     }
     
-    gLow = Mix_LoadWAV( "./audio/explosion.wav" );
-    if( gLow == NULL )
+    gExplosion = Mix_LoadWAV( "./audio/explosion.wav" );
+    if( gExplosion == NULL )
     {
         printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
         //~ success = false;
     }
     
-	FX.push_back(*gLow);
-	FX.push_back(*gHigh);
-	FX.push_back(*gMedium);
-	FX.push_back(*gScratch); 
+	FX.push_back(*gExplosion);
+	FX.push_back(*gLaser);
+	FX.push_back(*gLaser_2);
+	FX.push_back(*gJump); 
     
 };
 
 void Close_audio() {
 
+	// clear all objects from the FX vector
+	for (int i = 0; i < FX.size(); i++) {
+	Mix_FreeChunk( &FX.at(i) );
+	}
+	FX.clear();
+
+
     //Free the sound effects
-    Mix_FreeChunk( gScratch );
-    Mix_FreeChunk( gHigh );
-    Mix_FreeChunk( gMedium );
-    Mix_FreeChunk( gLow );
-    gScratch = NULL;
-    gHigh = NULL;
-    gMedium = NULL;
-    gLow = NULL;
-    
+    Mix_FreeChunk( gJump );
+    Mix_FreeChunk( gLaser );
+    Mix_FreeChunk( gLaser_2 );
+    Mix_FreeChunk( gExplosion );
+	
+    gJump = NULL;
+    gLaser = NULL;
+    gLaser_2 = NULL;
+    gExplosion = NULL;
+      
     //Free the music
     Mix_FreeMusic( gMusic );
     gMusic = NULL;
