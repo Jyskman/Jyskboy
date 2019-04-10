@@ -38,7 +38,7 @@ void Load_audio() {
 
 
 	
-    gMusic = Mix_LoadMUS( "./audio/mystery.wav" );
+    gMusic = Mix_LoadMUS( "./audio/hvol.wav" );
     if( gMusic == NULL )
     {
         printf( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );
