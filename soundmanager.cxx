@@ -74,20 +74,20 @@ void Load_audio() {
         //~ success = false;
     }
     
-	FX.push_back(*gExplosion);
-	FX.push_back(*gLaser);
-	FX.push_back(*gLaser_2);
-	FX.push_back(*gJump); 
+	FX.push_back(*gExplosion); 	//0
+	FX.push_back(*gLaser);		//1
+	FX.push_back(*gLaser_2);	//2
+	FX.push_back(*gJump); 		//3
     
 };
 
 void Close_audio() {
 
 	// clear all objects from the FX vector
-	for (int i = 0; i < FX.size(); i++) {
-	Mix_FreeChunk( &FX.at(i) );
-	}
-	FX.clear();
+	//~ for (int i = 0; i < FX.size(); i++) {
+	//~ Mix_FreeChunk( &FX.at(i) );
+	//~ }
+	//~ FX.clear();
 
 
     //Free the sound effects
@@ -117,9 +117,10 @@ soundmanager::soundmanager() {
 	Load_audio();
 };
 
-void soundmanager::Play_FX( Mix_Chunk& parameter ) {
+void soundmanager::Play_FX( Mix_Chunk& parameter, int channel ) {
 	//Mix_PlayChannel( -1, &FX.at(0), 0 );
-	Mix_PlayChannel( -1, &parameter, 0 );
+	//~ Mix_Volume(1,50);
+	Mix_PlayChannel( channel, &parameter, 0 );
 };
 
 void soundmanager::Play_Music() {
@@ -127,6 +128,7 @@ void soundmanager::Play_Music() {
 	if( Mix_PlayingMusic() == 0 )
 		{
 			//Play the music
+			Mix_VolumeMusic(128);
 			Mix_PlayMusic( gMusic, -1 );
 		}	
 	

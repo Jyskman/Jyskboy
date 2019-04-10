@@ -22,8 +22,22 @@ int button_array[4][15];
 
 
 void updateState();	
-void setJumpstate(int state);	
-int getJumpstate();
+void setJumpstate(int state);
+	
+bool getJumpState();
+bool getShootState();
+bool getXState();
+bool getAState();
+
+bool getUpState();
+bool getDownState();
+bool getLeftState();
+bool getRightState();
+
+bool getStartState();
+bool getSelectState();
+
+
 void printAll();	
 };
 

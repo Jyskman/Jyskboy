@@ -1481,9 +1481,14 @@ wiringPiSetup () ;
 					//~ }
 					buttons.printAll();
 					audio.Play_Music();
-					if ( buttons.getJumpstate() == 1 ) {
-						
-							audio.Play_FX(FX.at(0));
+					if ( buttons.getShootState() == true ) {
+							
+							audio.Play_FX(FX.at(0), 1);
+										
+					}
+					if ( buttons.getJumpState() == true ) {
+							
+							audio.Play_FX(FX.at(3), 2);
 										
 					}
 				

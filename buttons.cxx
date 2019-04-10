@@ -87,8 +87,114 @@ void button_input::updateState(){
 	
 };
 
-int button_input::getJumpstate(){
-	return button_array[0][0];
+bool button_input::getJumpState(){
+	
+	
+	if ( button_array[2][2] == 1 ) {
+		return true;
+	} else {
+		return false;
+	}
+	
+};
+
+bool button_input::getShootState(){
+	
+	
+	if ( button_array[2][3] == 1 ) {
+		return true;
+	} else {
+		return false;
+	}
+	
+};
+
+bool button_input::getXState(){
+	
+	
+	if ( button_array[2][4] == 1 ) {
+		return true;
+	} else {
+		return false;
+	}
+	
+};
+
+bool button_input::getAState(){
+	
+	
+	if ( button_array[2][5] == 1 ) {
+		return true;
+	} else {
+		return false;
+	}
+	
+};
+
+bool button_input::getUpState(){
+	
+	
+	if ( button_array[2][8] == 1 ) {
+		return true;
+	} else {
+		return false;
+	}
+	
+};
+
+bool button_input::getDownState(){
+	
+	
+	if ( button_array[2][0] == 1 ) {
+		return true;
+	} else {
+		return false;
+	}
+	
+};
+
+bool button_input::getLeftState(){
+	
+	
+	if ( button_array[2][1] == 1 ) {
+		return true;
+	} else {
+		return false;
+	}
+	
+};
+
+bool button_input::getRightState(){
+	
+	
+	if ( button_array[2][9] == 1 ) {
+		return true;
+	} else {
+		return false;
+	}
+	
+};
+
+bool button_input::getStartState(){
+	
+	
+	if ( button_array[2][11] == 1 ) {
+		return true;
+	} else {
+		return false;
+	}
+	
+};
+
+bool button_input::getSelectState(){
+	
+	
+	if ( button_array[2][10] == 1 ) {
+		return true;
+	} else {
+		return false;
+	}
+	
 };
 
 void button_input::printAll(){

@@ -19,7 +19,7 @@ class soundmanager {
 	
 public:
 soundmanager(); //constructor
-void Play_FX(Mix_Chunk& parameter );
+void Play_FX(Mix_Chunk& parameter, int channel );
 void Play_Music();
 
 private:
