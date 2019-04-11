@@ -6,7 +6,9 @@
 
 #include <iostream>
 #include "render.h"
-#include "enemy.h"
+//~ #include "enemy.h"
+#include "champ.h"
+
 // This is the content of the .h file, which is where the declarations go
 
 
@@ -33,7 +35,7 @@ void fillColor(int x, int y, unsigned short color);
 
 void clear();
 
-void filler(enemy& spritefiller);
+void filler(champ& spritefiller);
 
 unsigned char getColor(int x, int y);
 	

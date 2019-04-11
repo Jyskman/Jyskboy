@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "render.h"
-#include "sprite.h"
+//~ #include "sprite.h"
 #include <vector>
 
 using namespace std;
@@ -31,7 +31,7 @@ fill(render_array[0], render_array[0] + (240 + 20) * (320*2 + 20*2), 0);
 	
 };
 
-void render::filler(enemy& spritefiller) {
+void render::filler(champ& spritefiller) {
 
 	for ( int i = 0; i < spritefiller.getHeight(); i++ ) {
 		

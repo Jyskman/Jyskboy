@@ -1,39 +1,35 @@
 
+// This is start of the header guard.  ADD_H can be any unique name.  By convention, we use the name of the header file.
+#ifndef CHAMP_H
+#define CHAMP_H
+ 
+ 
 
 #include <iostream>
-
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <fcntl.h>
-#include <linux/fb.h>
-#include <sys/mman.h>
-#include <sys/ioctl.h>
 #include <vector>
-
-#include "render.h"
-//~ #include "enemy.h"
-#include "champ.h"
 #include "sprite_objects.h"
-#include "setup_sprites.h"
-#include "buttons.h"
-#include "soundmanager.h"
-#include <wiringPi.h>
-
-// flatpak run org.gimp.GIMP//stable
-
-//unsigned char exp[240 + 20][320*2 + 20*2];
+// This is the content of the .h file, which is where the declarations go
 
 
 
-// 'global' variables to store screen info
-char *fbp = 0;
-struct fb_var_screeninfo vinfo;
-struct fb_fix_screeninfo finfo;
+
+class champ {
+	
+	
+public:
+//~ champ(int a, vector<sprite_objects>& parameter, int size, int Height, int Width);	// constructor overload with the spriteobject
+champ(int a, unsigned char sprites[], int size, int Height, int Width, std::vector<sprite_objects>& parameter);	// constructor
 
 
-unsigned char experiment_spritedata[100 * 100 * 3 + 1] =
+int x_location, y_location;
+int height = 100;
+int width = 100;
+int sprite_size;
+int res = 3;
+std::vector<unsigned char> imported;
+unsigned char imported_sprite[3001]; 
+
+char spriteproto[100 * 100 * 3 + 1] =
 ("\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
  "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
  "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
@@ -1364,157 +1360,27 @@ unsigned char experiment_spritedata[100 * 100 * 3 + 1] =
 
 
 
-// flatpak run org.gimp.GIMP//stable
-
-//GIT commands
-// git add --all && git commit -m "comment"
-// git push -u origin master
 
 
-// application entry point
-int main(int argc, char* argv[])
-{
-wiringPiSetup () ;
+int getHeight();
+int getWidth();
+
+int getX();
+int getY();
+
+int getSpriteSize();
+
+void setX(int x);
+void setY(int y);
 
 
-
-    int fbfd = 0;
-    struct fb_var_screeninfo orig_vinfo;
-    long int screensize = 0;
-
-
-    // Open the file for reading and writing
-    fbfd = open("/dev/fb1", O_RDWR);
-    if (!fbfd) {
-      printf("Error: cannot open framebuffer device.\n");
-      return(1);
-    }
-    printf("The framebuffer device was opened successfully.\n");
-
-    // Get variable screen information
-    if (ioctl(fbfd, FBIOGET_VSCREENINFO, &vinfo)) {
-      printf("Error reading variable information.\n");
-    }
-    printf("Original %dx%d, %dbpp\n", vinfo.xres, vinfo.yres, 
-       vinfo.bits_per_pixel);
-
-    // Store for reset (copy vinfo to vinfo_orig)
-    memcpy(&orig_vinfo, &vinfo, sizeof(struct fb_var_screeninfo));
-
-    // Change variable info
-    vinfo.bits_per_pixel = 8;
-    if (ioctl(fbfd, FBIOPUT_VSCREENINFO, &vinfo)) {
-      printf("Error setting variable information.\n");
-    }
-
-    // Get fixed screen information
-    if (ioctl(fbfd, FBIOGET_FSCREENINFO, &finfo)) {
-      printf("Error reading fixed information.\n");
-    }
-
-    // map fb to user mem 
-    screensize = vinfo.xres * vinfo.yres * 2;
-    fbp = (char*)mmap(0, 
-              screensize, 
-              PROT_READ | PROT_WRITE, 
-              MAP_SHARED, 
-              fbfd, 
-              0);
-
-    if ((int)fbp == -1) {
-        printf("Failed to mmap.\n");
-    }
-    else {
-        // draw... Here prog begin //////////////////////////7
-        
-        render screen(1);
-        button_input buttons(1);
-        setup_sprites2();
-		all_sprites2.at(0).sprite_test();
-		
-		
-        
-		champ en_1(1, experiment_spritedata, (100 * 100 * 3 + 1), 100, 100, all_sprites2); // will want to pass the sprite object vector/or the specific sprite?
-		en_1.setX(200);
-		en_1.setY(100);
-		
-		
-		soundmanager audio;
-		
-			
-		//std::vector<sprite_objects> all_sprites;
-		//setup_sprites(all_sprites);
-
-				
-
-		
-		screen.clear();
-        
-		screen.filler(en_1);
-		
-		
-			// clear fbp - will remove when screen clear works
-			for (int i = 0; i < 240; i++) {
-				for (int ii = 0; ii < 320*2;ii++){
-					*((char*)(fbp + 1 +(ii + i*640))) = 0;
-				}
-			
-			}
-			
-			// Render
-			for (int i = 0; i < 240; i++) {
-				for (int ii = 0; ii < 320*2;ii++){
-					*((char*)(fbp + 1 +(ii + i*640))) = screen.getColor(ii, i);
-					 
-				}
-			
-			}
-			
-			
-
-			for (int i = 0; i < 100; i++) {
-				usleep(100 * 1000); //ms
-				buttons.updateState();
-					//~ if ( buttons.getJumpstate() == 1 ) {
-						//~ printf("1");
-					//~ } else {
-						//~ printf("0");
-					//~ }
-					buttons.printAll();
-					audio.Play_Music();
-					if ( buttons.getShootState() == true ) {
-							
-							audio.Play_FX(FX.at(0), 1);
-										
-					}
-					if ( buttons.getJumpState() == true ) {
-							
-							audio.Play_FX(FX.at(3), 2);
-										
-					}
-				
-			}
-			
-			
-			
-        
-    }
-
-
-    // cleanup 
-    Close_audio();
-    
-    munmap(fbp, screensize);
-    if (ioctl(fbfd, FBIOPUT_VSCREENINFO, &orig_vinfo)) {
-        printf("Error re-setting variable information.\n");
-    }
-    close(fbfd);
-
-    return 0;
-  
-}
+unsigned char getChar(int x);
+unsigned char getVector(int x);
+};
 
 
 
+// This is the end of the header guard
+#endif
 
-// End
+
