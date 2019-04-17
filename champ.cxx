@@ -5,8 +5,8 @@
 #include "soundmanager.h"
 using namespace std;
 
-
-champ::champ(int a, unsigned char sprites[], int size, int Height, int Width, std::vector<sprite_objects>& parameter) {
+//champ::champ(int a, unsigned char sprites[], int size, int Height, int Width, std::vector<sprite_objects>& parameter) {
+champ::champ(int a, int size, int Height, int Width, std::vector<sprite_objects>& parameter) {
 
 height = Height;
 width = Width;
@@ -14,20 +14,15 @@ sprite_size = size;
 
 
 	for (int i = 0; i < sprite_size; i++) {
-		imported_sprite[i] = sprites[i];
+//		imported_sprite[i] = sprites[i];
 		//~ imported.push_back(sprites[i]);
-		
 		imported.push_back( parameter.at(0).getVector(i) );
-		
-		//printf("%d",imported.at(i));
 	}
-
-	
 
 };
 
 //~ champ::champ(int a, std::vector<sprite_objects>& parameter, int size, int Height, int Width) {
-	
+
 	//~ std::cout << "overload ok" << endl;
 //~ };
 

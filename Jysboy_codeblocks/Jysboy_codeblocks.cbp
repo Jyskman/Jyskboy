@@ -45,8 +45,6 @@
 		<Unit filename="../setup_sprites.h" />
 		<Unit filename="../soundmanager.cxx" />
 		<Unit filename="../soundmanager.h" />
-		<Unit filename="../sprite.cxx" />
-		<Unit filename="../sprite.h" />
 		<Unit filename="../sprite_objects.cxx" />
 		<Unit filename="../sprite_objects.h" />
 		<Extensions>
