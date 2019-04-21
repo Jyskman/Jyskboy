@@ -13,24 +13,29 @@
 
 
 class sprite_objects {
-	
-	
-	
-public: 
 
 
-sprite_objects(int a, unsigned char sprites[], int size);
-	
+
+public:
+
+
+sprite_objects(int a, unsigned char sprites[], int size, int width, int height);
+
 
 int sprite_size;
-
+int sprite_widht;
+int sprite_height;
 
 void sprite_test();
-std::vector<unsigned char> sprite_imported;	
+std::vector<unsigned char> sprite_imported;
+
+int getHeight();
+int getWidth();
+int getSize();
 
 
 unsigned char getVector(int x);
-	
+
 };
 
 
