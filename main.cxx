@@ -94,7 +94,7 @@ wiringPiSetup () ;
 
         render screen(1);
         button_input buttons(1);
-        setup_sprites2();
+        setup_sprites();
 		all_sprites2.at(0).sprite_test();
 
 

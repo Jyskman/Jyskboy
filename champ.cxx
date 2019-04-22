@@ -8,15 +8,16 @@ using namespace std;
 //champ::champ(int a, unsigned char sprites[], int size, int Height, int Width, std::vector<sprite_objects>& parameter) {
 champ::champ(int a, int size, int Height, int Width, std::vector<sprite_objects>& parameter) {
 
-height = Height;
-width = Width;
-sprite_size = size;
+height = parameter.at(1).getHeight();
+width = parameter.at(1).getWidth();
+sprite_size = parameter.at(1).getSize();
+
 
 
 	for (int i = 0; i < sprite_size; i++) {
 //		imported_sprite[i] = sprites[i];
 		//~ imported.push_back(sprites[i]);
-		imported.push_back( parameter.at(0).getVector(i) );
+		imported.push_back( parameter.at(1).getVector(i) );
 	}
 
 };
