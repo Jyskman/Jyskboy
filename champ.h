@@ -25,6 +25,10 @@ int x_location, y_location;
 int height;
 int width;
 int sprite_size;
+
+// Black; Grey;
+// 0; 50; 100; 150; 200
+unsigned char palette_1[5] = {0,0,0,0,0};
 //int res = 3;
 std::vector<unsigned char> imported;
 //unsigned char imported_sprite[3001];

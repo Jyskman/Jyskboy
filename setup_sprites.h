@@ -14,8 +14,6 @@
 extern std::vector<sprite_objects> all_sprites2;
 
 
-//
-//void setup_sprites(std::vector<sprite_objects>& parameter);
 
 void setup_sprites();
 
