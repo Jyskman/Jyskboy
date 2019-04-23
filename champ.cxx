@@ -66,6 +66,10 @@ int champ::getSpriteSize() {
 	return sprite_size;
 	}
 
+//struct champ::getPalette() {
+//
+//return color_palette;
+//}
 
 
 
