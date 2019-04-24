@@ -11,7 +11,7 @@ champ::champ(int a, int size, int Height, int Width, std::vector<sprite_objects>
 height = parameter.at(2).getHeight();
 width = parameter.at(2).getWidth();
 sprite_size = parameter.at(2).getSize();
-
+palette_current = 1;
 
 
 	for (int i = 0; i < sprite_size; i++) {
@@ -64,12 +64,12 @@ unsigned char champ::getVector(int pos) {
 
 int champ::getSpriteSize() {
 	return sprite_size;
-	}
+}
 
-//struct champ::getPalette() {
-//
-//return color_palette;
-//}
+int champ::getPalette() {
+
+    return palette_current;
+}
 
 
 

@@ -26,15 +26,7 @@ int height;
 int width;
 int sprite_size;
 
-
-struct color_palette {
-// Black; Grey;
-// 0; 50; 100; 150; 200
-    int current_palette = 1;
-    unsigned char palette[2][5] =  {{0,0,0,0,0},
-                                    {0,0,0,0,0}};
-
-};
+int palette_current;
 
 std::vector<unsigned char> imported;
 //unsigned char imported_sprite[3001];
@@ -52,11 +44,12 @@ int getSpriteSize();
 void setX(int x);
 void setY(int y);
 
+int getPalette();
 
 unsigned char getChar(int x);
 unsigned char getVector(int x);
 
-//struct getPalette();
+
 };
 
 
