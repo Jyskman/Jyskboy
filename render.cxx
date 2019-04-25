@@ -37,6 +37,8 @@ void render::filler(champ& spritefiller) {
 
 		for ( int ii = 0; ii < spritefiller.getWidth(); ii++ ) {
 
+            Grey_byte = spritefiller.getChar(0 + ii*3 + i*3*spritefiller.getWidth());
+
 			R_888_byte = spritefiller.getChar(0 + ii*3 + i*3*spritefiller.getWidth());
 			G_888_byte = spritefiller.getChar(1 + ii*3 + i*3*spritefiller.getWidth());
 			B_888_byte = spritefiller.getChar(2 + ii*3 + i*3*spritefiller.getWidth());
@@ -62,7 +64,18 @@ unsigned char render::getColor(int x, int y) {
 	return render_array[y][x];
 };
 
-unsigned char render::mutateColor(std::string RGB, unsigned char color, int palette) {
+unsigned char render::mutateColor(int RGB, unsigned char color, int palette) {
+    // R = 0, G = 1, B = 2
+
+    switch ( RGB ) {
+        case 1:
+
+        return palette[ X ][RGB];
+        break;
+
+    };
+
+
 
 return 0;
 };

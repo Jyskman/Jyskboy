@@ -20,6 +20,7 @@ unsigned char render_array[240 + 20][320*2 + 20*2];
 
 unsigned char byte_1, byte_2;
 unsigned char R_888_byte, G_888_byte, B_888_byte;
+unsigned char Grey_byte;
 
 char test = 0;
 
@@ -38,6 +39,7 @@ unsigned char palette[5][3] = {
 
 int offset = 0;
 
+
 render(int a);	// constructor
 
 void fillColor(int x, int y, unsigned short color);
@@ -48,7 +50,7 @@ void filler(champ& spritefiller);
 
 unsigned char getColor(int x, int y);
 
-unsigned char mutateColor(std::string RGB ,unsigned char color, int palette);
+unsigned char mutateColor(int RGB ,unsigned char color, int palette);
 
 };
 
