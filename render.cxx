@@ -37,13 +37,12 @@ void render::filler(champ& spritefiller) {
 
 		for ( int ii = 0; ii < spritefiller.getWidth(); ii++ ) {
 
-            Grey_byte = spritefiller.getChar(0 + ii*3 + i*3*spritefiller.getWidth());
-
 			R_888_byte = spritefiller.getChar(0 + ii*3 + i*3*spritefiller.getWidth());
 			G_888_byte = spritefiller.getChar(1 + ii*3 + i*3*spritefiller.getWidth());
 			B_888_byte = spritefiller.getChar(2 + ii*3 + i*3*spritefiller.getWidth());
 
-			RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
+			//RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
+			RGB565 = (((mutateColor(0, R_888_byte, 1) & 0xf8)<<8) + ((mutateColor(1,G_888_byte,1) & 0xfc)<<3)+(mutateColor(2, B_888_byte, 1)>>3));
 
 
 
@@ -88,6 +87,7 @@ unsigned char render::mutateColor(int RGB, unsigned char color, int palette) {
                         return_value = palette_1[4][RGB];
                     break;
                     default:
+                    return_value = 255;
                     break;
                 };
         break;
@@ -98,7 +98,7 @@ unsigned char render::mutateColor(int RGB, unsigned char color, int palette) {
 
 
 
-return 0;
+return return_value;
 };
 
 

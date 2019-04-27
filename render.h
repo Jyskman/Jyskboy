@@ -20,7 +20,6 @@ unsigned char render_array[240 + 20][320*2 + 20*2];
 
 unsigned char byte_1, byte_2;
 unsigned char R_888_byte, G_888_byte, B_888_byte;
-unsigned char Grey_byte;
 
 char test = 0;
 
