@@ -66,12 +66,33 @@ unsigned char render::getColor(int x, int y) {
 
 unsigned char render::mutateColor(int RGB, unsigned char color, int palette) {
     // R = 0, G = 1, B = 2
+    unsigned char return_value;
 
-    switch ( RGB ) {
+    switch ( palette ) {
         case 1:
 
-        return palette[ X ][RGB];
+                switch ( color ) {
+                    case 0:
+                        return_value = palette_1[0][RGB];
+                    break;
+                    case 50:
+                        return_value = palette_1[1][RGB];
+                    break;
+                    case 100:
+                        return_value = palette_1[2][RGB];
+                    break;
+                    case 150:
+                        return_value = palette_1[3][RGB];
+                    break;
+                    case 200:
+                        return_value = palette_1[4][RGB];
+                    break;
+                    default:
+                    break;
+                };
         break;
+
+
 
     };
 

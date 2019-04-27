@@ -26,19 +26,7 @@ char test = 0;
 
 unsigned short RGB565;
 
-// 0, 50, 100, 150, 200
-unsigned char palette[5][3] = {
-
-{0,0,0},
-{140,50,90},
-{230,60,150},
-{0,255,150},
-{255,255,0}
-
-};
-
 int offset = 0;
-
 
 render(int a);	// constructor
 
@@ -51,6 +39,17 @@ void filler(champ& spritefiller);
 unsigned char getColor(int x, int y);
 
 unsigned char mutateColor(int RGB ,unsigned char color, int palette);
+
+// 0, 50, 100, 150, 200
+unsigned char palette_1[5][3] = {
+
+{0,0,0},
+{140,50,90},
+{230,60,150},
+{0,255,150},
+{255,255,0}
+
+};
 
 };
 
