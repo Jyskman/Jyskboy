@@ -27,6 +27,7 @@ int width;
 int sprite_size;
 
 int palette_current;
+int sprite_current;
 
 std::vector<unsigned char> imported;
 //unsigned char imported_sprite[3001];

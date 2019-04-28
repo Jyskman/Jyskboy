@@ -44,11 +44,12 @@ void render::filler(champ& spritefiller) {
 			//RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
 			RGB565 = (((mutateColor(0, R_888_byte, 1) & 0xf8)<<8) + ((mutateColor(1,G_888_byte,1) & 0xfc)<<3)+(mutateColor(2, B_888_byte, 1)>>3));
 
+            if ( RGB565 != 0xFFFF ) {
+            render::fillColor( spritefiller.getX()+2*ii, spritefiller.getY() +i, RGB565 );
+            } else {
+            }
 
-
-			render::fillColor( spritefiller.getX()+2*ii, spritefiller.getY() +i, RGB565 );
-
-
+//			render::fillColor( spritefiller.getX()+2*ii, spritefiller.getY() +i, RGB565 );
 
 		}
 
