@@ -11,9 +11,9 @@
 #include <vector>
 
 // The extern declaration in combination with an implementation i the cxx file makes global var
-extern std::vector<sprite_objects> all_sprites2;
-
-
+extern std::vector<sprite_objects> all_sprites;
+extern std::vector<sprite_objects*> sprite_pointers;
+//
 
 void setup_sprites();
 

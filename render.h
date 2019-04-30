@@ -34,6 +34,7 @@ void fillColor(int x, int y, unsigned short color);
 void clear();
 
 void filler(champ& spritefiller);
+void filler_dev(champ& spritefiller);
 
 unsigned char getColor(int x, int y);
 

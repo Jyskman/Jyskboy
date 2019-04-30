@@ -4,6 +4,7 @@
 #include "render.h"
 //~ #include "sprite.h"
 #include <vector>
+#include "setup_sprites.h"
 
 using namespace std;
 
@@ -102,5 +103,34 @@ unsigned char render::mutateColor(int RGB, unsigned char color, int palette) {
 return return_value;
 };
 
+void render::filler_dev(champ& spritefiller) {
 
+int sprite_current = spritefiller.sprite_current;
+
+
+	for ( int i = 0; i < all_sprites.at(sprite_current).getHeight(); i++ ) {
+
+		for ( int ii = 0; ii < all_sprites.at(sprite_current).getWidth(); ii++ ) {
+
+			R_888_byte = all_sprites.at(sprite_current).getVector(0 + ii*3 + i*3*all_sprites.at(sprite_current).getWidth());
+			G_888_byte = all_sprites.at(sprite_current).getVector(1 + ii*3 + i*3*all_sprites.at(sprite_current).getWidth());
+			B_888_byte = all_sprites.at(sprite_current).getVector(2 + ii*3 + i*3*all_sprites.at(sprite_current).getWidth());
+
+			//RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
+			RGB565 = (((mutateColor(0, R_888_byte, 1) & 0xf8)<<8) + ((mutateColor(1,G_888_byte,1) & 0xfc)<<3)+(mutateColor(2, B_888_byte, 1)>>3));
+
+            if ( RGB565 != 0xFFFF ) {
+            render::fillColor( spritefiller.getX()+2*ii, spritefiller.getY() +i, RGB565 );
+            } else {
+            }
+
+//			render::fillColor( spritefiller.getX()+2*ii, spritefiller.getY() +i, RGB565 );
+
+		}
+
+	}
+
+
+
+};
 

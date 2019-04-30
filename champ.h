@@ -48,7 +48,7 @@ void setY(int y);
 int getPalette();
 
 unsigned char getChar(int x);
-unsigned char getVector(int x);
+//unsigned char getVector(int x);
 
 
 };

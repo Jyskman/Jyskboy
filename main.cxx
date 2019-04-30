@@ -95,11 +95,11 @@ wiringPiSetup () ;
         render screen(1);
         button_input buttons(1);
         setup_sprites();
-		all_sprites2.at(0).sprite_test();
+		all_sprites.at(0).sprite_test();
 
 
 
-		champ en_1(1, (100 * 100 * 3 + 1), 100, 100, all_sprites2); // will want to pass the sprite object vector/or the specific sprite?
+		champ en_1(1, (100 * 100 * 3 + 1), 100, 100, all_sprites); // will want to pass the sprite object vector/or the specific sprite?
 		en_1.setX(200);
 		en_1.setY(100);
 
@@ -115,7 +115,7 @@ wiringPiSetup () ;
 
 		screen.clear();
 
-		screen.filler(en_1);
+		screen.filler_dev(en_1);
 
 
 			// clear fbp - will remove when screen clear works

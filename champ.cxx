@@ -3,13 +3,14 @@
 #include "champ.h"
 #include <vector>
 #include "soundmanager.h"
+#include "setup_sprites.h"
 using namespace std;
 
 //champ::champ(int a, unsigned char sprites[], int size, int Height, int Width, std::vector<sprite_objects>& parameter) {
 champ::champ(int a, int size, int Height, int Width, std::vector<sprite_objects>& parameter) {
 
 // Current sprite and palette
-sprite_current = 3;
+sprite_current = 0;
 palette_current = 1;
 
 height = parameter.at( sprite_current ).getHeight();
@@ -57,13 +58,15 @@ void champ::setY(int y) {
 
 unsigned char champ::getChar(int pos) {
 	//~ return imported_sprite[pos];
-	return imported.at(pos);
+//	return imported.at(pos);
+	return all_sprites.at(0).getVector(pos);
+
 }
 
-unsigned char champ::getVector(int pos) {
-	//return imported_sprite[x];
-	return imported.at(pos);
-}
+//unsigned char champ::getVector(int pos) {
+//	//return imported_sprite[x];
+//	return imported.at(pos);
+//}
 
 int champ::getSpriteSize() {
 	return sprite_size;
