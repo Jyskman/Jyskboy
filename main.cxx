@@ -102,7 +102,7 @@ wiringPiSetup () ;
 		champ en_1(1, (100 * 100 * 3 + 1), 100, 100); // will want to pass the sprite object vector/or the specific sprite?
 		en_1.setX(200);
 		en_1.setY(100);
-
+        en_1.setRender();
 
 		soundmanager audio;
 
@@ -115,8 +115,8 @@ wiringPiSetup () ;
 
 		screen.clear();
 
-		screen.filler_dev(en_1);
-
+		//screen.filler_dev(en_1);
+        screen.filler_general();
 
 			// clear fbp - will remove when screen clear works
 			for (int i = 0; i < 240; i++) {

@@ -35,6 +35,7 @@ void clear();
 
 
 void filler_dev(champ& spritefiller);
+void filler_general();
 
 unsigned char getColor(int x, int y);
 
@@ -64,6 +65,11 @@ render_requests(int sprite_nr, int x_pos, int y_pos);
 int sprite_nr;
 int x_pos;
 int y_pos;
+
+int getSprite_nr();
+int getX();
+int getY();
+
 };
 
 extern vector<render_requests> render_req;

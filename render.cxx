@@ -107,15 +107,61 @@ int sprite_current = spritefiller.sprite_current;
 
 };
 
+void render::filler_general() {
+
+
+//int sprite_current = spritefiller.sprite_current;
+// The render_req vector contain the data of which sprite and position to draw using this function
+// all_sprites are the vector that store all sprites, mutate color use the palettes
+	for ( int i = 0; i < all_sprites.at( render_req.at(0).getSprite_nr() ).getHeight(); i++ ) {
+
+		for ( int ii = 0; ii < all_sprites.at(render_req.at(0).getSprite_nr()).getWidth(); ii++ ) {
+
+			R_888_byte = all_sprites.at(render_req.at(0).getSprite_nr()).getVector(0 + ii*3 + i*3*all_sprites.at(render_req.at(0).getSprite_nr()).getWidth());
+			G_888_byte = all_sprites.at(render_req.at(0).getSprite_nr()).getVector(1 + ii*3 + i*3*all_sprites.at(render_req.at(0).getSprite_nr()).getWidth());
+			B_888_byte = all_sprites.at(render_req.at(0).getSprite_nr()).getVector(2 + ii*3 + i*3*all_sprites.at(render_req.at(0).getSprite_nr()).getWidth());
+
+			//RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
+			RGB565 = (((mutateColor(0, R_888_byte, 1) & 0xf8)<<8) + ((mutateColor(1,G_888_byte,1) & 0xfc)<<3)+(mutateColor(2, B_888_byte, 1)>>3));
+
+            if ( RGB565 != 0xFFFF ) {
+            render::fillColor( render_req.at(0).getX()+2*ii, render_req.at(0).getY() +i, RGB565 );
+            } else {
+            }
+
+		}
+
+	}
+
+
+
+};
 
 // render req object class implementation
 
 vector<render_requests> render_req;
 
-render_requests::render_requests(int sprite_nr, int x_pos, int y_pos){
+render_requests::render_requests(int sprite, int xpos, int ypos){
 
-sprite_nr = sprite_nr;
-x_pos = x_pos;
-y_pos = y_pos;
+sprite_nr = sprite;
+x_pos = xpos;
+y_pos = ypos;
 
 };
+
+
+int render_requests::getSprite_nr(){
+    return sprite_nr;
+};
+
+int render_requests::getX(){
+    return x_pos;
+};
+
+int render_requests::getY(){
+    return y_pos;
+};
+
+
+
+
