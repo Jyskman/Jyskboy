@@ -18,7 +18,7 @@ class champ {
 
 public:
 //champ(int a, unsigned char sprites[], int size, int Height, int Width, std::vector<sprite_objects>& parameter);
-champ(int a, int size, int Height, int Width, std::vector<sprite_objects>& parameter);	// constructor
+champ(int a, int size, int Height, int Width);	// constructor
 
 
 int x_location, y_location;
@@ -28,10 +28,6 @@ int sprite_size;
 
 int palette_current;
 int sprite_current;
-
-std::vector<unsigned char> imported;
-//unsigned char imported_sprite[3001];
-
 
 
 int getHeight();
@@ -48,8 +44,7 @@ void setY(int y);
 int getPalette();
 
 unsigned char getChar(int x);
-//unsigned char getVector(int x);
-
+void setRender();
 
 };
 

@@ -10,7 +10,7 @@
 #include "champ.h"
 
 // This is the content of the .h file, which is where the declarations go
-
+using namespace::std;
 
 class render {
 
@@ -33,7 +33,7 @@ void fillColor(int x, int y, unsigned short color);
 
 void clear();
 
-void filler(champ& spritefiller);
+
 void filler_dev(champ& spritefiller);
 
 unsigned char getColor(int x, int y);
@@ -53,7 +53,20 @@ unsigned char palette_1[5][3] = {
 
 };
 
+// New render req class attempt
 
+
+class render_requests {
+
+public:
+render_requests(int sprite_nr, int x_pos, int y_pos);
+//~render_requests();
+int sprite_nr;
+int x_pos;
+int y_pos;
+};
+
+extern vector<render_requests> render_req;
 
 // This is the end of the header guard
 #endif

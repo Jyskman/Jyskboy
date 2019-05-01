@@ -99,7 +99,7 @@ wiringPiSetup () ;
 
 
 
-		champ en_1(1, (100 * 100 * 3 + 1), 100, 100, all_sprites); // will want to pass the sprite object vector/or the specific sprite?
+		champ en_1(1, (100 * 100 * 3 + 1), 100, 100); // will want to pass the sprite object vector/or the specific sprite?
 		en_1.setX(200);
 		en_1.setY(100);
 

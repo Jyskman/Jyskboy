@@ -32,33 +32,6 @@ fill(render_array[0], render_array[0] + (240 + 20) * (320*2 + 20*2), 0);
 
 };
 
-void render::filler(champ& spritefiller) {
-
-	for ( int i = 0; i < spritefiller.getHeight(); i++ ) {
-
-		for ( int ii = 0; ii < spritefiller.getWidth(); ii++ ) {
-
-			R_888_byte = spritefiller.getChar(0 + ii*3 + i*3*spritefiller.getWidth());
-			G_888_byte = spritefiller.getChar(1 + ii*3 + i*3*spritefiller.getWidth());
-			B_888_byte = spritefiller.getChar(2 + ii*3 + i*3*spritefiller.getWidth());
-
-			//RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
-			RGB565 = (((mutateColor(0, R_888_byte, 1) & 0xf8)<<8) + ((mutateColor(1,G_888_byte,1) & 0xfc)<<3)+(mutateColor(2, B_888_byte, 1)>>3));
-
-            if ( RGB565 != 0xFFFF ) {
-            render::fillColor( spritefiller.getX()+2*ii, spritefiller.getY() +i, RGB565 );
-            } else {
-            }
-
-//			render::fillColor( spritefiller.getX()+2*ii, spritefiller.getY() +i, RGB565 );
-
-		}
-
-	}
-
-
-
-};
 
 unsigned char render::getColor(int x, int y) {
 
@@ -134,3 +107,15 @@ int sprite_current = spritefiller.sprite_current;
 
 };
 
+
+// render req object class implementation
+
+vector<render_requests> render_req;
+
+render_requests::render_requests(int sprite_nr, int x_pos, int y_pos){
+
+sprite_nr = sprite_nr;
+x_pos = x_pos;
+y_pos = y_pos;
+
+};
