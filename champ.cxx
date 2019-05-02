@@ -60,7 +60,7 @@ int champ::getPalette() {
 }
 
 void champ::setRender()  {
-render_requests * obj = new render_requests(0, 100, 100);
+render_requests * obj = new render_requests(sprite_current, x_location, y_location);
 
 render_req.push_back(*obj);
 delete obj;

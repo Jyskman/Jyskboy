@@ -20,6 +20,7 @@
 #include "buttons.h"
 #include "soundmanager.h"
 #include <wiringPi.h>
+#include "environment.h"
 
 // flatpak run org.gimp.GIMP//stable
 // 'global' variables to store screen info
@@ -105,11 +106,6 @@ wiringPiSetup () ;
         en_1.setRender();
 
 		soundmanager audio;
-
-
-		//std::vector<sprite_objects> all_sprites;
-		//setup_sprites(all_sprites);
-
 
 
 

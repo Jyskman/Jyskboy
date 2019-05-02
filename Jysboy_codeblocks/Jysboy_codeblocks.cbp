@@ -38,6 +38,8 @@
 		<Unit filename="../buttons.h" />
 		<Unit filename="../champ.cxx" />
 		<Unit filename="../champ.h" />
+		<Unit filename="../environment.cxx" />
+		<Unit filename="../environment.h" />
 		<Unit filename="../main.cxx" />
 		<Unit filename="../render.cxx" />
 		<Unit filename="../render.h" />
