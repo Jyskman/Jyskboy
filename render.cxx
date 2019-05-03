@@ -113,21 +113,24 @@ void render::filler_general() {
 // The render_req vector contain the data of which sprite and position to draw using this function
 // all_sprites are the vector that store all sprites, mutate color use the palettes
 
-    for ( unsigned int ii = 0; ii < render_req.size(); ii++ ) {
 
-        for ( int i = 0; i < all_sprites.at( render_req.at(0).getSprite_nr() ).getHeight(); i++ ) {
+// iii is the number of items in the render req vector
+// ii and i is the horizontal components
+    for ( unsigned int iii = 0; iii < render_req.size(); iii++ ) {
 
-            for ( int ii = 0; ii < all_sprites.at(render_req.at(0).getSprite_nr()).getWidth(); ii++ ) {
+        for ( int i = 0; i < all_sprites.at( render_req.at(iii).getSprite_nr() ).getHeight(); i++ ) {
 
-                R_888_byte = all_sprites.at(render_req.at(0).getSprite_nr()).getVector(0 + ii*3 + i*3*all_sprites.at(render_req.at(0).getSprite_nr()).getWidth());
-                G_888_byte = all_sprites.at(render_req.at(0).getSprite_nr()).getVector(1 + ii*3 + i*3*all_sprites.at(render_req.at(0).getSprite_nr()).getWidth());
-                B_888_byte = all_sprites.at(render_req.at(0).getSprite_nr()).getVector(2 + ii*3 + i*3*all_sprites.at(render_req.at(0).getSprite_nr()).getWidth());
+            for ( int ii = 0; ii < all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth(); ii++ ) {
+
+                R_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(0 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
+                G_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(1 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
+                B_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(2 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
 
                 //RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
                 RGB565 = (((mutateColor(0, R_888_byte, 1) & 0xf8)<<8) + ((mutateColor(1,G_888_byte,1) & 0xfc)<<3)+(mutateColor(2, B_888_byte, 1)>>3));
 
                 if ( RGB565 != 0xFFFF ) {
-                render::fillColor( render_req.at(0).getX()+2*ii, render_req.at(0).getY() +i, RGB565 );
+                render::fillColor( render_req.at(iii).getX()+2*ii, render_req.at(iii).getY() +i, RGB565 );
                 } else {
                 }
 
