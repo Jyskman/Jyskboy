@@ -6,7 +6,7 @@
 
 using namespace std;
 
-
+vector<block> blocks;
 
 
 block::block(int x_pos, int y_pos, int palette, int type) {
@@ -18,8 +18,9 @@ block_type = type;
 
 };
 
+block::~block(){};
 
-void block::render_request(){
+void block::setRender(){
 
 render_requests * obj = new render_requests(block_type, x_location, y_location);
 

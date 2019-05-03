@@ -34,7 +34,7 @@
 	<SDL2/SDL_image.h>
 	<SDL2/SDL_mixer.h>
 
-1556819385 source:/home/pi/codeblocks/Jyskboy/main.cxx
+1556898206 source:/home/pi/codeblocks/Jyskboy/main.cxx
 	<iostream>
 	<unistd.h>
 	<stdio.h>
@@ -70,7 +70,7 @@
 	<vector>
 	"setup_sprites.h"
 
-1556638814 source:/home/pi/codeblocks/Jyskboy/setup_sprites.cxx
+1556898935 source:/home/pi/codeblocks/Jyskboy/setup_sprites.cxx
 	<iostream>
 	"setup_sprites.h"
 	"sprite_objects.h"
@@ -100,10 +100,13 @@
 	"sprite_objects.h"
 	<vector>
 
-1556819319 source:/home/pi/codeblocks/Jyskboy/environment.cxx
+1556898170 source:/home/pi/codeblocks/Jyskboy/environment.cxx
 	<iostream>
 	<vector>
 	"environment.h"
+	"render.h"
 
-1556819719 /home/pi/codeblocks/Jyskboy/environment.h
+1556898076 /home/pi/codeblocks/Jyskboy/environment.h
+	<iostream>
+	<vector>
 

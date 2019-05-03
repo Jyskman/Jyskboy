@@ -107,6 +107,8 @@ wiringPiSetup () ;
 
 		soundmanager audio;
 
+        block b1(60, 60, 1, 2);
+        b1.setRender();
 
 
 		screen.clear();
