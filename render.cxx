@@ -130,7 +130,7 @@ void render::filler_general() {
                 RGB565 = (((mutateColor(0, R_888_byte, 1) & 0xf8)<<8) + ((mutateColor(1,G_888_byte,1) & 0xfc)<<3)+(mutateColor(2, B_888_byte, 1)>>3));
 
                 if ( RGB565 != 0xFFFF ) {
-                render::fillColor( render_req.at(iii).getX()+2*ii, render_req.at(iii).getY() +i, RGB565 );
+                render::fillColor( 2*render_req.at(iii).getX()+2*ii, render_req.at(iii).getY() +i, RGB565 );
                 } else {
                 }
 

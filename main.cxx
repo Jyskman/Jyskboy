@@ -144,7 +144,7 @@ wiringPiSetup () ;
 						//~ printf("0");
 					//~ }
 					buttons.printAll();
-					audio.Play_Music();
+					//audio.Play_Music();
 					if ( buttons.getShootState() == true ) {
 
 							audio.Play_FX(FX.at(0), 1);
