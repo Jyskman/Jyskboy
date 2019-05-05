@@ -16,6 +16,8 @@ class render {
 
 
 public:
+
+int x_pos, y_pos;
 unsigned char render_array[240 + 20][320*2 + 20*2];
 
 unsigned char byte_1, byte_2;
