@@ -26,15 +26,18 @@ void setRender();
 
 extern vector<block> blocks;
 
-class room_objects {
+
+class room_object {
 
 public:
 int height, width;
+int *adress;
 
-room_objects(int *arr, int row, int col);
+room_object(int *arr, int row, int col);
 
 };
 
+extern vector<room_object> room_objects;
 
 //#include <iostream>
 //using namespace std;

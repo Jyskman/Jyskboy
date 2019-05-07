@@ -6,6 +6,8 @@
 
 using namespace std;
 
+int room1_cols = 128;
+int room1_rows = 16;
 unsigned char room_1[16][128] = {
 {1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1},
 {1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1},
@@ -28,7 +30,7 @@ unsigned char room_1[16][128] = {
 
 
 vector<block> blocks;
-
+vector<room_object> room_objects;
 
 block::block(int x_pos, int y_pos, int palette, int type) {
 
@@ -52,5 +54,20 @@ delete obj;
 
 
 
-room_objects::room_objects(int *arr, int row, int col) {
+room_object::room_object(int *arr, int row, int col) {
+
+adress = arr;
+height = row;
+width = col;
+    for ( int i = 0; i < (height); i++ ) {
+        for ( int ii = 0; ii < width; ii++ ) {
+            if ( *(arr + i*ii) == 1 ) {
+                block * obj = new block(ii, i, 1, 1);
+                blocks.push_back(*obj);
+                delete obj;
+            } else {
+            }
+        };
+    };
+
 };
