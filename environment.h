@@ -39,6 +39,10 @@ room_object(int *arr, int row, int col);
 
 extern vector<room_object> room_objects;
 
+void room_setup();
+void room_render_req();
+
+// Just an example
 //#include <iostream>
 //using namespace std;
 //

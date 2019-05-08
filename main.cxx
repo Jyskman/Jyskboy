@@ -107,9 +107,10 @@ wiringPiSetup () ;
 
 		soundmanager audio;
 
-        block b1(60, 60, 1, 1);
-        b1.setRender();
-
+//        block b1(60, 60, 1, 1);
+//        b1.setRender();
+          room_setup();
+          room_render_req();
 
 		screen.clear();
 
