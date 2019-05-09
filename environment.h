@@ -30,7 +30,7 @@ extern vector<block> blocks;
 class room_object {
 
 public:
-int height, width;
+int rows, cols;
 int *adress;
 
 room_object(int *arr, int row, int col);
