@@ -19,9 +19,9 @@ class sprite_objects {
 public:
 
 
-sprite_objects(int a, unsigned char sprites[], int size, int width, int height);
+sprite_objects(int a, unsigned char sprites[], int size, int width, int height, int index);
 
-
+int sprite_index;
 int sprite_size;
 int sprite_widht;
 int sprite_height;

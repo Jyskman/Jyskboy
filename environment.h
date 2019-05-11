@@ -17,11 +17,15 @@ int x_location;
 int y_location;
 int current_palette;
 int block_type;
+int sprite_nr;
+bool sprite_error;
+
 
 block(int x_pos, int y_pos, int palette, int type);
 ~block();
 
 void setRender();
+int Relation_Spritenr_type(); // need to create a relation between position in all_sprites and type/index
 };
 
 extern vector<block> blocks;

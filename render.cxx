@@ -113,7 +113,6 @@ void render::filler_general() {
 // The render_req vector contain the data of which sprite and position to draw using this function
 // all_sprites are the vector that store all sprites, mutate color use the palettes
 
-
 // iii is the number of items in the render req vector
 // ii and i is the horizontal components
     for ( unsigned int iii = 0; iii < render_req.size(); iii++ ) {
@@ -160,7 +159,8 @@ y_pos = ypos;
 
 
 int render_requests::getSprite_nr(){
-    return sprite_nr;
+
+return sprite_nr;
 };
 
 int render_requests::getX(){

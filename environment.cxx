@@ -3,7 +3,7 @@
 #include <vector>
 #include "environment.h"
 #include "render.h"
-
+#include "setup_sprites.h"
 using namespace std;
 
 int room1_cols = 128;
@@ -37,7 +37,8 @@ block::block(int x_pos, int y_pos, int palette, int type) {
 x_location = x_pos;
 y_location = y_pos;
 current_palette = palette;
-block_type = type;
+block_type = type; // also called index type/index
+sprite_nr = Relation_Spritenr_type();
 
 };
 
@@ -45,14 +46,38 @@ block::~block(){};
 
 void block::setRender(){
 
-render_requests * obj = new render_requests(block_type, x_location, y_location);
+    if ( sprite_error == false) {
+            render_requests * obj = new render_requests(sprite_nr, x_location, y_location);
 
-render_req.push_back(*obj);
-delete obj;
+            render_req.push_back(*obj);
+            delete obj;
+    } else {
+    };
+
+
+};
+
+// draw error will be true if no relation between index/type and vector index can be established in the forloop all_sprites
+int block::Relation_Spritenr_type() {
+    int return_value = 0;
+
+        for (int i=0; i < all_sprites.size(); i++) {
+            if ( all_sprites.at(i).sprite_index == block_type ) {
+                return_value = i;
+                sprite_error = false;
+            } else {
+            sprite_error = true;
+            };
+        };
+
+    return return_value;
+
 };
 
 
 
+
+// Room_object class below
 
 room_object::room_object(int *arr, int row, int col) {
 
@@ -61,8 +86,8 @@ rows = row;
 cols = col;
     for ( int i = 0; i < rows; i++ ) {
         for ( int ii = 0; ii < cols; ii++ ) {
-            if ( *( (arr + i*cols) +ii ) == 1 ) {
-                block * obj = new block(ii, i, 1, 1);
+            if ( *( (arr + i*cols) +ii ) > 0 ) {
+                block * obj = new block(ii*15, i*15, 1, *( (arr + i*cols) +ii ));
                 blocks.push_back(*obj);
                 delete obj;
             } else {

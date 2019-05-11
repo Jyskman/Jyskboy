@@ -5,9 +5,9 @@
 using namespace std;
 
 
+sprite_objects::sprite_objects(int a, unsigned char sprites[], int size, int width, int height, int index) {
 
-sprite_objects::sprite_objects(int a, unsigned char sprites[], int size, int width, int height) {
-
+sprite_index = index;
 sprite_size = size;
 sprite_height = height;
 sprite_widht = width;

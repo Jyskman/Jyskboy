@@ -16,7 +16,6 @@ class render {
 
 
 public:
-
 int x_pos, y_pos;
 unsigned char render_array[240 + 20][320*2 + 20*2];
 
@@ -67,7 +66,7 @@ render_requests(int sprite_nr, int x_pos, int y_pos);
 int sprite_nr;
 int x_pos;
 int y_pos;
-
+bool draw;
 int getSprite_nr();
 int getX();
 int getY();

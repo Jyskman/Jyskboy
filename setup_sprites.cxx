@@ -212,11 +212,11 @@ void setup_sprites() {
 //    sprite_objects champ_body_still_v2(1, champ_v2_still, champ_v2_still_size, champ_v2_still_width, champ_v2_still_height );
 //    all_sprites2.push_back(champ_body_still_v2);
 
-    sprite_objects champ_body_still_v3(1, champ_v3_still, champ_v3_still_size, champ_v3_still_width, champ_v3_still_height );
+    sprite_objects champ_body_still_v3(1, champ_v3_still, champ_v3_still_size, champ_v3_still_width, champ_v3_still_height,100 );
     all_sprites.push_back(champ_body_still_v3);
     sprite_pointers.push_back(&champ_body_still_v3);
 
-    sprite_objects block1(1, block_1, block_1_size, block_1_width, block_1_height);
+    sprite_objects block1(1, block_1, block_1_size, block_1_width, block_1_height,1);
     all_sprites.push_back(block1);
     sprite_pointers.push_back(&block1);
 
