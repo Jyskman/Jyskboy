@@ -19,7 +19,8 @@ class champ {
 public:
 //champ(int a, unsigned char sprites[], int size, int Height, int Width, std::vector<sprite_objects>& parameter);
 champ(int a, int size, int Height, int Width);	// constructor
-
+int Relation_Spritenr_type();
+bool sprite_error;
 
 int x_location, y_location;
 int height;
@@ -28,7 +29,7 @@ int sprite_size;
 
 int palette_current;
 int sprite_current;
-
+int sprite_nr;
 
 int getHeight();
 int getWidth();

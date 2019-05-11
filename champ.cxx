@@ -11,13 +11,28 @@ using namespace std;
 champ::champ(int a, int size, int Height, int Width) {
 
 // Current sprite and palette
-sprite_current = 0;
+sprite_current = 100; // sprite index, will need to connect to all_sprites
 palette_current = 1;
-
+sprite_nr = Relation_Spritenr_type(); // translates the index/current/type to vector position in all_sprites
 
 };
 
+int champ::Relation_Spritenr_type() {
+    int return_value = 0;
+    sprite_error = true;
+        for (int i=0; i < all_sprites.size(); i++) {
+            if ( all_sprites.at(i).sprite_index == sprite_current ) {
+                return_value = i;
+                sprite_error = false;
 
+            } else {
+
+            };
+        };
+
+    return return_value;
+
+};
 
 int champ::getHeight() {
 	return height;
@@ -60,8 +75,17 @@ int champ::getPalette() {
 }
 
 void champ::setRender()  {
-render_requests * obj = new render_requests(sprite_current, x_location, y_location);
 
-render_req.push_back(*obj);
-delete obj;
+        if (sprite_error == false) {
+            render_requests * obj = new render_requests(sprite_nr, x_location, y_location);
+
+            render_req.push_back(*obj);
+            delete obj;
+
+        } else {
+        };
+
+
+
+
 }

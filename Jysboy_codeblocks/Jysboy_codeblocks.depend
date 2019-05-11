@@ -19,7 +19,7 @@
 	"setup_sprites.h"
 	"render.h"
 
-1556704514 /home/pi/codeblocks/Jyskboy/champ.h
+1557587270 /home/pi/codeblocks/Jyskboy/champ.h
 	<iostream>
 	<vector>
 	"sprite_objects.h"
@@ -100,7 +100,7 @@
 	"sprite_objects.h"
 	<vector>
 
-1557576292 source:/home/pi/codeblocks/Jyskboy/environment.cxx
+1557584541 source:/home/pi/codeblocks/Jyskboy/environment.cxx
 	<iostream>
 	<vector>
 	"environment.h"
