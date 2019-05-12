@@ -40,6 +40,8 @@
 		<Unit filename="../champ.h" />
 		<Unit filename="../environment.cxx" />
 		<Unit filename="../environment.h" />
+		<Unit filename="../game.cxx" />
+		<Unit filename="../game.h" />
 		<Unit filename="../main.cxx" />
 		<Unit filename="../render.cxx" />
 		<Unit filename="../render.h" />

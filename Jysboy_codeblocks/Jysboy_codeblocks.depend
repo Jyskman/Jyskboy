@@ -34,7 +34,7 @@
 	<SDL2/SDL_image.h>
 	<SDL2/SDL_mixer.h>
 
-1557667281 source:/home/pi/codeblocks/Jyskboy/main.cxx
+1557683245 source:/home/pi/codeblocks/Jyskboy/main.cxx
 	<iostream>
 	<unistd.h>
 	<stdio.h>
@@ -112,9 +112,10 @@
 	<iostream>
 	<vector>
 
-1557667242 /home/pi/codeblocks/Jyskboy/game.h
+1557685451 /home/pi/codeblocks/Jyskboy/game.h
+	"buttons.h"
 
-1557667250 source:/home/pi/codeblocks/Jyskboy/game.cxx
+1557679342 source:/home/pi/codeblocks/Jyskboy/game.cxx
 	<iostream>
 	<vector>
 	"game.h"

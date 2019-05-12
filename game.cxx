@@ -33,26 +33,19 @@ char *fbp = 0;
 struct fb_var_screeninfo vinfo;
 struct fb_fix_screeninfo finfo;
 
+int fbfd = 0;
+struct fb_var_screeninfo orig_vinfo;
+long int screensize = 0;
+
 
 
 
 
 game::game(int a){
+wiringPiSetup ();
 
 // when game is created these items are also
 game_state_current = 0;
-
-};
-
-void game::game_main(){
-
-wiringPiSetup () ;
-
-
-
-    int fbfd = 0;
-    struct fb_var_screeninfo orig_vinfo;
-    long int screensize = 0;
 
 
     // Open the file for reading and writing
@@ -96,16 +89,38 @@ wiringPiSetup () ;
     if ((int)fbp == -1) {
         printf("Failed to mmap.\n");
     }
-    else {
-        // draw... Here prog begin //////////////////////////7
+};
 
-//        game game1();
-//        game1.game_loop();
+game::~game() {
 
-        // --
-        render screen(1);
-        button_input buttons(1);
-        setup_sprites();
+
+
+};
+
+void game::game_close() {
+    Close_audio();
+
+    munmap(fbp, screensize);
+    if (ioctl(fbfd, FBIOPUT_VSCREENINFO, &orig_vinfo)) {
+        printf("Error re-setting variable information.\n");
+    }
+    close(fbfd);
+
+
+
+};
+
+void game::game_setup() {
+
+
+
+};
+
+void game::game_main(){
+button_input buttons(1);
+render screen(1);
+setup_sprites();
+
 		all_sprites.at(0).sprite_test();
 
 
@@ -170,19 +185,16 @@ wiringPiSetup () ;
 			}
 
 
-    // cleanup
-    Close_audio();
-
-    }
 
 
-
-
-    munmap(fbp, screensize);
-    if (ioctl(fbfd, FBIOPUT_VSCREENINFO, &orig_vinfo)) {
-        printf("Error re-setting variable information.\n");
-    }
-    close(fbfd);
+//
+//    Close_audio();
+//
+//    munmap(fbp, screensize);
+//    if (ioctl(fbfd, FBIOPUT_VSCREENINFO, &orig_vinfo)) {
+//        printf("Error re-setting variable information.\n");
+//    }
+//    close(fbfd);
 
 
 };
