@@ -3,7 +3,7 @@
 
 
 #include "buttons.h"
-
+#include "test.h"
 
 
 class game {
@@ -16,9 +16,10 @@ public:
 int game_state_current;
 long int screensize;
 int fbfd;
+//test tester;
 
+game(int a); // http://www.cplusplus.com/forum/beginner/34589/
 
-game(int a); // main game constructor
 
 ~game();
 void game_loop();

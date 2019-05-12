@@ -51,6 +51,8 @@
 		<Unit filename="../soundmanager.h" />
 		<Unit filename="../sprite_objects.cxx" />
 		<Unit filename="../sprite_objects.h" />
+		<Unit filename="../test.cxx" />
+		<Unit filename="../test.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
