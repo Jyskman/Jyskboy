@@ -35,9 +35,10 @@ class room_object {
 
 public:
 int rows, cols;
+int xlim_up, xlim_low, ylim_up, ylim_low;
 int *adress;
 
-room_object(int *arr, int row, int col);
+room_object(int *arr, int row, int col, int x_up, int x_low, int y_up, int y_low);
 
 };
 

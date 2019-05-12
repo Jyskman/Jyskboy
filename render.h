@@ -17,6 +17,8 @@ class render {
 
 public:
 int x_pos, y_pos;
+
+int render_xlimit_upper, render_xlimit_lower, render_ylimit_upper, render_ylimit_lower;
 unsigned char render_array[240 + 20][320*2 + 20*2];
 
 unsigned char byte_1, byte_2;
@@ -52,6 +54,8 @@ unsigned char palette_1[5][3] = {
 {255,255,0}
 
 };
+
+int mutate_Y(int y);
 
 };
 

@@ -17,6 +17,14 @@ fill(render_array[0], render_array[0] + (240 + 20) * (320*2 + 20*2), 0);
 };
 
 
+int render::mutate_Y(int y) {
+// transform y kord to fit in the render
+int return_value = 240 - y;
+
+return return_value;
+};
+
+
 void render::fillColor(int x, int y, unsigned short color){
 
 		byte_2 = color & 0xFF;
@@ -93,7 +101,7 @@ int sprite_current = spritefiller.sprite_current;
 			RGB565 = (((mutateColor(0, R_888_byte, 1) & 0xf8)<<8) + ((mutateColor(1,G_888_byte,1) & 0xfc)<<3)+(mutateColor(2, B_888_byte, 1)>>3));
 
             if ( RGB565 != 0xFFFF ) {
-            render::fillColor( spritefiller.getX()+2*ii, spritefiller.getY() +i, RGB565 );
+            render::fillColor( spritefiller.getX()+2*ii, mutate_Y( spritefiller.getY() ) +i, RGB565 );
             } else {
             }
 
@@ -129,7 +137,7 @@ void render::filler_general() {
                 RGB565 = (((mutateColor(0, R_888_byte, 1) & 0xf8)<<8) + ((mutateColor(1,G_888_byte,1) & 0xfc)<<3)+(mutateColor(2, B_888_byte, 1)>>3));
 
                 if ( RGB565 != 0xFFFF ) {
-                render::fillColor( 2*render_req.at(iii).getX()+2*ii, render_req.at(iii).getY() +i, RGB565 );
+                render::fillColor( 2*render_req.at(iii).getX()+2*ii, mutate_Y( render_req.at(iii).getY() ) +i, RGB565 );
                 } else {
                 }
 

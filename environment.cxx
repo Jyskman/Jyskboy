@@ -8,6 +8,10 @@ using namespace std;
 
 int room1_cols = 128;
 int room1_rows = 16;
+int room1_xlimit_upper = 128 * 15;
+int room1_xlimit_lower = 0;
+int room1_ylimit_lower = 0;
+int room1_ylimit_upper = 16 * 15;
 int room_1[16][128] = {
 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -79,15 +83,20 @@ int block::Relation_Spritenr_type() {
 
 // Room_object class below
 
-room_object::room_object(int *arr, int row, int col) {
+room_object::room_object(int *arr, int row, int col, int x_up, int x_low, int y_up, int y_low) {
 
 adress = arr;
 rows = row;
 cols = col;
+xlim_low = x_low;
+xlim_up =x_up;
+ylim_low = y_low;
+ylim_up = y_up;
+
     for ( int i = 0; i < rows; i++ ) {
         for ( int ii = 0; ii < cols; ii++ ) {
             if ( *( (arr + i*cols) +ii ) > 0 ) {
-                block * obj = new block(ii*15, i*15, 1, *( (arr + i*cols) +ii ));
+                block * obj = new block(ii*15, (rows-i)*15, 1, *( (arr + i*cols) +ii ));
                 blocks.push_back(*obj);
                 delete obj;
             } else {
@@ -99,7 +108,7 @@ cols = col;
 
 void room_setup() {
 
-room_object room( (int*)room_1,room1_rows, room1_cols);
+room_object room( (int*)room_1,room1_rows, room1_cols, room1_xlimit_upper, room1_xlimit_lower, room1_ylimit_upper, room1_ylimit_lower);
 
 };
 
