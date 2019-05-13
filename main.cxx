@@ -43,6 +43,8 @@
 // application entry point
 int main(int argc, char* argv[])
 {
+
+ wiringPiSetup ();
         game game1(1);
         game1.game_setup();
         game1.game_loop();

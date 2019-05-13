@@ -3,8 +3,8 @@
 
 
 #include "buttons.h"
-#include "test.h"
-
+#include "render.h"
+#include "soundmanager.h"
 
 class game {
 
@@ -16,8 +16,9 @@ public:
 int game_state_current;
 long int screensize;
 int fbfd;
-//test tester;
-
+button_input buttons; // button object now here instead of the main game loop
+render screen;
+soundmanager audio;
 game(int a); // http://www.cplusplus.com/forum/beginner/34589/
 
 

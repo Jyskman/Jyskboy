@@ -42,12 +42,11 @@ long int screensize = 0;
 
 
 
-game::game(int a){
-wiringPiSetup ();
+game::game(int a) : buttons(1), screen(1), audio() {
+
 
 // when game is created these items are also
 game_state_current = 0;
-
 
     // Open the file for reading and writing
     fbfd = open("/dev/fb1", O_RDWR);
@@ -113,16 +112,17 @@ void game::game_close() {
 
 void game::game_setup() {
 
-
-
+setup_sprites();
+all_sprites.at(0).sprite_test();
+room_setup();
 };
 
 void game::game_main(){
-button_input buttons(1);
-render screen(1);
-setup_sprites();
+//button_input buttons(1);
+//render screen(1);
 
-		all_sprites.at(0).sprite_test();
+
+
 
 
 
@@ -131,12 +131,12 @@ setup_sprites();
 		en_1.setY(100);
         en_1.setRender();
 
-		soundmanager audio;
+//		soundmanager audio;
 
 //        block b1(60, 60, 1, 1);
 //        b1.setRender();
-          room_setup();
-          room_render_req();
+
+        room_render_req();
 
 		screen.clear();
 
