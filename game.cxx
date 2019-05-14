@@ -25,7 +25,7 @@
 #include "soundmanager.h"
 #include <wiringPi.h>
 #include "environment.h"
-
+#include <time.h>
 
 using namespace std;
 
@@ -47,6 +47,7 @@ game::game(int a) : buttons(1), screen(1), audio() {
 
 // when game is created these items are also
 game_state_current = 0;
+game_is_running = true;
 
     // Open the file for reading and writing
     fbfd = open("/dev/fb1", O_RDWR);
@@ -118,9 +119,6 @@ room_setup();
 };
 
 void game::game_main(){
-//button_input buttons(1);
-//render screen(1);
-
 
 
 
@@ -131,38 +129,18 @@ void game::game_main(){
 		en_1.setY(100);
         en_1.setRender();
 
-//		soundmanager audio;
-
-//        block b1(60, 60, 1, 1);
-//        b1.setRender();
-
         room_render_req();
 
-		screen.clear();
-
-		//screen.filler_dev(en_1);
-        screen.filler_general();
-
-			// clear fbp - will remove when screen clear works
-			for (int i = 0; i < 240; i++) {
-				for (int ii = 0; ii < 320*2;ii++){
-					*((char*)(fbp + 1 +(ii + i*640))) = 0;
-				}
-
-			}
-
-			// Render
-			for (int i = 0; i < 240; i++) {
-				for (int ii = 0; ii < 320*2;ii++){
-					*((char*)(fbp + 1 +(ii + i*640))) = screen.getColor(ii, i);
-
-				}
-
-			}
 
 
 
-			for (int i = 0; i < 100; i++) {
+//        screen.filler_general();
+
+
+
+
+
+			for (int i = 0; i < 10; i++) {
 				usleep(100 * 1000); //ms
 				buttons.updateState();
 					//~ if ( buttons.getJumpstate() == 1 ) {
@@ -188,34 +166,64 @@ void game::game_main(){
 
 
 
-//
-//    Close_audio();
-//
-//    munmap(fbp, screensize);
-//    if (ioctl(fbfd, FBIOPUT_VSCREENINFO, &orig_vinfo)) {
-//        printf("Error re-setting variable information.\n");
-//    }
-//    close(fbfd);
-
-
+game_is_running = false;
 };
 
 
 void game::game_loop() {
 
-switch (game_state_current) {
+    while ( game_is_running == true ) {
+        screen.render_clear();
+        buttons.updateState();
+        clock_gettime(CLOCK_REALTIME, &spec);
+        game_loop_start_ms = round(spec.tv_nsec / 1.0e6);
+        switch (game_state_current) {
 
-    case 0:
-        game_main();
-    break;
+            case 0:
+                game_main();
+            break;
 
 
-    default:
-    break;
+            default:
+            break;
+
+        };
+        screen.filler_general();
+        game_frame();
+        clock_gettime(CLOCK_REALTIME, &spec);
+        game_loop_stop_ms = round(spec.tv_nsec / 1.0e6);
+        game_sleep_time = fps -(game_loop_stop_ms - game_loop_start_ms);
+            if ( game_sleep_time < 0 ) {
+
+            } else {
+                usleep(game_sleep_time * 1000); //ms
+            }
+
+    };
 
 };
 
+void game::game_fbp_clear() {
+// clear the screen directly without going through the render buffer
 
+    for (int i = 0; i < 240; i++) {
+        for (int ii = 0; ii < 320*2;ii++){
+            *((char*)(fbp + 1 +(ii + i*640))) = 0;
+        }
+
+    }
+
+};
+
+void game::game_frame() {
+// produce image on the screen
+    for (int i = 0; i < 240; i++) {
+        for (int ii = 0; ii < 320*2;ii++){
+            *((char*)(fbp + 1 +(ii + i*640))) = screen.getColor(ii, i);
+
+        }
+
+    }
 
 };
 

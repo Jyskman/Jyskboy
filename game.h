@@ -11,6 +11,12 @@ class game {
 
 public:
 
+bool game_is_running;
+long game_loop_start_ms;
+long game_loop_stop_ms;
+long fps = 30;
+long game_sleep_time;
+struct timespec spec;
 
 
 int game_state_current;
@@ -27,21 +33,9 @@ void game_loop();
 void game_main();
 void game_setup();
 void game_close();
+void game_fbp_clear();
+void game_frame();
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -47,7 +47,9 @@ int main(int argc, char* argv[])
  wiringPiSetup ();
         game game1(1);
         game1.game_setup();
+        game1.game_fbp_clear();
         game1.game_loop();
+
 
         game1.game_close();
         game1.~game();

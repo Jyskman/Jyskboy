@@ -35,10 +35,11 @@ void render::fillColor(int x, int y, unsigned short color){
 
 };
 
-void render::clear() {
+void render::render_clear() {
 fill(render_array[0], render_array[0] + (240 + 20) * (320*2 + 20*2), 0);
 
 };
+
 
 
 unsigned char render::getColor(int x, int y) {

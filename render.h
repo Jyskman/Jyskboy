@@ -34,11 +34,12 @@ render(int a);	// constructor
 
 void fillColor(int x, int y, unsigned short color);
 
-void clear();
+void render_clear();
 
 
 void filler_dev(champ& spritefiller);
 void filler_general();
+
 
 unsigned char getColor(int x, int y);
 
