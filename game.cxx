@@ -27,6 +27,8 @@
 #include "environment.h"
 #include <time.h>
 
+#include <chrono>
+#include <ctime>
 using namespace std;
 
 
@@ -116,6 +118,7 @@ void game::game_setup() {
 setup_sprites();
 all_sprites.at(0).sprite_test();
 room_setup();
+champ en_1(1, (100 * 100 * 3 + 1), 100, 100);
 };
 
 void game::game_main(){
@@ -124,49 +127,45 @@ void game::game_main(){
 
 
 
-		champ en_1(1, (100 * 100 * 3 + 1), 100, 100); // will want to pass the sprite object vector/or the specific sprite?
-		en_1.setX(100);
-		en_1.setY(100);
-        en_1.setRender();
+		 // will want to pass the sprite object vector/or the specific sprite?
+//		en_1.setX(100);
+//		en_1.setY(100);
+//        en_1.setRender();
 
         room_render_req();
 
 
+        if ( buttons.getShootState() == true ) {
+
+//							audio.Play_FX(FX.at(0), 1);
+                game_is_running = false;
+
+        }
+
+//			for (int i = 0; i < 10; i++) {
+//				usleep(100 * 1000); //ms
+//				buttons.updateState();
+//					//~ if ( buttons.getJumpstate() == 1 ) {
+//						//~ printf("1");
+//					//~ } else {
+//						//~ printf("0");
+//					//~ }
+//					buttons.printAll();
+//					//audio.Play_Music();
+//					if ( buttons.getShootState() == true ) {
+//
+//							audio.Play_FX(FX.at(0), 1);
+//
+//					}
+//					if ( buttons.getJumpState() == true ) {
+//
+//							audio.Play_FX(FX.at(3), 2);
+//
+//					}
+//
+//			}
 
 
-//        screen.filler_general();
-
-
-
-
-
-			for (int i = 0; i < 10; i++) {
-				usleep(100 * 1000); //ms
-				buttons.updateState();
-					//~ if ( buttons.getJumpstate() == 1 ) {
-						//~ printf("1");
-					//~ } else {
-						//~ printf("0");
-					//~ }
-					buttons.printAll();
-					//audio.Play_Music();
-					if ( buttons.getShootState() == true ) {
-
-							audio.Play_FX(FX.at(0), 1);
-
-					}
-					if ( buttons.getJumpState() == true ) {
-
-							audio.Play_FX(FX.at(3), 2);
-
-					}
-
-			}
-
-
-
-
-game_is_running = false;
 };
 
 
@@ -175,8 +174,8 @@ void game::game_loop() {
     while ( game_is_running == true ) {
         screen.render_clear();
         buttons.updateState();
-        clock_gettime(CLOCK_REALTIME, &spec);
-        game_loop_start_ms = round(spec.tv_nsec / 1.0e6);
+        auto start = std::chrono::system_clock::now();
+
         switch (game_state_current) {
 
             case 0:
@@ -190,15 +189,17 @@ void game::game_loop() {
         };
         screen.filler_general();
         game_frame();
-        clock_gettime(CLOCK_REALTIME, &spec);
-        game_loop_stop_ms = round(spec.tv_nsec / 1.0e6);
-        game_sleep_time = fps -(game_loop_stop_ms - game_loop_start_ms);
-            if ( game_sleep_time < 0 ) {
+        auto end = std::chrono::system_clock::now();
+        elapsed_seconds = end-start;
+        float time = elapsed_seconds.count();
+        float time_ms = time * 1000;
+            if ( time_ms < 40 ) {
 
             } else {
-                usleep(game_sleep_time * 1000); //ms
+                usleep(fps-time_ms * 1000); //ms
             }
 
+            cout << " MS " << time_ms << ".\n";
     };
 
 };

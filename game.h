@@ -6,6 +6,10 @@
 #include "render.h"
 #include "soundmanager.h"
 
+#include <chrono>
+#include <ctime>
+using namespace std;
+
 class game {
 
 
@@ -14,10 +18,11 @@ public:
 bool game_is_running;
 long game_loop_start_ms;
 long game_loop_stop_ms;
-long fps = 30;
+long fps = 40;
 long game_sleep_time;
 struct timespec spec;
 
+chrono::duration<double> elapsed_seconds;
 
 int game_state_current;
 long int screensize;
