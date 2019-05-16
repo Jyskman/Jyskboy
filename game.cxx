@@ -130,7 +130,6 @@ void game::game_main(){
 		 // will want to pass the sprite object vector/or the specific sprite?
 //		en_1.setX(100);
 //		en_1.setY(100);
-//        en_1.setRender();
 
         room_render_req();
 
@@ -172,9 +171,11 @@ void game::game_main(){
 void game::game_loop() {
 
     while ( game_is_running == true ) {
-        screen.render_clear();
-        buttons.updateState();
         auto start = std::chrono::system_clock::now();
+        screen.render_clear();
+
+        buttons.updateState();
+
 
         switch (game_state_current) {
 
@@ -193,16 +194,22 @@ void game::game_loop() {
         elapsed_seconds = end-start;
         float time = elapsed_seconds.count();
         float time_ms = time * 1000;
-            if ( time_ms < 40 ) {
-
+            if ( time_ms < fps ) {
+                usleep( (fps-time_ms) * 1000); //ms
             } else {
-                usleep(fps-time_ms * 1000); //ms
-            }
 
-            cout << " MS " << time_ms << ".\n";
+            }
+            auto final_end = std::chrono::system_clock::now();
+            elapsed_seconds = final_end-start;
+            time = elapsed_seconds.count();
+            cout << " MS " << time << ".\n";
+
+
+
+        }
     };
 
-};
+//};
 
 void game::game_fbp_clear() {
 // clear the screen directly without going through the render buffer
