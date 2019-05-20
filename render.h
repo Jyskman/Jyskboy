@@ -19,7 +19,9 @@ public:
 int x_pos, y_pos;
 
 int render_xlimit_upper, render_xlimit_lower, render_ylimit_upper, render_ylimit_lower;
-unsigned char render_array[240 + 20][320*2 + 20*2];
+//unsigned char render_array[240 + 20][320*2 + 20*2];
+unsigned char render_array[240][320*2];
+unsigned char *render_array_pointer;
 
 unsigned char byte_1, byte_2;
 unsigned char R_888_byte, G_888_byte, B_888_byte;
@@ -41,7 +43,7 @@ void filler_dev(champ& spritefiller);
 void filler_general();
 
 
-unsigned char getColor(int x, int y);
+char getColor(int x, int y);
 
 unsigned char mutateColor(int RGB ,unsigned char color, int palette);
 

@@ -11,9 +11,10 @@ using namespace std;
 
 render::render(int a){
 
-fill(render_array[0], render_array[0] + (240 + 20) * (320*2 + 20*2), 0);
+//fill(render_array[0], render_array[0] + (240 + 20) * (320*2 + 20*2), 0);
+fill(render_array[0], render_array[0] + (240) * (320*2), 0);
 
-
+render_array_pointer = (unsigned char*)render_array;
 };
 
 
@@ -36,13 +37,13 @@ void render::fillColor(int x, int y, unsigned short color){
 };
 
 void render::render_clear() {
-fill(render_array[0], render_array[0] + (240 + 20) * (320*2 + 20*2), 0);
-
+//fill(render_array[0], render_array[0] + (240 + 20) * (320*2 + 20*2), 0);
+fill(render_array[0], render_array[0] + (240) * (320*2), 0);
 };
 
 
 
-unsigned char render::getColor(int x, int y) {
+char render::getColor(int x, int y) {
 
 	return render_array[y][x];
 };

@@ -31,16 +31,23 @@
 #include <ctime>
 using namespace std;
 
-
 char *fbp = 0;
+
 struct fb_var_screeninfo vinfo;
 struct fb_fix_screeninfo finfo;
 
 int fbfd = 0;
 struct fb_var_screeninfo orig_vinfo;
 long int screensize = 0;
-
-
+struct fb_cmap mapm;
+//struct fb_cmap {
+//	__u32 start;			/* First entry	*/
+//	__u32 len;			/* Number of entries */
+//	__u16 *red;			/* Red values	*/
+//	__u16 *green;
+//	__u16 *blue;
+//	__u16 *transp;			/* transparency, can be NULL */
+//};
 
 
 
@@ -92,6 +99,8 @@ game_is_running = true;
     if ((int)fbp == -1) {
         printf("Failed to mmap.\n");
     }
+
+
 };
 
 game::~game() {
@@ -190,6 +199,7 @@ void game::game_loop() {
         };
         screen.filler_general();
         game_frame();
+
         auto end = std::chrono::system_clock::now();
         elapsed_seconds = end-start;
         float time = elapsed_seconds.count();
@@ -232,6 +242,7 @@ void game::game_frame() {
         }
 
     }
+
 
 };
 
