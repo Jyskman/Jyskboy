@@ -82,7 +82,9 @@ void champ::setRender()  {
             render_req.push_back(*obj);
             delete obj;
 
+
         } else {
+//        cout << "ok" << endl;
         };
 
 

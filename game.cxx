@@ -51,7 +51,7 @@ struct fb_cmap mapm;
 
 
 
-game::game(int a) : buttons(1), screen(1), audio() {
+game::game(int a) : buttons(1), screen(1), audio(), hero(1, (100 * 100 * 3 + 1), 100, 100) {
 
 
 // when game is created these items are also
@@ -127,7 +127,8 @@ void game::game_setup() {
 setup_sprites();
 all_sprites.at(0).sprite_test();
 room_setup();
-champ en_1(1, (100 * 100 * 3 + 1), 100, 100);
+//champ en_1(1, (100 * 100 * 3 + 1), 100, 100);
+hero.sprite_nr = hero.Relation_Spritenr_type();
 };
 
 void game::game_main(){
@@ -140,7 +141,10 @@ void game::game_main(){
 //		en_1.setX(100);
 //		en_1.setY(100);
 
-        room_render_req();
+//        room_render_req();
+		hero.setX(100);
+		hero.setY(100);
+        hero.setRender();
 
 
         if ( buttons.getShootState() == true ) {
@@ -200,16 +204,16 @@ void game::game_loop() {
         screen.filler_general();
         game_frame();
 
-        auto end = std::chrono::system_clock::now();
+        auto end = std::chrono::high_resolution_clock::now();
         elapsed_seconds = end-start;
-        float time = elapsed_seconds.count();
-        float time_ms = time * 1000;
+        time = elapsed_seconds.count();
+        time_ms = time * 1000;
             if ( time_ms < fps ) {
                 usleep( (fps-time_ms) * 1000); //ms
             } else {
 
             }
-            auto final_end = std::chrono::system_clock::now();
+            auto final_end = std::chrono::high_resolution_clock::now();
             elapsed_seconds = final_end-start;
             time = elapsed_seconds.count();
             cout << " MS " << time << ".\n";

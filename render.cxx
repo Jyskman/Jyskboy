@@ -150,6 +150,7 @@ void render::filler_general() {
     }
 
 // clear items from vector
+//cout << render_req.size() << endl;
 render_req.clear();
 
 

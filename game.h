@@ -15,14 +15,17 @@ class game {
 
 public:
 
+// Time tools
 bool game_is_running;
 long game_loop_start_ms;
 long game_loop_stop_ms;
-long fps = 50;
+long fps = 40;
 long game_sleep_time;
 struct timespec spec;
-
+float time;
+float time_ms;
 chrono::duration<double> elapsed_seconds;
+
 
 int game_state_current;
 long int screensize;
@@ -30,6 +33,7 @@ int fbfd;
 button_input buttons; // button object now here instead of the main game loop
 render screen;
 soundmanager audio;
+champ hero;
 game(int a); // http://www.cplusplus.com/forum/beginner/34589/
 
 
