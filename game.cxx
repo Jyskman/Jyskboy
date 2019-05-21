@@ -235,14 +235,16 @@ void game::game_fbp_clear() {
 
 void game::game_frame() {
 // produce image on the screen
-    for (int i = 0; i < 240; i++) {
-        for (int ii = 0; ii < 320*2;ii++){
-            *((char*)(fbp + 1 +(ii + i*640))) = screen.getColor(ii, i);
+//    for (int i = 0; i < 240; i++) {
+//        for (int ii = 0; ii < 320*2;ii++){
+//            *((char*)(fbp + 1 +(ii + i*640))) = screen.getColor(ii, i);
+//
+//        }
+//
+//    }
 
-        }
 
-    }
-
-
+//memset(fbp, 0xff, (240*320*2) );
+memcpy(fbp+1, screen.render_array_pointer, (240*320*2) );
 };
 
