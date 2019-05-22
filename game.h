@@ -19,7 +19,7 @@ public:
 bool game_is_running;
 long game_loop_start_ms;
 long game_loop_stop_ms;
-long fps = 40;
+long fps = 30;
 long game_sleep_time;
 struct timespec spec;
 float time;

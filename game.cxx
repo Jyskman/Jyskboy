@@ -129,6 +129,8 @@ all_sprites.at(0).sprite_test();
 room_setup();
 //champ en_1(1, (100 * 100 * 3 + 1), 100, 100);
 hero.sprite_nr = hero.Relation_Spritenr_type();
+		hero.setX(100);
+		hero.setY(100);
 };
 
 void game::game_main(){
@@ -141,11 +143,10 @@ void game::game_main(){
 //		en_1.setX(100);
 //		en_1.setY(100);
 
-//        room_render_req();
-		hero.setX(100);
-		hero.setY(100);
-        hero.setRender();
+        room_render_req();
 
+        hero.setRender();
+        hero.setX( hero.getX() + 1 );
 
         if ( buttons.getShootState() == true ) {
 
@@ -239,16 +240,21 @@ void game::game_fbp_clear() {
 
 void game::game_frame() {
 // produce image on the screen
-//    for (int i = 0; i < 240; i++) {
-//        for (int ii = 0; ii < 320*2;ii++){
-//            *((char*)(fbp + 1 +(ii + i*640))) = screen.getColor(ii, i);
-//
-//        }
-//
-//    }
+    for (int i = 0; i < 240; i++) {
+        for (int ii = 0; ii < 320*2;ii++){
+            if ( *((char*)(fbp + 1 +(ii + i*640))) == screen.getColor(ii, i) ) {
+
+            } else {
+                *((char*)(fbp + 1 +(ii + i*640))) = screen.getColor(ii, i);
+            }
+
+
+        }
+
+    }
 
 
 //memset(fbp, 0xff, (240*320*2) );
-memcpy(fbp+1, screen.render_array_pointer, (240*320*2) );
+//memcpy(fbp+1, screen.render_array_pointer, (240*320*2) );
 };
 
