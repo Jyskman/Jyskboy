@@ -91,3 +91,6 @@ void champ::setRender()  {
 
 
 }
+
+void champ::updatePos(int *button_pointer){
+};

@@ -56,6 +56,7 @@ game::game(int a) : buttons(1), screen(1), audio(), hero(1, (100 * 100 * 3 + 1),
 
 // when game is created these items are also
 game_state_current = 0;
+room_current = 0;
 game_is_running = true;
 
     // Open the file for reading and writing
@@ -143,9 +144,10 @@ void game::game_main(){
 //		en_1.setX(100);
 //		en_1.setY(100);
 
-        room_render_req();
+        room_render_req(room_current);
 
         hero.setRender();
+        hero.updatePos(buttons.button_array_pointer);
         hero.setX( hero.getX() + 1 );
 
         if ( buttons.getShootState() == true ) {
@@ -202,7 +204,7 @@ void game::game_loop() {
             break;
 
         };
-        screen.filler_general();
+        screen.filler_general(room_current);
         game_frame();
 
         auto end = std::chrono::high_resolution_clock::now();

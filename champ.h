@@ -42,6 +42,7 @@ int getSpriteSize();
 void setX(int x);
 void setY(int y);
 
+void updatePos(int *button_pointer);
 int getPalette();
 
 unsigned char getChar(int x);

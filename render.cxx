@@ -15,8 +15,13 @@ render::render(int a){
 fill(render_array[0], render_array[0] + (240) * (320*2), 0);
 
 render_array_pointer = (unsigned char*)render_array;
+current_x_offset = 0;
+current_y_offset = 0;
 };
 
+void render::determine_current_offset(champ &parameter){
+// will determine the current offset for all things not champ
+};
 
 int render::mutate_Y(int y) {
 // transform y kord to fit in the render
@@ -117,7 +122,7 @@ int sprite_current = spritefiller.sprite_current;
 
 };
 
-void render::filler_general() {
+void render::filler_general(int roomnr) {
 
 //int sprite_current = spritefiller.sprite_current;
 // The render_req vector contain the data of which sprite and position to draw using this function
@@ -125,6 +130,7 @@ void render::filler_general() {
 
 // iii is the number of items in the render req vector
 // ii and i is the horizontal components
+
     for ( unsigned int iii = 0; iii < render_req.size(); iii++ ) {
 
         for ( int i = 0; i < all_sprites.at( render_req.at(iii).getSprite_nr() ).getHeight(); i++ ) {

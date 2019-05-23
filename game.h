@@ -26,7 +26,8 @@ float time;
 float time_ms;
 chrono::duration<double> elapsed_seconds;
 
-
+// game variables
+int room_current;
 int game_state_current;
 long int screensize;
 int fbfd;

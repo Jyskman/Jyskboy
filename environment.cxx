@@ -12,6 +12,7 @@ int room1_xlimit_upper = 128 * 15;
 int room1_xlimit_lower = 0;
 int room1_ylimit_lower = 0;
 int room1_ylimit_upper = 16 * 15;
+int nr = 1;
 int room_1[16][128] = {
 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -83,7 +84,7 @@ int block::Relation_Spritenr_type() {
 
 // Room_object class below
 
-room_object::room_object(int *arr, int row, int col, int x_up, int x_low, int y_up, int y_low) {
+room_object::room_object(int *arr, int row, int col, int x_up, int x_low, int y_up, int y_low, int nr) {
 
 adress = arr;
 rows = row;
@@ -92,6 +93,7 @@ xlim_low = x_low;
 xlim_up =x_up;
 ylim_low = y_low;
 ylim_up = y_up;
+room_nr = nr;
 
     for ( int i = 0; i < rows; i++ ) {
         for ( int ii = 0; ii < cols; ii++ ) {
@@ -106,16 +108,28 @@ ylim_up = y_up;
 
 };
 
+
+
 void room_setup() {
 
-room_object room( (int*)room_1,room1_rows, room1_cols, room1_xlimit_upper, room1_xlimit_lower, room1_ylimit_upper, room1_ylimit_lower);
+room_object room( (int*)room_1,room1_rows, room1_cols, room1_xlimit_upper, room1_xlimit_lower, room1_ylimit_upper, room1_ylimit_lower,0); // room 1
 
 };
 
-void room_render_req() {
+void room_render_req(int roomnr) {
 
-for (int i=0; i < blocks.size();i++) {
-blocks.at(i).setRender();
-};
+    switch (roomnr) {
+
+    case 0:
+        for (int i=0; i < blocks.size();i++) {
+        blocks.at(i).setRender();
+        };
+
+    break;
+
+    default:
+    break;
+
+    };
 
 };

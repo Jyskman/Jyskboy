@@ -20,7 +20,6 @@ int block_type;
 int sprite_nr;
 bool sprite_error;
 
-
 block(int x_pos, int y_pos, int palette, int type);
 ~block();
 
@@ -34,18 +33,20 @@ extern vector<block> blocks;
 class room_object {
 
 public:
+int room_nr;
+
 int rows, cols;
 int xlim_up, xlim_low, ylim_up, ylim_low;
 int *adress;
 
-room_object(int *arr, int row, int col, int x_up, int x_low, int y_up, int y_low);
+room_object(int *arr, int row, int col, int x_up, int x_low, int y_up, int y_low, int nr);
 
 };
 
 extern vector<room_object> room_objects;
 
 void room_setup();
-void room_render_req();
+void room_render_req(int roomnr);
 
 // Just an example
 //#include <iostream>

@@ -17,7 +17,7 @@ class render {
 
 public:
 int x_pos, y_pos;
-
+int current_x_offset, current_y_offset;
 int render_xlimit_upper, render_xlimit_lower, render_ylimit_upper, render_ylimit_lower;
 //unsigned char render_array[240 + 20][320*2 + 20*2];
 unsigned char render_array[240][320*2];
@@ -40,7 +40,7 @@ void render_clear();
 
 
 void filler_dev(champ& spritefiller);
-void filler_general();
+void filler_general(int roomnr);
 
 
 char getColor(int x, int y);
@@ -59,7 +59,7 @@ unsigned char palette_1[5][3] = {
 };
 
 int mutate_Y(int y);
-
+void determine_current_offset(champ &parameter);
 };
 
 // New render req class attempt
