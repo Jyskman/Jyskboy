@@ -19,8 +19,12 @@ current_x_offset = 0;
 current_y_offset = 0;
 };
 
-void render::determine_current_offset(champ &parameter){
+void render::determine_current_offset(champ& parameter, int roomnr){
 // will determine the current offset for all things not champ
+
+//room_objects.at(roomnr).xlim_low;
+
+
 };
 
 int render::mutate_Y(int y) {
@@ -130,6 +134,8 @@ void render::filler_general(int roomnr) {
 
 // iii is the number of items in the render req vector
 // ii and i is the horizontal components
+
+
 
     for ( unsigned int iii = 0; iii < render_req.size(); iii++ ) {
 

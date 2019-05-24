@@ -59,7 +59,7 @@ unsigned char palette_1[5][3] = {
 };
 
 int mutate_Y(int y);
-void determine_current_offset(champ &parameter);
+void determine_current_offset(champ& parameter, int roomnr);
 };
 
 // New render req class attempt

@@ -11,7 +11,7 @@
 	<sr595.h>
 	<iostream>
 
-1558637273 source:/home/pi/codeblocks/Jyskboy/champ.cxx
+1558718592 source:/home/pi/codeblocks/Jyskboy/champ.cxx
 	<iostream>
 	"champ.h"
 	<vector>
@@ -19,7 +19,8 @@
 	"setup_sprites.h"
 	"render.h"
 
-1558637235 /home/pi/codeblocks/Jyskboy/champ.h
+1558715065 /home/pi/codeblocks/Jyskboy/champ.h
+	"buttons.h"
 	<iostream>
 	<vector>
 	"sprite_objects.h"
@@ -55,7 +56,7 @@
 	"environment.h"
 	"game.h"
 
-1558635137 /home/pi/codeblocks/Jyskboy/render.h
+1558721395 /home/pi/codeblocks/Jyskboy/render.h
 	<iostream>
 	"render.h"
 	"champ.h"
@@ -119,7 +120,7 @@
 	<chrono>
 	<ctime>
 
-1558633729 source:/home/pi/codeblocks/Jyskboy/game.cxx
+1558718161 source:/home/pi/codeblocks/Jyskboy/game.cxx
 	<iostream>
 	<vector>
 	"game.h"

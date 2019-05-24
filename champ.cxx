@@ -92,5 +92,26 @@ void champ::setRender()  {
 
 }
 
-void champ::updatePos(int *button_pointer){
+void champ::updatePos(button_input& parameter){
+
+    if ( parameter.getLeftState() == true ) {
+            setX( getX() - 1 );
+    } else {
+    }
+
+    if ( parameter.getRightState() == true ) {
+            setX( getX() + 1 );
+    } else {
+    }
+
+    if ( parameter.getUpState() == true ) {
+            setY( getY() + 1 );
+    } else {
+    }
+
+    if ( parameter.getDownState() == true ) {
+            setY( getY() - 1 );
+    } else {
+    }
+
 };

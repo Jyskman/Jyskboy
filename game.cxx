@@ -139,46 +139,19 @@ void game::game_main(){
 
 
 
-
-		 // will want to pass the sprite object vector/or the specific sprite?
-//		en_1.setX(100);
-//		en_1.setY(100);
-
         room_render_req(room_current);
 
         hero.setRender();
-        hero.updatePos(buttons.button_array_pointer);
-        hero.setX( hero.getX() + 1 );
+        hero.updatePos( buttons );
 
-        if ( buttons.getShootState() == true ) {
+
+        if ( buttons.getSelectState() == true ) {
 
 //							audio.Play_FX(FX.at(0), 1);
                 game_is_running = false;
 
         }
 
-//			for (int i = 0; i < 10; i++) {
-//				usleep(100 * 1000); //ms
-//				buttons.updateState();
-//					//~ if ( buttons.getJumpstate() == 1 ) {
-//						//~ printf("1");
-//					//~ } else {
-//						//~ printf("0");
-//					//~ }
-//					buttons.printAll();
-//					//audio.Play_Music();
-//					if ( buttons.getShootState() == true ) {
-//
-//							audio.Play_FX(FX.at(0), 1);
-//
-//					}
-//					if ( buttons.getJumpState() == true ) {
-//
-//							audio.Play_FX(FX.at(3), 2);
-//
-//					}
-//
-//			}
 
 
 };

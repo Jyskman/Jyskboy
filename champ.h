@@ -4,7 +4,7 @@
 #define CHAMP_H
 
 
-
+#include "buttons.h"
 #include <iostream>
 #include <vector>
 #include "sprite_objects.h"
@@ -42,7 +42,7 @@ int getSpriteSize();
 void setX(int x);
 void setY(int y);
 
-void updatePos(int *button_pointer);
+void updatePos(button_input& parameter);
 int getPalette();
 
 unsigned char getChar(int x);
