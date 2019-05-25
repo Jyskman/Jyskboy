@@ -108,12 +108,15 @@ room_nr = nr;
 
 };
 
-
+room_object::~room_object() {};
 
 void room_setup() {
 
 room_object room( (int*)room_1,room1_rows, room1_cols, room1_xlimit_upper, room1_xlimit_lower, room1_ylimit_upper, room1_ylimit_lower,0); // room 1
 
+room_objects.push_back( room );
+
+room.~room_object();
 };
 
 void room_render_req(int roomnr) {

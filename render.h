@@ -27,6 +27,7 @@ unsigned char byte_1, byte_2;
 unsigned char R_888_byte, G_888_byte, B_888_byte;
 
 char test = 0;
+bool return_value; // for the check function
 
 unsigned short RGB565;
 
@@ -60,6 +61,7 @@ unsigned char palette_1[5][3] = {
 
 int mutate_Y(int y);
 void determine_current_offset(champ& parameter, int roomnr);
+bool render_limit_check(int x_pos, int y_pos);
 };
 
 // New render req class attempt

@@ -137,12 +137,12 @@ hero.sprite_nr = hero.Relation_Spritenr_type();
 void game::game_main(){
 
 
-
+        hero.updatePos( buttons );
 
         room_render_req(room_current);
 
         hero.setRender();
-        hero.updatePos( buttons );
+
 
 
         if ( buttons.getSelectState() == true ) {
@@ -177,6 +177,7 @@ void game::game_loop() {
             break;
 
         };
+        screen.determine_current_offset(hero, room_current );
         screen.filler_general(room_current);
         game_frame();
 
@@ -192,7 +193,7 @@ void game::game_loop() {
             auto final_end = std::chrono::high_resolution_clock::now();
             elapsed_seconds = final_end-start;
             time = elapsed_seconds.count();
-            cout << " MS " << time << ".\n";
+            cout << " MS " << screen.current_x_offset << ".\n";
 
 
 

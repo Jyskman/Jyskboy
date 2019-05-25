@@ -5,7 +5,7 @@
 //~ #include "sprite.h"
 #include <vector>
 #include "setup_sprites.h"
-
+#include "environment.h"
 using namespace std;
 
 
@@ -22,8 +22,31 @@ current_y_offset = 0;
 void render::determine_current_offset(champ& parameter, int roomnr){
 // will determine the current offset for all things not champ
 
-//room_objects.at(roomnr).xlim_low;
+    if ( parameter.getX() < ( room_objects.at(roomnr).xlim_low + 160 ) ) {
+        current_x_offset = 0;
+    } else {
+        current_x_offset = parameter.getX() - ( room_objects.at(roomnr).xlim_low + 160 );
+    }
 
+};
+
+bool render::render_limit_check(int x_pos, int y_pos){
+// functino will return false if current pos is outside framepos
+return_value = true;
+
+    if ( (x_pos - current_x_offset) < 0) {
+        return_value = false;
+    } else {
+
+    }
+
+    if ( (x_pos - current_x_offset) > 320) {
+        return_value = false;
+    } else {
+
+    }
+
+    return return_value;
 
 };
 
@@ -111,7 +134,7 @@ int sprite_current = spritefiller.sprite_current;
 			//RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
 			RGB565 = (((mutateColor(0, R_888_byte, 1) & 0xf8)<<8) + ((mutateColor(1,G_888_byte,1) & 0xfc)<<3)+(mutateColor(2, B_888_byte, 1)>>3));
 
-            if ( RGB565 != 0xFFFF ) {
+            if ( RGB565 != 0xFFFF && render_limit_check( spritefiller.getX()+2*ii, mutate_Y( spritefiller.getY() ) +i ) == true ) {
             render::fillColor( spritefiller.getX()+2*ii, mutate_Y( spritefiller.getY() ) +i, RGB565 );
             } else {
             }
@@ -150,7 +173,7 @@ void render::filler_general(int roomnr) {
                 //RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
                 RGB565 = (((mutateColor(0, R_888_byte, 1) & 0xf8)<<8) + ((mutateColor(1,G_888_byte,1) & 0xfc)<<3)+(mutateColor(2, B_888_byte, 1)>>3));
 
-                if ( RGB565 != 0xFFFF ) {
+                if ( RGB565 != 0xFFFF && render_limit_check( 2*render_req.at(iii).getX()+2*ii, mutate_Y( render_req.at(iii).getY() ) == true)) {
                 render::fillColor( 2*render_req.at(iii).getX()+2*ii, mutate_Y( render_req.at(iii).getY() ) +i, RGB565 );
                 } else {
                 }
