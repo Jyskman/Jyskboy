@@ -107,7 +107,7 @@ int block::Relation_Spritenr_type() {
 
 // Room_object class below
 
-room_object::room_object(int *arr, int row, int col, int x_up, int x_low, int y_up, int y_low, int nr) {
+room_object::room_object(int *arr, int row, int col, int x_up, int x_low, int y_up, int y_low, int nr) : roomblocks() {
 
 adress = arr;
 rows = row;
@@ -118,12 +118,36 @@ ylim_low = y_low;
 ylim_up = y_up;
 room_nr = nr;
 
+//vector<int> * temp = new vector<int>;
+//testvec = *temp;
+
+//    for ( int i = 0; i < rows; i++ ) {
+//        for ( int ii = 0; ii < cols; ii++ ) {
+//            if ( *( (arr + i*cols) +ii ) > 0 ) {
+//                block * obj = new block(ii*15, (rows-i)*15, 1, *( (arr + i*cols) +ii ));
+//                blocks.push_back(*obj);
+//                //roomblocks.push_back(*obj);
+//
+//                delete obj;
+//            } else {
+//            }
+//        };
+//    };
+room_object_setup();
+};
+
+room_object::~room_object() {
+
+};
+
+void room_object::room_object_setup() {
+
     for ( int i = 0; i < rows; i++ ) {
         for ( int ii = 0; ii < cols; ii++ ) {
-            if ( *( (arr + i*cols) +ii ) > 0 ) {
-                block * obj = new block(ii*15, (rows-i)*15, 1, *( (arr + i*cols) +ii ));
-                blocks.push_back(*obj);
+            if ( *( (adress + i*cols) +ii ) > 0 ) {
+                block * obj = new block(ii*15, (rows-i)*15, 1, *( (adress + i*cols) +ii ));
                 roomblocks.push_back(*obj);
+
                 delete obj;
             } else {
             }
@@ -132,21 +156,43 @@ room_nr = nr;
 
 };
 
-room_object::~room_object() {};
+void room_object::testfunc() {
+cout << roomblocks.size() << endl;
+};
+
 
 void room_setup() {
 
-room_object room( (int*)room_1,room1_rows, room1_cols, room1_xlimit_upper, room1_xlimit_lower, room1_ylimit_upper, room1_ylimit_lower,0); // room 1
-room_object room2( (int*)room_2,room2_rows, room2_cols, room2_xlimit_upper, room2_xlimit_lower, room2_ylimit_upper, room2_ylimit_lower,1); // room 1
+room_object * new_room1 = new room_object( (int*)room_1,room1_rows, room1_cols, room1_xlimit_upper, room1_xlimit_lower, room1_ylimit_upper, room1_ylimit_lower,0);
+room_objects.push_back( *new_room1 );
+delete new_room1;
 
-room_objects.push_back( room );
-room_objects.push_back( room2 );
+room_object * new_room2 = new room_object( (int*)room_2,room2_rows, room2_cols, room2_xlimit_upper, room2_xlimit_lower, room2_ylimit_upper, room2_ylimit_lower,1);
+room_objects.push_back( *new_room2 );
+delete new_room2;
 
-room.~room_object();
-room2.~room_object();
+//room_objects.at(1).testfunc();
+
+
 };
 
 void room_render_req(int roomnr) {
+
+//cout <<  room_objects.size() << ".\n";
+
+for (int i = 0; i < room_objects.at(roomnr).roomblocks.size(); i++ ) {
+
+room_objects.at(roomnr).roomblocks.at(i).setRender();
+};
+
+
+
+
+
+//        for (int i=0; i < room_objects.at(roomnr).roomblocks.size();i++) {
+//        room_objects.at(roomnr).roomblocks.at(i).setRender();
+//        };
+
 
 //    switch (roomnr) {
 //

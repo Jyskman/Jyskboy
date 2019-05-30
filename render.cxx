@@ -21,27 +21,25 @@ current_y_offset = 0;
 
 void render::determine_current_offset(champ& parameter, int roomnr){
 // will determine the current offset for all things not champ
+offset_parameter_x_left = 140;
+offset_parameter_x_right= (320-140);
 
-current_x_offset = parameter.getX() - ( room_objects.at(roomnr).xlim_low + 160 );
+current_x_offset = parameter.getX() - ( room_objects.at(roomnr).xlim_low + offset_parameter_x_left );
 
-    if ( parameter.getX() < ( room_objects.at(roomnr).xlim_low + 160 ) ) {
+    if ( parameter.getX() < ( room_objects.at(roomnr).xlim_low + offset_parameter_x_left ) ) {
           current_x_offset = 0;
           //cout << " 1 "  << ".\n";
     } else {
-    }
-//    if ( parameter.getX() > ( room_objects.at(roomnr).xlim_up - 160 ) ) {
-//          current_x_offset = 0;
-//          //cout << " 1 "  << ".\n";
-//    } else {
-//    }
 
-//    if ( parameter.getX() < ( room_objects.at(roomnr).xlim_low + 160 ) ) {
-//          current_x_offset = 0;
-//          //cout << " 1 "  << ".\n";
-//    } else {
-//          current_x_offset = parameter.getX() - ( room_objects.at(roomnr).xlim_low + 160 );
-//          //cout << " 2 "  << ".\n";
-//    }
+    }
+
+
+    if ( parameter.getX() > ( room_objects.at(roomnr).xlim_up - offset_parameter_x_right ) ) {
+          current_x_offset = 70;
+          //cout << " 2 "  << ".\n";
+    } else {
+    }
+
 
 };
 
@@ -57,7 +55,7 @@ return_value = true;
 
     }
 
-    if ( (x_pos - 2*current_x_offset) > 2*320) {
+    if ( (x_pos - 2*current_x_offset) > 2*(320-1)) {
         return_value = false;
 //        cout << " 2 "  << ".\n";
     } else {

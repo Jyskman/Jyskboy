@@ -56,7 +56,7 @@ game::game(int a) : buttons(1), screen(1), audio(), hero(1, (100 * 100 * 3 + 1),
 
 // when game is created these items are also
 game_state_current = 0;
-room_current = 0;
+room_current = 1;
 game_is_running = true;
 
     // Open the file for reading and writing
@@ -193,7 +193,7 @@ void game::game_loop() {
             auto final_end = std::chrono::high_resolution_clock::now();
             elapsed_seconds = final_end-start;
             time = elapsed_seconds.count();
-            //cout << " MS " << hero.getX() << ".\n";
+            cout << screen.current_x_offset << ".\n";
 
 
 
