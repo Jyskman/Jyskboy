@@ -193,7 +193,7 @@ void game::game_loop() {
             auto final_end = std::chrono::high_resolution_clock::now();
             elapsed_seconds = final_end-start;
             time = elapsed_seconds.count();
-            cout << screen.current_x_offset << ".\n";
+            cout << screen.current_y_offset << ".\n";
 
 
 

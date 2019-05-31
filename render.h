@@ -20,6 +20,7 @@ int x_pos, y_pos;
 int current_x_offset, current_y_offset;
 int render_xlimit_upper, render_xlimit_lower, render_ylimit_upper, render_ylimit_lower;
 int offset_parameter_x_left, offset_parameter_x_right;
+int offset_parameter_y_low, offset_parameter_y_up;
 
 unsigned char render_array[240][320*2];
 unsigned char *render_array_pointer;

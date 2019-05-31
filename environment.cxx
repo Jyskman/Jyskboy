@@ -145,7 +145,7 @@ void room_object::room_object_setup() {
     for ( int i = 0; i < rows; i++ ) {
         for ( int ii = 0; ii < cols; ii++ ) {
             if ( *( (adress + i*cols) +ii ) > 0 ) {
-                block * obj = new block(ii*15, (rows-i)*15, 1, *( (adress + i*cols) +ii ));
+                block * obj = new block(ii*15, i*15, 1, *( (adress + i*cols) +ii ));
                 roomblocks.push_back(*obj);
 
                 delete obj;

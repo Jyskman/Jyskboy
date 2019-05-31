@@ -22,7 +22,7 @@ current_y_offset = 0;
 void render::determine_current_offset(champ& parameter, int roomnr){
 // will determine the current offset for all things not champ
 offset_parameter_x_left = 140;
-offset_parameter_x_right= (320-140);
+offset_parameter_x_right= (320-offset_parameter_x_left);
 
 current_x_offset = parameter.getX() - ( room_objects.at(roomnr).xlim_low + offset_parameter_x_left );
 
@@ -35,11 +35,24 @@ current_x_offset = parameter.getX() - ( room_objects.at(roomnr).xlim_low + offse
 
 
     if ( parameter.getX() > ( room_objects.at(roomnr).xlim_up - offset_parameter_x_right ) ) {
-          current_x_offset = 70;
+          current_x_offset = room_objects.at(roomnr).xlim_up - offset_parameter_x_right - offset_parameter_x_left;
           //cout << " 2 "  << ".\n";
     } else {
     }
+// xoffset done
+offset_parameter_y_low = 120;
+offset_parameter_y_up = (240 - offset_parameter_y_low);
+current_y_offset = parameter.getY() -  room_objects.at(roomnr).ylim_low - offset_parameter_y_low ;
 
+if (parameter.getY() < (room_objects.at(roomnr).ylim_low + offset_parameter_y_low) ) {
+    current_y_offset = 0;
+} else {
+}
+
+if (parameter.getY() > (room_objects.at(roomnr).ylim_up -  offset_parameter_y_up) ) {
+    current_y_offset = room_objects.at(roomnr).ylim_up - offset_parameter_y_low - offset_parameter_y_up;
+} else {
+}
 
 };
 
@@ -61,6 +74,24 @@ return_value = true;
     } else {
 
     }
+
+    // ypos
+
+    if ( y_pos - current_y_offset < 0) {
+        return_value = false;
+//        cout << " 1 "  << ".\n";
+    } else {
+
+    }
+
+    if ( y_pos - current_y_offset > (240-1)) {
+        return_value = false;
+//        cout << " 2 "  << ".\n";
+    } else {
+
+    }
+
+
 
     return return_value;
 
@@ -189,8 +220,8 @@ void render::filler_general(int roomnr) {
                 //RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
                 RGB565 = (((mutateColor(0, R_888_byte, 1) & 0xf8)<<8) + ((mutateColor(1,G_888_byte,1) & 0xfc)<<3)+(mutateColor(2, B_888_byte, 1)>>3));
 
-                if ( RGB565 != 0xFFFF && render_limit_check( 2*render_req.at(iii).getX()+2*ii, mutate_Y( render_req.at(iii).getY() ) == true)) {
-                render::fillColor( 2*render_req.at(iii).getX()+2*ii - current_x_offset*2, mutate_Y( render_req.at(iii).getY() ) +i, RGB565 );
+                if ( RGB565 != 0xFFFF && render_limit_check( 2*render_req.at(iii).getX()+2*ii, render_req.at(iii).getY()+i )  == true) {
+                render::fillColor( 2*render_req.at(iii).getX()+2*ii - current_x_offset*2,  render_req.at(iii).getY() +i  - current_y_offset, RGB565 );
                 } else {
                 }
 

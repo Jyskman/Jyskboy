@@ -105,12 +105,12 @@ void champ::updatePos(button_input& parameter){
     }
 
     if ( parameter.getUpState() == true ) {
-            setY( getY() + 1 );
+            setY( getY() - 1 );
     } else {
     }
 
     if ( parameter.getDownState() == true ) {
-            setY( getY() - 1 );
+            setY( getY() + 1 );
     } else {
     }
 
