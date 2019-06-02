@@ -42,7 +42,7 @@ void fillColor(int x, int y, unsigned short color);
 void render_clear();
 
 
-void filler_dev(champ& spritefiller);
+void filler_dev(int roomnr);
 void filler_general(int roomnr);
 
 
@@ -64,6 +64,7 @@ unsigned char palette_1[5][3] = {
 int mutate_Y(int y);
 void determine_current_offset(champ& parameter, int roomnr);
 bool render_limit_check(int x_pos, int y_pos);
+void render_req_filter();
 };
 
 // New render req class attempt
@@ -78,7 +79,12 @@ int sprite_nr;
 int x_pos;
 int y_pos;
 bool draw;
+bool draw_evaluate;
 int getSprite_nr();
+
+bool getDraw(const render_requests & o);
+
+
 int getX();
 int getY();
 

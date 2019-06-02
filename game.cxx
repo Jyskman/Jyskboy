@@ -178,7 +178,8 @@ void game::game_loop() {
 
         };
         screen.determine_current_offset(hero, room_current );
-        screen.filler_general(room_current);
+        //screen.filler_general(room_current);
+        screen.filler_dev(room_current);
         game_frame();
 
         auto end = std::chrono::high_resolution_clock::now();
@@ -193,7 +194,7 @@ void game::game_loop() {
             auto final_end = std::chrono::high_resolution_clock::now();
             elapsed_seconds = final_end-start;
             time = elapsed_seconds.count();
-            //cout << time << ".\n";
+            //cout << hero.getY() << ".\n";
 
 
 

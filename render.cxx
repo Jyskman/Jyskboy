@@ -6,6 +6,7 @@
 #include <vector>
 #include "setup_sprites.h"
 #include "environment.h"
+#include <algorithm>
 using namespace std;
 
 
@@ -165,33 +166,166 @@ unsigned char render::mutateColor(int RGB, unsigned char color, int palette) {
 return return_value;
 };
 
-void render::filler_dev(champ& spritefiller) {
+void render::render_req_filter() {
+// function will remove render req that are outside the current frame
 
-int sprite_current = spritefiller.sprite_current;
+for ( int i = 0; i < render_req.size(); i++ ) {
+
+    // us the sprite above or below the frame?
+    if ( (render_req.at(i).getY() + all_sprites.at(render_req.at(i).getSprite_nr()).getHeight() - current_y_offset) >= 239  ) {
+        //render_req.at(i).draw = false;
+        render_req.at(i).draw_evaluate = true;
+    } else {
+    }
+    if ( (render_req.at(i).getY() - current_y_offset) > 239 && (render_req.at(i).getY() + all_sprites.at(render_req.at(i).getSprite_nr()).getHeight() - current_y_offset) > 239 ) {
+        render_req.at(i).draw = false;
+    } else {
+    }
 
 
-	for ( int i = 0; i < all_sprites.at(sprite_current).getHeight(); i++ ) {
+    if ( (render_req.at(i).getY() - current_y_offset) <= 0  ) {
+        //render_req.at(i).draw = false;
+        render_req.at(i).draw_evaluate = true;
+    } else {
+    }
+    if ( (render_req.at(i).getY() - current_y_offset) < 0 && (render_req.at(i).getY() + all_sprites.at(render_req.at(i).getSprite_nr()).getHeight() - current_y_offset) < 0 ) {
+        render_req.at(i).draw = false;
+    } else {
+    }
 
-		for ( int ii = 0; ii < all_sprites.at(sprite_current).getWidth(); ii++ ) {
 
-			R_888_byte = all_sprites.at(sprite_current).getVector(0 + ii*3 + i*3*all_sprites.at(sprite_current).getWidth());
-			G_888_byte = all_sprites.at(sprite_current).getVector(1 + ii*3 + i*3*all_sprites.at(sprite_current).getWidth());
-			B_888_byte = all_sprites.at(sprite_current).getVector(2 + ii*3 + i*3*all_sprites.at(sprite_current).getWidth());
 
-			//RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
-			RGB565 = (((mutateColor(0, R_888_byte, 1) & 0xf8)<<8) + ((mutateColor(1,G_888_byte,1) & 0xfc)<<3)+(mutateColor(2, B_888_byte, 1)>>3));
 
-            if ( RGB565 != 0xFFFF && render_limit_check( spritefiller.getX()+2*ii, mutate_Y( spritefiller.getY() ) +i ) == true ) {
-            render::fillColor( spritefiller.getX()+2*ii, mutate_Y( spritefiller.getY() ) +i, RGB565 );
-            } else {
+    if ( (render_req.at(i).getX() + all_sprites.at(render_req.at(i).getSprite_nr()).getWidth() - current_x_offset) > 319  ) {
+        render_req.at(i).draw = false;
+    } else {
+    }
+
+    if ( (render_req.at(i).getX() - current_x_offset) < 0  ) {
+        render_req.at(i).draw = false;
+    } else {
+    }
+
+
+
+
+
+
+    // Should this sprite be evaluated pixel per pixel?
+    //left frame limit
+//    if ( (render_req.at(i).getX() - current_x_offset) < 0 && (render_req.at(i).getX() + all_sprites.at(render_req.at(i).getSprite_nr()).getWidth() - current_x_offset) >0 ) {
+//        //render_req.at(i).draw = false;
+//        render_req.at(i).draw_evaluate = true;
+//    } else {
+//    }
+//    // right frame limit
+//    if ( (render_req.at(i).getX() - current_x_offset) < 319 && (render_req.at(i).getX() + all_sprites.at(render_req.at(i).getSprite_nr()).getWidth() - current_x_offset) > 319 ) {
+//        //render_req.at(i).draw = false;
+//        render_req.at(i).draw_evaluate = true;
+//    } else {
+//    }
+    // Now the Y axis frame limits, first top
+//    if ( (render_req.at(i).getY() - current_y_offset) < 0 && (render_req.at(i).getY() + all_sprites.at(render_req.at(i).getSprite_nr()).getHeight() - current_y_offset) > 0 ) {
+//        //render_req.at(i).draw = false;
+//        render_req.at(i).draw_evaluate = true;
+//    } else {
+//    }
+//    // Now the bottom
+//    if ( (render_req.at(i).getY() - current_y_offset) < 240 && (render_req.at(i).getY() + all_sprites.at(render_req.at(i).getSprite_nr()).getHeight() - current_y_offset) > 240 ) {
+//        //render_req.at(i).draw = false;
+//        render_req.at(i).draw_evaluate = true;
+//    } else {
+//    }
+
+
+
+    // to the left or right of the frame
+//    if ( (render_req.at(i).getX() - current_x_offset) > 319  ) {
+//        render_req.at(i).draw = false;
+//    } else {
+//    }
+//    if ( (render_req.at(i).getX() + all_sprites.at(render_req.at(i).getSprite_nr()).getWidth() - current_x_offset) < 0  ) {
+//        render_req.at(i).draw = false;
+//    } else {
+//    }
+
+
+
+}
+
+
+//all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth()
+//all_sprites.at(render_req.at(iii).getSprite_nr()).getHeight()
+
+
+
+// removal from render req based on filter
+render_req.erase(
+    std::remove_if(render_req.begin(), render_req.end(),
+        [](const render_requests & o) { return o.draw == false; }),
+    render_req.end());
+
+};
+
+void render::filler_dev(int roomnr) {
+
+
+//int sprite_current = spritefiller.sprite_current;
+// The render_req vector contain the data of which sprite and position to draw using this function
+// all_sprites are the vector that store all sprites, mutate color use the palettes
+
+// iii is the number of items in the render req vector
+// ii and i is the horizontal components
+//cout << render_req.size() << ".\n";
+render_req_filter();
+//cout << render_req.size() << ".\n";
+
+    for ( unsigned int iii = 0; iii < render_req.size(); iii++ ) {
+
+           for ( int i = 0; i < all_sprites.at( render_req.at(iii).getSprite_nr() ).getHeight(); i++ ) {
+
+            for ( int ii = 0; ii < all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth(); ii++ ) {
+
+                R_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(0 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
+                G_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(1 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
+                B_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(2 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
+
+                //RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
+                RGB565 = (((mutateColor(0, R_888_byte, 1) & 0xf8)<<8) + ((mutateColor(1,G_888_byte,1) & 0xfc)<<3)+(mutateColor(2, B_888_byte, 1)>>3));
+
+//                if ( RGB565 != 0xFFFF && render_limit_check( 2*render_req.at(iii).getX()+2*ii, render_req.at(iii).getY()+i )  == true) {
+//                render::fillColor( 2*render_req.at(iii).getX()+2*ii - current_x_offset*2,  render_req.at(iii).getY() +i  - current_y_offset, RGB565 );
+//                } else {
+//                }
+
+                if ( render_req.at(iii).draw_evaluate == true ) {
+                    if ( RGB565 != 0xFFFF && render_limit_check( 2*render_req.at(iii).getX()+2*ii, render_req.at(iii).getY()+i )  == true) {
+                    render::fillColor( 2*render_req.at(iii).getX()+2*ii - current_x_offset*2,  render_req.at(iii).getY() +i  - current_y_offset, RGB565 );
+                    } else {
+                    }
+
+                } else {
+                }
+                if ( render_req.at(iii).draw_evaluate == false ) {
+                    if ( RGB565 != 0xFFFF) {
+                    render::fillColor( 2*render_req.at(iii).getX()+2*ii - current_x_offset*2,  render_req.at(iii).getY() +i  - current_y_offset, RGB565 );
+                    } else {
+                    }
+
+                } else {
+                }
+
+
             }
 
-//			render::fillColor( spritefiller.getX()+2*ii, spritefiller.getY() +i, RGB565 );
+        }
 
-		}
 
-	}
+    }
 
+// clear items from vector
+//cout << render_req.size() << endl;
+render_req.clear();
 
 
 };
@@ -247,7 +381,8 @@ render_requests::render_requests(int sprite, int xpos, int ypos){
 sprite_nr = sprite;
 x_pos = xpos;
 y_pos = ypos;
-
+draw = true;
+draw_evaluate = false;
 };
 
 
@@ -264,6 +399,7 @@ int render_requests::getY(){
     return y_pos;
 };
 
-
-
+bool render_requests::getDraw(const render_requests & o) {
+    return draw;
+}
 
