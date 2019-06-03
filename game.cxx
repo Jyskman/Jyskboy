@@ -194,7 +194,7 @@ void game::game_loop() {
             auto final_end = std::chrono::high_resolution_clock::now();
             elapsed_seconds = final_end-start;
             time = elapsed_seconds.count();
-            //cout << hero.getY() << ".\n";
+            cout << time << ".\n";
 
 
 

@@ -172,36 +172,45 @@ void render::render_req_filter() {
 for ( int i = 0; i < render_req.size(); i++ ) {
 
     // us the sprite above or below the frame?
-    if ( (render_req.at(i).getY() + all_sprites.at(render_req.at(i).getSprite_nr()).getHeight() - current_y_offset) >= 239  ) {
+    if ( (render_req.at(i).getY() + all_sprites.at(render_req.at(i).getSprite_nr()).getHeight() - current_y_offset) > 239  ) {
         //render_req.at(i).draw = false;
         render_req.at(i).draw_evaluate = true;
     } else {
     }
-    if ( (render_req.at(i).getY() - current_y_offset) > 239 && (render_req.at(i).getY() + all_sprites.at(render_req.at(i).getSprite_nr()).getHeight() - current_y_offset) > 239 ) {
+    if ( (render_req.at(i).getY() - current_y_offset) >= 239 && (render_req.at(i).getY() + all_sprites.at(render_req.at(i).getSprite_nr()).getHeight() - current_y_offset) >= 239 ) {
         render_req.at(i).draw = false;
     } else {
     }
 
 
-    if ( (render_req.at(i).getY() - current_y_offset) <= 0  ) {
+    if ( (render_req.at(i).getY() - current_y_offset) < 0  ) {
         //render_req.at(i).draw = false;
         render_req.at(i).draw_evaluate = true;
     } else {
     }
-    if ( (render_req.at(i).getY() - current_y_offset) < 0 && (render_req.at(i).getY() + all_sprites.at(render_req.at(i).getSprite_nr()).getHeight() - current_y_offset) < 0 ) {
+    if ( (render_req.at(i).getY() - current_y_offset) <= 0 && (render_req.at(i).getY() + all_sprites.at(render_req.at(i).getSprite_nr()).getHeight() - current_y_offset) <= 0 ) {
         render_req.at(i).draw = false;
     } else {
     }
 
-
+// X below
 
 
     if ( (render_req.at(i).getX() + all_sprites.at(render_req.at(i).getSprite_nr()).getWidth() - current_x_offset) > 319  ) {
+        render_req.at(i).draw_evaluate = true;
+    } else {
+    }
+
+    if ( (render_req.at(i).getX() + all_sprites.at(render_req.at(i).getSprite_nr()).getWidth() - current_x_offset) >= 319 && (render_req.at(i).getX() - current_x_offset) >=319  ) {
         render_req.at(i).draw = false;
     } else {
     }
 
     if ( (render_req.at(i).getX() - current_x_offset) < 0  ) {
+        render_req.at(i).draw_evaluate = true;
+    } else {
+    }
+    if ( (render_req.at(i).getX() - current_x_offset) <= 0 && (render_req.at(i).getX() + all_sprites.at(render_req.at(i).getSprite_nr()).getWidth() - current_x_offset) <= 0  ) {
         render_req.at(i).draw = false;
     } else {
     }
@@ -209,45 +218,6 @@ for ( int i = 0; i < render_req.size(); i++ ) {
 
 
 
-
-
-    // Should this sprite be evaluated pixel per pixel?
-    //left frame limit
-//    if ( (render_req.at(i).getX() - current_x_offset) < 0 && (render_req.at(i).getX() + all_sprites.at(render_req.at(i).getSprite_nr()).getWidth() - current_x_offset) >0 ) {
-//        //render_req.at(i).draw = false;
-//        render_req.at(i).draw_evaluate = true;
-//    } else {
-//    }
-//    // right frame limit
-//    if ( (render_req.at(i).getX() - current_x_offset) < 319 && (render_req.at(i).getX() + all_sprites.at(render_req.at(i).getSprite_nr()).getWidth() - current_x_offset) > 319 ) {
-//        //render_req.at(i).draw = false;
-//        render_req.at(i).draw_evaluate = true;
-//    } else {
-//    }
-    // Now the Y axis frame limits, first top
-//    if ( (render_req.at(i).getY() - current_y_offset) < 0 && (render_req.at(i).getY() + all_sprites.at(render_req.at(i).getSprite_nr()).getHeight() - current_y_offset) > 0 ) {
-//        //render_req.at(i).draw = false;
-//        render_req.at(i).draw_evaluate = true;
-//    } else {
-//    }
-//    // Now the bottom
-//    if ( (render_req.at(i).getY() - current_y_offset) < 240 && (render_req.at(i).getY() + all_sprites.at(render_req.at(i).getSprite_nr()).getHeight() - current_y_offset) > 240 ) {
-//        //render_req.at(i).draw = false;
-//        render_req.at(i).draw_evaluate = true;
-//    } else {
-//    }
-
-
-
-    // to the left or right of the frame
-//    if ( (render_req.at(i).getX() - current_x_offset) > 319  ) {
-//        render_req.at(i).draw = false;
-//    } else {
-//    }
-//    if ( (render_req.at(i).getX() + all_sprites.at(render_req.at(i).getSprite_nr()).getWidth() - current_x_offset) < 0  ) {
-//        render_req.at(i).draw = false;
-//    } else {
-//    }
 
 
 
