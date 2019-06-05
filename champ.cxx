@@ -77,7 +77,7 @@ int champ::getPalette() {
 void champ::setRender()  {
 
         if (sprite_error == false) {
-            render_requests * obj = new render_requests(sprite_nr, x_location, y_location);
+            render_requests * obj = new render_requests(sprite_nr, x_location, y_location, palette_current);
 
             render_req.push_back(*obj);
             delete obj;
@@ -95,22 +95,22 @@ void champ::setRender()  {
 void champ::updatePos(button_input& parameter){
 
     if ( parameter.getLeftState() == true ) {
-            setX( getX() - 1 );
+            setX( getX() - 3 );
     } else {
     }
 
     if ( parameter.getRightState() == true ) {
-            setX( getX() + 1 );
+            setX( getX() + 3 );
     } else {
     }
 
     if ( parameter.getUpState() == true ) {
-            setY( getY() - 1 );
+            setY( getY() - 3 );
     } else {
     }
 
     if ( parameter.getDownState() == true ) {
-            setY( getY() + 1 );
+            setY( getY() + 3 );
     } else {
     }
 

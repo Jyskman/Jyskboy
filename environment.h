@@ -38,9 +38,10 @@ int room_nr;
 int rows, cols;
 int xlim_up, xlim_low, ylim_up, ylim_low;
 int *adress;
+int *adress_pal;
 vector<block> roomblocks;
 vector<int> testvec;
-room_object(int *arr, int row, int col, int x_up, int x_low, int y_up, int y_low, int nr);
+room_object(int *arr, int *arr_pal, int row, int col, int x_up, int x_low, int y_up, int y_low, int nr);
 ~room_object();
 
 void room_object_setup();

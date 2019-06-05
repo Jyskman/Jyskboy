@@ -194,7 +194,7 @@ void game::game_loop() {
             auto final_end = std::chrono::high_resolution_clock::now();
             elapsed_seconds = final_end-start;
             time = elapsed_seconds.count();
-            cout << time << ".\n";
+           // cout << time << ".\n";
 
 
 
@@ -219,10 +219,10 @@ void game::game_frame() {
 // produce image on the screen
     for (int i = 0; i < 240; i++) {
         for (int ii = 0; ii < 320*2;ii++){
-            if ( *((char*)(fbp + 1 +(ii + i*640))) == screen.getColor(ii, i) ) {
+            if ( *((char*)(fbp + 0 +(ii + i*640))) == screen.getColor(ii, i) ) {
 
             } else {
-                *((char*)(fbp + 1 +(ii + i*640))) = screen.getColor(ii, i);
+                *((char*)(fbp + 0 +(ii + i*640))) = screen.getColor(ii, i);
             }
 
 

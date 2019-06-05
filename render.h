@@ -48,7 +48,7 @@ void filler_general(int roomnr);
 
 char getColor(int x, int y);
 
-unsigned char mutateColor(int RGB ,unsigned char color, int palette);
+unsigned char mutateColor(int &RGB ,unsigned char &color, int &palette);
 
 // 0, 50, 100, 150, 200
 unsigned char palette_1[5][3] = {
@@ -65,6 +65,52 @@ int mutate_Y(int y);
 void determine_current_offset(champ& parameter, int roomnr);
 bool render_limit_check(int x_pos, int y_pos);
 void render_req_filter();
+
+//Will start with 10 hardcoded palettes with 5 color
+unsigned char palettes_R[5][10] = {
+    {0,  0,0,0,0,0,0,0,0,0},
+    {140,0,0,0,0,0,0,0,0,0},
+    {230,0,0,0,0,0,0,0,0,0},
+    {0,  0,0,0,0,0,0,0,0,0},
+    {255,0,0,0,0,0,0,0,0,0}
+};
+unsigned char palettes_G[5][10] = {
+    {0,0,0,0,0,0,0,0,0,0},
+    {50,0,0,0,0,0,0,0,0,0},
+    {60,0,0,0,0,0,0,0,0,0},
+    {255,0,0,0,0,0,0,0,0,0},
+    {255,0,0,0,0,0,0,0,0,0}
+};
+unsigned char palettes_B[5][10] = {
+    {0,0,0,0,0,0,0,0,0,0},
+    {90,0,0,0,0,0,0,0,0,0},
+    {150,0,0,0,0,0,0,0,0,0},
+    {150,0,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0,0,0}
+};
+
+int R = 0, G = 1, B = 2;
+int testpal = 0;
+unsigned char palettes_RGB[15][10] = {
+    {0,  0,0,0,0,0,0,0,0,0},
+    {140,0,0,0,0,0,0,0,0,0},
+    {230,0,0,0,0,0,0,0,0,0},
+    {0,  0,0,0,0,0,0,0,0,0},
+    {255,0,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0,0,0},
+    {50,0,0,0,0,0,0,0,0,0},
+    {60,0,0,0,0,0,0,0,0,0},
+    {255,0,0,0,0,0,0,0,0,0},
+    {255,0,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0,0,0},
+    {90,0,0,0,0,0,0,0,0,0},
+    {150,0,0,0,0,0,0,0,0,0},
+    {150,0,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0,0,0}
+
+};
+
+
 };
 
 // New render req class attempt
@@ -73,7 +119,8 @@ void render_req_filter();
 class render_requests {
 
 public:
-render_requests(int sprite_nr, int x_pos, int y_pos);
+render_requests(int sprite_nr, int x_pos, int y_pos, int palette);
+
 //~render_requests();
 int sprite_nr;
 int x_pos;
@@ -81,6 +128,7 @@ int y_pos;
 bool draw;
 bool draw_evaluate;
 int getSprite_nr();
+int current_palette;
 
 bool getDraw(const render_requests & o);
 

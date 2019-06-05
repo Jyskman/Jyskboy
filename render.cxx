@@ -20,6 +20,9 @@ current_x_offset = 0;
 current_y_offset = 0;
 };
 
+//test ref passing
+
+
 void render::determine_current_offset(champ& parameter, int roomnr){
 // will determine the current offset for all things not champ
 offset_parameter_x_left = 140;
@@ -111,8 +114,9 @@ void render::fillColor(int x, int y, unsigned short color){
 		byte_2 = color & 0xFF;
 		byte_1 = color >> 8;
 
-		render_array[y][x]   = byte_1 ;
-		render_array[y][x+1] = byte_2 ;
+
+            render_array[y][x]   = byte_2 ;
+            render_array[y][x+1] = byte_1 ;
 
 };
 
@@ -128,38 +132,58 @@ char render::getColor(int x, int y) {
 	return render_array[y][x];
 };
 
-unsigned char render::mutateColor(int RGB, unsigned char color, int palette) {
+unsigned char render::mutateColor(int &RGB, unsigned char &color, int &palette) {
     // R = 0, G = 1, B = 2
     unsigned char return_value;
 
-    switch ( palette ) {
-        case 1:
+//    switch ( palette ) {
+//        case 1:
+//
+//                switch ( color ) {
+//                    case 0:
+//                        return_value = palette_1[0][RGB];
+//                    break;
+//                    case 50:
+//                        return_value = palette_1[1][RGB];
+//                    break;
+//                    case 100:
+//                        return_value = palette_1[2][RGB];
+//                    break;
+//                    case 150:
+//                        return_value = palette_1[3][RGB];
+//                    break;
+//                    case 200:
+//                        return_value = palette_1[4][RGB];
+//                    break;
+//                    default:
+//                    return_value = 255;
+//                    break;
+//                };
+//        break;
+//
+//    };
+// Below is alternative to palettefunction above
 
-                switch ( color ) {
-                    case 0:
-                        return_value = palette_1[0][RGB];
-                    break;
-                    case 50:
-                        return_value = palette_1[1][RGB];
-                    break;
-                    case 100:
-                        return_value = palette_1[2][RGB];
-                    break;
-                    case 150:
-                        return_value = palette_1[3][RGB];
-                    break;
-                    case 200:
-                        return_value = palette_1[4][RGB];
-                    break;
-                    default:
-                    return_value = 255;
-                    break;
-                };
-        break;
-
-
-
-    };
+if (color == 0){
+    return_value = palettes_RGB[0 + 5*RGB ][palette];
+} else {
+}
+if (color == 50){
+    return_value = palettes_RGB[1 + 5*RGB ][palette];
+} else {
+}
+if (color == 100){
+    return_value = palettes_RGB[2 + 5*RGB ][palette];
+} else {
+}
+if (color == 150){
+    return_value = palettes_RGB[3 + 5*RGB ][palette];
+} else {
+}
+if (color == 200){
+    return_value = palettes_RGB[4 + 5*RGB ][palette];
+} else {
+}
 
 
 
@@ -248,6 +272,7 @@ void render::filler_dev(int roomnr) {
 // ii and i is the horizontal components
 //cout << render_req.size() << ".\n";
 render_req_filter();
+
 //cout << render_req.size() << ".\n";
 
     for ( unsigned int iii = 0; iii < render_req.size(); iii++ ) {
@@ -259,32 +284,25 @@ render_req_filter();
                 R_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(0 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
                 G_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(1 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
                 B_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(2 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
+                    if (R_888_byte != 255 && G_888_byte != 255 && B_888_byte != 255) {
+                             //RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
+                            testpal = render_req.at(iii).current_palette - 1;
+                            RGB565 = (((mutateColor(R, R_888_byte, testpal) & 0xf8)<<8) + ((mutateColor(G,G_888_byte,testpal) & 0xfc)<<3)+(mutateColor(B, B_888_byte, testpal)>>3));
 
-                //RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
-                RGB565 = (((mutateColor(0, R_888_byte, 1) & 0xf8)<<8) + ((mutateColor(1,G_888_byte,1) & 0xfc)<<3)+(mutateColor(2, B_888_byte, 1)>>3));
+                            if ( render_req.at(iii).draw_evaluate == true ) {
+                                if (render_limit_check( 2*render_req.at(iii).getX()+2*ii, render_req.at(iii).getY()+i )  == true) {
+                                render::fillColor( 2*render_req.at(iii).getX()+2*ii - current_x_offset*2,  render_req.at(iii).getY() +i  - current_y_offset, RGB565 );
+                                } else {
+                                }
 
-//                if ( RGB565 != 0xFFFF && render_limit_check( 2*render_req.at(iii).getX()+2*ii, render_req.at(iii).getY()+i )  == true) {
-//                render::fillColor( 2*render_req.at(iii).getX()+2*ii - current_x_offset*2,  render_req.at(iii).getY() +i  - current_y_offset, RGB565 );
-//                } else {
-//                }
-
-                if ( render_req.at(iii).draw_evaluate == true ) {
-                    if ( RGB565 != 0xFFFF && render_limit_check( 2*render_req.at(iii).getX()+2*ii, render_req.at(iii).getY()+i )  == true) {
-                    render::fillColor( 2*render_req.at(iii).getX()+2*ii - current_x_offset*2,  render_req.at(iii).getY() +i  - current_y_offset, RGB565 );
+                            } else {
+                            }
+                            if ( render_req.at(iii).draw_evaluate == false ) {
+                                render::fillColor( 2*render_req.at(iii).getX()+2*ii - current_x_offset*2,  render_req.at(iii).getY() +i  - current_y_offset, RGB565 );
+                            } else {
+                            }
                     } else {
-                    }
-
-                } else {
-                }
-                if ( render_req.at(iii).draw_evaluate == false ) {
-                    if ( RGB565 != 0xFFFF) {
-                    render::fillColor( 2*render_req.at(iii).getX()+2*ii - current_x_offset*2,  render_req.at(iii).getY() +i  - current_y_offset, RGB565 );
-                    } else {
-                    }
-
-                } else {
-                }
-
+                    } // R_888 if statement
 
             }
 
@@ -311,29 +329,29 @@ void render::filler_general(int roomnr) {
 
 
 
-    for ( unsigned int iii = 0; iii < render_req.size(); iii++ ) {
-
-        for ( int i = 0; i < all_sprites.at( render_req.at(iii).getSprite_nr() ).getHeight(); i++ ) {
-
-            for ( int ii = 0; ii < all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth(); ii++ ) {
-
-                R_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(0 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
-                G_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(1 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
-                B_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(2 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
-
-                //RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
-                RGB565 = (((mutateColor(0, R_888_byte, 1) & 0xf8)<<8) + ((mutateColor(1,G_888_byte,1) & 0xfc)<<3)+(mutateColor(2, B_888_byte, 1)>>3));
-
-                if ( RGB565 != 0xFFFF && render_limit_check( 2*render_req.at(iii).getX()+2*ii, render_req.at(iii).getY()+i )  == true) {
-                render::fillColor( 2*render_req.at(iii).getX()+2*ii - current_x_offset*2,  render_req.at(iii).getY() +i  - current_y_offset, RGB565 );
-                } else {
-                }
-
-            }
-
-        }
-
-    }
+//    for ( unsigned int iii = 0; iii < render_req.size(); iii++ ) {
+//
+//        for ( int i = 0; i < all_sprites.at( render_req.at(iii).getSprite_nr() ).getHeight(); i++ ) {
+//
+//            for ( int ii = 0; ii < all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth(); ii++ ) {
+//
+//                R_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(0 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
+//                G_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(1 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
+//                B_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(2 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
+//
+//                //RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
+//                RGB565 = (((mutateColor(0, R_888_byte, 1) & 0xf8)<<8) + ((mutateColor(1,G_888_byte,1) & 0xfc)<<3)+(mutateColor(2, B_888_byte, 1)>>3));
+//
+//                if ( RGB565 != 0xFFFF && render_limit_check( 2*render_req.at(iii).getX()+2*ii, render_req.at(iii).getY()+i )  == true) {
+//                render::fillColor( 2*render_req.at(iii).getX()+2*ii - current_x_offset*2,  render_req.at(iii).getY() +i  - current_y_offset, RGB565 );
+//                } else {
+//                }
+//
+//            }
+//
+//        }
+//
+//    }
 
 // clear items from vector
 //cout << render_req.size() << endl;
@@ -346,13 +364,14 @@ render_req.clear();
 
 vector<render_requests> render_req;
 
-render_requests::render_requests(int sprite, int xpos, int ypos){
+render_requests::render_requests(int sprite, int xpos, int ypos, int palette){
 
 sprite_nr = sprite;
 x_pos = xpos;
 y_pos = ypos;
 draw = true;
 draw_evaluate = false;
+current_palette = palette;
 };
 
 
