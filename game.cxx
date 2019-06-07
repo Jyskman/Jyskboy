@@ -78,7 +78,7 @@ game_is_running = true;
     memcpy(&orig_vinfo, &vinfo, sizeof(struct fb_var_screeninfo));
 
     // Change variable info
-    vinfo.bits_per_pixel = 8;
+    vinfo.bits_per_pixel = 16;
     if (ioctl(fbfd, FBIOPUT_VSCREENINFO, &vinfo)) {
       printf("Error setting variable information.\n");
     }
@@ -124,10 +124,11 @@ void game::game_close() {
 };
 
 void game::game_setup() {
-
 setup_sprites();
-all_sprites.at(0).sprite_test();
 room_setup();
+
+all_sprites.at(0).sprite_test();
+
 //champ en_1(1, (100 * 100 * 3 + 1), 100, 100);
 hero.sprite_nr = hero.Relation_Spritenr_type();
 		hero.setX(100);
@@ -194,7 +195,7 @@ void game::game_loop() {
             auto final_end = std::chrono::high_resolution_clock::now();
             elapsed_seconds = final_end-start;
             time = elapsed_seconds.count();
-           // cout << time << ".\n";
+            cout << time << ".\n";
 
 
 

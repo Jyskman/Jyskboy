@@ -1,6 +1,7 @@
 #include <iostream>
 #include "sprite_objects.h"
 #include <vector>
+#include "setup_sprites.h"
 
 using namespace std;
 
@@ -41,3 +42,20 @@ int sprite_objects::getWidth() {
 int sprite_objects::getSize() {
     return sprite_size;
 };
+
+void sprite_objects::Relation_Spritenr_type() {
+
+        for (int i=0; i < all_sprites.size(); i++) {
+            if ( all_sprites.at(i).sprite_index == sprite_index ) {
+                sprite_nr = i;
+
+                //cout << "mark" << endl;
+            } else {
+
+            };
+        };
+
+};
+
+
+

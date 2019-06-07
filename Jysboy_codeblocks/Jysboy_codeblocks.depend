@@ -25,7 +25,7 @@
 	<vector>
 	"sprite_objects.h"
 
-1557573993 /home/pi/codeblocks/Jyskboy/sprite_objects.h
+1559846664 /home/pi/codeblocks/Jyskboy/sprite_objects.h
 	<iostream>
 	<vector>
 
@@ -66,7 +66,7 @@
 	"sprite_objects.h"
 	<vector>
 
-1559765864 source:/home/pi/codeblocks/Jyskboy/render.cxx
+1559926961 source:/home/pi/codeblocks/Jyskboy/render.cxx
 	<iostream>
 	"render.h"
 	<vector>
@@ -74,7 +74,7 @@
 	"environment.h"
 	<algorithm>
 
-1557576348 source:/home/pi/codeblocks/Jyskboy/setup_sprites.cxx
+1559930811 source:/home/pi/codeblocks/Jyskboy/setup_sprites.cxx
 	<iostream>
 	"setup_sprites.h"
 	"sprite_objects.h"
@@ -99,12 +99,13 @@
 	<iostream>
 	<vector>
 
-1557573961 source:/home/pi/codeblocks/Jyskboy/sprite_objects.cxx
+1559846714 source:/home/pi/codeblocks/Jyskboy/sprite_objects.cxx
 	<iostream>
 	"sprite_objects.h"
 	<vector>
+	"setup_sprites.h"
 
-1559764833 source:/home/pi/codeblocks/Jyskboy/environment.cxx
+1559933904 source:/home/pi/codeblocks/Jyskboy/environment.cxx
 	<iostream>
 	<vector>
 	"environment.h"
@@ -122,7 +123,7 @@
 	<chrono>
 	<ctime>
 
-1559765769 source:/home/pi/codeblocks/Jyskboy/game.cxx
+1559932182 source:/home/pi/codeblocks/Jyskboy/game.cxx
 	<iostream>
 	<vector>
 	"game.h"
