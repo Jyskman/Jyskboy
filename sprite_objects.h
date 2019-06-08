@@ -19,14 +19,14 @@ class sprite_objects {
 public:
 
 
-sprite_objects(int a, unsigned char sprites[], int size, int width, int height, int index);
+sprite_objects(int a, unsigned char *adress ,unsigned char sprites[], int size, int width, int height, int index);
 
 int sprite_index;
 int sprite_nr;
 int sprite_size;
 int sprite_widht;
 int sprite_height;
-
+unsigned char *add;
 void sprite_test();
 std::vector<unsigned char> sprite_imported;
 
@@ -36,6 +36,7 @@ int getSize();
 
 
 unsigned char getVector(int x);
+unsigned char getChar(int x);
 void Relation_Spritenr_type(); // need to create a relation between position in all_sprites and type/index
 };
 

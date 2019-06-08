@@ -6,24 +6,30 @@
 using namespace std;
 
 
-sprite_objects::sprite_objects(int a, unsigned char sprites[], int size, int width, int height, int index) {
+sprite_objects::sprite_objects(int a, unsigned char* adress  ,unsigned char sprites[], int size, int width, int height, int index) {
 
 sprite_index = index;
 sprite_size = size;
 sprite_height = height;
 sprite_widht = width;
-
-	for (int i = 0; i < sprite_size; i++) {
-
-		sprite_imported.push_back(sprites[i]);
-
-	}
+add = adress;
+//	for (int i = 0; i < sprite_size; i++) {
+//
+//		sprite_imported.push_back(sprites[i]);
+//
+//	}
 
 };
 
 unsigned char sprite_objects::getVector(int pos) {
 
 	return sprite_imported.at(pos);
+};
+
+unsigned char sprite_objects::getChar(int pos) {
+// will use pointer to the original sprite, no copy
+
+return *( add + pos );
 };
 
 void sprite_objects::sprite_test() {

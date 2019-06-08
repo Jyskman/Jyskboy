@@ -12,6 +12,35 @@
 // This is the content of the .h file, which is where the declarations go
 using namespace::std;
 
+
+class render_requests {
+
+public:
+render_requests(int sprite_nr, int x_pos, int y_pos, int palette);
+
+//~render_requests();
+int sprite_nr;
+int x_pos;
+int y_pos;
+bool draw;
+bool draw_evaluate;
+int getSprite_nr();
+int current_palette;
+
+bool getDraw(const render_requests & o);
+
+
+int getX();
+int getY();
+
+};
+
+extern vector<render_requests> render_req;
+
+
+
+
+
 class render {
 
 
@@ -38,6 +67,8 @@ int offset = 0;
 render(int a);	// constructor
 
 void fillColor(int x, int y, unsigned short color);
+// Below is fillcolor dev version
+void fillColor_dev(int x, int y, unsigned char color, unsigned char color2 );
 
 void render_clear();
 
@@ -111,34 +142,19 @@ unsigned char palettes_RGB[15][10] = {
 };
 
 
+// render will need to store the info of sprites, size and adress for increased speed and reduction of global vector variables. will need to remove all palette stuff prob
+vector<unsigned char*> sprite_address;
+vector<int> sprite_w;
+vector<int> sprite_h;
+
+void load_sprite_data( unsigned char* add, int width, int height );
+vector<render_requests> internal_render_requests;
 };
 
 // New render req class attempt
 
 
-class render_requests {
 
-public:
-render_requests(int sprite_nr, int x_pos, int y_pos, int palette);
-
-//~render_requests();
-int sprite_nr;
-int x_pos;
-int y_pos;
-bool draw;
-bool draw_evaluate;
-int getSprite_nr();
-int current_palette;
-
-bool getDraw(const render_requests & o);
-
-
-int getX();
-int getY();
-
-};
-
-extern vector<render_requests> render_req;
 
 // This is the end of the header guard
 #endif

@@ -124,7 +124,7 @@ void game::game_close() {
 };
 
 void game::game_setup() {
-setup_sprites();
+setup_sprites(screen);
 room_setup();
 
 all_sprites.at(0).sprite_test();
@@ -179,8 +179,9 @@ void game::game_loop() {
 
         };
         screen.determine_current_offset(hero, room_current );
-        //screen.filler_general(room_current);
-        screen.filler_dev(room_current);
+
+        //screen.filler_dev(room_current);
+        screen.filler_general(room_current);
         game_frame();
 
         auto end = std::chrono::high_resolution_clock::now();

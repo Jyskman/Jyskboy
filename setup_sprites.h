@@ -9,13 +9,13 @@
 
 #include "sprite_objects.h"
 #include <vector>
-
+#include "render.h"
 // The extern declaration in combination with an implementation i the cxx file makes global var
 extern std::vector<sprite_objects> all_sprites;
 extern std::vector<sprite_objects*> sprite_pointers;
 //
 
-void setup_sprites();
+void setup_sprites(render& parameter);
 
 
 //~ extern unsigned char new_enemy1_body[];

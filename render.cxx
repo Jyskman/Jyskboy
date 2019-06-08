@@ -119,6 +119,14 @@ void render::fillColor(int x, int y, unsigned short color){
             render_array[y][x+1] = byte_1 ;
 
 };
+// Filler dev for direct true color experiment
+void render::fillColor_dev(int x, int y, unsigned char color, unsigned char color2){
+
+            render_array[y][x]   = color ;
+            render_array[y][x+1] = color2 ;
+
+};
+
 
 void render::render_clear() {
 //fill(render_array[0], render_array[0] + (240 + 20) * (320*2 + 20*2), 0);
@@ -241,10 +249,6 @@ for ( int i = 0; i < render_req.size(); i++ ) {
 
 
 
-
-
-
-
 }
 
 
@@ -315,7 +319,6 @@ render_req_filter();
 //cout << render_req.size() << endl;
 render_req.clear();
 
-
 };
 
 void render::filler_general(int roomnr) {
@@ -326,37 +329,64 @@ void render::filler_general(int roomnr) {
 
 // iii is the number of items in the render req vector
 // ii and i is the horizontal components
+//cout << render_req.size() << ".\n";
+
+// This will be true color without palette
+//render_req_filter();
+
+//cout << render_req.size() << ".\n";
+
+    for ( unsigned int iii = 0; iii < render_req.size(); iii++ ) {
+
+           for ( int i = 0; i < sprite_h.at( render_req.at(iii).getSprite_nr() ) ; i++ ) {
+
+            for ( int ii = 0; ii < sprite_w.at( render_req.at(iii).getSprite_nr() ) ; ii++ ) {
+
+            R_888_byte = *( sprite_address.at( render_req.at(iii).getSprite_nr() ) + 0 + ii*2 + i*2*sprite_w.at( render_req.at(iii).getSprite_nr()  ));
+            G_888_byte = *( sprite_address.at( render_req.at(iii).getSprite_nr() ) + 1 + ii*2 + i*2*sprite_w.at( render_req.at(iii).getSprite_nr()  ));
+
+                //R_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getChar(0 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
+                //G_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getChar(1 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
+                //B_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(2 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
+                    if (R_888_byte != 255 && G_888_byte != 255) {
+                             //RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
+                            testpal = render_req.at(iii).current_palette - 1;
+                            //RGB565 = (((mutateColor(R, R_888_byte, testpal) & 0xf8)<<8) + ((mutateColor(G,G_888_byte,testpal) & 0xfc)<<3)+(mutateColor(B, B_888_byte, testpal)>>3));
+                            //RGB565 = ( ( (R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3) + (B_888_byte>>3) );
+
+                            if ( render_req.at(iii).draw_evaluate == true ) {
+                                if (render_limit_check( 2*render_req.at(iii).getX()+2*ii, render_req.at(iii).getY()+i )  == true) {
+                                fillColor_dev( 2*render_req.at(iii).getX()+2*ii - current_x_offset*2,  render_req.at(iii).getY() +i  - current_y_offset, R_888_byte, G_888_byte );
+                                } else {
+                                }
+
+                            } else {
+                            }
+                            if ( render_req.at(iii).draw_evaluate == false ) {
+                                fillColor_dev( 2*render_req.at(iii).getX()+2*ii - current_x_offset*2,  render_req.at(iii).getY() +i  - current_y_offset, R_888_byte, G_888_byte );
+                            } else {
+                            }
+                    } else {
+                    } // R_888 if statement
+
+            }
+
+        }
 
 
+    }
 
-//    for ( unsigned int iii = 0; iii < render_req.size(); iii++ ) {
-//
-//        for ( int i = 0; i < all_sprites.at( render_req.at(iii).getSprite_nr() ).getHeight(); i++ ) {
-//
-//            for ( int ii = 0; ii < all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth(); ii++ ) {
-//
-//                R_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(0 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
-//                G_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(1 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
-//                B_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(2 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
-//
-//                //RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
-//                RGB565 = (((mutateColor(0, R_888_byte, 1) & 0xf8)<<8) + ((mutateColor(1,G_888_byte,1) & 0xfc)<<3)+(mutateColor(2, B_888_byte, 1)>>3));
-//
-//                if ( RGB565 != 0xFFFF && render_limit_check( 2*render_req.at(iii).getX()+2*ii, render_req.at(iii).getY()+i )  == true) {
-//                render::fillColor( 2*render_req.at(iii).getX()+2*ii - current_x_offset*2,  render_req.at(iii).getY() +i  - current_y_offset, RGB565 );
-//                } else {
-//                }
-//
-//            }
-//
-//        }
-//
-//    }
 
-// clear items from vector
-//cout << render_req.size() << endl;
 render_req.clear();
 
+
+};
+
+void render::load_sprite_data(unsigned char* add, int width, int height){
+
+sprite_address.push_back(add);
+sprite_h.push_back(height);
+sprite_w.push_back(width);
 
 };
 
@@ -372,6 +402,7 @@ y_pos = ypos;
 draw = true;
 draw_evaluate = false;
 current_palette = palette;
+
 };
 
 
