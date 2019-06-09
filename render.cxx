@@ -18,6 +18,8 @@ fill(render_array[0], render_array[0] + (240) * (320*2), 0);
 render_array_pointer = (unsigned char*)render_array;
 current_x_offset = 0;
 current_y_offset = 0;
+
+internal = &render_req;
 };
 
 //test ref passing
@@ -332,7 +334,7 @@ void render::filler_general(int roomnr) {
 //cout << render_req.size() << ".\n";
 
 // This will be true color without palette
-//render_req_filter();
+render_req_filter();
 
 //cout << render_req.size() << ".\n";
 
@@ -348,9 +350,9 @@ void render::filler_general(int roomnr) {
                 //R_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getChar(0 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
                 //G_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getChar(1 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
                 //B_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(2 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
-                    if (R_888_byte != 255 && G_888_byte != 255) {
+                   if (R_888_byte != 255 && G_888_byte != 255) {
                              //RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
-                            testpal = render_req.at(iii).current_palette - 1;
+                            //testpal = render_req.at(iii).current_palette - 1;
                             //RGB565 = (((mutateColor(R, R_888_byte, testpal) & 0xf8)<<8) + ((mutateColor(G,G_888_byte,testpal) & 0xfc)<<3)+(mutateColor(B, B_888_byte, testpal)>>3));
                             //RGB565 = ( ( (R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3) + (B_888_byte>>3) );
 
@@ -366,8 +368,8 @@ void render::filler_general(int roomnr) {
                                 fillColor_dev( 2*render_req.at(iii).getX()+2*ii - current_x_offset*2,  render_req.at(iii).getY() +i  - current_y_offset, R_888_byte, G_888_byte );
                             } else {
                             }
-                    } else {
-                    } // R_888 if statement
+                   } else {
+                   } // R_888 if statement
 
             }
 

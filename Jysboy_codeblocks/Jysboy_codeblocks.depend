@@ -56,7 +56,7 @@
 	"environment.h"
 	"game.h"
 
-1560007566 /home/pi/codeblocks/Jyskboy/render.h
+1560086953 /home/pi/codeblocks/Jyskboy/render.h
 	<iostream>
 	"render.h"
 	"champ.h"
@@ -67,7 +67,7 @@
 	<vector>
 	"render.h"
 
-1560016440 source:/home/pi/codeblocks/Jyskboy/render.cxx
+1560087086 source:/home/pi/codeblocks/Jyskboy/render.cxx
 	<iostream>
 	"render.h"
 	<vector>
@@ -75,7 +75,7 @@
 	"environment.h"
 	<algorithm>
 
-1560016767 source:/home/pi/codeblocks/Jyskboy/setup_sprites.cxx
+1560085768 source:/home/pi/codeblocks/Jyskboy/setup_sprites.cxx
 	<iostream>
 	"setup_sprites.h"
 	"sprite_objects.h"
@@ -119,14 +119,14 @@
 	<vector>
 	"render.h"
 
-1558630551 /home/pi/codeblocks/Jyskboy/game.h
+1560086146 /home/pi/codeblocks/Jyskboy/game.h
 	"buttons.h"
 	"render.h"
 	"soundmanager.h"
 	<chrono>
 	<ctime>
 
-1560016782 source:/home/pi/codeblocks/Jyskboy/game.cxx
+1560085867 source:/home/pi/codeblocks/Jyskboy/game.cxx
 	<iostream>
 	<vector>
 	"game.h"
