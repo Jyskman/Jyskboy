@@ -105,7 +105,7 @@ game_is_running = true;
 };
 
 game::~game() {
-
+render_req.clear();
 
 
 };
@@ -150,6 +150,7 @@ void game::game_main(){
 
 //							audio.Play_FX(FX.at(0), 1);
                 game_is_running = false;
+
 
         }
 

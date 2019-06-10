@@ -141,7 +141,7 @@ void setup_sprites(render& parameter) {
 
 
 
-    sprite_objects block4(1, (unsigned char*)block_4 ,block_4, block_4_size, block_4_width, block_4_height,2);
+    sprite_objects block4(1, (unsigned char*)block_4 ,block_4, block_4_size, block_4_width, block_4_height,1);
     all_sprites.push_back(block4);
     sprite_pointers.push_back(&block4);
 
@@ -153,7 +153,7 @@ void setup_sprites(render& parameter) {
     all_sprites.push_back(block5);
     sprite_pointers.push_back(&block5);
 
-    sprite_objects block6(1, (unsigned char*)block_6 ,block_6, block_6_size, block_6_width, block_6_height,1);
+    sprite_objects block6(1, (unsigned char*)block_6 ,block_6, block_6_size, block_6_width, block_6_height,2);
     all_sprites.push_back(block6);
     sprite_pointers.push_back(&block6);
 
