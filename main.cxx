@@ -50,9 +50,8 @@ int main(int argc, char* argv[])
         game1.game_fbp_clear();
         game1.game_loop();
 
-
         game1.game_close();
-        game1.~game();
+        //game1.~game();
     return 0;
 
 }

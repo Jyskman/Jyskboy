@@ -45,7 +45,7 @@ class render {
 
 
 public:
-vector<render_requests> *internal;
+//vector<render_requests> *internal;
 int x_pos, y_pos;
 int current_x_offset, current_y_offset;
 int render_xlimit_upper, render_xlimit_lower, render_ylimit_upper, render_ylimit_lower;

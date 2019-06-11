@@ -105,6 +105,7 @@ game_is_running = true;
 };
 
 game::~game() {
+
 render_req.clear();
 
 
@@ -131,7 +132,7 @@ all_sprites.at(0).sprite_test();
 
 //champ en_1(1, (100 * 100 * 3 + 1), 100, 100);
 hero.sprite_nr = hero.Relation_Spritenr_type();
-		hero.setX(100);
+		hero.setX(20);
 		hero.setY(100);
 };
 
@@ -237,6 +238,7 @@ void game::game_frame() {
 
     for (int i = 0; i < 240; i++) {
         for (int ii = 0; ii < 320*2;ii++){
+
             if ( *((char*)(fbp + 0 +(ii + i*640))) == *( screen.render_array_pointer +i*320*2 + ii ) ) {
 
             } else {
