@@ -5,7 +5,7 @@
 #include "buttons.h"
 #include "render.h"
 #include "soundmanager.h"
-
+#include "physics.h"
 #include <chrono>
 #include <ctime>
 using namespace std;
@@ -36,7 +36,7 @@ render screen;
 soundmanager audio;
 champ hero;
 game(int a); // http://www.cplusplus.com/forum/beginner/34589/
-
+physics normal;
 
 ~game();
 void game_loop();

@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include "sprite_objects.h"
+#include "physics.h"
 // This is the content of the .h file, which is where the declarations go
 
 

@@ -43,6 +43,8 @@
 		<Unit filename="../game.cxx" />
 		<Unit filename="../game.h" />
 		<Unit filename="../main.cxx" />
+		<Unit filename="../physics.cxx" />
+		<Unit filename="../physics.h" />
 		<Unit filename="../render.cxx" />
 		<Unit filename="../render.h" />
 		<Unit filename="../setup_sprites.cxx" />

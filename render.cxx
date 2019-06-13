@@ -19,7 +19,7 @@ render_array_pointer = (unsigned char*)render_array;
 current_x_offset = 0;
 current_y_offset = 0;
 
-//internal = &render_req;
+internal = &render_req;
 };
 
 //test ref passing
@@ -344,8 +344,8 @@ render_req_filter();
 
             for ( int ii = 0; ii < sprite_w.at( render_req.at(iii).getSprite_nr() ) ; ii++ ) {
             // Named R/G byte but new version of render has true color and do not use palette
-            R_888_byte = *( sprite_address.at( render_req.at(iii).getSprite_nr() ) + 0 + ii*2 + i*2*sprite_w.at( render_req.at(iii).getSprite_nr()  ));
-            G_888_byte = *( sprite_address.at( render_req.at(iii).getSprite_nr() ) + 1 + ii*2 + i*2*sprite_w.at( render_req.at(iii).getSprite_nr()  ));
+            R_888_byte = *( sprite_address.at( internal->at(iii).getSprite_nr() ) + 0 + ii*2 + i*2*sprite_w.at( internal->at(iii).getSprite_nr()  ));
+            G_888_byte = *( sprite_address.at( internal->at(iii).getSprite_nr() ) + 1 + ii*2 + i*2*sprite_w.at( internal->at(iii).getSprite_nr()  ));
 
                 //R_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getChar(0 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
                 //G_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getChar(1 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());

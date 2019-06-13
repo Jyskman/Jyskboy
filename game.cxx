@@ -27,6 +27,7 @@
 #include "environment.h"
 #include <time.h>
 
+
 #include <chrono>
 #include <ctime>
 using namespace std;
@@ -51,7 +52,7 @@ struct fb_cmap mapm;
 
 
 
-game::game(int a) : buttons(1), screen(1), audio(), hero(1, (100 * 100 * 3 + 1), 100, 100) {
+game::game(int a) : buttons(1), screen(1), audio(), hero(1, (100 * 100 * 3 + 1), 100, 100), normal() {
 
 
 // when game is created these items are also
