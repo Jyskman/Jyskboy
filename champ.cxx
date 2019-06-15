@@ -16,6 +16,7 @@ palette_current = 1;
 sprite_nr = Relation_Spritenr_type(); // translates the index/current/type to vector position in all_sprites
 x_velocity = 0;
 y_velocity = 0;
+x_max_speed = 3;
 //internal = &render_req;
 };
 
@@ -96,10 +97,10 @@ void champ::setRender()  {
 
 void champ::updatePos(button_input& parameter, physics& physics_parameter){
 
-
+//cout << physics_parameter.state << endl;
 
     switch (physics_parameter.state) {
-        case 0:
+        case 1:
             if ( parameter.getLeftState() == true ) {
                     //setX( getX() - 3 );
                     x_velocity--;
@@ -116,35 +117,35 @@ void champ::updatePos(button_input& parameter, physics& physics_parameter){
         break;
 
         default:
-            if ( parameter.getLeftState() == true ) {
-                    setX( getX() - 3 );
-            } else {
-            }
-
-            if ( parameter.getRightState() == true ) {
-                    setX( getX() + 3 );
-            } else {
-            }
-
-            if ( parameter.getUpState() == true ) {
-                    setY( getY() - 3 );
-            } else {
-            }
-
-            if ( parameter.getDownState() == true ) {
-                    setY( getY() + 3 );
-            } else {
-            }
+//            if ( parameter.getLeftState() == true ) {
+//                    setX( getX() - 3 );
+//            } else {
+//            }
+//
+//            if ( parameter.getRightState() == true ) {
+//                    setX( getX() + 3 );
+//            } else {
+//            }
+//
+//            if ( parameter.getUpState() == true ) {
+//                    setY( getY() - 3 );
+//            } else {
+//            }
+//
+//            if ( parameter.getDownState() == true ) {
+//                    setY( getY() + 3 );
+//            } else {
+//            }
         break;
 
     };
 
-    if (x_velocity > 3) {
-        x_velocity = 3;
+    if (x_velocity > x_max_speed) {
+        x_velocity = x_max_speed;
     } else {
     }
-    if (x_velocity < -3) {
-        x_velocity = -3;
+    if (x_velocity < -x_max_speed) {
+        x_velocity = -x_max_speed;
     } else {
     }
 
@@ -153,7 +154,7 @@ void champ::updatePos(button_input& parameter, physics& physics_parameter){
     } else {
     }
     if (x_velocity <0) {
-    x_velocity++;
+    x_velocity = x_velocity*0.9;
     } else {
     }
 

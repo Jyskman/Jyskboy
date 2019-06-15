@@ -36,6 +36,8 @@ int sprite_nr;
 float x_velocity;
 int y_velocity;
 
+int x_max_speed;
+
 int getHeight();
 int getWidth();
 

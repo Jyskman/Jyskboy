@@ -177,10 +177,24 @@ y_location = y_pos;
 current_palette = palette;
 block_type = type; // also called index type/index
 sprite_nr = Relation_Spritenr_type();
-
+friction_coeff = setFriction(type);
 };
 
 block::~block(){};
+
+
+float block::setFriction(int type) {
+float return_value = 0;
+switch (type) {
+    case 1:
+        return_value = 0.8;
+    break;
+
+}
+
+
+return return_value;
+};
 
 void block::setRender(){
 

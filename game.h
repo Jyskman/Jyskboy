@@ -39,7 +39,7 @@ soundmanager audio;
 champ hero;
 game(int a); // http://www.cplusplus.com/forum/beginner/34589/
 
-physics normal;
+physics laws;
 ~game();
 void game_loop();
 void game_main();

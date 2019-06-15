@@ -17,6 +17,9 @@ int x_location;
 int y_location;
 int current_palette;
 int block_type;
+
+float friction_coeff;
+
 int sprite_nr;
 bool sprite_error;
 
@@ -25,6 +28,7 @@ block(int x_pos, int y_pos, int palette, int type);
 
 void setRender();
 int Relation_Spritenr_type(); // need to create a relation between position in all_sprites and type/index
+float setFriction(int type);
 };
 
 extern vector<block> blocks;

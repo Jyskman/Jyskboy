@@ -52,7 +52,7 @@ struct fb_cmap mapm;
 
 
 
-game::game(int a) : buttons(1), screen(1), audio(), hero(1, (100 * 100 * 3 + 1), 100, 100), normal() {
+game::game(int a) : buttons(1), screen(1), audio(), hero(1, (100 * 100 * 3 + 1), 100, 100), laws() {
 
 
 // when game is created these items are also
@@ -128,8 +128,10 @@ void game::game_close() {
 void game::game_setup() {
 setup_sprites(screen);
 room_setup();
-physics normal();
+laws.setState(1);
 all_sprites.at(0).sprite_test();
+
+
 
 //champ en_1(1, (100 * 100 * 3 + 1), 100, 100);
 hero.sprite_nr = hero.Relation_Spritenr_type();
@@ -140,7 +142,7 @@ hero.sprite_nr = hero.Relation_Spritenr_type();
 void game::game_main(){
 
 
-        hero.updatePos( buttons, normal );
+        hero.updatePos( buttons, laws );
 
         room_render_req(room_current);
 

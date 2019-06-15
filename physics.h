@@ -8,15 +8,15 @@
 class physics {
 
 public:
-
+float g[10] = {0.9,0,0,0,0,0,0,0,0,0};
 physics();
 
-int g;
-int friction;
-int air_resistance;
+void setState(int param);
+float getG(int state);
 int state;
 
-
+float air_resistance[10];
+//float g[10];
 
 };
 

@@ -9,12 +9,20 @@
 
 physics::physics() {
 
-int g = 0;
-int friction = 0;
-int air_resistance = 0;
-int state = 0;
+
+state = 1;
+
 
 };
 
 
+void physics::setState(int param) {
+    state = param;
+};
 
+
+float physics::getG(int state) {
+
+return g[state];
+
+};
