@@ -9,6 +9,7 @@
 #include <vector>
 #include "sprite_objects.h"
 #include "physics.h"
+//#include "render.h"
 // This is the content of the .h file, which is where the declarations go
 
 
@@ -32,6 +33,9 @@ int palette_current;
 int sprite_current;
 int sprite_nr;
 
+float x_velocity;
+int y_velocity;
+
 int getHeight();
 int getWidth();
 
@@ -43,12 +47,12 @@ int getSpriteSize();
 void setX(int x);
 void setY(int y);
 
-void updatePos(button_input& parameter);
+void updatePos(button_input& parameter, physics& physics_parameter);
 int getPalette();
 
 unsigned char getChar(int x);
 void setRender();
-
+//vector<render_requests> *internal;
 };
 
 

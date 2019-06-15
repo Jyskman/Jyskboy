@@ -27,6 +27,8 @@ float time_ms;
 chrono::duration<double> elapsed_seconds;
 
 // game variables
+
+
 int room_current;
 int game_state_current;
 long int screensize;
@@ -36,8 +38,8 @@ render screen;
 soundmanager audio;
 champ hero;
 game(int a); // http://www.cplusplus.com/forum/beginner/34589/
-physics normal;
 
+physics normal;
 ~game();
 void game_loop();
 void game_main();

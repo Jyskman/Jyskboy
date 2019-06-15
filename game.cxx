@@ -128,7 +128,7 @@ void game::game_close() {
 void game::game_setup() {
 setup_sprites(screen);
 room_setup();
-
+physics normal();
 all_sprites.at(0).sprite_test();
 
 //champ en_1(1, (100 * 100 * 3 + 1), 100, 100);
@@ -140,7 +140,7 @@ hero.sprite_nr = hero.Relation_Spritenr_type();
 void game::game_main(){
 
 
-        hero.updatePos( buttons );
+        hero.updatePos( buttons, normal );
 
         room_render_req(room_current);
 
