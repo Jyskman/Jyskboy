@@ -31,6 +31,7 @@ chrono::duration<double> elapsed_seconds;
 
 int room_current;
 int game_state_current;
+int physics_current;
 long int screensize;
 int fbfd;
 button_input buttons; // button object now here instead of the main game loop
@@ -39,7 +40,7 @@ soundmanager audio;
 champ hero;
 game(int a); // http://www.cplusplus.com/forum/beginner/34589/
 
-physics laws;
+
 ~game();
 void game_loop();
 void game_main();

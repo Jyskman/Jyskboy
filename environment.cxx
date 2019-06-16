@@ -182,6 +182,21 @@ friction_coeff = setFriction(type);
 
 block::~block(){};
 
+void block::setContactpoints() {
+contact_points[0][0] = 0; // x
+contact_points[1][0] = 0; // y
+
+contact_points[0][1] = all_sprites.at( sprite_nr ).getWidth();
+contact_points[1][1] = 0;
+
+contact_points[0][2] = 0;
+contact_points[1][2] = all_sprites.at(sprite_nr).getHeight();
+
+contact_points[0][3] = all_sprites.at(sprite_nr).getWidth();
+contact_points[1][3] = all_sprites.at(sprite_nr).getHeight();
+
+};
+
 
 float block::setFriction(int type) {
 float return_value = 0;
@@ -258,6 +273,7 @@ void room_object::room_object_setup() {
         for ( int ii = 0; ii < cols; ii++ ) {
             if ( *( (adress + i*cols) +ii ) > 0 ) {
                 block * obj = new block(ii*15, i*15, *( (adress_pal + i*cols) +ii ), *( (adress + i*cols) +ii ));
+                obj->setContactpoints();
                 //cout << *( (adress_pal + i*cols) +ii ) << endl;
                 roomblocks.push_back(*obj);
 

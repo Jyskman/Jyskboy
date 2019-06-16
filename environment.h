@@ -18,6 +18,9 @@ int y_location;
 int current_palette;
 int block_type;
 
+int contact_points[2][4];
+void setContactpoints();
+
 float friction_coeff;
 
 int sprite_nr;

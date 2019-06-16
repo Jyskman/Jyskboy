@@ -5,6 +5,7 @@
 #include "soundmanager.h"
 #include "setup_sprites.h"
 #include "render.h"
+#include "environment.h"
 using namespace std;
 
 //champ::champ(int a, unsigned char sprites[], int size, int Height, int Width, std::vector<sprite_objects>& parameter) {
@@ -17,7 +18,9 @@ sprite_nr = Relation_Spritenr_type(); // translates the index/current/type to ve
 x_velocity = 0;
 y_velocity = 0;
 x_max_speed = 3;
+floor_contact = false;
 //internal = &render_req;
+//setContactPoints();
 };
 
 int champ::Relation_Spritenr_type() {
@@ -95,12 +98,91 @@ void champ::setRender()  {
 
 }
 
+void champ::setContactPoints() {
+
+
+contact_points[0][0] = 0; // x
+contact_points[1][0] = 0; // y
+
+contact_points[0][1] = all_sprites.at( sprite_nr ).getWidth();
+contact_points[1][1] = 0;
+
+contact_points[0][2] = 0;
+contact_points[1][2] = all_sprites.at(sprite_nr).getHeight();
+
+contact_points[0][3] = all_sprites.at(sprite_nr).getWidth();
+contact_points[1][3] = all_sprites.at(sprite_nr).getHeight();
+
+// half points
+contact_points[0][4] = all_sprites.at(sprite_nr).getWidth()/2;
+contact_points[1][4] = 0;
+contact_points[0][5] = all_sprites.at(sprite_nr).getWidth()/2;
+contact_points[1][5] = all_sprites.at(sprite_nr).getHeight();
+
+contact_points[0][6] = 0;
+contact_points[1][6] = all_sprites.at(sprite_nr).getHeight()/2;
+
+contact_points[0][7] = all_sprites.at(sprite_nr).getWidth();
+contact_points[1][7] = all_sprites.at(sprite_nr).getHeight()/2;
+
+//    for (int i = 0; i < 8; i++){
+//
+//    cout << contact_points[0][i];
+//    cout << contact_points[1][i]  << endl;
+//    };
+};
+
+void champ::setFloorcontact(int room) {
+
+
+// is there floor contact
+//contact_points[0][0]
+//contact_points[0][1]
+//
+//contact_points[0][3]
+//contact_points[1][3]
+//
+//room_objects.at(room).roomblocks.at(i).contact_points[0][0]
+//room_objects.at(room).roomblocks.at(i).contact_points[1][0]
+//
+//room_objects.at(room).roomblocks.at(i).contact_points[0][3]
+//room_objects.at(room).roomblocks.at(i).contact_points[1][3]
+floor_contact = false;
+
+int P1_x = contact_points[0][2];
+int P1_y = contact_points[1][2];
+
+int P2_x = contact_points[1][1];
+int P2_y = contact_points[1][1];
+
+
+for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
+
+    int P3_x = room_objects.at(room).roomblocks.at(i).contact_points[0][2];
+    int P3_y = room_objects.at(room).roomblocks.at(i).contact_points[1][2];
+
+    int P4_x = room_objects.at(room).roomblocks.at(i).contact_points[0][1];
+    int P4_y = room_objects.at(room).roomblocks.at(i).contact_points[1][1];
+
+    if ( P2_y <= P3_y && P1_y >= P4_y && P2_x >= P3_x && P1_x <= P4_x ) {
+        floor_contact = true;
+
+    } else {
+    }
+
+}
+
+cout << floor_contact << endl;;
+//( P2.y <= P3.y && P1.y >= P4.y && P2.x >= P3.x && P1.x <= P4.x )
+
+};
+
 void champ::updatePos(button_input& parameter, physics& physics_parameter){
 
 //cout << physics_parameter.state << endl;
 
     switch (physics_parameter.state) {
-        case 1:
+        case 0:
             if ( parameter.getLeftState() == true ) {
                     //setX( getX() - 3 );
                     x_velocity--;
@@ -149,16 +231,17 @@ void champ::updatePos(button_input& parameter, physics& physics_parameter){
     } else {
     }
 
-    if (x_velocity >0) {
-    x_velocity = x_velocity*0.9;
-    } else {
-    }
-    if (x_velocity <0) {
-    x_velocity = x_velocity*0.9;
+    x_velocity = x_velocity * physics_parameter.air;
+
+
+    y_velocity++;
+
+
+    if( y_velocity > physics_parameter.g ) {
+            y_velocity = physics_parameter.g;
     } else {
     }
 
     setX( getX() + (int)x_velocity );
-
-
+    setY( getY() + (int)y_velocity );
 };

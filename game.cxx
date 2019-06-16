@@ -52,12 +52,13 @@ struct fb_cmap mapm;
 
 
 
-game::game(int a) : buttons(1), screen(1), audio(), hero(1, (100 * 100 * 3 + 1), 100, 100), laws() {
+game::game(int a) : buttons(1), screen(1), audio(), hero(1, (100 * 100 * 3 + 1), 100, 100) {
 
 
 // when game is created these items are also
 game_state_current = 0;
 room_current = 2;
+physics_current = 0;
 game_is_running = true;
 
     // Open the file for reading and writing
@@ -128,13 +129,16 @@ void game::game_close() {
 void game::game_setup() {
 setup_sprites(screen);
 room_setup();
-laws.setState(1);
+physics_setup();
+
+
 all_sprites.at(0).sprite_test();
 
 
 
 //champ en_1(1, (100 * 100 * 3 + 1), 100, 100);
 hero.sprite_nr = hero.Relation_Spritenr_type();
+hero.setContactPoints();
 		hero.setX(20);
 		hero.setY(100);
 };
@@ -142,12 +146,12 @@ hero.sprite_nr = hero.Relation_Spritenr_type();
 void game::game_main(){
 
 
-        hero.updatePos( buttons, laws );
+        hero.updatePos( buttons, physics_objects.at( physics_current ) );
 
         room_render_req(room_current);
 
         hero.setRender();
-
+        hero.setFloorcontact(room_current);
 
 
         if ( buttons.getSelectState() == true ) {
@@ -201,7 +205,7 @@ void game::game_loop() {
             auto final_end = std::chrono::high_resolution_clock::now();
             elapsed_seconds = final_end-start;
             time = elapsed_seconds.count();
-            cout << time << ".\n";
+            //cout << time << ".\n";
 
 
 
