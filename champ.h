@@ -54,6 +54,7 @@ void setX(int x);
 void setY(int y);
 
 void updatePos(button_input& parameter, physics& physics_parameter);
+void setPos(button_input& parameter, physics& physics_parameter);
 int getPalette();
 
 unsigned char getChar(int x);

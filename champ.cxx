@@ -149,20 +149,20 @@ void champ::setFloorcontact(int room) {
 //room_objects.at(room).roomblocks.at(i).contact_points[1][3]
 floor_contact = false;
 
-int P1_x = contact_points[0][2];
-int P1_y = contact_points[1][2];
+int P1_x = contact_points[0][2]  + getX(); // x
+int P1_y = contact_points[1][2]  + getY(); // y
 
-int P2_x = contact_points[1][1];
-int P2_y = contact_points[1][1];
+int P2_x = contact_points[0][1]  + getX(); // x
+int P2_y = contact_points[1][1]  + getY(); // y
 
 
 for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
 
-    int P3_x = room_objects.at(room).roomblocks.at(i).contact_points[0][2];
-    int P3_y = room_objects.at(room).roomblocks.at(i).contact_points[1][2];
+    int P3_x = room_objects.at(room).roomblocks.at(i).contact_points[0][2] + room_objects.at(room).roomblocks.at(i).x_location;
+    int P3_y = room_objects.at(room).roomblocks.at(i).contact_points[1][2] + room_objects.at(room).roomblocks.at(i).y_location;
 
-    int P4_x = room_objects.at(room).roomblocks.at(i).contact_points[0][1];
-    int P4_y = room_objects.at(room).roomblocks.at(i).contact_points[1][1];
+    int P4_x = room_objects.at(room).roomblocks.at(i).contact_points[0][1] + room_objects.at(room).roomblocks.at(i).x_location;
+    int P4_y = room_objects.at(room).roomblocks.at(i).contact_points[1][1] + room_objects.at(room).roomblocks.at(i).y_location;
 
     if ( P2_y <= P3_y && P1_y >= P4_y && P2_x >= P3_x && P1_x <= P4_x ) {
         floor_contact = true;
@@ -170,12 +170,27 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
     } else {
     }
 
+
+
 }
 
 cout << floor_contact << endl;;
 //( P2.y <= P3.y && P1.y >= P4.y && P2.x >= P3.x && P1.x <= P4.x )
 
 };
+
+void champ::setPos(button_input& parameter, physics& physics_parameter){
+
+    if (floor_contact == true) {
+        y_velocity = 0;
+
+
+    };
+    setX( getX() + (int)x_velocity );
+    setY( getY() + (int)y_velocity );
+
+};
+
 
 void champ::updatePos(button_input& parameter, physics& physics_parameter){
 
@@ -234,6 +249,8 @@ void champ::updatePos(button_input& parameter, physics& physics_parameter){
     x_velocity = x_velocity * physics_parameter.air;
 
 
+
+    // y axis
     y_velocity++;
 
 
@@ -242,6 +259,5 @@ void champ::updatePos(button_input& parameter, physics& physics_parameter){
     } else {
     }
 
-    setX( getX() + (int)x_velocity );
-    setY( getY() + (int)y_velocity );
+
 };
