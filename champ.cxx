@@ -19,6 +19,7 @@ x_velocity = 0;
 y_velocity = 0;
 x_max_speed = 3;
 floor_contact = false;
+
 //internal = &render_req;
 //setContactPoints();
 };
@@ -30,6 +31,8 @@ int champ::Relation_Spritenr_type() {
             if ( all_sprites.at(i).sprite_index == sprite_current ) {
                 return_value = i;
                 sprite_error = false;
+                width = all_sprites.at(i).getWidth();
+                height = all_sprites.at(i).getHeight();
 
             } else {
 
@@ -132,7 +135,7 @@ contact_points[1][7] = all_sprites.at(sprite_nr).getHeight()/2;
 //    };
 };
 
-void champ::setFloorcontact(int room) {
+void champ::setContact(int room) {
 
 
 // is there floor contact
@@ -147,7 +150,12 @@ void champ::setFloorcontact(int room) {
 //
 //room_objects.at(room).roomblocks.at(i).contact_points[0][3]
 //room_objects.at(room).roomblocks.at(i).contact_points[1][3]
+general_contact = false;
 floor_contact = false;
+contact_left = false;
+contact_right = false;
+contact_roof = false;
+
 
 int P1_x = contact_points[0][2]  + getX(); // x
 int P1_y = contact_points[1][2]  + getY(); // y
@@ -158,23 +166,53 @@ int P2_y = contact_points[1][1]  + getY(); // y
 
 for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
 
-    int P3_x = room_objects.at(room).roomblocks.at(i).contact_points[0][2] + room_objects.at(room).roomblocks.at(i).x_location;
-    int P3_y = room_objects.at(room).roomblocks.at(i).contact_points[1][2] + room_objects.at(room).roomblocks.at(i).y_location;
+        int P3_x = room_objects.at(room).roomblocks.at(i).contact_points[0][2] + room_objects.at(room).roomblocks.at(i).x_location;
+        int P3_y = room_objects.at(room).roomblocks.at(i).contact_points[1][2] + room_objects.at(room).roomblocks.at(i).y_location;
 
-    int P4_x = room_objects.at(room).roomblocks.at(i).contact_points[0][1] + room_objects.at(room).roomblocks.at(i).x_location;
-    int P4_y = room_objects.at(room).roomblocks.at(i).contact_points[1][1] + room_objects.at(room).roomblocks.at(i).y_location;
+        int P4_x = room_objects.at(room).roomblocks.at(i).contact_points[0][1] + room_objects.at(room).roomblocks.at(i).x_location;
+        int P4_y = room_objects.at(room).roomblocks.at(i).contact_points[1][1] + room_objects.at(room).roomblocks.at(i).y_location;
 
-    if ( P2_y <= P3_y && P1_y >= P4_y && P2_x >= P3_x && P1_x <= P4_x ) {
-        floor_contact = true;
+        if ( P2_y <= P3_y && P1_y >= P4_y && P2_x >= P3_x && P1_x <= P4_x ) {
+            general_contact = true;
 
-    } else {
-    }
+
+            if ( general_contact == true ) {
+                if ( contact_points[1][2]  + getY() > room_objects.at(room).roomblocks.at(i).contact_points[1][1] || contact_points[1][2]  + getY() > room_objects.at(room).roomblocks.at(i).contact_points[1][0] ) {
+                    floor_contact = true;
+
+                        while ( getY()+30  > P4_y){
+                        setY( getY() -1 );
+
+                        }
+
+                    //cout << P1_y << endl;
+                    //cout << P4_y << endl;
+                    cout << height << endl;
+                }else {
+                }
+
+
+            } else {
+            }
+
+
+
+        } else {
+        }
 
 
 
 }
+//
 
-cout << floor_contact << endl;;
+
+
+
+
+
+
+
+//cout << getY() << endl;
 //( P2.y <= P3.y && P1.y >= P4.y && P2.x >= P3.x && P1.x <= P4.x )
 
 };
@@ -211,6 +249,10 @@ void champ::updatePos(button_input& parameter, physics& physics_parameter){
                     x_velocity++;
             } else {
             }
+                // y axis
+            y_velocity++;
+
+
         break;
 
         default:
@@ -248,10 +290,6 @@ void champ::updatePos(button_input& parameter, physics& physics_parameter){
 
     x_velocity = x_velocity * physics_parameter.air;
 
-
-
-    // y axis
-    y_velocity++;
 
 
     if( y_velocity > physics_parameter.g ) {

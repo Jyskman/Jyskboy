@@ -26,6 +26,11 @@ bool sprite_error;
 
 // hitbox contactpoints
 int contact_points[2][8];
+bool contact_left;
+bool contact_right;
+bool contact_roof;
+bool floor_contact;
+bool general_contact;
 
 int x_location, y_location;
 int height;
@@ -38,7 +43,7 @@ int sprite_nr;
 
 float x_velocity;
 int y_velocity;
-bool floor_contact;
+
 
 int x_max_speed;
 
@@ -60,7 +65,7 @@ int getPalette();
 unsigned char getChar(int x);
 void setRender();
 void setContactPoints();
-void setFloorcontact(int room);
+void setContact(int room);
 //vector<render_requests> *internal;
 };
 

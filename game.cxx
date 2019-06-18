@@ -147,7 +147,7 @@ void game::game_main(){
 
 
         hero.updatePos( buttons, physics_objects.at( physics_current ) );
-        hero.setFloorcontact(room_current);
+        hero.setContact(room_current);
         hero.setPos(buttons, physics_objects.at( physics_current ));
         room_render_req(room_current);
 

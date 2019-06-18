@@ -65,7 +65,7 @@ float physics::getG(int state) {
 void physics_setup() {
 
 
-physics * new_p = new physics(2, 0.90, 0);
+physics * new_p = new physics(4, 0.90, 0);
 physics_objects.push_back(*new_p);
 delete new_p;
 
