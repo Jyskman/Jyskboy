@@ -6,6 +6,8 @@
 #include "setup_sprites.h"
 #include "render.h"
 #include "environment.h"
+#include <cmath>
+
 using namespace std;
 
 //champ::champ(int a, unsigned char sprites[], int size, int Height, int Width, std::vector<sprite_objects>& parameter) {
@@ -172,28 +174,61 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
         int P4_x = room_objects.at(room).roomblocks.at(i).contact_points[0][1] + room_objects.at(room).roomblocks.at(i).x_location;
         int P4_y = room_objects.at(room).roomblocks.at(i).contact_points[1][1] + room_objects.at(room).roomblocks.at(i).y_location;
 
-        if ( P2_y <= P3_y && P1_y >= P4_y && P2_x >= P3_x && P1_x <= P4_x ) {
-            general_contact = true;
+        if ( abs(P1_x) - abs(P1_x) < 200 && abs(P1_x) - abs(P1_x) < 200  ) {
 
-
-            if ( general_contact == true ) {
-                if ( contact_points[1][2]  + getY() > room_objects.at(room).roomblocks.at(i).contact_points[1][1] || contact_points[1][2]  + getY() > room_objects.at(room).roomblocks.at(i).contact_points[1][0] ) {
+            // point , primary floor
+            if ( contact_points[1][5]  + getY() > P4_y && contact_points[1][5]  + getY() < P3_y && contact_points[0][5] + getX() > P3_x && contact_points[0][5] + getX() <= P4_x ) {
                     floor_contact = true;
-
-                        while ( getY()+30  > P4_y){
-                        setY( getY() -1 );
-
+                    y_velocity = 0;
+                    while ( contact_points[1][5]  + getY() > P4_y ){
+                    setY( getY() -1 );
+                    }
+                    //setY( getY() -1 );
+            } else {
+            }
+            // Lower right corner contact 2 types
+            if ( contact_points[1][3]  + getY() > P4_y && contact_points[1][3]  + getY() <= P3_y && contact_points[0][3] + getX() > P3_x && contact_points[0][3] + getX() <= P4_x ) {
+                    //floor_contact = true;
+                    // Type 1
+                    cout << 1 << endl;
+                        while ( contact_points[0][3]  + getX() > P3_x ){
+                        setX( getX() -1 );
                         }
-
-                    //cout << P1_y << endl;
-                    //cout << P4_y << endl;
-                    cout << height << endl;
-                }else {
-                }
-
+//                    if ( y_velocity <= 0 || y_velocity >0) {
+//
+//                    } else {
+//                    }
 
             } else {
             }
+//                if ( P2_y <= P3_y && P1_y >= P4_y && P2_x >= P3_x && P1_x <= P4_x ) {
+//                general_contact = true;
+//
+//
+//                if ( general_contact == true ) {
+//
+//                    if ( contact_points[1][5]  + getY() >= P4_y && contact_points[0][5] + getX() >= P3_x && contact_points[0][5] + getX() <= P4_x  ) {
+//                        floor_contact = true;
+//                        while ( contact_points[1][5]  + getY() > P4_y ){
+//                        setY( getY() -1 );
+//                        }
+//                    } else {
+//                    }
+//
+//
+//
+//
+//                } else {
+//                }
+//
+//
+//
+//                } else {
+//                }
+///////////////////////////////////////////////////////////////
+            // perform a check for each point in contact list
+
+         //   if ( contact_points[1][5] + getY() >  )
 
 
 
@@ -202,12 +237,10 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
 
 
 
+
+
 }
 //
-
-
-
-
 
 
 
@@ -250,7 +283,7 @@ void champ::updatePos(button_input& parameter, physics& physics_parameter){
             } else {
             }
                 // y axis
-            y_velocity++;
+            y_velocity = y_velocity +1 ;
 
 
         break;

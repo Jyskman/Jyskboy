@@ -148,7 +148,7 @@ void setup_sprites(render& parameter) {
 
 
 
-    sprite_objects block4(1, (unsigned char*)block_4 ,block_4, block_4_size, block_4_width, block_4_height,1);
+    sprite_objects block4(1, (unsigned char*)block_4 ,block_4, block_4_size, block_4_width, block_4_height,3);
     all_sprites.push_back(block4);
     sprite_pointers.push_back(&block4);
 
@@ -156,7 +156,7 @@ void setup_sprites(render& parameter) {
     all_sprites.push_back(champ_body_still_v4);
     sprite_pointers.push_back(&champ_body_still_v4);
 
-    sprite_objects block5(1, (unsigned char*)block_5 ,block_5, block_5_size, block_5_width, block_5_height,3);
+    sprite_objects block5(1, (unsigned char*)block_5 ,block_5, block_5_size, block_5_width, block_5_height,1);
     all_sprites.push_back(block5);
     sprite_pointers.push_back(&block5);
 
