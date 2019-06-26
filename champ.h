@@ -31,6 +31,7 @@ bool contact_right;
 bool contact_roof;
 bool floor_contact;
 bool general_contact;
+vector<int> contact_position;
 
 int x_location, y_location;
 int height;

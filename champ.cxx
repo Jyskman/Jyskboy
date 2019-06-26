@@ -159,12 +159,6 @@ contact_right = false;
 contact_roof = false;
 
 
-int P1_x = contact_points[0][2]  + getX(); // x
-int P1_y = contact_points[1][2]  + getY(); // y
-
-int P2_x = contact_points[0][1]  + getX(); // x
-int P2_y = contact_points[1][1]  + getY(); // y
-
 
 for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
 
@@ -174,33 +168,83 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
         int P4_x = room_objects.at(room).roomblocks.at(i).contact_points[0][1] + room_objects.at(room).roomblocks.at(i).x_location;
         int P4_y = room_objects.at(room).roomblocks.at(i).contact_points[1][1] + room_objects.at(room).roomblocks.at(i).y_location;
 
+        int P1_x = contact_points[0][2]  + getX(); // x
+        int P1_y = contact_points[1][2]  + getY(); // y
+
+        int P2_x = contact_points[0][1]  + getX(); // x
+        int P2_y = contact_points[1][1]  + getY(); // y
+
+// Below is first hitbox check within larger condition check
+
+
         if ( abs(P1_x) - abs(P1_x) < 200 && abs(P1_x) - abs(P1_x) < 200  ) {
 
-            // point , primary floor
-            if ( contact_points[1][5]  + getY() > P4_y && contact_points[1][5]  + getY() < P3_y && contact_points[0][5] + getX() > P3_x && contact_points[0][5] + getX() <= P4_x ) {
-                    floor_contact = true;
-                    y_velocity = 0;
-                    while ( contact_points[1][5]  + getY() > P4_y ){
-                    setY( getY() -1 );
-                    }
-                    //setY( getY() -1 );
-            } else {
-            }
-            // Lower right corner contact 2 types
-            if ( contact_points[1][3]  + getY() > P4_y && contact_points[1][3]  + getY() <= P3_y && contact_points[0][3] + getX() > P3_x && contact_points[0][3] + getX() <= P4_x ) {
-                    //floor_contact = true;
-                    // Type 1
-                    cout << 1 << endl;
-                        while ( contact_points[0][3]  + getX() > P3_x ){
-                        setX( getX() -1 );
-                        }
-//                    if ( y_velocity <= 0 || y_velocity >0) {
-//
-//                    } else {
-//                    }
+            if ( P2_y <= P3_y && P1_y >= P4_y && P2_x >= P3_x && P1_x <= P4_x ) {
 
-            } else {
+                contact_position.push_back(i);
             }
+
+
+        } else {
+        }
+
+
+
+
+        }
+
+//            // point , primary floor
+//            cout << contact_points[1][5]  + getY() << "X" << endl;
+//            if ( contact_points[1][5]  + getY() >= P4_y && contact_points[1][5]  + getY() < P3_y && contact_points[0][5] + getX() > P3_x && contact_points[0][5] + getX() <= P4_x ) {
+//                    floor_contact = true;
+//                    y_velocity = 0;
+//                    while ( contact_points[1][5]  + getY() > P4_y ){
+//                    setY( getY() -1 );
+//                    }
+//                    //setY( getY() -1 );
+//            } else {
+//            }
+//            // Lower right corner contact 2 types
+//            cout << contact_points[1][3]  << getY() << P4_y << contact_points[1][3]  << getY() << P3_y << contact_points[0][3] << getX() << P3_x << contact_points[0][3] << getX() << P4_x << endl;
+//            if ( contact_points[1][3]  + getY() > P4_y && contact_points[1][3]  + getY() <= P3_y && contact_points[0][3] + getX() >= P3_x && contact_points[0][3] + getX() <= P4_x ) {
+//                    //floor_contact = true;
+//                    // Type 1
+//                    cout << 1 << endl;
+//                        x_velocity = 0;
+//                        contact_right = true;
+//                        while ( contact_points[0][3]  + getX() > P3_x ){
+//
+//                        setX( getX() -1 );
+//                        }
+////                    if ( y_velocity <= 0 || y_velocity >0) {
+////
+////                    } else {
+////                    }
+//
+//            } else {
+//            }
+//            // Lower left contact point now
+//            cout << contact_points[1][3]  << getY() << P4_y << contact_points[1][3] << getY() << P3_y << 1 + getX() << P3_x << 1 + getX() << P4_x << endl;
+//            if ( contact_points[1][3]  + getY() > P4_y && contact_points[1][3]  + getY() <= P3_y && 1 + getX() >= P3_x && 1 + getX() <= P4_x ) {
+//                    //floor_contact = true;
+//                    // Type 1
+//                    cout << 2 << endl;
+//                        x_velocity = 0;
+//                        contact_left = true;
+//                        while ( 0  + getX() < P4_x ){
+//                        setX( getX() +1 );
+//                        }
+////                    if ( y_velocity <= 0 || y_velocity >0) {
+////
+////                    } else {
+////                    }
+//
+//            } else {
+//            }
+
+
+
+
 //                if ( P2_y <= P3_y && P1_y >= P4_y && P2_x >= P3_x && P1_x <= P4_x ) {
 //                general_contact = true;
 //
@@ -231,21 +275,66 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
          //   if ( contact_points[1][5] + getY() >  )
 
 
+// resolve floor contact below
+for ( int i = 0; i < contact_position.size();i++ ){
 
-        } else {
-        }
+        int j = contact_position.at(i);
+        int P3_x = room_objects.at(room).roomblocks.at(i).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+        int P3_y = room_objects.at(room).roomblocks.at(i).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
 
+        int P4_x = room_objects.at(room).roomblocks.at(i).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+        int P4_y = room_objects.at(room).roomblocks.at(i).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
 
+        int P1_x = contact_points[0][2]  + getX(); // x
+        int P1_y = contact_points[1][2]  + getY(); // y
 
+        int P2_x = contact_points[0][1]  + getX(); // x
+        int P2_y = contact_points[1][1]  + getY(); // y
 
+            if ( contact_points[1][5]  + getY() >= P4_y && contact_points[1][5]  + getY() < P3_y && contact_points[0][5] + getX() >= P3_x && contact_points[0][5] + getX() <= P4_x ) {
+                    floor_contact = true;
+                    y_velocity = 0;
+                    while ( contact_points[1][5]  + getY() > P4_y ){
+                    setY( getY() -1 );
+                    }
+                    //setY( getY() -1 );
+            } else {
+            }
 
+    //cout << contact_position.at(i) << endl;
 }
+
+ //Resolve lower right
+ for ( int i = 0; i < contact_position.size();i++ ){
+        int P3_x = room_objects.at(room).roomblocks.at(i).contact_points[0][2] + room_objects.at(room).roomblocks.at(i).x_location;
+        int P3_y = room_objects.at(room).roomblocks.at(i).contact_points[1][2] + room_objects.at(room).roomblocks.at(i).y_location;
+
+        int P4_x = room_objects.at(room).roomblocks.at(i).contact_points[0][1] + room_objects.at(room).roomblocks.at(i).x_location;
+        int P4_y = room_objects.at(room).roomblocks.at(i).contact_points[1][1] + room_objects.at(room).roomblocks.at(i).y_location;
+
+            if ( contact_points[1][3]  + getY() > P4_y && contact_points[1][3]  + getY() <= P3_y && contact_points[0][3] + getX() >= P3_x && contact_points[0][3] + getX() <= P4_x ) {
+                    //floor_contact = true;
+                    // Type 1
+                    //cout << 1 << endl;
+                        x_velocity = 0;
+                        contact_right = true;
+                        while ( contact_points[0][3]  + getX() > P3_x ){
+
+                        setX( getX() -1 );
+                        }
+//                    if ( y_velocity <= 0 || y_velocity >0) {
 //
+//                    } else {
+//                    }
+
+            } else {
+            }
+}
 
 
 
-
-//cout << getY() << endl;
+contact_position.clear();
+//cout << 0 << endl;
 //( P2.y <= P3.y && P1.y >= P4.y && P2.x >= P3.x && P1.x <= P4.x )
 
 };
@@ -254,9 +343,15 @@ void champ::setPos(button_input& parameter, physics& physics_parameter){
 
     if (floor_contact == true) {
         y_velocity = 0;
-
-
     };
+    if (contact_right == true) {
+        //x_velocity = 0;
+    };
+        if (contact_left == true) {
+        //x_velocity = 0;
+    };
+
+    //cout << x_velocity << endl;
     setX( getX() + (int)x_velocity );
     setY( getY() + (int)y_velocity );
 
@@ -269,21 +364,24 @@ void champ::updatePos(button_input& parameter, physics& physics_parameter){
 
     switch (physics_parameter.state) {
         case 0:
-            if ( parameter.getLeftState() == true ) {
+            if ( parameter.getLeftState() == true && contact_left == false) {
                     //setX( getX() - 3 );
                     x_velocity--;
                     x_velocity--;
             } else {
             }
 
-            if ( parameter.getRightState() == true ) {
+            if ( parameter.getRightState() == true && contact_right == false ) {
                     //setX( getX() + 3 );
                     x_velocity++;
                     x_velocity++;
             } else {
             }
                 // y axis
-            y_velocity = y_velocity +1 ;
+            if (floor_contact == false) {
+                    y_velocity = y_velocity +1 ;
+            }
+
 
 
         break;
