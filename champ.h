@@ -26,6 +26,7 @@ bool sprite_error;
 
 // hitbox contactpoints
 int contact_points[2][8];
+int contact_points_plus[2][4];
 bool contact_left;
 bool contact_right;
 bool contact_roof;
