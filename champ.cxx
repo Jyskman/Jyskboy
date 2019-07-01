@@ -140,25 +140,43 @@ contact_points_plus[0][2] = all_sprites.at(sprite_nr).getWidth();
 contact_points_plus[1][2] = all_sprites.at(sprite_nr).getHeight() * (1/4);
 contact_points_plus[0][3] = all_sprites.at(sprite_nr).getWidth();
 contact_points_plus[1][3] = all_sprites.at(sprite_nr).getHeight() * (3/4);
+
+// Setup of new contact points array
+contact_points_all[0][0] = all_sprites.at(sprite_nr).getWidth()/2;
+contact_points_all[1][0] = all_sprites.at(sprite_nr).getHeight();
+contact_points_all[0][1] = all_sprites.at(sprite_nr).getWidth()/2;
+contact_points_all[1][1] = 0;
+
+contact_points_all[0][2] = all_sprites.at(sprite_nr).getWidth();
+contact_points_all[1][2] = 0;
+contact_points_all[0][3] = all_sprites.at(sprite_nr).getWidth();
+contact_points_all[1][3] = all_sprites.at(sprite_nr).getHeight()*(1/4);
+contact_points_all[0][4] = all_sprites.at(sprite_nr).getWidth();
+contact_points_all[1][4] = all_sprites.at(sprite_nr).getHeight()*(2/4);
+contact_points_all[0][5] = all_sprites.at(sprite_nr).getWidth();
+contact_points_all[1][5] = all_sprites.at(sprite_nr).getHeight()*(3/4);
+contact_points_all[0][6] = all_sprites.at(sprite_nr).getWidth();
+contact_points_all[1][6] = all_sprites.at(sprite_nr).getHeight()*(4/4);
+
+contact_points_all[0][7] = 0;
+contact_points_all[1][7] = 0;
+contact_points_all[0][8] = 0;
+contact_points_all[1][8] = all_sprites.at(sprite_nr).getHeight()*(1/4);
+contact_points_all[0][9] = 0;
+contact_points_all[1][9] = all_sprites.at(sprite_nr).getHeight()*(2/4);
+contact_points_all[0][10] = 0;
+contact_points_all[1][10] = all_sprites.at(sprite_nr).getHeight()*(3/4);
+contact_points_all[0][11] = 0;
+contact_points_all[1][11] = all_sprites.at(sprite_nr).getHeight();
+
+
 };
 
 void champ::setContact(int room) {
 
-
-// is there floor contact
-//contact_points[0][0]
-//contact_points[0][1]
-//
-//contact_points[0][3]
-//contact_points[1][3]
-//
-//room_objects.at(room).roomblocks.at(i).contact_points[0][0]
-//room_objects.at(room).roomblocks.at(i).contact_points[1][0]
-//
-//room_objects.at(room).roomblocks.at(i).contact_points[0][3]
-//room_objects.at(room).roomblocks.at(i).contact_points[1][3]
 general_contact = false;
 floor_contact = false;
+roof_contact = false;
 contact_left = false;
 contact_right = false;
 contact_roof = false;
@@ -193,14 +211,31 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
         } else {
         }
 
+}
+
+///////////////////////////////////////////////////////////////
+            // perform a check for each point in contact list
+
+         //   if ( contact_points[1][5] + getY() >  )
 
 
-
-        }
-
-//            // point , primary floor
-//            cout << contact_points[1][5]  + getY() << "X" << endl;
-//            if ( contact_points[1][5]  + getY() >= P4_y && contact_points[1][5]  + getY() < P3_y && contact_points[0][5] + getX() > P3_x && contact_points[0][5] + getX() <= P4_x ) {
+//// resolve floor contact below
+//for ( int i = 0; i < contact_position.size();i++ ){
+//
+//        int j = contact_position.at(i);
+//        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//        int P1_x = contact_points[0][2]  + getX(); // x
+//        int P1_y = contact_points[1][2]  + getY(); // y
+//
+//        int P2_x = contact_points[0][1]  + getX(); // x
+//        int P2_y = contact_points[1][1]  + getY(); // y
+//
+//            if ( contact_points[1][5]  + getY() >= P4_y && contact_points[1][5]  + getY() < P3_y && contact_points[0][5] + getX() >= P3_x && contact_points[0][5] + getX() <= P4_x ) {
 //                    floor_contact = true;
 //                    y_velocity = 0;
 //                    while ( contact_points[1][5]  + getY() > P4_y ){
@@ -209,12 +244,218 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
 //                    //setY( getY() -1 );
 //            } else {
 //            }
-//            // Lower right corner contact 2 types
-//            cout << contact_points[1][3]  << getY() << P4_y << contact_points[1][3]  << getY() << P3_y << contact_points[0][3] << getX() << P3_x << contact_points[0][3] << getX() << P4_x << endl;
+//
+//    //cout << contact_position.at(i) << endl;
+//}
+//
+//// resolve roof contact
+//for ( int i = 0; i < contact_position.size();i++ ){
+//
+//        int j = contact_position.at(i);
+//        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//
+//            if ( contact_points[1][4]  + getY() >= P4_y && contact_points[1][4]  + getY() < P3_y && contact_points[0][4] + getX() >= P3_x && contact_points[0][4] + getX() <= P4_x ) {
+//                    roof_contact = true;
+//                    y_velocity = 0;
+//                    while ( contact_points[1][4]  + getY() < P4_y ){
+//                    setY( getY() +1 );
+//                    }
+//                    //setY( getY() -1 );
+//            } else {
+//            }
+//
+//    //cout << contact_position.at(i) << endl;
+//}
+//
+//
+//// check contact middle right
+// for ( int i = 0; i < contact_position.size();i++ ){
+//        int j = contact_position.at(i);
+//
+//        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//            if ( contact_points[1][7]  + getY() > P4_y && contact_points[1][7]  + getY() <= P3_y && contact_points[0][7] + getX() >= P3_x && contact_points[0][7] + getX() <= P4_x ) {
+//                    //floor_contact = true;
+//                    // Type 1
+//                    //cout << 1 << endl;
+//                        x_velocity = 0;
+//                        contact_right = true;
+//                        while ( contact_points[0][7]  + getX() > P3_x ){
+//
+//                        setX( getX() -1 );
+//                        }
+////                    if ( y_velocity <= 0 || y_velocity >0) {
+////
+////                    } else {
+////                    }
+//
+//            } else {
+//            }
+//}
+//// check contact middle left
+// for ( int i = 0; i < contact_position.size();i++ ){
+//        int j = contact_position.at(i);
+//
+//        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//            if ( contact_points[1][6]  + getY() > P4_y && contact_points[1][6]  + getY() <= P3_y && contact_points[0][6] + getX() >= P3_x && contact_points[0][6] + getX() <= P4_x ) {
+//                    //floor_contact = true;
+//                    // Type 1
+//                    //cout << 1 << endl;
+//                        x_velocity = 0;
+//                        contact_left = true;
+//                        while ( contact_points[0][6]  + getX() < P3_x ){
+//
+//                        setX( getX() +1 );
+//                        }
+////                    if ( y_velocity <= 0 || y_velocity >0) {
+////
+////                    } else {
+////                    }
+//
+//            } else {
+//            }
+//}
+//
+//// check contact additional point on the right lower 3/4
+// for ( int i = 0; i < contact_position.size();i++ ){
+//        int j = contact_position.at(i);
+//
+//        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//            if ( contact_points_plus[1][3]  + getY() > P4_y && contact_points_plus[1][3]  + getY() <= P3_y && contact_points_plus[0][3] + getX() >= P3_x && contact_points_plus[0][3] + getX() <= P4_x ) {
+//                    //floor_contact = true;
+//                    // Type 1
+//                    //cout << 1 << endl;
+//                        x_velocity = 0;
+//                        contact_right = true;
+//                        while ( contact_points_plus[0][3]  + getX() > P3_x ){
+//
+//                        setX( getX() -1 );
+//                        }
+////                    if ( y_velocity <= 0 || y_velocity >0) {
+////
+////                    } else {
+////                    }
+//
+//            } else {
+//            }
+//}
+//// check contact additional point on the right upper 1/4
+// for ( int i = 0; i < contact_position.size();i++ ){
+//        int j = contact_position.at(i);
+//
+//        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//            if ( contact_points_plus[1][2]  + getY() > P4_y && contact_points_plus[1][2]  + getY() <= P3_y && contact_points_plus[0][2] + getX() >= P3_x && contact_points_plus[0][2] + getX() <= P4_x ) {
+//                    //floor_contact = true;
+//                    // Type 1
+//                    //cout << 1 << endl;
+//                        x_velocity = 0;
+//                        contact_right = true;
+//                        while ( contact_points_plus[0][2]  + getX() > P3_x ){
+//
+//                        setX( getX() -1 );
+//                        }
+////                    if ( y_velocity <= 0 || y_velocity >0) {
+////
+////                    } else {
+////                    }
+//
+//            } else {
+//            }
+//}
+//// check contact additional point on the left lower 3/4
+// for ( int i = 0; i < contact_position.size();i++ ){
+//        int j = contact_position.at(i);
+//
+//        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//            if ( contact_points_plus[1][1]  + getY() > P4_y && contact_points_plus[1][1]  + getY() <= P3_y && contact_points_plus[0][1] + getX() >= P3_x && contact_points_plus[0][1] + getX() <= P4_x ) {
+//                    //floor_contact = true;
+//                    // Type 1
+//                    //cout << 1 << endl;
+//                        x_velocity = 0;
+//                        contact_left = true;
+//                        while ( contact_points_plus[0][1]  + getX() < P3_x ){
+//
+//                        setX( getX() +1 );
+//                        }
+////                    if ( y_velocity <= 0 || y_velocity >0) {
+////
+////                    } else {
+////                    }
+//
+//            } else {
+//            }
+//}
+//// check contact additional point on the left lower 3/4
+// for ( int i = 0; i < contact_position.size();i++ ){
+//        int j = contact_position.at(i);
+//
+//        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//            if ( contact_points_plus[1][0]  + getY() > P4_y && contact_points_plus[1][0]  + getY() <= P3_y && contact_points_plus[0][0] + getX() >= P3_x && contact_points_plus[0][0] + getX() <= P4_x ) {
+//                    //floor_contact = true;
+//                    // Type 1
+//                    //cout << 1 << endl;
+//                        x_velocity = 0;
+//                        contact_left = true;
+//                        while ( contact_points_plus[0][0]  + getX() < P3_x ){
+//
+//                        setX( getX() +1 );
+//                        }
+////                    if ( y_velocity <= 0 || y_velocity >0) {
+////
+////                    } else {
+////                    }
+//
+//            } else {
+//            }
+//}
+//
+// //Resolve lower right
+// for ( int i = 0; i < contact_position.size();i++ ){
+//        int j = contact_position.at(i);
+//        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+//
 //            if ( contact_points[1][3]  + getY() > P4_y && contact_points[1][3]  + getY() <= P3_y && contact_points[0][3] + getX() >= P3_x && contact_points[0][3] + getX() <= P4_x ) {
 //                    //floor_contact = true;
 //                    // Type 1
-//                    cout << 1 << endl;
+//                    //cout << 1 << endl;
 //                        x_velocity = 0;
 //                        contact_right = true;
 //                        while ( contact_points[0][3]  + getX() > P3_x ){
@@ -228,15 +469,53 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
 //
 //            } else {
 //            }
-//            // Lower left contact point now
-//            cout << contact_points[1][3]  << getY() << P4_y << contact_points[1][3] << getY() << P3_y << 1 + getX() << P3_x << 1 + getX() << P4_x << endl;
-//            if ( contact_points[1][3]  + getY() > P4_y && contact_points[1][3]  + getY() <= P3_y && 1 + getX() >= P3_x && 1 + getX() <= P4_x ) {
+//}
+//
+// //Resolve upper right
+// for ( int i = 0; i < contact_position.size();i++ ){
+//        int j = contact_position.at(i);
+//        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//            if ( contact_points[1][1]  + getY() > P4_y && contact_points[1][1]  + getY() <= P3_y && contact_points[0][1] + getX() >= P3_x && contact_points[0][1] + getX() <= P4_x ) {
 //                    //floor_contact = true;
 //                    // Type 1
-//                    cout << 2 << endl;
+//                    //cout << 1 << endl;
+//                        x_velocity = 0;
+//                        contact_right = true;
+//                        while ( contact_points[0][1]  + getX() > P3_x ){
+//
+//                        setX( getX() -1 );
+//                        }
+////                    if ( y_velocity <= 0 || y_velocity >0) {
+////
+////                    } else {
+////                    }
+//
+//            } else {
+//            }
+//}
+//// L Left corner
+// for ( int i = 0; i < contact_position.size();i++ ){
+//        int j = contact_position.at(i);
+//
+//        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+//
+//            if ( contact_points[1][2]  + getY() > P4_y && contact_points[1][2]  + getY() <= P3_y && contact_points[0][2] + getX() >= P3_x && contact_points[0][2] + getX() <= P4_x ) {
+//                    //floor_contact = true;
+//                    // Type 1
+//                    //cout << 1 << endl;
 //                        x_velocity = 0;
 //                        contact_left = true;
-//                        while ( 0  + getX() < P4_x ){
+//                        while ( contact_points[0][2]  + getX() < P4_x ){
+//
 //                        setX( getX() +1 );
 //                        }
 ////                    if ( y_velocity <= 0 || y_velocity >0) {
@@ -246,294 +525,388 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
 //
 //            } else {
 //            }
-
-
-
-
-//                if ( P2_y <= P3_y && P1_y >= P4_y && P2_x >= P3_x && P1_x <= P4_x ) {
-//                general_contact = true;
+//}
+//// Upper Left corner
+// for ( int i = 0; i < contact_position.size();i++ ){
+//        int j = contact_position.at(i);
 //
+//        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
 //
-//                if ( general_contact == true ) {
+//        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+//        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
 //
-//                    if ( contact_points[1][5]  + getY() >= P4_y && contact_points[0][5] + getX() >= P3_x && contact_points[0][5] + getX() <= P4_x  ) {
-//                        floor_contact = true;
-//                        while ( contact_points[1][5]  + getY() > P4_y ){
-//                        setY( getY() -1 );
+//            if ( contact_points[1][0]  + getY() > P4_y && contact_points[1][0]  + getY() <= P3_y && contact_points[0][0] + getX() >= P3_x && contact_points[0][0] + getX() <= P4_x ) {
+//                    //floor_contact = true;
+//                    // Type 1
+//                    //cout << 1 << endl;
+//                        x_velocity = 0;
+//                        contact_left = true;
+//                        while ( contact_points[0][0]  + getX() < P3_x ){
+//
+//                        setX( getX() +1 );
 //                        }
-//                    } else {
-//                    }
+////                    if ( y_velocity <= 0 || y_velocity >0) {
+////
+////                    } else {
+////                    }
 //
-//
-//
-//
-//                } else {
-//                }
-//
-//
-//
-//                } else {
-//                }
-///////////////////////////////////////////////////////////////
-            // perform a check for each point in contact list
-
-         //   if ( contact_points[1][5] + getY() >  )
-
-
-// resolve floor contact below
-for ( int i = 0; i < contact_position.size();i++ ){
-
+//            } else {
+//            }
+//}
+// prototype replacement below
+ for ( int i = 0; i < contact_position.size();i++ ){
         int j = contact_position.at(i);
+
         int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
         int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
 
         int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
         int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
 
-        int P1_x = contact_points[0][2]  + getX(); // x
-        int P1_y = contact_points[1][2]  + getY(); // y
+}
 
-        int P2_x = contact_points[0][1]  + getX(); // x
-        int P2_y = contact_points[1][1]  + getY(); // y
 
-            if ( contact_points[1][5]  + getY() >= P4_y && contact_points[1][5]  + getY() < P3_y && contact_points[0][5] + getX() >= P3_x && contact_points[0][5] + getX() <= P4_x ) {
-                    floor_contact = true;
-                    y_velocity = 0;
-                    while ( contact_points[1][5]  + getY() > P4_y ){
-                    setY( getY() -1 );
+            for (int k = 0; k < 13; k++){
+                switch (k) {
+                    case 0:
+                    // Floor
+                    for ( int i = 0; i < contact_position.size();i++ ){
+                    int j = contact_position.at(i);
+
+                    int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+                    int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+
+                    int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+                    int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+
+                        if ( contact_points_all[1][0]  + getY() >= P4_y && contact_points_all[1][0]  + getY() < P3_y && contact_points_all[0][0] + getX() >= P3_x && contact_points_all[0][0] + getX() <= P4_x ) {
+                        floor_contact = true;
+                        y_velocity = 0;
+                            while ( contact_points_all[1][0]  + getY() > P4_y ){
+                            setY( getY() -1 );
+                            }
+                        } else {
+                        }
+
+
                     }
-                    //setY( getY() -1 );
-            } else {
-            }
 
-    //cout << contact_position.at(i) << endl;
-}
 
- //Resolve lower right
- for ( int i = 0; i < contact_position.size();i++ ){
-        int j = contact_position.at(i);
-        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
-        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+                    break;
+                    case 1:
+                    // Roof
+                         for ( int i = 0; i < contact_position.size();i++ ){
+                                int j = contact_position.at(i);
 
-        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
-        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+                                int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+                                int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
 
-            if ( contact_points[1][3]  + getY() > P4_y && contact_points[1][3]  + getY() <= P3_y && contact_points[0][3] + getX() >= P3_x && contact_points[0][3] + getX() <= P4_x ) {
-                    //floor_contact = true;
-                    // Type 1
-                    //cout << 1 << endl;
-                        x_velocity = 0;
-                        contact_right = true;
-                        while ( contact_points[0][3]  + getX() > P3_x ){
+                                int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+                                int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
 
-                        setX( getX() -1 );
+                                if ( contact_points_all[1][1]  + getY() >= P4_y && contact_points_all[1][1]  + getY() < P3_y && contact_points_all[0][1] + getX() >= P3_x && contact_points_all[0][1] + getX() <= P4_x ) {
+                                roof_contact = true;
+                                y_velocity = 0;
+                                    while ( contact_points_all[1][1]  + getY() < P3_y ){
+                                    setY( getY() +1 );
+                                    }
+                                } else {
+                                }
                         }
-//                    if ( y_velocity <= 0 || y_velocity >0) {
-//
-//                    } else {
-//                    }
 
-            } else {
+                    break;
+                    case 2:
+                    // Right Side top
+                     for ( int i = 0; i < contact_position.size();i++ ){
+                            int j = contact_position.at(i);
+
+                            int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+
+                            int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+                            if ( contact_points_all[1][2]  + getY() >= P4_y && contact_points_all[1][2]  + getY() < P3_y && contact_points_all[0][2] + getX() >= P3_x && contact_points_all[0][2] + getX() <= P4_x ) {
+                                if ( y_velocity >= 0){
+                                    x_velocity = 0;
+                                    contact_right = true;
+                                    while ( contact_points_all[0][2]  + getX() > P3_x ){
+
+                                    setX( getX() -1 );
+                                    }
+                                } else {
+                                }
+                                if ( y_velocity < 0 ){
+                                    roof_contact = true;
+                                    y_velocity = 0;
+                                    while ( contact_points_all[1][2]  + getY() < P3_y ){
+                                    setY( getY() +1 );
+                                    }
+                                } else {
+                                }
+
+
+                            } else {
+                            }
+                    }
+
+                    break;
+                    case 3:
+                    // Right Side 1/4
+                     for ( int i = 0; i < contact_position.size();i++ ){
+                            int j = contact_position.at(i);
+
+                            int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+
+                            int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+                            if ( contact_points_all[1][3]  + getY() >= P4_y && contact_points_all[1][3]  + getY() < P3_y && contact_points_all[0][3] + getX() >= P3_x && contact_points_all[0][3] + getX() <= P4_x ) {
+                            x_velocity = 0;
+                            contact_right = true;
+                                while ( contact_points_all[0][3]  + getX() > P3_x ){
+
+                                setX( getX() -1 );
+                                }
+                            } else {
+                            }
+                    }
+
+                    break;
+                    case 4:
+                    // Right Side 2/4
+                     for ( int i = 0; i < contact_position.size();i++ ){
+                            int j = contact_position.at(i);
+
+                            int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+
+                            int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+                            if ( contact_points_all[1][4]  + getY() >= P4_y && contact_points_all[1][4]  + getY() < P3_y && contact_points_all[0][4] + getX() >= P3_x && contact_points_all[0][4] + getX() <= P4_x ) {
+                            x_velocity = 0;
+                            contact_right = true;
+                                while ( contact_points_all[0][4]  + getX() > P3_x ){
+
+                                setX( getX() -1 );
+                                }
+                            } else {
+                            }
+                    }
+
+                    break;
+                    case 5:
+                    // Right Side 3/4
+                     for ( int i = 0; i < contact_position.size();i++ ){
+                            int j = contact_position.at(i);
+
+                            int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+
+                            int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+                            if ( contact_points_all[1][5]  + getY() >= P4_y && contact_points_all[1][5]  + getY() < P3_y && contact_points_all[0][5] + getX() >= P3_x && contact_points_all[0][5] + getX() <= P4_x ) {
+                            x_velocity = 0;
+                            contact_right = true;
+                                while ( contact_points_all[0][5]  + getX() > P3_x ){
+
+                                setX( getX() -1 );
+                                }
+                            } else {
+                            }
+                    }
+
+                    break;
+                    case 6:
+                    // Right Side 4/4
+                     for ( int i = 0; i < contact_position.size();i++ ){
+                            int j = contact_position.at(i);
+
+                            int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+
+                            int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+                                if ( contact_points_all[1][6]  + getY() > P4_y && contact_points_all[1][6]  + getY() <= P3_y && contact_points_all[0][6] + getX() >= P3_x && contact_points_all[0][6] + getX() <= P4_x ) {
+
+                                if ( y_velocity >= 0 ) {
+                                    floor_contact = true;
+                                    y_velocity = 0;
+                                    while ( contact_points_all[1][6]  + getY() > P4_y ){
+                                    setY( getY() -1 );
+                                    }
+                                } else {
+                                }
+                                if ( y_velocity < 0 ) {
+                                    x_velocity = 0;
+                                    contact_right = true;
+                                    //cout << "6" << endl;
+                                    while ( contact_points_all[0][6]  + getX() > P3_x ){
+
+                                    setX( getX() -1 );
+                                    }
+                                } else {
+                                }
+
+                                } else {
+                                }
+                    }
+
+                    break;
+                    case 7:
+                    // Left Side 0/4
+                     for ( int i = 0; i < contact_position.size();i++ ){
+                            int j = contact_position.at(i);
+
+                            int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+
+                            int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+                                if ( contact_points_all[1][7]  + getY() >= P4_y && contact_points_all[1][7]  + getY() < P3_y && contact_points_all[0][7] + getX() >= P3_x && contact_points_all[0][7] + getX() <= P4_x ) {
+                                    if (y_velocity >= 0) {
+                                        x_velocity = 0;
+                                        contact_left = true;
+                                        while ( contact_points_all[0][7]  + getX() < P4_x ){
+
+                                        setX( getX() +1 );
+                                        }
+                                    } else {
+                                    }
+                                    if ( y_velocity < 0 ) {
+                                        roof_contact = true;
+                                        y_velocity = 0;
+                                        while ( contact_points_all[1][7]  + getY() < P3_y ){
+                                        setY( getY() +1 );
+                                        }
+                                    } else {
+                                    }
+
+
+                                } else {
+                                }
+                    }
+
+                    break;
+                    case 8:
+                    // Left Side 1/4
+                     for ( int i = 0; i < contact_position.size();i++ ){
+                            int j = contact_position.at(i);
+
+                            int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+
+                            int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+                            if ( contact_points_all[1][8]  + getY() >= P4_y && contact_points_all[1][8]  + getY() < P3_y && contact_points_all[0][8] + getX() >= P3_x && contact_points_all[0][8] + getX() <= P4_x ) {
+                            x_velocity = 0;
+                            contact_left = true;
+                                while ( contact_points_all[0][8]  + getX() < P4_x ){
+
+                                setX( getX() +1 );
+                                }
+                            } else {
+                            }
+                    }
+
+                    break;
+                    case 9:
+                    // Left Side 2/4
+                     for ( int i = 0; i < contact_position.size();i++ ){
+                            int j = contact_position.at(i);
+
+                            int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+
+                            int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+                            if ( contact_points_all[1][9]  + getY() >= P4_y && contact_points_all[1][9]  + getY() < P3_y && contact_points_all[0][9] + getX() >= P3_x && contact_points_all[0][9] + getX() <= P4_x ) {
+                            x_velocity = 0;
+                            contact_left = true;
+                                while ( contact_points_all[0][9]  + getX() < P4_x ){
+
+                                setX( getX() +1 );
+                                }
+                            } else {
+                            }
+                    }
+
+                    break;
+                    case 10:
+                    // Left Side 3/4
+                     for ( int i = 0; i < contact_position.size();i++ ){
+                            int j = contact_position.at(i);
+
+                            int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+
+                            int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+                            if ( contact_points_all[1][10]  + getY() >= P4_y && contact_points_all[1][10]  + getY() < P3_y && contact_points_all[0][10] + getX() >= P3_x && contact_points_all[0][10] + getX() <= P4_x ) {
+                            x_velocity = 0;
+                            contact_left = true;
+                                while ( contact_points_all[0][10]  + getX() < P4_x ){
+
+                                setX( getX() +1 );
+                                }
+                            } else {
+                            }
+                    }
+
+                    break;
+                    case 11:
+                     for ( int i = 0; i < contact_position.size();i++ ){
+                            int j = contact_position.at(i);
+
+                            int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
+
+                            int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
+                            int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
+                            if ( contact_points_all[1][11]  + getY() > P4_y && contact_points_all[1][11]  + getY() <= P3_y && contact_points_all[0][11] + getX() >= P3_x && contact_points_all[0][11] + getX() <= P4_x ) {
+                                if ( y_velocity < 0 ) {
+                                    x_velocity = 0;
+                                    contact_left = true;
+                                    //cout << "11" << endl;
+                                    while ( contact_points_all[0][6]  + getX() > P3_x ){
+
+                                    setX( getX() -1 );
+                                    }
+                                } else {
+                                }
+                                if ( y_velocity >= 0 ) {
+                                    floor_contact = true;
+                                    y_velocity = 0;
+                                    while ( contact_points_all[1][6]  + getY() > P4_y ){
+                                    setY( getY() -1 );
+                                    }
+                                } else {
+                                }
+
+
+
+
+                            } else {
+                            }
+                    }
+                    // L Side 4/4
+
+                    break;
+                    case 12:
+                    break;
+
+                    default:
+                    break;
+
+                }
+
             }
-}
-// L Left corner
- for ( int i = 0; i < contact_position.size();i++ ){
-        int j = contact_position.at(i);
-
-        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
-        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
-
-        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
-        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
-
-            if ( contact_points[1][2]  + getY() > P4_y && contact_points[1][2]  + getY() <= P3_y && contact_points[0][2] + getX() >= P3_x && contact_points[0][2] + getX() <= P4_x ) {
-                    //floor_contact = true;
-                    // Type 1
-                    //cout << 1 << endl;
-                        x_velocity = 0;
-                        contact_left = true;
-                        while ( contact_points[0][2]  + getX() < P3_x ){
-
-                        setX( getX() +1 );
-                        }
-//                    if ( y_velocity <= 0 || y_velocity >0) {
-//
-//                    } else {
-//                    }
-
-            } else {
-            }
-}
-// check contact middle right
- for ( int i = 0; i < contact_position.size();i++ ){
-        int j = contact_position.at(i);
-
-        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
-        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
-
-        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
-        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
-
-            if ( contact_points[1][7]  + getY() > P4_y && contact_points[1][7]  + getY() <= P3_y && contact_points[0][7] + getX() >= P3_x && contact_points[0][7] + getX() <= P4_x ) {
-                    //floor_contact = true;
-                    // Type 1
-                    //cout << 1 << endl;
-                        x_velocity = 0;
-                        contact_right = true;
-                        while ( contact_points[0][7]  + getX() > P3_x ){
-
-                        setX( getX() -1 );
-                        }
-//                    if ( y_velocity <= 0 || y_velocity >0) {
-//
-//                    } else {
-//                    }
-
-            } else {
-            }
-}
-// check contact middle left
- for ( int i = 0; i < contact_position.size();i++ ){
-        int j = contact_position.at(i);
-
-        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
-        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
-
-        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
-        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
-
-            if ( contact_points[1][6]  + getY() > P4_y && contact_points[1][6]  + getY() <= P3_y && contact_points[0][6] + getX() >= P3_x && contact_points[0][6] + getX() <= P4_x ) {
-                    //floor_contact = true;
-                    // Type 1
-                    //cout << 1 << endl;
-                        x_velocity = 0;
-                        contact_left = true;
-                        while ( contact_points[0][6]  + getX() < P3_x ){
-
-                        setX( getX() +1 );
-                        }
-//                    if ( y_velocity <= 0 || y_velocity >0) {
-//
-//                    } else {
-//                    }
-
-            } else {
-            }
-}
 
 
-// check contact additional point on the right lower 3/4
- for ( int i = 0; i < contact_position.size();i++ ){
-        int j = contact_position.at(i);
 
-        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
-        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
 
-        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
-        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
 
-            if ( contact_points_plus[1][3]  + getY() > P4_y && contact_points_plus[1][3]  + getY() <= P3_y && contact_points_plus[0][3] + getX() >= P3_x && contact_points_plus[0][3] + getX() <= P4_x ) {
-                    //floor_contact = true;
-                    // Type 1
-                    //cout << 1 << endl;
-                        x_velocity = 0;
-                        contact_right = true;
-                        while ( contact_points_plus[0][3]  + getX() > P3_x ){
 
-                        setX( getX() -1 );
-                        }
-//                    if ( y_velocity <= 0 || y_velocity >0) {
-//
-//                    } else {
-//                    }
-
-            } else {
-            }
-}
-// check contact additional point on the right upper 1/4
- for ( int i = 0; i < contact_position.size();i++ ){
-        int j = contact_position.at(i);
-
-        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
-        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
-
-        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
-        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
-
-            if ( contact_points_plus[1][2]  + getY() > P4_y && contact_points_plus[1][2]  + getY() <= P3_y && contact_points_plus[0][2] + getX() >= P3_x && contact_points_plus[0][2] + getX() <= P4_x ) {
-                    //floor_contact = true;
-                    // Type 1
-                    //cout << 1 << endl;
-                        x_velocity = 0;
-                        contact_right = true;
-                        while ( contact_points_plus[0][2]  + getX() > P3_x ){
-
-                        setX( getX() -1 );
-                        }
-//                    if ( y_velocity <= 0 || y_velocity >0) {
-//
-//                    } else {
-//                    }
-
-            } else {
-            }
-}
-// check contact additional point on the left lower 3/4
- for ( int i = 0; i < contact_position.size();i++ ){
-        int j = contact_position.at(i);
-
-        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
-        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
-
-        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
-        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
-
-            if ( contact_points_plus[1][1]  + getY() > P4_y && contact_points_plus[1][1]  + getY() <= P3_y && contact_points_plus[0][1] + getX() >= P3_x && contact_points_plus[0][1] + getX() <= P4_x ) {
-                    //floor_contact = true;
-                    // Type 1
-                    //cout << 1 << endl;
-                        x_velocity = 0;
-                        contact_left = true;
-                        while ( contact_points_plus[0][1]  + getX() < P3_x ){
-
-                        setX( getX() +1 );
-                        }
-//                    if ( y_velocity <= 0 || y_velocity >0) {
-//
-//                    } else {
-//                    }
-
-            } else {
-            }
-}
-// check contact additional point on the left lower 3/4
- for ( int i = 0; i < contact_position.size();i++ ){
-        int j = contact_position.at(i);
-
-        int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
-        int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
-
-        int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
-        int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
-
-            if ( contact_points_plus[1][0]  + getY() > P4_y && contact_points_plus[1][0]  + getY() <= P3_y && contact_points_plus[0][0] + getX() >= P3_x && contact_points_plus[0][0] + getX() <= P4_x ) {
-                    //floor_contact = true;
-                    // Type 1
-                    //cout << 1 << endl;
-                        x_velocity = 0;
-                        contact_left = true;
-                        while ( contact_points_plus[0][0]  + getX() < P3_x ){
-
-                        setX( getX() +1 );
-                        }
-//                    if ( y_velocity <= 0 || y_velocity >0) {
-//
-//                    } else {
-//                    }
-
-            } else {
-            }
-}
 contact_position.clear();
 //End
 };
@@ -579,6 +952,11 @@ void champ::updatePos(button_input& parameter, physics& physics_parameter){
                 // y axis
             if (floor_contact == false) {
                     y_velocity = y_velocity +1 ;
+            }
+            if (parameter.getJumpState() == true && floor_contact == true) {
+                y_velocity = y_velocity -10;
+                floor_contact = false;
+
             }
 
 
