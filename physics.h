@@ -6,7 +6,23 @@
 
 using namespace::std;
 
+class render_state {
 
+
+public:
+render_state(  bool floor_contact, int sprite_index );
+render_state(  bool floor_contact,int x_offset, int y_offset, int sprite_index );
+
+bool direction;
+bool floor;
+
+
+int index;
+int sprite_nr;
+
+int x_off;
+int y_off;
+};
 
 
 class physics {

@@ -22,11 +22,10 @@ public:
 //champ(int a, unsigned char sprites[], int size, int Height, int Width, std::vector<sprite_objects>& parameter);
 champ(int a, int size, int Height, int Width);	// constructor
 int Relation_Spritenr_type();
+int Relation_Spritenr_type_dev( int parameter );
 bool sprite_error;
-
+int render_req_mode = 2;
 // hitbox contactpoints
-int contact_points[2][8];
-int contact_points_plus[2][4];
 int contact_points_all[2][12];
 
 bool contact_left;
@@ -36,7 +35,7 @@ bool floor_contact;
 bool roof_contact;
 bool general_contact;
 vector<int> contact_position;
-
+vector<render_state> render_state_vector;
 int x_location, y_location;
 int height;
 int width;
@@ -45,10 +44,10 @@ int sprite_size;
 int palette_current;
 int sprite_current;
 int sprite_nr;
-
+int current_form_info[10] = {101,102,0,0,0,0,0,0,25,30}; // sprite 1/sprite 2, 3, 4 plus indexes and hitbox size // probably obsolete
 float x_velocity;
 int y_velocity;
-
+bool current_sprite_direction = false; // true is right orientation
 
 int x_max_speed;
 
@@ -72,9 +71,11 @@ void setRender();
 void setContactPoints();
 void setContact(int room);
 //vector<render_requests> *internal;
+
 };
 
 
+void champ_setup(champ &parameter);
 
 // This is the end of the header guard
 #endif

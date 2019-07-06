@@ -138,7 +138,16 @@ all_sprites.at(0).sprite_test();
 
 //champ en_1(1, (100 * 100 * 3 + 1), 100, 100);
 hero.sprite_nr = hero.Relation_Spritenr_type();
+// setup of the 4 sprites
+for (int i = 4; i < 8; i++){
+    hero.current_form_info[i] = hero.Relation_Spritenr_type_dev( hero.current_form_info[-4+i]);
+
+    hero.height = hero.current_form_info[9];
+    hero.width = hero.current_form_info[8];
+}
+    cout << hero.sprite_nr << endl;
 hero.setContactPoints();
+champ_setup(hero);
 		hero.setX(20);
 		hero.setY(100);
 };

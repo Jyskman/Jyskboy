@@ -340,12 +340,24 @@ render_req_filter();
 
     for ( unsigned int iii = 0; iii < render_req.size(); iii++ ) {
 
+    if ( render_req.at(iii).orientation == true ) {
+    horisontal_p1 = 1;
+    horisontal_p2 = 0;
+    } else {
+    }
+    if( render_req.at(iii).orientation == false ) {
+    horisontal_p1 = -1;
+    horisontal_p2 = sprite_w.at( render_req.at(iii).getSprite_nr() );
+    } else {
+    }
+
            for ( int i = 0; i < sprite_h.at( render_req.at(iii).getSprite_nr() ) ; i++ ) {
 
             for ( int ii = 0; ii < sprite_w.at( render_req.at(iii).getSprite_nr() ) ; ii++ ) {
+            //( horisontal_p1*ii + horisontal_p2 )
             // Named R/G byte but new version of render has true color and do not use palette
-            R_888_byte = *( sprite_address.at( internal->at(iii).getSprite_nr() ) + 0 + ii*2 + i*2*sprite_w.at( internal->at(iii).getSprite_nr()  ));
-            G_888_byte = *( sprite_address.at( internal->at(iii).getSprite_nr() ) + 1 + ii*2 + i*2*sprite_w.at( internal->at(iii).getSprite_nr()  ));
+            R_888_byte = *( sprite_address.at( internal->at(iii).getSprite_nr() ) + 0 + ( horisontal_p1*ii + horisontal_p2 )*2 + i*2*sprite_w.at( internal->at(iii).getSprite_nr()  ));
+            G_888_byte = *( sprite_address.at( internal->at(iii).getSprite_nr() ) + 1 + ( horisontal_p1*ii + horisontal_p2 )*2 + i*2*sprite_w.at( internal->at(iii).getSprite_nr()  ));
 
                 //R_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getChar(0 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
                 //G_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getChar(1 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
@@ -404,8 +416,21 @@ y_pos = ypos;
 draw = true;
 draw_evaluate = false;
 current_palette = palette;
+orientation = true;
+};
+
+render_requests::render_requests(int sprite, int xpos, int ypos, int palette, bool right_orientation){
+
+sprite_nr = sprite;
+x_pos = xpos;
+y_pos = ypos;
+draw = true;
+draw_evaluate = false;
+current_palette = palette;
+orientation = right_orientation;
 
 };
+
 
 
 int render_requests::getSprite_nr(){

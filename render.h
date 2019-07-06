@@ -17,13 +17,14 @@ class render_requests {
 
 public:
 render_requests(int sprite_nr, int x_pos, int y_pos, int palette);
-
+render_requests(int sprite_nr, int x_pos, int y_pos, int palette, bool right_orientation);
 //~render_requests();
 int sprite_nr;
 int x_pos;
 int y_pos;
 bool draw;
 bool draw_evaluate;
+bool orientation;
 int getSprite_nr();
 int current_palette;
 
@@ -51,6 +52,9 @@ int current_x_offset, current_y_offset;
 int render_xlimit_upper, render_xlimit_lower, render_ylimit_upper, render_ylimit_lower;
 int offset_parameter_x_left, offset_parameter_x_right;
 int offset_parameter_y_low, offset_parameter_y_up;
+
+int horisontal_p1; // for inversion based on direction parameter
+int horisontal_p2; //for inversion based on direction parameter
 
 unsigned char render_array[240][320*2];
 unsigned char *render_array_pointer;
