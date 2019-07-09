@@ -28,14 +28,18 @@ int render_req_mode = 2;
 // hitbox contactpoints
 int contact_points_all[2][12];
 
+int internal_state;
 bool contact_left;
 bool contact_right;
 bool contact_roof;
 bool floor_contact;
 bool roof_contact;
+bool gun_direction;
+bool current_sprite_direction = false; // true is right orientation
+
 bool general_contact;
 vector<int> contact_position;
-vector<render_state> render_state_vector;
+vector<render_state> RSV;
 int x_location, y_location;
 int height;
 int width;
@@ -47,7 +51,7 @@ int sprite_nr;
 int current_form_info[10] = {101,102,0,0,0,0,0,0,25,30}; // sprite 1/sprite 2, 3, 4 plus indexes and hitbox size // probably obsolete
 float x_velocity;
 int y_velocity;
-bool current_sprite_direction = false; // true is right orientation
+
 
 int x_max_speed;
 

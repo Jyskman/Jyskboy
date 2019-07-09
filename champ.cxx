@@ -23,7 +23,8 @@ x_velocity = 0;
 y_velocity = 0;
 x_max_speed = 3;
 floor_contact = false;
-
+internal_state = 0;
+gun_direction = 1;
 //internal = &render_req;
 //setContactPoints();
 };
@@ -146,10 +147,21 @@ void champ::setRender()  {
 //        }
 
 
-        for ( int i = 0; i < render_state_vector.size(); i++ ) {
+        for ( int i = 0; i < RSV.size(); i++ ) {
 
-            if ( render_state_vector.at(i).floor == floor_contact ) {
-                render_requests * obj = new render_requests(render_state_vector.at(i).sprite_nr, x_location+render_state_vector.at(i).x_off, y_location+render_state_vector.at(i).y_off, palette_current,current_sprite_direction);
+//RSV.at(i).f_1 == floor_contact || RSV.at(i).f_2 == floor_contact && RSV.at(i).w_1 == general_contact || RSV.at(i).w_2 == general_contact && RSV.at(i).int_1 == internal_state || RSV.at(i).int_2 == internal_state || RSV.at(i).int_3 == internal_state || RSV.at(i).int_4 == internal_state
+//RSV.at(i).f_1 == floor_contact || RSV.at(i).f_2 == floor_contact
+//RSV.at(i).w_1 == general_contact || RSV.at(i).w_2 == general_contact
+//RSV.at(i).int_1 == internal_state || RSV.at(i).int_2 == internal_state || RSV.at(i).int_3 == internal_state || RSV.at(i).int_4 == internal_state
+//
+bool fc = floor_contact;
+bool gc = general_contact;
+int in = internal_state;
+int g = gun_direction;
+bool r = roof_contact;
+
+            if ( RSV.at(i).r_1 == r || RSV.at(i).r_2 == r && RSV.at(i).gu_1 == g || RSV.at(i).gu_2 == g || RSV.at(i).gu_3 == g && RSV.at(i).f_1 == fc || RSV.at(i).f_2 == fc && RSV.at(i).w_1 == gc || RSV.at(i).w_2 == gc && RSV.at(i).int_1 == in || RSV.at(i).int_2 == in || RSV.at(i).int_3 == in || RSV.at(i).int_4 == in ) {
+                render_requests * obj = new render_requests(RSV.at(i).sprite_nr, x_location+RSV.at(i).x_off, y_location+RSV.at(i).y_off, palette_current,current_sprite_direction);
                 render_req.push_back(*obj);
                 delete obj;
 
@@ -742,14 +754,14 @@ void champ::updatePos(button_input& parameter, physics& physics_parameter){
 void champ_setup(champ &parameter) {
     // render_requests * obj = new render_requests(sprite_nr, x_location, y_location, current_palette);
     // upper body
-    render_state * state_1 = new render_state(true,101);
-    parameter.render_state_vector.push_back(*state_1);
-    delete state_1;
+    render_state * state_1_1 = new render_state(true, false, true, false, true, false, 1, 1, 1, 1, 2, 3, 4, 0, 0, 101 );
+    parameter.RSV.push_back(*state_1_1);
+    delete state_1_1;
+
+
 
     // lower body
-    render_state * state_2 = new render_state(true,0,12,102);
-    parameter.render_state_vector.push_back(*state_2);
-    delete state_2;
+
 
     //cout << parameter.render_state_vector.at(0).sprite_nr << endl;
 
