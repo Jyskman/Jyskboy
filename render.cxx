@@ -202,16 +202,26 @@ return return_value;
 
 void render::render_req_filter() {
 // function will remove render req that are outside the current frame
+// introducing the p1 and p2 to handle rotated geometry
 
 for ( int i = 0; i < render_req.size(); i++ ) {
+    // rotation parameters
+    filter_w = all_sprites.at(render_req.at(i).getSprite_nr()).getWidth();
+    filter_h = all_sprites.at(render_req.at(i).getSprite_nr()).getHeight();
+    if ( render_req.at(i).rotation == 2 ) {
+    filter_w = all_sprites.at(render_req.at(i).getSprite_nr()).getHeight();
+    filter_h = all_sprites.at(render_req.at(i).getSprite_nr()).getWidth();
+    } else {
+    }
+
 
     // us the sprite above or below the frame?
-    if ( (render_req.at(i).getY() + all_sprites.at(render_req.at(i).getSprite_nr()).getHeight() - current_y_offset) > 239  ) {
+    if ( (render_req.at(i).getY() + filter_h - current_y_offset) > 239  ) {
         //render_req.at(i).draw = false;
         render_req.at(i).draw_evaluate = true;
     } else {
     }
-    if ( (render_req.at(i).getY() - current_y_offset) >= 239 && (render_req.at(i).getY() + all_sprites.at(render_req.at(i).getSprite_nr()).getHeight() - current_y_offset) >= 239 ) {
+    if ( (render_req.at(i).getY() - current_y_offset) >= 239 && (render_req.at(i).getY() + filter_h - current_y_offset) >= 239 ) {
         render_req.at(i).draw = false;
     } else {
     }
@@ -222,7 +232,7 @@ for ( int i = 0; i < render_req.size(); i++ ) {
         render_req.at(i).draw_evaluate = true;
     } else {
     }
-    if ( (render_req.at(i).getY() - current_y_offset) <= 0 && (render_req.at(i).getY() + all_sprites.at(render_req.at(i).getSprite_nr()).getHeight() - current_y_offset) <= 0 ) {
+    if ( (render_req.at(i).getY() - current_y_offset) <= 0 && (render_req.at(i).getY() + filter_h - current_y_offset) <= 0 ) {
         render_req.at(i).draw = false;
     } else {
     }
@@ -230,12 +240,12 @@ for ( int i = 0; i < render_req.size(); i++ ) {
 // X below
 
 
-    if ( (render_req.at(i).getX() + all_sprites.at(render_req.at(i).getSprite_nr()).getWidth() - current_x_offset) > 319  ) {
+    if ( (render_req.at(i).getX() + filter_w - current_x_offset) > 319  ) {
         render_req.at(i).draw_evaluate = true;
     } else {
     }
 
-    if ( (render_req.at(i).getX() + all_sprites.at(render_req.at(i).getSprite_nr()).getWidth() - current_x_offset) >= 319 && (render_req.at(i).getX() - current_x_offset) >=319  ) {
+    if ( (render_req.at(i).getX() + filter_w - current_x_offset) >= 319 && (render_req.at(i).getX() - current_x_offset) >=319  ) {
         render_req.at(i).draw = false;
     } else {
     }
@@ -244,7 +254,7 @@ for ( int i = 0; i < render_req.size(); i++ ) {
         render_req.at(i).draw_evaluate = true;
     } else {
     }
-    if ( (render_req.at(i).getX() - current_x_offset) <= 0 && (render_req.at(i).getX() + all_sprites.at(render_req.at(i).getSprite_nr()).getWidth() - current_x_offset) <= 0  ) {
+    if ( (render_req.at(i).getX() - current_x_offset) <= 0 && (render_req.at(i).getX() + filter_w - current_x_offset) <= 0  ) {
         render_req.at(i).draw = false;
     } else {
     }
@@ -340,44 +350,62 @@ render_req_filter();
 
     for ( unsigned int iii = 0; iii < render_req.size(); iii++ ) {
 
-    if ( render_req.at(iii).orientation == true ) {
-    horisontal_p1 = 1;
-    horisontal_p2 = 0;
-    } else {
-    }
-    if( render_req.at(iii).orientation == false ) {
-    horisontal_p1 = -1;
-    horisontal_p2 = sprite_w.at( render_req.at(iii).getSprite_nr() );
-    } else {
-    }
+        if ( render_req.at(iii).orientation == true ) {
+        horisontal_p1 = 1;
+        horisontal_p2 = 0;
+        } else {
+        }
+        if( render_req.at(iii).orientation == false ) {
+        horisontal_p1 = -1;
+        horisontal_p2 = sprite_w.at( render_req.at(iii).getSprite_nr() );
+        } else {
+        }
+        //Vertical flip
+        if( render_req.at(iii).up_down == true ) {
+        vertical_p1 = 1;
+        vertical_p2 = 0;
+        } else {
+        }
+        if( render_req.at(iii).up_down == false ) {
+        vertical_p1 = -1;
+        vertical_p2 = sprite_h.at( render_req.at(iii).getSprite_nr() );
+        } else {
+        }
+
 
            for ( int i = 0; i < sprite_h.at( render_req.at(iii).getSprite_nr() ) ; i++ ) {
 
             for ( int ii = 0; ii < sprite_w.at( render_req.at(iii).getSprite_nr() ) ; ii++ ) {
             //( horisontal_p1*ii + horisontal_p2 )
             // Named R/G byte but new version of render has true color and do not use palette
-            R_888_byte = *( sprite_address.at( internal->at(iii).getSprite_nr() ) + 0 + ( horisontal_p1*ii + horisontal_p2 )*2 + i*2*sprite_w.at( internal->at(iii).getSprite_nr()  ));
-            G_888_byte = *( sprite_address.at( internal->at(iii).getSprite_nr() ) + 1 + ( horisontal_p1*ii + horisontal_p2 )*2 + i*2*sprite_w.at( internal->at(iii).getSprite_nr()  ));
+            R_888_byte = *( sprite_address.at( internal->at(iii).getSprite_nr() ) + 0 + ( horisontal_p1*ii + horisontal_p2 )*2 + ( vertical_p1*i + vertical_p2 )*2*sprite_w.at( internal->at(iii).getSprite_nr()  ));
+            G_888_byte = *( sprite_address.at( internal->at(iii).getSprite_nr() ) + 1 + ( horisontal_p1*ii + horisontal_p2 )*2 + ( vertical_p1*i + vertical_p2 )*2*sprite_w.at( internal->at(iii).getSprite_nr()  ));
 
-                //R_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getChar(0 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
-                //G_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getChar(1 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
-                //B_888_byte = all_sprites.at(render_req.at(iii).getSprite_nr()).getVector(2 + ii*3 + i*3*all_sprites.at(render_req.at(iii).getSprite_nr()).getWidth());
+
                    if (R_888_byte != 255 && G_888_byte != 255) {
-                             //RGB565 = (((R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3)+(B_888_byte>>3));
-                            //testpal = render_req.at(iii).current_palette - 1;
-                            //RGB565 = (((mutateColor(R, R_888_byte, testpal) & 0xf8)<<8) + ((mutateColor(G,G_888_byte,testpal) & 0xfc)<<3)+(mutateColor(B, B_888_byte, testpal)>>3));
-                            //RGB565 = ( ( (R_888_byte & 0xf8)<<8) + ((G_888_byte & 0xfc)<<3) + (B_888_byte>>3) );
 
-                            if ( render_req.at(iii).draw_evaluate == true ) {
-                                if (render_limit_check( 2*render_req.at(iii).getX()+2*ii, render_req.at(iii).getY()+i )  == true) {
-                                fillColor_dev( 2*render_req.at(iii).getX()+2*ii - current_x_offset*2,  render_req.at(iii).getY() +i  - current_y_offset, R_888_byte, G_888_byte );
+                            rotation_p1 = 2*ii - current_x_offset*2;
+                            rotation_p2 = i - current_y_offset;
+                            render_limit_p1 = 2*ii;
+                            render_limit_p2 = i;
+                            if ( render_req.at(iii).rotation == 2 ) {
+                                    rotation_p1 =2*i - current_x_offset*2;
+                                    rotation_p2 =ii - current_y_offset;
+                                    render_limit_p1 = i*2;
+                                    render_limit_p2 = ii;
+                            } else {
+                            }
+
+                            if ( render_req.at(iii).draw_evaluate == true || render_req.at(iii).draw_evaluate == false ) {
+                                if (render_limit_check( 2*render_req.at(iii).getX()+render_limit_p1, render_req.at(iii).getY()+render_limit_p2 )  == true) {
+                                fillColor_dev( 2*render_req.at(iii).getX()+rotation_p1,  render_req.at(iii).getY() +rotation_p2, R_888_byte, G_888_byte );
                                 } else {
                                 }
 
                             } else {
                             }
                             if ( render_req.at(iii).draw_evaluate == false ) {
-                                fillColor_dev( 2*render_req.at(iii).getX()+2*ii - current_x_offset*2,  render_req.at(iii).getY() +i  - current_y_offset, R_888_byte, G_888_byte );
+                                //fillColor_dev( 2*render_req.at(iii).getX()+rotation_p1,  render_req.at(iii).getY() +rotation_p2, R_888_byte, G_888_byte );
                             } else {
                             }
                    } else {
@@ -417,9 +445,10 @@ draw = true;
 draw_evaluate = false;
 current_palette = palette;
 orientation = true;
+rotation = 1;
 };
 
-render_requests::render_requests(int sprite, int xpos, int ypos, int palette, bool right_orientation){
+render_requests::render_requests(int sprite, int xpos, int ypos, int palette, bool right_orientation, bool up_orientation, int rot ){
 
 sprite_nr = sprite;
 x_pos = xpos;
@@ -428,6 +457,8 @@ draw = true;
 draw_evaluate = false;
 current_palette = palette;
 orientation = right_orientation;
+up_down = up_orientation;
+rotation = rot;
 
 };
 

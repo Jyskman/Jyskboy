@@ -36,21 +36,21 @@ y_off = 0;
 
 render_state::render_state( bool f_c1, bool f_c2, bool w_c1, bool w_c2, bool r_c1, bool r_c2,int g_1, int g_2, int g_3, int i_1, int i_2, int i_3, int i_4, int x_offset, int y_offset, int sprite_index) {
 
-bool f_1 = f_c1;
-bool f_2 = f_c2;
-bool w_1 = w_c1;
-bool w_2 = w_c2;
-bool r_1 = r_c1;
-bool r_2 = w_c2;
+f_1 = f_c1;
+f_2 = f_c2;
+w_1 = w_c1;
+w_2 = w_c2;
+r_1 = r_c1;
+r_2 = w_c2;
 
-int gu_1 = g_1;
-int gu_2 = g_2;
-int gu_3 = g_3;
+gu_1 = g_1;
+gu_2 = g_2;
+gu_3 = g_3;
 
-int int_1 = i_1;
-int int_2 = i_2;
-int int_3 = i_3;
-int int_4 = i_4;
+int_1 = i_1;
+int_2 = i_2;
+int_3 = i_3;
+int_4 = i_4;
 
 x_off = x_offset;
 y_off = y_offset;

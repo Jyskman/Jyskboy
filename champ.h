@@ -34,8 +34,10 @@ bool contact_right;
 bool contact_roof;
 bool floor_contact;
 bool roof_contact;
-bool gun_direction;
-bool current_sprite_direction = false; // true is right orientation
+int gun_direction;
+bool current_sprite_direction = true; // true is right orientation
+bool current_sprite_v_direction = true; // true is oriented up, as sprite is drawn
+int rotation = 1; // exp rotation parameter
 
 bool general_contact;
 vector<int> contact_position;

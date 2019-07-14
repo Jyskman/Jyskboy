@@ -127,12 +127,12 @@ void champ::setRender()  {
     break;
     case 1:
         if (sprite_error == false) {
-            render_requests * obj = new render_requests(current_form_info[4], x_location, y_location, palette_current,current_sprite_direction);
-            render_requests * obj2 = new render_requests(current_form_info[5], x_location, y_location+12, palette_current, current_sprite_direction);
-            render_req.push_back(*obj);
-            render_req.push_back(*obj2);
-            delete obj;
-            delete obj2;
+//            render_requests * obj = new render_requests(current_form_info[4], x_location, y_location, palette_current,current_sprite_direction);
+//            render_requests * obj2 = new render_requests(current_form_info[5], x_location, y_location+12, palette_current, current_sprite_direction);
+//            render_req.push_back(*obj);
+//            render_req.push_back(*obj2);
+//            delete obj;
+//            delete obj2;
 
 
         } else {
@@ -147,29 +147,48 @@ void champ::setRender()  {
 //        }
 
 
-        for ( int i = 0; i < RSV.size(); i++ ) {
+for ( int i = 0; i < RSV.size(); i++ ) {
 
 //RSV.at(i).f_1 == floor_contact || RSV.at(i).f_2 == floor_contact && RSV.at(i).w_1 == general_contact || RSV.at(i).w_2 == general_contact && RSV.at(i).int_1 == internal_state || RSV.at(i).int_2 == internal_state || RSV.at(i).int_3 == internal_state || RSV.at(i).int_4 == internal_state
 //RSV.at(i).f_1 == floor_contact || RSV.at(i).f_2 == floor_contact
 //RSV.at(i).w_1 == general_contact || RSV.at(i).w_2 == general_contact
 //RSV.at(i).int_1 == internal_state || RSV.at(i).int_2 == internal_state || RSV.at(i).int_3 == internal_state || RSV.at(i).int_4 == internal_state
 //
-bool fc = floor_contact;
-bool gc = general_contact;
-int in = internal_state;
-int g = gun_direction;
-bool r = roof_contact;
+    bool fc = floor_contact;
+    bool gc = general_contact;
+    int in = internal_state;
+    int g = gun_direction;
+    bool r = roof_contact;
 
-            if ( RSV.at(i).r_1 == r || RSV.at(i).r_2 == r && RSV.at(i).gu_1 == g || RSV.at(i).gu_2 == g || RSV.at(i).gu_3 == g && RSV.at(i).f_1 == fc || RSV.at(i).f_2 == fc && RSV.at(i).w_1 == gc || RSV.at(i).w_2 == gc && RSV.at(i).int_1 == in || RSV.at(i).int_2 == in || RSV.at(i).int_3 == in || RSV.at(i).int_4 == in ) {
-                render_requests * obj = new render_requests(RSV.at(i).sprite_nr, x_location+RSV.at(i).x_off, y_location+RSV.at(i).y_off, palette_current,current_sprite_direction);
-                render_req.push_back(*obj);
-                delete obj;
+    int x_mirror = 0;
+    int rot = 1;
 
-            } else {
-            }
 
-        }
+    if ( (RSV.at(i).f_1 == fc || RSV.at(i).f_2 == fc) && (RSV.at(i).gu_1 == g || RSV.at(i).gu_2 == g || RSV.at(i).gu_3 == g) ) {
 
+                    if ( current_sprite_direction == false &&  RSV.at(i).x_off > 0) {
+                        x_mirror = all_sprites.at(RSV.at(i).sprite_nr).getWidth();
+                    } else {
+                    }
+                    // gun direction
+                    if ( gun_direction == 1 ){
+                        rot = 1;
+                    } else {
+                    }
+                    if ( gun_direction == 2 ){
+                        rot = 2;
+                    } else {
+                    }
+
+                    render_requests * obj = new render_requests(RSV.at(i).sprite_nr, x_location+RSV.at(i).x_off-x_mirror, y_location+RSV.at(i).y_off, palette_current,current_sprite_direction, current_sprite_v_direction, rot);
+                    render_req.push_back(*obj);
+                    delete obj;
+
+        cout << fc << endl;
+    };
+
+
+}
     break;
     default:
     break;
@@ -183,7 +202,7 @@ bool r = roof_contact;
 
 
 
-}
+};
 
 void champ::setContactPoints() {
 
@@ -666,6 +685,15 @@ void champ::setPos(button_input& parameter, physics& physics_parameter){
         current_sprite_direction = true;
     };
 
+
+    // set gun direction prototype
+    gun_direction = 1;
+    if ( parameter.getUpState() == true ) {
+        gun_direction = 2;
+    } else {
+    }
+
+
     //cout << x_velocity << endl;
     setX( getX() + (int)x_velocity );
     setY( getY() + (int)y_velocity );
@@ -754,15 +782,28 @@ void champ::updatePos(button_input& parameter, physics& physics_parameter){
 void champ_setup(champ &parameter) {
     // render_requests * obj = new render_requests(sprite_nr, x_location, y_location, current_palette);
     // upper body
-    render_state * state_1_1 = new render_state(true, false, true, false, true, false, 1, 1, 1, 1, 2, 3, 4, 0, 0, 101 );
+    render_state * state_1_1 = new render_state(true, false, true, false, true, false, 1, 2, 1, 1, 2, 3, 4, 0, 0, 101 );
     parameter.RSV.push_back(*state_1_1);
     delete state_1_1;
 
-
-
     // lower body
 
+    render_state * state_1_2 = new render_state(true, true, true, false, true, false, 1, 2, 1, 1, 2, 3, 4, 0, 12, 102 );
+    parameter.RSV.push_back(*state_1_2);
+    delete state_1_2;
+    // Jump
+    render_state * state_1_3 = new render_state(false, false, true, false, true, false, 1, 2, 1, 1, 2, 3, 4, 0, 12, 103 );
+    parameter.RSV.push_back(*state_1_3);
+    delete state_1_3;
 
+    //gun
+    render_state * state_1_4 = new render_state(false, true, true, false, true, false, 1, 1, 1, 1, 2, 3, 4, 12, 10, 104 );
+    parameter.RSV.push_back(*state_1_4);
+    delete state_1_4;
+
+//    render_state * state_1_5 = new render_state(false, true, true, false, true, false, 2, 2, 2, 1, 2, 3, 4, 12, -12, 105 );
+//    parameter.RSV.push_back(*state_1_5);
+//    delete state_1_5;
     //cout << parameter.render_state_vector.at(0).sprite_nr << endl;
 
 };

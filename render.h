@@ -17,7 +17,7 @@ class render_requests {
 
 public:
 render_requests(int sprite_nr, int x_pos, int y_pos, int palette);
-render_requests(int sprite_nr, int x_pos, int y_pos, int palette, bool right_orientation);
+render_requests(int sprite_nr, int x_pos, int y_pos, int palette, bool right_orientation, bool up_orientation, int rot);
 //~render_requests();
 int sprite_nr;
 int x_pos;
@@ -25,6 +25,9 @@ int y_pos;
 bool draw;
 bool draw_evaluate;
 bool orientation;
+bool up_down;
+int rotation;
+
 int getSprite_nr();
 int current_palette;
 
@@ -55,6 +58,13 @@ int offset_parameter_y_low, offset_parameter_y_up;
 
 int horisontal_p1; // for inversion based on direction parameter
 int horisontal_p2; //for inversion based on direction parameter
+int vertical_p1; // for inversion based on direction parameter
+int vertical_p2; //for inversion based on direction parameter
+
+int rotation_p1;
+int rotation_p2;
+int render_limit_p1;
+int render_limit_p2;
 
 unsigned char render_array[240][320*2];
 unsigned char *render_array_pointer;
@@ -101,6 +111,8 @@ int mutate_Y(int y);
 void determine_current_offset(champ& parameter, int roomnr);
 bool render_limit_check(int x_pos, int y_pos);
 void render_req_filter();
+int filter_w;
+int filter_h;
 
 //Will start with 10 hardcoded palettes with 5 color
 unsigned char palettes_R[5][10] = {
