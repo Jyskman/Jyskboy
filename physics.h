@@ -11,7 +11,7 @@ class render_state {
 
 public:
 render_state(  bool floor_contact, int sprite_index );
-render_state(  bool f_c1, bool f_c2, bool w_c1, bool w_c2, bool r_c1, bool r_c2,int g_1, int g_2, int g_3, int i_1, int i_2, int i_3, int i_4, int x_offset, int y_offset, int sprite_index);
+render_state(  bool f_c1, bool f_c2, bool w_c1, bool w_c2, bool r_c1, bool r_c2,int g_1, int g_2, int g_3, int g_4, int g_5, int i_1, int i_2, int i_3, int i_4, int x_offset, int y_offset, int sprite_index);
 
 bool f_1;
 bool f_2;
@@ -23,6 +23,8 @@ bool r_2;
 int gu_1;
 int gu_2;
 int gu_3;
+int gu_4;
+int gu_5;
 
 int int_1;
 int int_2;

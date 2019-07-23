@@ -34,7 +34,7 @@ y_off = 0;
 
 };
 
-render_state::render_state( bool f_c1, bool f_c2, bool w_c1, bool w_c2, bool r_c1, bool r_c2,int g_1, int g_2, int g_3, int i_1, int i_2, int i_3, int i_4, int x_offset, int y_offset, int sprite_index) {
+render_state::render_state( bool f_c1, bool f_c2, bool w_c1, bool w_c2, bool r_c1, bool r_c2,int g_1, int g_2, int g_3, int g_4, int g_5, int i_1, int i_2, int i_3, int i_4, int x_offset, int y_offset, int sprite_index) {
 
 f_1 = f_c1;
 f_2 = f_c2;
@@ -46,6 +46,8 @@ r_2 = w_c2;
 gu_1 = g_1;
 gu_2 = g_2;
 gu_3 = g_3;
+gu_4 = g_4;
+gu_5 = g_5;
 
 int_1 = i_1;
 int_2 = i_2;

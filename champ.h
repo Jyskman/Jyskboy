@@ -43,8 +43,8 @@ bool general_contact;
 vector<int> contact_position;
 vector<render_state> RSV;
 int x_location, y_location;
-int height;
-int width;
+int height = 30;
+int width = 25;
 int sprite_size;
 
 int palette_current;

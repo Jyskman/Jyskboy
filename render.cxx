@@ -357,7 +357,7 @@ render_req_filter();
         }
         if( render_req.at(iii).orientation == false ) {
         horisontal_p1 = -1;
-        horisontal_p2 = sprite_w.at( render_req.at(iii).getSprite_nr() );
+        horisontal_p2 = sprite_w.at( render_req.at(iii).getSprite_nr() )-1;
         } else {
         }
         //Vertical flip
@@ -368,7 +368,7 @@ render_req_filter();
         }
         if( render_req.at(iii).up_down == false ) {
         vertical_p1 = -1;
-        vertical_p2 = sprite_h.at( render_req.at(iii).getSprite_nr() );
+        vertical_p2 = sprite_h.at( render_req.at(iii).getSprite_nr() )-1;
         } else {
         }
 
@@ -396,7 +396,7 @@ render_req_filter();
                             } else {
                             }
 
-                            if ( render_req.at(iii).draw_evaluate == true || render_req.at(iii).draw_evaluate == false ) {
+                            if ( render_req.at(iii).draw_evaluate == true  ) {
                                 if (render_limit_check( 2*render_req.at(iii).getX()+render_limit_p1, render_req.at(iii).getY()+render_limit_p2 )  == true) {
                                 fillColor_dev( 2*render_req.at(iii).getX()+rotation_p1,  render_req.at(iii).getY() +rotation_p2, R_888_byte, G_888_byte );
                                 } else {
@@ -405,7 +405,7 @@ render_req_filter();
                             } else {
                             }
                             if ( render_req.at(iii).draw_evaluate == false ) {
-                                //fillColor_dev( 2*render_req.at(iii).getX()+rotation_p1,  render_req.at(iii).getY() +rotation_p2, R_888_byte, G_888_byte );
+                                fillColor_dev( 2*render_req.at(iii).getX()+rotation_p1,  render_req.at(iii).getY() +rotation_p2, R_888_byte, G_888_byte );
                             } else {
                             }
                    } else {
@@ -445,6 +445,7 @@ draw = true;
 draw_evaluate = false;
 current_palette = palette;
 orientation = true;
+up_down = true;
 rotation = 1;
 };
 
