@@ -11,7 +11,7 @@
 	<sr595.h>
 	<iostream>
 
-1563889423 source:/home/pi/codeblocks/Jyskboy/champ.cxx
+1567097553 source:/home/pi/codeblocks/Jyskboy/champ.cxx
 	<iostream>
 	"champ.h"
 	<vector>
@@ -20,8 +20,10 @@
 	"render.h"
 	"environment.h"
 	<cmath>
+	<assert.h>
+	<math.h>
 
-1563460819 /home/pi/codeblocks/Jyskboy/champ.h
+1566734805 /home/pi/codeblocks/Jyskboy/champ.h
 	"buttons.h"
 	<iostream>
 	<vector>
@@ -77,7 +79,7 @@
 	"environment.h"
 	<algorithm>
 
-1563888644 source:/home/pi/codeblocks/Jyskboy/setup_sprites.cxx
+1565800445 source:/home/pi/codeblocks/Jyskboy/setup_sprites.cxx
 	<iostream>
 	"setup_sprites.h"
 	"sprite_objects.h"
@@ -109,7 +111,7 @@
 	<vector>
 	"setup_sprites.h"
 
-1563117211 source:/home/pi/codeblocks/Jyskboy/environment.cxx
+1567007199 source:/home/pi/codeblocks/Jyskboy/environment.cxx
 	<iostream>
 	<vector>
 	"environment.h"
@@ -129,7 +131,7 @@
 	<chrono>
 	<ctime>
 
-1563885005 source:/home/pi/codeblocks/Jyskboy/game.cxx
+1565888455 source:/home/pi/codeblocks/Jyskboy/game.cxx
 	<iostream>
 	<vector>
 	"game.h"
@@ -160,13 +162,13 @@
 
 1557685888 /home/pi/codeblocks/Jyskboy/test.h
 
-1563788653 source:/home/pi/codeblocks/Jyskboy/physics.cxx
+1565378295 source:/home/pi/codeblocks/Jyskboy/physics.cxx
 	<iostream>
 	<vector>
 	"physics.h"
 	"setup_sprites.h"
 
-1563788551 /home/pi/codeblocks/Jyskboy/physics.h
+1565351010 /home/pi/codeblocks/Jyskboy/physics.h
 	<vector>
 	<iostream>
 

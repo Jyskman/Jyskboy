@@ -155,9 +155,10 @@ champ_setup(hero);
 void game::game_main(){
 
 
-        hero.updatePos( buttons, physics_objects.at( physics_current ) );
+        hero.updateV( buttons, physics_objects.at( physics_current ) );
         hero.setPos(buttons, physics_objects.at( physics_current ));
         hero.setContact(room_current);
+
 
         room_render_req(room_current);
 
@@ -216,7 +217,7 @@ void game::game_loop() {
             auto final_end = std::chrono::high_resolution_clock::now();
             elapsed_seconds = final_end-start;
             time = elapsed_seconds.count();
-            cout << time << ".\n";
+            //cout << time << ".\n";
 
 
 
