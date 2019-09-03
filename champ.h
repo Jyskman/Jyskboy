@@ -54,6 +54,9 @@ int x_location_prev, y_location_prev;
 float x_location_intersection, y_location_intersection;
 int x_location_intersection_int, y_location_intersection_int;
 
+float x_1, x_2, y_1, y_2;
+float delta_x, delta_y, increment, delta_increment, cos_alfa, a_cos, length;
+
 int height = 30;
 int width = 25;
 int sprite_size;
@@ -90,7 +93,6 @@ bool LineLineIntersect(double x1, double y1, //Line 1 start
     double x3, double y3, //Line 2 start
     double x4, double y4, //Line 2 end
     double &ixOut, double &iyOut);
-
 
 unsigned char getChar(int x);
 void setRender();
