@@ -4,11 +4,59 @@
 
 #include <iostream>
 #include <vector>
-
+#include "render.h"
 #include "physics.h"
 #include "setup_sprites.h"
 
 vector<physics> physics_objects;
+
+
+weaponProfile::weaponProfile(int sprite_index, int x_velocity, int y_velocity) {
+
+        weapon_sprite = sprite_index;
+
+        x_vel = x_velocity;
+        y_vel = y_velocity;
+
+        for (int i=0; i < all_sprites.size(); i++) {
+            if ( all_sprites.at(i).sprite_index == weapon_sprite ) {
+                sprite_nr = i;
+
+            } else {
+
+            };
+        };
+
+};
+
+
+
+
+attack::attack(int type, int x_pos, int y_pos, int x_vel, int y_vel) {
+
+a_type = type;
+a_x_pos = x_pos;
+a_y_pos = y_pos;
+a_x_vel = x_vel;
+a_y_vel = y_vel;
+
+destroy = false;
+
+};
+
+void attack::update_and_render() {
+
+// move according to velocity
+a_x_pos = a_x_pos + a_x_vel;
+a_y_pos = a_y_pos + a_y_vel;
+// render
+render_requests * obj = new render_requests(a_type, a_x_pos, a_y_pos, 1);
+render_req.push_back(*obj);
+delete obj;
+
+};
+
+
 
 metronome::metronome(int cycles_per_increment, int reset_after_x_increments, int start_at_int, int idle_after_x_cycles){
 cpi = cycles_per_increment;

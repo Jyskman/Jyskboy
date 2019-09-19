@@ -8,6 +8,7 @@
 #include "physics.h"
 #include <chrono>
 #include <ctime>
+#include <vector>
 using namespace std;
 
 class game {
@@ -27,7 +28,12 @@ float time_ms;
 chrono::duration<double> elapsed_seconds;
 
 // game variables
-
+void setupWeaponprofiles();
+vector<weaponProfile> gameWProfiles;
+vector<attack> gameAttacks;
+void createAttacks(button_input& parameter);
+void setXYfactor();
+int x_factor, y_factor;
 
 int room_current;
 int game_state_current;

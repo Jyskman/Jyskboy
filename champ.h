@@ -54,7 +54,7 @@ int x_location_prev, y_location_prev;
 float x_location_intersection, y_location_intersection;
 int x_location_intersection_int, y_location_intersection_int;
 
-float x_1, x_2, y_1, y_2;
+//float x_1, x_2, y_1, y_2;
 float delta_x, delta_y, increment, delta_increment, cos_alfa, a_cos, length;
 
 int height = 30;

@@ -672,6 +672,16 @@ unsigned char champ_legs_6[25 * 17 * 2 + 1] =
  "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
  "\377\377\377\377\377\377");
 
+int shot_v1_width = 9;
+int shot_v1_height = 5;
+int shot_v1_size = 9 * 5 * 2 + 1;
+unsigned char shot_v1[9 * 5 * 2 + 1] =
+("\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377@\377@\377@\377@\377\377\377\377\377\377\377\002\364\002\364"
+ "\002\364\002\364\002\364\002\364@\377\377\377\377\377\377\377\377\377@\377@\377@\377"
+ "@\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377");
+
 
 std::vector<sprite_objects> all_sprites;
 std::vector<sprite_objects*> sprite_pointers;
@@ -741,6 +751,12 @@ void setup_sprites(render& parameter) {
     all_sprites.push_back(champlegs6);
     sprite_pointers.push_back(&champlegs6);
 
+    // shots
+    //shot_v1
+    sprite_objects shotv1(7, (unsigned char*)shot_v1 ,shot_v1, shot_v1_size, shot_v1_width, shot_v1_height,201);
+    all_sprites.push_back(shotv1);
+    sprite_pointers.push_back(&shotv1);
+
     for (int i = 0; i < all_sprites.size(); i++) {
         all_sprites.at(i).Relation_Spritenr_type();
 
@@ -768,4 +784,6 @@ parameter.load_sprite_data((unsigned char*)champ_legs_3, champ_legs_3_width, cha
 parameter.load_sprite_data((unsigned char*)champ_legs_4, champ_legs_4_width, champ_legs_4_height );
 parameter.load_sprite_data((unsigned char*)champ_legs_5, champ_legs_5_width, champ_legs_5_height );
 parameter.load_sprite_data((unsigned char*)champ_legs_6, champ_legs_6_width, champ_legs_6_height );
+// shot
+parameter.load_sprite_data((unsigned char*)shot_v1, shot_v1_width, shot_v1_height );
 };

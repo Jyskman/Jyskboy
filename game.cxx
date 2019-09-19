@@ -26,7 +26,7 @@
 #include <wiringPi.h>
 #include "environment.h"
 #include <time.h>
-
+#include <algorithm>
 
 #include <chrono>
 #include <ctime>
@@ -130,8 +130,7 @@ void game::game_setup() {
 setup_sprites(screen);
 room_setup();
 physics_setup();
-
-
+setupWeaponprofiles();
 all_sprites.at(0).sprite_test();
 
 
@@ -152,6 +151,93 @@ champ_setup(hero);
 		hero.setY(100);
 };
 
+void game::setupWeaponprofiles(){
+
+
+weaponProfile * obj = new weaponProfile(201, 10, 10);
+gameWProfiles.push_back(*obj);
+delete obj;
+};
+
+void game::setXYfactor() {
+// This function will set the factors for x and y velocity for the created attacks
+    switch (hero.gun_direction){
+
+        case 1:
+            x_factor = 0;
+            y_factor = -1;
+        break;
+        case 2:
+            x_factor = 1;
+            y_factor = -1;
+        break;
+        case 3:
+            x_factor = 1;
+            y_factor = 0;
+            //cout << "nr3" << endl;
+        break;
+        case 4:
+            x_factor = 1;
+            y_factor = 1;
+        break;
+        case 5:
+            x_factor = 0;
+            y_factor = 1;
+        break;
+        case 6:
+        break;
+        default:
+        break;
+
+
+    };
+
+    if ( hero.current_sprite_direction == false ) {
+        x_factor = x_factor*-1;
+    } else {
+    }
+
+
+};
+
+
+void game::createAttacks(button_input& parameter) {
+// champ hero is part of the game object
+
+    if ( parameter.getShootState() == true ) {
+        cout << "attack" << endl;
+        setXYfactor();
+        cout << hero.gun_direction << endl;
+
+        // need to correct velocity and position according to internal states
+
+        attack * obj = new attack(gameWProfiles.at(hero.current_gun).sprite_nr, hero.x_location, hero.y_location, gameWProfiles.at(hero.current_gun).x_vel*x_factor, gameWProfiles.at(hero.current_gun).y_vel*y_factor);
+        gameAttacks.push_back(*obj);
+        delete obj;
+    } else {
+    };
+
+    //cout << gameAttacks.size() <<endl;
+
+    //update attacks
+    for ( int i = 0; i < gameAttacks.size(); i++ ) {
+        gameAttacks.at(i).update_and_render();
+    }
+
+
+
+    // removal from render req based on filter
+    gameAttacks.erase(
+    std::remove_if(gameAttacks.begin(), gameAttacks.end(),
+    [](const attack & o) { return o.destroy == true; }),
+    gameAttacks.end());
+
+    cout << gameAttacks.size() <<endl;
+
+};
+
+
+
 void game::game_main(){
 
 
@@ -159,13 +245,13 @@ void game::game_main(){
         hero.setPos(buttons, physics_objects.at( physics_current ));
         hero.setContact(room_current);
 
-
+        createAttacks(buttons);
         room_render_req(room_current);
 
         hero.setRender();
 
 
-
+        // audio prof of principle
         if ( buttons.getSelectState() == true ) {
 
 //							audio.Play_FX(FX.at(0), 1);

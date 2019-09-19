@@ -6,6 +6,34 @@
 
 using namespace::std;
 
+class attack {
+// attack class used by game object, will be linked somehow to weaponprofiles also in game
+public:
+void update_and_render();
+attack( int type, int x_pos, int y_pos, int x_vel, int y_vel );
+
+int a_type;
+int a_x_pos;
+int a_y_pos;
+int a_x_vel;
+int a_y_vel;
+
+bool destroy;
+
+};
+
+class weaponProfile {
+public:
+weaponProfile(int sprite_index, int x_velocity, int y_velocity);
+int weapon_sprite;
+int sprite_nr;
+
+int x_vel;
+int y_vel;
+};
+
+
+
 
 class metronome {
 public:

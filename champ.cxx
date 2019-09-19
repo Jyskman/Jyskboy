@@ -27,6 +27,7 @@ floor_contact = false;
 internal_state = 7;
 gun_direction = 3;
 jump_counter = 1;
+current_gun = 0;
 //internal = &render_req;
 //setContactPoints();
 };
@@ -505,10 +506,10 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                 if ( contact_points_all[1][2]  + getY() >= P4_y && contact_points_all[1][2]  + getY() <= P3_y && contact_points_all[0][2] + getX() >= P3_x && contact_points_all[0][2] + getX() <= P4_x ) {
 
                                 // champ pos
-                                x_1 = x_location + width ;
-                                y_1 = y_location ;
-                                x_2 = x_location_prev + width ;
-                                y_2 = y_location_prev ;
+                                float x_1 = x_location + width ;
+                                float y_1 = y_location ;
+                                float x_2 = x_location_prev + width ;
+                                float y_2 = y_location_prev ;
 
 //                                float x_1 = 5 ;
 //                                float y_1 = 5 ;
@@ -610,7 +611,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                             //x_velocity = 0;
                             contact_right = true;
                             cout << "Z" << endl;
-                                while ( contact_points_all[0][3]  + getX() > P3_x ){
+                                while ( contact_points_all[0][3]  + getX() >= P3_x ){
 
                                 setX( getX() -1 );
                                 }
@@ -632,7 +633,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                             if ( contact_points_all[1][4]  + getY() >= P4_y && contact_points_all[1][4]  + getY() < P3_y && contact_points_all[0][4] + getX() >= P3_x && contact_points_all[0][4] + getX() <= P4_x ) {
                             x_velocity = 0;
                             contact_right = true;
-                                while ( contact_points_all[0][4]  + getX() > P3_x ){
+                                while ( contact_points_all[0][4]  + getX() >= P3_x ){
 
                                 setX( getX() -1 );
                                 }
@@ -654,7 +655,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                             if ( contact_points_all[1][5]  + getY() >= P4_y && contact_points_all[1][5]  + getY() < P3_y && contact_points_all[0][5] + getX() >= P3_x && contact_points_all[0][5] + getX() <= P4_x ) {
                             x_velocity = 0;
                             contact_right = true;
-                                while ( contact_points_all[0][5]  + getX() > P3_x ){
+                                while ( contact_points_all[0][5]  + getX() >= P3_x ){
 
                                 setX( getX() -1 );
                                 }
@@ -675,10 +676,10 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                             int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
                                 if ( contact_points_all[1][6]  + getY() >= P4_y && contact_points_all[1][6]  + getY() <= P3_y && contact_points_all[0][6] + getX() >= P3_x && contact_points_all[0][6] + getX() <= P4_x ) {
                                     // champ pos
-                                    x_1 = x_location + width ;
-                                    y_1 = y_location + height;
-                                    x_2 = x_location_prev + width ;
-                                    y_2 = y_location_prev + height;
+                                    float x_1 = x_location + width ;
+                                    float y_1 = y_location + height;
+                                    float x_2 = x_location_prev + width ;
+                                    float y_2 = y_location_prev + height;
 
                                     length = sqrt( ( x_1 - x_2 )*( x_1 - x_2 )+( y_1 - y_2 )*( y_1 - y_2 ) ) ;
                                     //cout << "L_" << length << endl;
@@ -750,6 +751,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                         }
                                         if( y_location_intersection_int <= P4_y ){
                                             y_location_intersection_int = P4_y-1;
+                                            x_location_intersection_int = x_location + width;
 
                                             //roof_contact = true;
                                             floor_contact = true;
@@ -758,12 +760,13 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                         } else {
                                         }
 
-                                    cout << " LR1 " <<  x_location_intersection_int << endl;
-                                    if (floor_contact == true) {
-                                        x_location_intersection_int = x_location + width;
+                                    //cout << " LR1 " <<  x_location_intersection_int << endl;
+                                    if (floor_contact == true && y_location_intersection_int < P3_y) {
+                                        //x_location_intersection_int = x_location + width;
+                                        //cout << y_location_intersection_int << " _ " << P3_y << endl;
                                     } else {
                                     }
-                                    cout << " LR2 " <<  x_location_intersection_int << endl;
+                                    //cout << " LR2 " <<  x_location_intersection_int << endl;
                                     x_location = x_location_intersection_int - width;
                                     y_location = y_location_intersection_int - height;
                                     //cout << x_1 << " " << y_1 << " Prev " << x_2 << " " << y_2 << " " << x_location+width << " " << y_location+height << " " << P3_x << " " << P4_y <<endl;
@@ -787,10 +790,10 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
 
                                     if ( contact_points_all[1][7]  + getY() >= P4_y && contact_points_all[1][7]  + getY() < P3_y && contact_points_all[0][7] + getX() >= P3_x && contact_points_all[0][7] + getX() <= P4_x ) {
                                     // champ pos
-                                    x_1 = x_location ;
-                                    y_1 = y_location ;
-                                    x_2 = x_location_prev ;
-                                    y_2 = y_location_prev ;
+                                   float x_1 = x_location ;
+                                    float y_1 = y_location ;
+                                    float x_2 = x_location_prev ;
+                                    float y_2 = y_location_prev ;
 
                                     length = sqrt( ( x_1 - x_2 )*( x_1 - x_2 )+( y_1 - y_2 )*( y_1 - y_2 ) ) ;
                                     //cout << "L_" << length << endl;
@@ -815,14 +818,6 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                             a_cos = a_cos + M_PI;
                                         } else {
                                         }
-
-                                    //float sin_length = length * sin( a_cos ) ;
-                                    //float cos_length = length * cos( a_cos ) ;
-                                    //cout << " sin of length " << sin_length << endl;
-                                    //cout << " cos of length " << cos_length << endl;
-
-
-                                    //cout << "alfa_" << a_cos*(180/M_PI) << endl;
 
                                         while ( y_location_intersection_int >= P4_y && y_location_intersection_int <= P3_y && x_location_intersection_int >= P3_x && x_location_intersection_int <= P4_x ) {
                                                     increment = increment + delta_increment;
@@ -867,10 +862,6 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
 
                                     x_location = x_location_intersection_int;
                                     y_location = y_location_intersection_int;
-                                    cout << "U_L" <<endl;
-                                    //cout << x_1 << " " << y_1 << " Prev " << x_2 << " " << y_2 << " " << x_location+width << " " << y_location << " " << P3_x << " " << P3_y <<endl;
-
-
 
                                 } else {
                                 }
@@ -890,7 +881,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                             if ( contact_points_all[1][8]  + getY() >= P4_y && contact_points_all[1][8]  + getY() < P3_y && contact_points_all[0][8] + getX() >= P3_x && contact_points_all[0][8] + getX() <= P4_x ) {
                             x_velocity = 0;
                             contact_left = true;
-                                while ( contact_points_all[0][8]  + getX() < P4_x ){
+                                while ( contact_points_all[0][8]  + getX() <= P4_x ){
 
                                 setX( getX() +1 );
                                 }
@@ -912,7 +903,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                             if ( contact_points_all[1][9]  + getY() >= P4_y && contact_points_all[1][9]  + getY() < P3_y && contact_points_all[0][9] + getX() >= P3_x && contact_points_all[0][9] + getX() <= P4_x ) {
                             x_velocity = 0;
                             contact_left = true;
-                                while ( contact_points_all[0][9]  + getX() < P4_x ){
+                                while ( contact_points_all[0][9]  + getX() <= P4_x ){
 
                                 setX( getX() +1 );
                                 }
@@ -934,9 +925,9 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                             if ( contact_points_all[1][10]  + getY() >= P4_y && contact_points_all[1][10]  + getY() < P3_y && contact_points_all[0][10] + getX() >= P3_x && contact_points_all[0][10] + getX() <= P4_x ) {
                             x_velocity = 0;
                             contact_left = true;
-                                while ( contact_points_all[0][10]  + getX() < P4_x ){
+                                while ( contact_points_all[0][10]  + getX() <= P4_x ){
 
-                                setX( getX() +1 );
+                                setX( getX() +1 ); //
                                 }
                             } else {
                             }
@@ -954,15 +945,13 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                             int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
                             if ( contact_points_all[1][11]  + getY() >= P4_y && contact_points_all[1][11]  + getY() <= P3_y && contact_points_all[0][11] + getX() >= P3_x && contact_points_all[0][11] + getX() <= P4_x ) {
-
                                     // champ pos
-                                    x_1 = x_location ;
-                                    y_1 = y_location + height;
-                                    x_2 = x_location_prev ;
-                                    y_2 = y_location_prev + height;
-
+                                    float x_1 = x_location ;
+                                    float y_1 = y_location + height;
+                                    float x_2 = x_location_prev ;
+                                    float y_2 = y_location_prev + height;
+                                    //cout << "XYXY" << x_1 << " " << x_2 << " " << y_1 << " " << y_2 << endl;
                                     length = sqrt( ( x_1 - x_2 )*( x_1 - x_2 )+( y_1 - y_2 )*( y_1 - y_2 ) ) ;
-                                    //cout << "L_" << length << endl;
 
                                     x_location_intersection = x_1;
                                     y_location_intersection = y_1;
@@ -985,27 +974,20 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                         } else {
                                         }
 
-                                    //float sin_length = length * sin( a_cos ) ;
-                                    //float cos_length = length * cos( a_cos ) ;
-                                    //cout << " sin of length " << sin_length << endl;
-                                    //cout << " cos of length " << cos_length << endl;
-
-
-                                    //cout << "alfa_" << a_cos*(180/M_PI) << endl;
 
                                         while ( y_location_intersection_int >= P4_y && y_location_intersection_int <= P3_y && x_location_intersection_int >= P3_x && x_location_intersection_int <= P4_x ) {
                                                     increment = increment + delta_increment;
 
                                                     delta_x = ( length - increment ) * cos( a_cos );
                                                     delta_y = ( length - increment ) * sin( a_cos );
-                                                    //cout << delta_x << " _ " << delta_y <<endl;
+
 
                                                         if (delta_x < 0) {
                                                         //delta_x = 0;
                                                         } else {
                                                         }
                                                         if (delta_y < 0) {
-                                                        delta_y = 0;
+                                                        //delta_y = 0;
                                                         } else {
                                                         }
 
@@ -1022,28 +1004,24 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                         }
 
                                         /////////////////
+                                        //cout << " cont left before_ " << x_location_intersection_int <<endl;
                                         if (x_location_intersection_int >= P4_x && y_location_intersection_int > P4_y) {
                                             x_location_intersection_int = P4_x+1;
                                             contact_left = true;
+                                            //cout << "cont left x_intersection_int " << x_location_intersection_int << endl;
                                         } else {
                                         }
                                         if( y_location_intersection_int <= P4_y ){
                                             y_location_intersection_int = P4_y-1;
                                             //roof_contact = true;
+                                            x_location_intersection_int = x_location;
                                             floor_contact = true;
                                             y_velocity = 0;
                                             jump_counter = 1;
                                         } else {
                                         }
-                                        //cout << x_location_intersection_int << " LL- " << y_location_intersection_int <<endl;
 
-
-                                    cout << " LL1 " << x_location_intersection_int <<endl;
-                                    if (floor_contact == true) {
-                                        x_location_intersection_int = x_location;
-                                    } else {
-                                    }
-                                    cout << " LL2 " << x_location_intersection_int <<endl;
+                                    //cout << " LL2 " << x_location_intersection_int <<endl;
                                     x_location = x_location_intersection_int ;
                                     y_location = y_location_intersection_int - height;
                                     //cout << x_1 << " " << y_1 << " Prev " << x_2 << " " << y_2 << " " << x_location+width << " " << y_location+height << " " << P3_x << " " << P4_y <<endl;
