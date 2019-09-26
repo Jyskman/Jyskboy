@@ -154,9 +154,13 @@ champ_setup(hero);
 void game::setupWeaponprofiles(){
 
 
-weaponProfile * obj = new weaponProfile(201, 10, 10);
+weaponProfile * obj = new weaponProfile(201, 202 ,10, 10);
 gameWProfiles.push_back(*obj);
 delete obj;
+
+weaponProfile * obj2 = new weaponProfile(203, 204 ,10, 10);
+gameWProfiles.push_back(*obj2);
+delete obj2;
 };
 
 void game::setXYfactor() {
@@ -203,15 +207,85 @@ void game::setXYfactor() {
 
 void game::createAttacks(button_input& parameter) {
 // champ hero is part of the game object
+hero.current_gun = 0;
 
     if ( parameter.getShootState() == true ) {
         cout << "attack" << endl;
         setXYfactor();
-        cout << hero.gun_direction << endl;
+        //cout << hero.gun_direction << endl;
 
         // need to correct velocity and position according to internal states
 
-        attack * obj = new attack(gameWProfiles.at(hero.current_gun).sprite_nr, hero.x_location, hero.y_location, gameWProfiles.at(hero.current_gun).x_vel*x_factor, gameWProfiles.at(hero.current_gun).y_vel*y_factor);
+        int attack_to_create = 0;
+            if ( hero.gun_direction == 2 || hero.gun_direction == 4 ) {
+                attack_to_create = gameWProfiles.at(hero.current_gun).sprite_nr_rot;
+            } else {
+                attack_to_create = gameWProfiles.at(hero.current_gun).sprite_nr;
+            }
+        int attack_location_x = 0;
+        int attack_location_y = 0;
+        int attack_mirror = 0;
+
+            //cout << " sprite_nr " << hero.gun_sprite_nr << " " << all_sprites.at( hero.gun_sprite_nr ).sprite_height << " " << all_sprites.at( hero.gun_sprite_nr ).sprite_widht << endl;
+            switch ( hero.gun_direction ) {
+                case 1:
+                //cout << "mirror" <<  hero.x_mirror_gun << endl;
+                //attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).sprite_height/2 -1 - 2 + 20;
+                attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight() - all_sprites.at( attack_to_create ).getHeight() ;
+                attack_location_y = hero.RSV_y_gun - all_sprites.at( hero.gun_sprite_nr ).getHeight() -1;
+                //cout << hero.RSV_x_gun << "__" << all_sprites.at( hero.gun_sprite_nr ).sprite_height/2-2 << endl;
+                break;
+                case 2:
+                attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getWidth() - 11;
+                attack_location_y = hero.RSV_y_gun ;
+                break;
+                case 3:
+                attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getWidth() - 1;
+                attack_location_y = hero.RSV_y_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight()/2 - all_sprites.at( attack_to_create ).getHeight()/2 - 1;
+                break;
+                case 4:
+                attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getWidth() - 0;
+                attack_location_y = hero.RSV_y_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight() ;
+                break;
+                case 5:
+                attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight() - all_sprites.at( attack_to_create ).getHeight() ;
+                attack_location_y = hero.RSV_y_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight() -1;
+                break;
+                case 6:
+                break;
+                default:
+                break;
+            };
+            // Attack mirror
+            if ( hero.current_sprite_direction == false ) {
+                if ( hero.rot_gun == 1 ) {
+                    attack_mirror = 2*(attack_location_x - hero.width/2-1) + all_sprites.at( hero.gun_sprite_nr ).getWidth() - all_sprites.at( attack_to_create ).getWidth() ;
+                } else {
+                }
+                if ( hero.rot_gun == 2 ) {
+
+                    if ( hero.gun_direction == 1 || hero.gun_direction == 5 ) {
+                        attack_mirror = 2*(attack_location_x - hero.width/2) + all_sprites.at( attack_to_create ).getHeight() - 1;
+                    } else {
+                        attack_mirror = 2*(attack_location_x - hero.width/2-1) + all_sprites.at( hero.gun_sprite_nr ).getHeight() - all_sprites.at( attack_to_create ).getHeight() - 1;
+                    }
+
+                } else {
+
+                }
+
+
+            } else {
+                //cout << attack_location_x << "  " << hero.width/2 << endl;
+                attack_mirror = 0;
+            };
+
+            attack_location_x = attack_location_x - attack_mirror;
+
+        cout << attack_location_x << endl;
+        attack * obj = new attack(attack_to_create, hero.x_location+attack_location_x, hero.y_location+attack_location_y,
+        gameWProfiles.at(hero.current_gun).x_vel*x_factor, gameWProfiles.at(hero.current_gun).y_vel*y_factor,
+        hero.rot_gun, hero.horisontal_gun, hero.vertical_gun, hero.gun_sprite_nr );
         gameAttacks.push_back(*obj);
         delete obj;
     } else {
@@ -232,7 +306,7 @@ void game::createAttacks(button_input& parameter) {
     [](const attack & o) { return o.destroy == true; }),
     gameAttacks.end());
 
-    cout << gameAttacks.size() <<endl;
+    //cout << gameAttacks.size() <<endl;
 
 };
 
@@ -244,11 +318,11 @@ void game::game_main(){
         hero.updateV( buttons, physics_objects.at( physics_current ) );
         hero.setPos(buttons, physics_objects.at( physics_current ));
         hero.setContact(room_current);
-
+        hero.setRender();
         createAttacks(buttons);
         room_render_req(room_current);
 
-        hero.setRender();
+
 
 
         // audio prof of principle

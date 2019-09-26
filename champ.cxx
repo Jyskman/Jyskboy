@@ -216,6 +216,8 @@ for ( int i = 0; i < RSV.size(); i++ ) {
     int x_mirror = 0;
     int RSV_x, RSV_y;
 
+
+
     int rot;
     bool vertical;
     bool horisontal;
@@ -300,6 +302,19 @@ for ( int i = 0; i < RSV.size(); i++ ) {
                         };
 
                     } else {
+                    }
+
+                    // transmitt the RSV and mirror values to the later attack creation
+                    cout << " width half " << width/2 << endl;
+                    if ( RSV.at(i).is_g == true ) {
+                        x_mirror_gun = x_mirror;
+                        RSV_x_gun = RSV_x-x_location;
+                        RSV_y_gun = RSV_y-y_location;
+                        horisontal_gun = horisontal;
+                        vertical_gun = vertical;
+                        rot_gun = rot;
+                        gun_sprite_nr = RSV.at(i).sprite_nr;
+                    }else {
                     }
 
                     render_requests * obj = new render_requests(RSV.at(i).sprite_nr, RSV_x-x_mirror, RSV_y, palette_current,horisontal, vertical, rot);
@@ -1240,19 +1255,19 @@ void champ_setup(champ &parameter) {
     delete state_1_3;
 
     //gun
-    render_state * state_1_4 = new render_state(false, true, true, false, true, false, 3, 3, 3, 3, 3, 1, 2, 3, 4, 5, 6, 7, 14, 10, 104 );
+    render_state * state_1_4 = new render_state(true,false, true, true, false, true, false, 3, 3, 3, 3, 3, 1, 2, 3, 4, 5, 6, 7, 14, 10, 104 );
     parameter.RSV.push_back(*state_1_4);
     delete state_1_4;
-    render_state * state_1_5 = new render_state(false, true, true, false, true, false, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 11, 10, 104 );
+    render_state * state_1_5 = new render_state(true,false, true, true, false, true, false, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 11, 10, 104 );
     parameter.RSV.push_back(*state_1_5);
     delete state_1_5;
-    render_state * state_1_6 = new render_state(false, true, true, false, true, false, 5, 5, 5, 5, 5, 1, 2, 3, 4, 5, 6, 7, 11, 10, 104 );
+    render_state * state_1_6 = new render_state(true,false, true, true, false, true, false, 5, 5, 5, 5, 5, 1, 2, 3, 4, 5, 6, 7, 11, 10, 104 );
     parameter.RSV.push_back(*state_1_6);
     delete state_1_6;
-    render_state * state_1_7 = new render_state(false, true, true, false, true, false, 2, 2, 2, 2, 2, 1, 2, 3, 4, 5, 6, 7, 11, -3, 106 );
+    render_state * state_1_7 = new render_state(true,false, true, true, false, true, false, 2, 2, 2, 2, 2, 1, 2, 3, 4, 5, 6, 7, 11, -3, 106 );
     parameter.RSV.push_back(*state_1_7);
     delete state_1_7;
-    render_state * state_1_8 = new render_state(false, true, true, false, true, false, 4, 4, 4, 4, 4, 1, 2, 3, 4, 5, 6, 7, 11, 10, 106 );
+    render_state * state_1_8 = new render_state(true,false, true, true, false, true, false, 4, 4, 4, 4, 4, 1, 2, 3, 4, 5, 6, 7, 11, 10, 106 );
     parameter.RSV.push_back(*state_1_8);
     delete state_1_8;
 //    render_state * state_1_5 = new render_state(false, true, true, false, true, false, 2, 2, 2, 1, 2, 3, 4, 12, -12, 105 );

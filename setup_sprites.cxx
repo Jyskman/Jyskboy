@@ -683,6 +683,48 @@ unsigned char shot_v1[9 * 5 * 2 + 1] =
  "\377\377\377\377\377");
 
 
+int shot_v1_rot_width = 9;
+int shot_v1_rot_height = 9;
+int shot_v1_rot_size = 9 * 9 * 2 + 1;
+unsigned char shot_v1_rot[9 * 9 * 2 + 1] =
+("\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377@\377@\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377@\377\002\364@\377\377\377\377\377\377\377\377\377"
+ "\377\377@\377\002\364@\377\377\377\377\377\377\377\377\377\377\377@\377\002\364"
+ "@\377\377\377\377\377\377\377\377\377\377\377@\377\002\364@\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\002\364@\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\002\364\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377");
+
+
+int shot_v2_width = 9;
+int shot_v2_height = 9;
+int shot_v2_size = 9 * 9 * 2 + 1;
+unsigned char shot_v2[9 * 9 * 2 + 1] =
+("\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\002\364\002\364\002\364\002\364\002\364\002\364\002\364\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\"\332\002\364\002\364\002\364\377\377\377\377\377\377\"\332"
+ "\"\332\"\332\"\332\"\332\"\332\377\377\002\364\002\364\002\364\002\364\002\364\"\332"
+ "\"\332\"\332\377\377\377\377\377\377\"\332\"\332\"\332\"\332\"\332\"\332\377"
+ "\377\377\377\377\377\377\377\377\377\"\332\002\364\002\364\002\364\377\377\002\364"
+ "\002\364\002\364\002\364\002\364\002\364\002\364\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377");
+
+int shot_v2_rot_width = 9;
+int shot_v2_rot_height = 9;
+int shot_v2_rot_size = 9 * 9 * 2 + 1;
+unsigned char shot_v2_rot[9 * 9 * 2 + 1] =
+("\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\002\364\002\364\002\364\"\332\"\332\377\377\377\377\377\377"
+ "\002\364\002\364\002\364\"\332\"\332\"\332\377\377\377\377\002\364\002\364\377\377\""
+ "\332\"\332\"\332\002\364\377\377\377\377\377\377\377\377\377\377\002\364\"\332"
+ "\002\364\002\364\377\377\377\377\377\377\377\377\002\364\377\377\377\377\002\364\002"
+ "\364\377\377\377\377\377\377\002\364\377\377\377\377\002\364\002\364\377\377\377"
+ "\377\377\377\002\364\377\377\377\377\377\377\002\364\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377");
+
+
 std::vector<sprite_objects> all_sprites;
 std::vector<sprite_objects*> sprite_pointers;
 
@@ -756,6 +798,18 @@ void setup_sprites(render& parameter) {
     sprite_objects shotv1(7, (unsigned char*)shot_v1 ,shot_v1, shot_v1_size, shot_v1_width, shot_v1_height,201);
     all_sprites.push_back(shotv1);
     sprite_pointers.push_back(&shotv1);
+    sprite_objects shotv1rot(8, (unsigned char*)shot_v1_rot ,shot_v1_rot, shot_v1_rot_size, shot_v1_rot_width, shot_v1_rot_height,202);
+    all_sprites.push_back(shotv1rot);
+    sprite_pointers.push_back(&shotv1rot);
+
+    sprite_objects shotv2(7, (unsigned char*)shot_v2 ,shot_v2, shot_v2_size, shot_v2_width, shot_v2_height,203);
+    all_sprites.push_back(shotv2);
+    sprite_pointers.push_back(&shotv2);
+    sprite_objects shotv2rot(8, (unsigned char*)shot_v2_rot ,shot_v2_rot, shot_v2_rot_size, shot_v2_rot_width, shot_v2_rot_height,204);
+    all_sprites.push_back(shotv2rot);
+    sprite_pointers.push_back(&shotv2rot);
+
+
 
     for (int i = 0; i < all_sprites.size(); i++) {
         all_sprites.at(i).Relation_Spritenr_type();
@@ -786,4 +840,7 @@ parameter.load_sprite_data((unsigned char*)champ_legs_5, champ_legs_5_width, cha
 parameter.load_sprite_data((unsigned char*)champ_legs_6, champ_legs_6_width, champ_legs_6_height );
 // shot
 parameter.load_sprite_data((unsigned char*)shot_v1, shot_v1_width, shot_v1_height );
+parameter.load_sprite_data((unsigned char*)shot_v1_rot, shot_v1_rot_width, shot_v1_rot_height );
+parameter.load_sprite_data((unsigned char*)shot_v2, shot_v2_width, shot_v2_height );
+parameter.load_sprite_data((unsigned char*)shot_v2_rot, shot_v2_rot_width, shot_v2_rot_height );
 };

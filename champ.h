@@ -31,6 +31,7 @@ int contact_points_all[2][12];
 
 int internal_state;
 int current_gun;
+int current_gun_sprite_nr;
 int current_legs;
 int current_torso;
 
@@ -67,6 +68,10 @@ int sprite_nr;
 int current_form_info[10] = {101,102,0,0,0,0,0,0,25,30}; // sprite 1/sprite 2, 3, 4 plus indexes and hitbox size // probably obsolete
 float x_velocity;
 int y_velocity;
+
+// for RSV
+int x_mirror_gun, RSV_x_gun, RSV_y_gun, rot_gun, gun_sprite_nr;
+bool horisontal_gun, vertical_gun;
 
 
 int x_max_speed;
