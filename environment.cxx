@@ -4,6 +4,7 @@
 #include "environment.h"
 #include "render.h"
 #include "setup_sprites.h"
+#include <math.h>
 using namespace std;
 
 int room1_cols = 128;
@@ -169,6 +170,8 @@ int room_3_palette[32][26] = {
 };
 vector<block> blocks;
 vector<room_object> room_objects;
+//vector<portal> portal_objects;
+vector<room_portal> room_portals;
 
 block::block(int x_pos, int y_pos, int palette, int type) {
 
@@ -179,6 +182,17 @@ block_type = type; // also called index type/index
 sprite_nr = Relation_Spritenr_type();
 friction_coeff = setFriction(type);
 };
+
+block::block(int x_pos, int y_pos, int type) {
+
+x_location = x_pos;
+y_location = y_pos;
+current_palette = 1;
+block_type = type; // also called index type/index
+sprite_nr = Relation_Spritenr_type();
+friction_coeff = setFriction(type);
+};
+
 
 block::~block(){};
 
@@ -263,6 +277,22 @@ room_nr = nr;
 room_object_setup();
 };
 
+room_object::room_object(int *arr, int row, int col, int x_up, int x_low, int y_up, int y_low, int nr) : roomblocks() {
+
+adress = arr;
+
+rows = row;
+cols = col;
+xlim_low = x_low;
+xlim_up =x_up;
+ylim_low = y_low;
+ylim_up = y_up;
+room_nr = nr;
+
+
+room_object_setup();
+};
+
 room_object::~room_object() {
 
 };
@@ -272,7 +302,8 @@ void room_object::room_object_setup() {
     for ( int i = 0; i < rows; i++ ) {
         for ( int ii = 0; ii < cols; ii++ ) {
             if ( *( (adress + i*cols) +ii ) > 0 ) {
-                block * obj = new block(ii*15, i*15, *( (adress_pal + i*cols) +ii ), *( (adress + i*cols) +ii ));
+                //block * obj = new block(ii*15, i*15, *( (adress_pal + i*cols) +ii ), *( (adress + i*cols) +ii ));
+                block * obj = new block(ii*15, i*15, *( (adress + i*cols) +ii ));
                 obj->setContactpoints();
                 //cout << *( (adress_pal + i*cols) +ii ) << endl;
                 roomblocks.push_back(*obj);
@@ -289,23 +320,169 @@ void room_object::testfunc() {
 cout << roomblocks.size() << endl;
 };
 
+portal::portal( int type, int x_location, int y_location, int height, int width, int radius, int room_dest, int dest_x, int dest_y ) {
+
+    portal_type = type;
+    x_loc = x_location;
+    y_loc = y_location;
+    portal_height = height;
+    portal_width = width;
+    portal_radius = radius;
+
+    room_destination = room_dest;
+    destination_x = dest_x;
+    destination_y = dest_y;
+
+    if ( portal_type == 1 ) {
+        sprite_index = 301;
+    } else {
+    }
+
+    portal_config();
+};
+
+void portal::portal_config() {
+
+
+// Sprite relation config
+    for (int i=0; i < all_sprites.size(); i++) {
+        if ( all_sprites.at(i).sprite_index == sprite_index ) {
+            sprite_nr = i;
+
+
+        } else {
+
+        };
+    };
+
+};
+
+void portal::portal_render() {
+
+cout << "test" << endl;
+            int x_off = 0;
+            int y_off = 0;
+
+    switch (portal_type) {
+
+        case (1):
+        {   //render_requests * obj_x = new render_requests(sprite_nr, x_loc, y_loc, 1);
+            x_off = all_sprites.at(sprite_nr).getWidth() - 1 - 1;
+            y_off = all_sprites.at(sprite_nr).getHeight() - 1 - 1;
+
+
+            render_requests * obj_x = new render_requests(sprite_nr, x_loc, y_loc, 1, true, true, 1);
+            render_requests * obj_x2 = new render_requests(sprite_nr, x_loc, y_loc+y_off, 1, true, false, 1);
+            render_requests * obj_x3 = new render_requests(sprite_nr, x_loc-x_off, y_loc, 1, false, true, 1);
+            render_requests * obj_x4 = new render_requests(sprite_nr, x_loc-x_off, y_loc+y_off, 1, false, false, 1);
+            render_req.push_back( *obj_x );
+            render_req.push_back( *obj_x2 );
+            render_req.push_back( *obj_x3 );
+            render_req.push_back( *obj_x4 );
+            delete obj_x;
+            delete obj_x2;
+            delete obj_x3;
+            delete obj_x4;
+            break;
+            }
+
+
+        default:
+        break;
+
+    };
+
+
+};
+
+
+
+void portal::transport( champ &parameter, int &game_room ) {
+
+
+
+
+    switch (portal_type) {
+
+        case (1):
+
+            p_x = (float)x_loc + all_sprites.at(sprite_nr).getWidth();
+            p_y = (float)y_loc +all_sprites.at(sprite_nr).getHeight();
+            cout << p_x << " flaots " << p_y << endl;
+            h_x = (float)parameter.x_location;
+            h_y = (float)parameter.y_location;
+
+
+            distance = sqrt( ( (p_x - h_x)*(p_x - h_x) + (p_y - h_y)*(p_y - h_y) ) );
+
+            if (distance <= 20 ) {
+                game_room = room_destination;
+            } else {
+            }
+
+        break;
+
+        default:
+        break;
+
+    };
+
+
+};
+
+room_portal::room_portal(int *address) {
+    addr = address;
+};
+
+room_portal::room_portal( portal &parameter ) {
+
+    portals.push_back(parameter);
+};
+
+room_portal::room_portal( int room ) {
+
+    room_nr = room;
+};
+
+void room_portal::load_portalobject(portal &parameter) {
+
+    portals.push_back(parameter);
+};
+
+
+
 
 void room_setup() {
 
-room_object * new_room1 = new room_object( (int*)room_1,(int*)room_1_palette,room1_rows, room1_cols, room1_xlimit_upper, room1_xlimit_lower, room1_ylimit_upper, room1_ylimit_lower,0);
+room_object * new_room1 = new room_object( (int*)room_1,room1_rows, room1_cols, room1_xlimit_upper, room1_xlimit_lower, room1_ylimit_upper, room1_ylimit_lower,0);
 room_objects.push_back( *new_room1 );
 delete new_room1;
 
-room_object * new_room2 = new room_object( (int*)room_2,(int*)room_2_palette,room2_rows, room2_cols, room2_xlimit_upper, room2_xlimit_lower, room2_ylimit_upper, room2_ylimit_lower,1);
+room_object * new_room2 = new room_object( (int*)room_2, room2_rows, room2_cols, room2_xlimit_upper, room2_xlimit_lower, room2_ylimit_upper, room2_ylimit_lower,1);
 room_objects.push_back( *new_room2 );
 delete new_room2;
 
-room_object * new_room3 = new room_object( (int*)room_3,(int*)room_3_palette,room3_rows, room3_cols, room3_xlimit_upper, room3_xlimit_lower, room3_ylimit_upper, room3_ylimit_lower,2);
+room_object * new_room3 = new room_object( (int*)room_3, room3_rows, room3_cols, room3_xlimit_upper, room3_xlimit_lower, room3_ylimit_upper, room3_ylimit_lower,2);
 room_objects.push_back( *new_room3 );
 delete new_room3;
 
-//room_objects.at(1).testfunc();
+// room portal objects
 
+room_portal * new_1 = new room_portal(1);
+room_portal * new_2 = new room_portal(2);
+room_portal * new_3 = new room_portal(3);
+room_portals.push_back( *new_1 );
+room_portals.push_back( *new_2 );
+room_portals.push_back( *new_3 );
+delete new_1;
+delete new_2;
+delete new_3;
+
+//R1
+portal * portal_room1_1 = new portal(1, 150, 180, 20, 20, 20, 1, 30, 30);
+//room_1_portals.load_portalobject( *portal_room1_1 );
+room_portals.at(0).load_portalobject(*portal_room1_1);
+delete portal_room1_1;
 
 };
 
@@ -348,3 +525,19 @@ room_objects.at(roomnr).roomblocks.at(i).setRender();
 //    };
 
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

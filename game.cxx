@@ -17,7 +17,7 @@
 
 
 #include "render.h"
-//~ #include "enemy.h"
+
 #include "champ.h"
 #include "sprite_objects.h"
 #include "setup_sprites.h"
@@ -57,9 +57,10 @@ game::game(int a) : buttons(1), screen(1), audio(), hero(1, (100 * 100 * 3 + 1),
 
 // when game is created these items are also
 game_state_current = 0;
-room_current = 2;
+room_current = 0;
 physics_current = 0;
 game_is_running = true;
+room_prev = room_current;
 
     // Open the file for reading and writing
     fbfd = open("/dev/fb1", O_RDWR);
@@ -127,28 +128,28 @@ void game::game_close() {
 };
 
 void game::game_setup() {
-setup_sprites(screen);
-room_setup();
-physics_setup();
-setupWeaponprofiles();
-all_sprites.at(0).sprite_test();
+    setup_sprites(screen);
+    room_setup();
+    physics_setup();
+    setupWeaponprofiles();
+    all_sprites.at(0).sprite_test();
 
 
 
-//champ en_1(1, (100 * 100 * 3 + 1), 100, 100);
-hero.sprite_nr = hero.Relation_Spritenr_type();
-// setup of the 4 sprites
-for (int i = 4; i < 8; i++){
-    hero.current_form_info[i] = hero.Relation_Spritenr_type_dev( hero.current_form_info[-4+i]);
+    //champ en_1(1, (100 * 100 * 3 + 1), 100, 100);
+    hero.sprite_nr = hero.Relation_Spritenr_type();
+    // setup of the 4 sprites
+    for (int i = 4; i < 8; i++){
+        hero.current_form_info[i] = hero.Relation_Spritenr_type_dev( hero.current_form_info[-4+i]);
 
-    hero.height = hero.current_form_info[9];
-    hero.width = hero.current_form_info[8];
-}
-    cout << hero.sprite_nr << endl;
-hero.setContactPoints();
-champ_setup(hero);
-		hero.setX(20);
-		hero.setY(100);
+        hero.height = hero.current_form_info[9];
+        hero.width = hero.current_form_info[8];
+    }
+        cout << hero.sprite_nr << endl;
+    hero.setContactPoints();
+    champ_setup(hero);
+            hero.setX(20);
+            hero.setY(100);
 };
 
 void game::setupWeaponprofiles(){
@@ -161,6 +162,11 @@ delete obj;
 weaponProfile * obj2 = new weaponProfile(203, 204 ,10, 10);
 gameWProfiles.push_back(*obj2);
 delete obj2;
+
+weaponProfile * obj3 = new weaponProfile(205, 206 ,10, 10);
+gameWProfiles.push_back(*obj3);
+delete obj3;
+
 };
 
 void game::setXYfactor() {
@@ -207,7 +213,7 @@ void game::setXYfactor() {
 
 void game::createAttacks(button_input& parameter) {
 // champ hero is part of the game object
-hero.current_gun = 0;
+
 
     if ( parameter.getShootState() == true ) {
         cout << "attack" << endl;
@@ -231,24 +237,25 @@ hero.current_gun = 0;
                 case 1:
                 //cout << "mirror" <<  hero.x_mirror_gun << endl;
                 //attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).sprite_height/2 -1 - 2 + 20;
-                attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight() - all_sprites.at( attack_to_create ).getHeight() ;
+                attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight()/2 - all_sprites.at( attack_to_create ).getHeight()/2 ;
                 attack_location_y = hero.RSV_y_gun - all_sprites.at( hero.gun_sprite_nr ).getHeight() -1;
                 //cout << hero.RSV_x_gun << "__" << all_sprites.at( hero.gun_sprite_nr ).sprite_height/2-2 << endl;
                 break;
                 case 2:
-                attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getWidth() - 11;
+                //attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getWidth() - 11;
+                attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getWidth() - all_sprites.at( attack_to_create ).getWidth();
                 attack_location_y = hero.RSV_y_gun ;
                 break;
                 case 3:
-                attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getWidth() - 1;
+                attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getWidth() -1;
                 attack_location_y = hero.RSV_y_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight()/2 - all_sprites.at( attack_to_create ).getHeight()/2 - 1;
                 break;
                 case 4:
-                attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getWidth() - 0;
-                attack_location_y = hero.RSV_y_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight() ;
+                attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getWidth() - all_sprites.at( attack_to_create ).getWidth();
+                attack_location_y = hero.RSV_y_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight() - all_sprites.at( attack_to_create ).getHeight() ;
                 break;
                 case 5:
-                attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight() - all_sprites.at( attack_to_create ).getHeight() ;
+                attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight()/2 - all_sprites.at( attack_to_create ).getHeight()/2 ;
                 attack_location_y = hero.RSV_y_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight() -1;
                 break;
                 case 6:
@@ -259,7 +266,15 @@ hero.current_gun = 0;
             // Attack mirror
             if ( hero.current_sprite_direction == false ) {
                 if ( hero.rot_gun == 1 ) {
-                    attack_mirror = 2*(attack_location_x - hero.width/2-1) + all_sprites.at( hero.gun_sprite_nr ).getWidth() - all_sprites.at( attack_to_create ).getWidth() ;
+
+//                    if ( hero.gun_direction == 3 ) {
+//                        attack_mirror = 2*(attack_location_x - hero.width/2-1) + all_sprites.at( hero.gun_sprite_nr ).getWidth() - all_sprites.at( attack_to_create ).getWidth() ;
+//                    } else {
+//                        attack_mirror = 2*(attack_location_x - hero.width/2-1) + all_sprites.at( attack_to_create ).getHeight() - 1;
+//                    }
+                    //attack_mirror = 2*(attack_location_x - hero.width/2-1) + all_sprites.at( hero.gun_sprite_nr ).getWidth() - all_sprites.at( attack_to_create ).getWidth() ;
+                    attack_mirror = 2*(attack_location_x - hero.width/2-1) + all_sprites.at( attack_to_create ).getWidth() - 1;
+
                 } else {
                 }
                 if ( hero.rot_gun == 2 ) {
@@ -267,7 +282,8 @@ hero.current_gun = 0;
                     if ( hero.gun_direction == 1 || hero.gun_direction == 5 ) {
                         attack_mirror = 2*(attack_location_x - hero.width/2) + all_sprites.at( attack_to_create ).getHeight() - 1;
                     } else {
-                        attack_mirror = 2*(attack_location_x - hero.width/2-1) + all_sprites.at( hero.gun_sprite_nr ).getHeight() - all_sprites.at( attack_to_create ).getHeight() - 1;
+                        //attack_mirror = 2*(attack_location_x - hero.width/2-1) + all_sprites.at( hero.gun_sprite_nr ).getHeight() - all_sprites.at( attack_to_create ).getHeight() - 1;
+                        attack_mirror = 2*(attack_location_x - hero.width/2-1) + all_sprites.at( attack_to_create ).getHeight() - 1;
                     }
 
                 } else {
@@ -310,6 +326,63 @@ hero.current_gun = 0;
 
 };
 
+// Enemy manager function
+void game::enemy_manager() {
+
+
+    // Room 2
+    if ( room_current == 2 && enemy_config == true ) {
+
+        enemy * new_enemy_1 = new enemy(1);
+        gameEnemys.push_back( *new_enemy_1 );
+        delete new_enemy_1;
+
+
+        enemy_config = false;
+    } else {
+    }
+
+
+    for ( int i = 0 ; i < gameEnemys.size() ; i++ ) {
+        gameEnemys.at(i).setRender();
+    }
+
+    // Remove destroyed enemies
+    gameEnemys.erase(
+    std::remove_if(gameEnemys.begin(), gameEnemys.end(),
+    [](const enemy & o) { return o.destroy == true; }),
+    gameEnemys.end());
+
+
+};
+
+// room switched true false
+
+bool game::game_room_switch() {
+    bool return_value = false;
+
+    if ( room_current != room_prev ) {
+        return_value = true;
+    } else {
+    }
+
+
+
+    return return_value;
+
+};
+
+void game::portals_run_render() {
+
+
+    for ( int i = 0; i < room_portals.at(room_current).portals.size() ; i++ ) {
+        room_portals.at(room_current).portals.at(i).portal_render();
+        room_portals.at(room_current).portals.at(i).transport(hero, room_current);
+        //cout << room_portals.at(room_current).portals.size() << endl;
+    }
+
+};
+
 
 
 void game::game_main(){
@@ -320,9 +393,14 @@ void game::game_main(){
         hero.setContact(room_current);
         hero.setRender();
         createAttacks(buttons);
-        room_render_req(room_current);
+
+        // Enemy prototype
+        enemy_manager();
+        portals_run_render();
 
 
+
+        room_render_req(room_current); // in environment
 
 
         // audio prof of principle

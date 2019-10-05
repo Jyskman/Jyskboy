@@ -4,8 +4,41 @@
 #include <iostream>
 #include <vector>
 #include "render.h"
-
+#include "champ.h"
 using namespace::std;
+
+
+class portal {
+
+    public:
+    portal( int type, int x_location, int y_location, int height, int width, int radius, int room_dest, int dest_x, int dest_y );
+    void transport( champ &parameter, int &game_room );
+    void portal_render();
+    void portal_config();
+    int portal_type;
+    int distance = 0;
+    int sprite_nr;
+    int sprite_index;
+    int x_loc, y_loc, portal_height, portal_width, portal_radius, room_destination, destination_x, destination_y;
+
+    float p_x, p_y, h_x, h_y;
+
+
+};
+
+class room_portal {
+
+    public:
+    room_portal( int *address );
+    room_portal( portal &parameter );
+    room_portal( int room );
+    void load_portalobject(portal &parameter);
+    int *addr;
+    int room_nr;
+    vector<portal> portals;
+
+};
+
 
 
 
@@ -27,6 +60,7 @@ int sprite_nr;
 bool sprite_error;
 
 block(int x_pos, int y_pos, int palette, int type);
+block(int x_pos, int y_pos, int type);
 ~block();
 
 void setRender();
@@ -39,23 +73,26 @@ extern vector<block> blocks;
 
 class room_object {
 
-public:
-int room_nr;
+    public:
+    int room_nr;
 
-int rows, cols;
-int xlim_up, xlim_low, ylim_up, ylim_low;
-int *adress;
-int *adress_pal;
-vector<block> roomblocks;
-vector<int> testvec;
-room_object(int *arr, int *arr_pal, int row, int col, int x_up, int x_low, int y_up, int y_low, int nr);
-~room_object();
+    int rows, cols;
+    int xlim_up, xlim_low, ylim_up, ylim_low;
+    int *adress;
+    int *adress_pal;
+    vector<block> roomblocks;
+    vector<int> testvec;
+    room_object(int *arr, int *arr_pal, int row, int col, int x_up, int x_low, int y_up, int y_low, int nr);
+    room_object(int *arr, int row, int col, int x_up, int x_low, int y_up, int y_low, int nr);
+    ~room_object();
 
-void room_object_setup();
-void testfunc();
+    void room_object_setup();
+    void testfunc();
 };
 
 extern vector<room_object> room_objects;
+extern vector<room_portal> room_portals;
+
 
 void room_setup();
 void room_render_req(int roomnr);

@@ -27,7 +27,7 @@ floor_contact = false;
 internal_state = 7;
 gun_direction = 3;
 jump_counter = 1;
-current_gun = 0;
+current_gun = 2;
 //internal = &render_req;
 //setContactPoints();
 };
@@ -340,6 +340,7 @@ for ( int i = 0; i < RSV.size(); i++ ) {
 
 
 };
+
 
 void champ::setContactPoints() {
 float floater;

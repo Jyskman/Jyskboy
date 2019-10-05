@@ -9,6 +9,7 @@
 #include <chrono>
 #include <ctime>
 #include <vector>
+#include "enemy.h"
 using namespace std;
 
 class game {
@@ -31,11 +32,13 @@ chrono::duration<double> elapsed_seconds;
 void setupWeaponprofiles();
 vector<weaponProfile> gameWProfiles;
 vector<attack> gameAttacks;
+vector<enemy> gameEnemys;
 void createAttacks(button_input& parameter);
 void setXYfactor();
 int x_factor, y_factor;
 
 int room_current;
+int room_prev;
 int game_state_current;
 int physics_current;
 long int screensize;
@@ -54,6 +57,15 @@ void game_setup();
 void game_close();
 void game_fbp_clear();
 void game_frame();
+bool game_room_switch();
+
+// enemy functions
+
+void enemy_manager();
+bool enemy_config = true;
+
+void portals_run_render();
+
 };
 
 
