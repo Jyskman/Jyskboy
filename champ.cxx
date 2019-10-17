@@ -305,7 +305,7 @@ for ( int i = 0; i < RSV.size(); i++ ) {
                     }
 
                     // transmitt the RSV and mirror values to the later attack creation
-                    cout << " width half " << width/2 << endl;
+                    //cout << " width half " << width/2 << endl;
                     if ( RSV.at(i).is_g == true ) {
                         x_mirror_gun = x_mirror;
                         RSV_x_gun = RSV_x-x_location;

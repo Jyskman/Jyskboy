@@ -216,7 +216,7 @@ void game::createAttacks(button_input& parameter) {
 
 
     if ( parameter.getShootState() == true ) {
-        cout << "attack" << endl;
+        //cout << "attack" << endl;
         setXYfactor();
         //cout << hero.gun_direction << endl;
 
@@ -298,7 +298,7 @@ void game::createAttacks(button_input& parameter) {
 
             attack_location_x = attack_location_x - attack_mirror;
 
-        cout << attack_location_x << endl;
+        //cout << attack_location_x << endl;
         attack * obj = new attack(attack_to_create, hero.x_location+attack_location_x, hero.y_location+attack_location_y,
         gameWProfiles.at(hero.current_gun).x_vel*x_factor, gameWProfiles.at(hero.current_gun).y_vel*y_factor,
         hero.rot_gun, hero.horisontal_gun, hero.vertical_gun, hero.gun_sprite_nr );
@@ -307,7 +307,19 @@ void game::createAttacks(button_input& parameter) {
     } else {
     };
 
-    //cout << gameAttacks.size() <<endl;
+
+    // if room switch true destroy all attacks
+    //cout << "1  " << room_prev << " " << room_current << " " << game_room_switch() << endl;
+    if ( game_room_switch() == true ) {
+
+        for ( int i = 0; i < gameAttacks.size(); i++ ) {
+            gameAttacks.at(i).destroy = true;
+        }
+
+    } else {
+    };
+
+
 
     //update attacks
     for ( int i = 0; i < gameAttacks.size(); i++ ) {
@@ -392,11 +404,12 @@ void game::game_main(){
         hero.setPos(buttons, physics_objects.at( physics_current ));
         hero.setContact(room_current);
         hero.setRender();
+        portals_run_render();
         createAttacks(buttons);
 
         // Enemy prototype
         enemy_manager();
-        portals_run_render();
+
 
 
 
@@ -413,7 +426,9 @@ void game::game_main(){
         }
 
 
+// room prev
 
+room_prev = room_current;
 };
 
 

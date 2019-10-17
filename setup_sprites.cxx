@@ -804,6 +804,11 @@ unsigned char portal_1[10 * 10 * 2 + 1] =
  "\377\377\377\377\377\377\377\377\377\377\377\377");
 
 
+int single_red_width = 1;
+int single_red_height = 1;
+int single_red_size = 1 * 1 * 2 + 1;
+unsigned char single_red[1 * 1 * 2 + 1] =
+("\000\370");
 
 
 std::vector<sprite_objects> all_sprites;
@@ -912,6 +917,14 @@ void setup_sprites(render& parameter) {
     delete obj_p1;
 
 
+
+    // singles for primitives
+    sprite_objects * s_red = new sprite_objects(12, (unsigned char*)single_red ,single_red, single_red_size, single_red_width, single_red_height,401);
+    all_sprites.push_back(*s_red);
+    sprite_pointers.push_back(s_red);
+    delete s_red;
+
+
     for (int i = 0; i < all_sprites.size(); i++) {
         all_sprites.at(i).Relation_Spritenr_type();
 
@@ -953,4 +966,6 @@ parameter.load_sprite_data((unsigned char*)enemy_1_body, enemy_1_body_width, ene
 // portals
 parameter.load_sprite_data((unsigned char*)portal_1, portal_1_width, portal_1_height );
 
+// singles for primitives
+parameter.load_sprite_data((unsigned char*)single_red, single_red_width, single_red_height );
 };

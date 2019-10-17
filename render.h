@@ -12,12 +12,16 @@
 // This is the content of the .h file, which is where the declarations go
 using namespace::std;
 
+void render_requests_quad( int sprite_nr, int x_loc, int y_loc, bool white_border, bool center );
+void render_requests_dual( int sprite_nr, int x_loc, int y_loc, bool white_border, bool center );
+void render_primitive_line( int x_start, int y_start, int x_stop, int y_stop, int orientation, int sprite_index );
 
 class render_requests {
 
 public:
 render_requests(int sprite_nr, int x_pos, int y_pos, int palette);
 render_requests(int sprite_nr, int x_pos, int y_pos, int palette, bool right_orientation, bool up_orientation, int rot);
+
 //~render_requests();
 int sprite_nr;
 int x_pos;
@@ -27,6 +31,8 @@ bool draw_evaluate;
 bool orientation;
 bool up_down;
 int rotation;
+
+bool checkers;
 
 int getSprite_nr();
 int current_palette;
@@ -41,7 +47,14 @@ int getY();
 
 extern vector<render_requests> render_req;
 
+// Will create general animation req system
+class animation_requests {
 
+public:
+animation_requests();
+
+
+};
 
 
 

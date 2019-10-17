@@ -338,6 +338,13 @@ portal::portal( int type, int x_location, int y_location, int height, int width,
     } else {
     }
 
+    if ( portal_type == 2 ) {
+        sprite_index = 301;
+    } else {
+    }
+
+
+
     portal_config();
 };
 
@@ -359,32 +366,25 @@ void portal::portal_config() {
 
 void portal::portal_render() {
 
-cout << "test" << endl;
+//cout << "test" << endl;
             int x_off = 0;
             int y_off = 0;
 
     switch (portal_type) {
 
         case (1):
-        {   //render_requests * obj_x = new render_requests(sprite_nr, x_loc, y_loc, 1);
-            x_off = all_sprites.at(sprite_nr).getWidth() - 1 - 1;
-            y_off = all_sprites.at(sprite_nr).getHeight() - 1 - 1;
+        {
 
+            render_requests_quad( sprite_nr, x_loc, y_loc, true, true );
 
-            render_requests * obj_x = new render_requests(sprite_nr, x_loc, y_loc, 1, true, true, 1);
-            render_requests * obj_x2 = new render_requests(sprite_nr, x_loc, y_loc+y_off, 1, true, false, 1);
-            render_requests * obj_x3 = new render_requests(sprite_nr, x_loc-x_off, y_loc, 1, false, true, 1);
-            render_requests * obj_x4 = new render_requests(sprite_nr, x_loc-x_off, y_loc+y_off, 1, false, false, 1);
-            render_req.push_back( *obj_x );
-            render_req.push_back( *obj_x2 );
-            render_req.push_back( *obj_x3 );
-            render_req.push_back( *obj_x4 );
-            delete obj_x;
-            delete obj_x2;
-            delete obj_x3;
-            delete obj_x4;
             break;
             }
+        case (2):
+        {
+            render_requests_dual(sprite_nr, x_loc, y_loc, true, true);
+            //render_requests_dual(sprite_nr, x_loc, y_loc-20, true, false);
+        break;
+        }
 
 
         default:
@@ -406,11 +406,12 @@ void portal::transport( champ &parameter, int &game_room ) {
 
         case (1):
 
-            p_x = (float)x_loc + all_sprites.at(sprite_nr).getWidth();
-            p_y = (float)y_loc +all_sprites.at(sprite_nr).getHeight();
-            cout << p_x << " flaots " << p_y << endl;
-            h_x = (float)parameter.x_location;
-            h_y = (float)parameter.y_location;
+            p_x = (float)x_loc ;
+            p_y = (float)y_loc ;
+            //cout << p_x << " flaots " << p_y << endl;
+            h_x = (float)parameter.x_location + (float)parameter.width/2  ;
+            h_y = (float)parameter.y_location + (float)parameter.height/2  ;
+
 
 
             distance = sqrt( ( (p_x - h_x)*(p_x - h_x) + (p_y - h_y)*(p_y - h_y) ) );
@@ -479,10 +480,12 @@ delete new_2;
 delete new_3;
 
 //R1
-portal * portal_room1_1 = new portal(1, 150, 180, 20, 20, 20, 1, 30, 30);
+portal * portal_room1_1 = new portal(2, 150, 180, 20, 20, 20, 1, 30, 30);
 //room_1_portals.load_portalobject( *portal_room1_1 );
 room_portals.at(0).load_portalobject(*portal_room1_1);
 delete portal_room1_1;
+
+
 
 };
 

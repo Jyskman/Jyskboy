@@ -7,7 +7,178 @@
 #include "setup_sprites.h"
 #include "environment.h"
 #include <algorithm>
+#include <cmath>
+#include <math.h>
 using namespace std;
+
+void render_requests_quad(int sprite_nr, int x_loc, int y_loc, bool white_border, bool center ) {
+
+        int minus_one = 0;
+        int x = 0;
+        int y = 0;
+
+        if ( center == true ) {
+            x = all_sprites.at(sprite_nr).getWidth() -1;
+            y = all_sprites.at(sprite_nr).getHeight() -1;
+
+        }
+
+
+        if ( white_border == true ) {
+            minus_one = 1;
+        } else {
+        }
+
+        int x_off = all_sprites.at(sprite_nr).getWidth() - 1 - minus_one;
+        int  y_off = all_sprites.at(sprite_nr).getHeight() - 1 - minus_one;
+
+        render_requests * obj_x  = new render_requests(sprite_nr, x_loc-x,          y_loc-y,            1, true, true, 1);
+        render_requests * obj_x2 = new render_requests(sprite_nr, x_loc-x,          y_loc+y_off-y,      1, true, false, 1);
+        render_requests * obj_x3 = new render_requests(sprite_nr, x_loc-x_off-x,    y_loc-y,            1, false, true, 1);
+        render_requests * obj_x4 = new render_requests(sprite_nr, x_loc-x_off-x,    y_loc+y_off-y,      1, false, false, 1);
+        render_req.push_back( *obj_x );
+        render_req.push_back( *obj_x2 );
+        render_req.push_back( *obj_x3 );
+        render_req.push_back( *obj_x4 );
+        delete obj_x;
+        delete obj_x2;
+        delete obj_x3;
+        delete obj_x4;
+
+
+
+};
+
+void render_requests_dual( int sprite_nr, int x_loc, int y_loc, bool white_border, bool center ) {
+
+        int minus_one = 0;
+        int x = 0;
+        int y = 0;
+
+        if ( center == true ) {
+            x = all_sprites.at(sprite_nr).getWidth() -1;
+            y = all_sprites.at(sprite_nr).getHeight()/2 ;
+
+        }
+
+
+        if ( white_border == true ) {
+            minus_one = 1;
+        } else {
+        }
+
+        int  x_off = all_sprites.at(sprite_nr).getWidth() - 1 - minus_one;
+        int  y_off = all_sprites.at(sprite_nr).getHeight() - 1 - minus_one;
+
+        render_requests * obj_x  = new render_requests(sprite_nr, x_loc+x_off - x,                y_loc-y,           1, true, true, 1);
+        render_requests * obj_x2 = new render_requests(sprite_nr, x_loc - x,          y_loc-y,           1, false, true, 1);
+
+        render_req.push_back( *obj_x );
+        render_req.push_back( *obj_x2 );
+
+        delete obj_x;
+        delete obj_x2;
+
+        render_primitive_line(x_loc, y_loc, x_loc-10, y_loc-50, 1, 401);
+
+};
+
+
+// Orientation 0 - vertical
+void render_primitive_line( int x_start, int y_start, int x_stop, int y_stop, int orientation, int sprite_index ) {
+
+int x_size = x_stop - x_start;
+int y_size = y_stop - y_start;
+int x_sign = 1;
+int y_sign = 1;
+int sprite_nr;
+
+float line_length = sqrt(  (float(y_stop) - float(y_start) )*( float(y_stop) - float(y_start) ) + ( float(x_stop) - float(x_start) )*( float(x_stop) - float(x_start) )  );
+
+    for (int i=0; i < all_sprites.size(); i++) {
+        if ( all_sprites.at(i).sprite_index == sprite_index ) {
+
+            sprite_nr = i;
+        } else {
+
+        };
+    };
+
+
+    if ( x_size < 0 || x_size > 0 ) {
+        x_sign = x_size/abs(x_size);
+    };
+    if ( y_size < 0 || y_size > 0 ) {
+        y_sign = y_size/abs(y_size);
+    };
+
+
+    switch ( orientation ) {
+
+        case (0):
+
+            for ( int i = 0; i < abs(y_size); i++ ) {
+            render_requests * obj = new render_requests(sprite_nr, x_start, y_start + i*y_sign, 1);
+
+            render_req.push_back(*obj);
+            delete obj;
+
+            }
+
+
+
+        break;
+
+
+
+        case (1):
+            {
+                float alfa_radian = acos (  ( float(x_stop) - float(x_start) ) / line_length );
+                float alfa = alfa_radian*( 360/(2*M_PI) );
+
+                cout << alfa << endl;
+                if ( y_stop < y_start ) {
+                    y_sign = -1;
+                } else {
+                    y_sign = 1;
+                }
+
+
+                for ( int i = 0; i < int(line_length); i++ ) {
+
+                float x = float(x_start) + (line_length-i)*cos( alfa_radian );
+                float y = float(y_start) + y_sign*(line_length-i)*sin( alfa_radian );
+
+
+
+                    for ( int i = 0; i < int(line_length); i++ ) {
+
+                        render_requests * obj = new render_requests(sprite_nr, int(x), int(y), 1);
+
+                        render_req.push_back(*obj);
+                        delete obj;
+
+                    };
+
+
+                };
+
+
+        break;
+        };
+
+        case (2):
+        default:
+        break;
+
+        break;
+
+
+    };
+
+
+};
+
 
 
 render::render(int a){
@@ -447,6 +618,7 @@ current_palette = palette;
 orientation = true;
 up_down = true;
 rotation = 1;
+checkers = false;
 };
 
 render_requests::render_requests(int sprite, int xpos, int ypos, int palette, bool right_orientation, bool up_orientation, int rot ){
@@ -460,8 +632,10 @@ current_palette = palette;
 orientation = right_orientation;
 up_down = up_orientation;
 rotation = rot;
+checkers = false;
 
 };
+
 
 
 
@@ -481,4 +655,22 @@ int render_requests::getY(){
 bool render_requests::getDraw(const render_requests & o) {
     return draw;
 }
+
+// Animation req system
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
