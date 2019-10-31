@@ -27,7 +27,7 @@ floor_contact = false;
 internal_state = 7;
 gun_direction = 3;
 jump_counter = 1;
-current_gun = 2;
+current_gun = 0;
 //internal = &render_req;
 //setContactPoints();
 };
@@ -592,12 +592,14 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                     }
 
                                     /////////////////
-                                if (x_location_intersection_int <= P3_x) {
+                                if (x_location_intersection_int <= P3_x && y_location_intersection_int < P3_y ) {
                                     x_location_intersection_int = P3_x-1;
                                     contact_right = true;
+                                    x_velocity = 0;
+                                    y_location_intersection_int = (int)y_1 ;
                                 } else {
                                 }
-                                if( y_location_intersection_int >= P3_y ){
+                                if( y_location_intersection_int >= P3_y && x_location_intersection_int > P3_x ){
                                     y_location_intersection_int = P3_y+1;
                                     roof_contact = true;
                                 } else {
@@ -761,11 +763,13 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                         /////////////////
 
                                         if (x_location_intersection_int <= P3_x && y_location_intersection_int > P4_y) {
+                                            cout << " XR " << endl;
                                             x_location_intersection_int = P3_x-1;
                                             contact_right = true;
                                         } else {
                                         }
                                         if( y_location_intersection_int <= P4_y ){
+                                            cout << " YR " << endl;
                                             y_location_intersection_int = P4_y-1;
                                             x_location_intersection_int = x_location + width;
 
@@ -804,9 +808,10 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                             int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
 
-                                    if ( contact_points_all[1][7]  + getY() >= P4_y && contact_points_all[1][7]  + getY() < P3_y && contact_points_all[0][7] + getX() >= P3_x && contact_points_all[0][7] + getX() <= P4_x ) {
-                                    // champ pos
-                                   float x_1 = x_location ;
+                                    //cout << P4_x << "_" << getX() << endl;
+                                    if ( contact_points_all[1][7]  + getY() >= P4_y && contact_points_all[1][7]  + getY() <= P3_y && contact_points_all[0][7] + getX() >= P3_x && contact_points_all[0][7] + getX() <= P4_x ) {
+                                    //champ pos
+                                    float x_1 = x_location ;
                                     float y_1 = y_location ;
                                     float x_2 = x_location_prev ;
                                     float y_2 = y_location_prev ;
@@ -829,7 +834,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                     cos_alfa = (  ( x_2 - x_1 )/( length )  );
                                     a_cos = acos( cos_alfa );
 
-                                    // correction of angle due to horizontal line
+                                     //correction of angle due to horizontal line
                                         if (y_2 < y_1) {
                                             a_cos = a_cos + M_PI;
                                         } else {
@@ -847,7 +852,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                                         } else {
                                                         }
                                                         if (delta_y < 0) {
-                                                        delta_y = 0;
+                                                        //delta_y = 0;
                                                         } else {
                                                         }
 
@@ -864,13 +869,17 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
 
                                         }
 
-                                        /////////////////
-                                        if (x_location_intersection_int >= P4_x) {
+                                        ///////////////
+                                        if (x_location_intersection_int >= P4_x && y_location_intersection_int < P3_y ) {
+
                                             x_location_intersection_int = P4_x+1;
-                                            contact_right = true;
+                                            contact_left = true;
+                                            y_location_intersection_int = (int)y_1 ;
+                                            x_velocity = 0;
                                         } else {
                                         }
-                                        if( y_location_intersection_int >= P3_y ){
+                                        if( y_location_intersection_int >= P3_y && x_location_intersection_int < P4_x){
+
                                             y_location_intersection_int = P3_y+1;
                                             roof_contact = true;
                                         } else {
@@ -878,10 +887,12 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
 
                                     x_location = x_location_intersection_int;
                                     y_location = y_location_intersection_int;
-
+                                    //cout << " x " << x_location << " y " << y_location << " P3X " << P3_x << endl;
                                 } else {
                                 }
                     }
+
+
 
                     break;
                     case 8:
@@ -1022,12 +1033,15 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                         /////////////////
                                         //cout << " cont left before_ " << x_location_intersection_int <<endl;
                                         if (x_location_intersection_int >= P4_x && y_location_intersection_int > P4_y) {
+
                                             x_location_intersection_int = P4_x+1;
                                             contact_left = true;
+                                            x_velocity = 0;
                                             //cout << "cont left x_intersection_int " << x_location_intersection_int << endl;
                                         } else {
                                         }
                                         if( y_location_intersection_int <= P4_y ){
+
                                             y_location_intersection_int = P4_y-1;
                                             //roof_contact = true;
                                             x_location_intersection_int = x_location;

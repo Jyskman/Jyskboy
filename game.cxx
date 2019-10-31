@@ -28,6 +28,12 @@
 #include <time.h>
 #include <algorithm>
 
+#include<list>
+
+
+
+#include "test.h"
+
 #include <chrono>
 #include <ctime>
 using namespace std;
@@ -232,31 +238,65 @@ void game::createAttacks(button_input& parameter) {
         int attack_location_y = 0;
         int attack_mirror = 0;
 
+        // casing variables and vel
+        int ammo_location_x = 0;
+        int ammo_location_y = 0;
+        int ammo_v_x = -5;
+        int ammo_v_y = -3;
+        int ammo_mirror = 0;
+
+
             //cout << " sprite_nr " << hero.gun_sprite_nr << " " << all_sprites.at( hero.gun_sprite_nr ).sprite_height << " " << all_sprites.at( hero.gun_sprite_nr ).sprite_widht << endl;
             switch ( hero.gun_direction ) {
                 case 1:
-                //cout << "mirror" <<  hero.x_mirror_gun << endl;
-                //attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).sprite_height/2 -1 - 2 + 20;
+
                 attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight()/2 - all_sprites.at( attack_to_create ).getHeight()/2 ;
                 attack_location_y = hero.RSV_y_gun - all_sprites.at( hero.gun_sprite_nr ).getHeight() -1;
-                //cout << hero.RSV_x_gun << "__" << all_sprites.at( hero.gun_sprite_nr ).sprite_height/2-2 << endl;
+
+                ammo_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight()/2;
+                ammo_location_y = hero.RSV_y_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight()/2+3;
+                ammo_v_x = ammo_v_x;
+                ammo_v_y = ammo_v_y*0;
                 break;
                 case 2:
-                //attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getWidth() - 11;
                 attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getWidth() - all_sprites.at( attack_to_create ).getWidth();
                 attack_location_y = hero.RSV_y_gun ;
+
+                ammo_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getWidth()/2;
+                ammo_location_y =  hero.RSV_y_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight()/2 ;
+                ammo_v_x = ammo_v_x;
+                ammo_v_y = ammo_v_y;
+
                 break;
                 case 3:
                 attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getWidth() -1;
                 attack_location_y = hero.RSV_y_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight()/2 - all_sprites.at( attack_to_create ).getHeight()/2 - 1;
+
+                ammo_location_x =  hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getWidth()/2 ;
+                ammo_location_y =  hero.RSV_y_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight()/2 ;
+                ammo_v_x = ammo_v_x;
+                ammo_v_y = ammo_v_y;
+
                 break;
                 case 4:
                 attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getWidth() - all_sprites.at( attack_to_create ).getWidth();
                 attack_location_y = hero.RSV_y_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight() - all_sprites.at( attack_to_create ).getHeight() ;
+
+                ammo_location_x =  hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getWidth()/2 ;
+                ammo_location_y =  hero.RSV_y_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight()/2 ;
+                ammo_v_x = ammo_v_y ;
+                ammo_v_y = ammo_v_x ;
+
                 break;
                 case 5:
                 attack_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight()/2 - all_sprites.at( attack_to_create ).getHeight()/2 ;
                 attack_location_y = hero.RSV_y_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight() -1;
+
+                ammo_location_x = hero.RSV_x_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight()/2;
+                ammo_location_y = hero.RSV_y_gun + all_sprites.at( hero.gun_sprite_nr ).getHeight()/2+3;
+                ammo_v_x = ammo_v_y;
+                ammo_v_y = ammo_v_x;
+
                 break;
                 case 6:
                 break;
@@ -265,6 +305,8 @@ void game::createAttacks(button_input& parameter) {
             };
             // Attack mirror
             if ( hero.current_sprite_direction == false ) {
+                ammo_v_x = ammo_v_x*-1;
+                ammo_mirror = 2*(ammo_location_x - hero.width/2-1);
                 if ( hero.rot_gun == 1 ) {
 
 //                    if ( hero.gun_direction == 3 ) {
@@ -297,13 +339,26 @@ void game::createAttacks(button_input& parameter) {
             };
 
             attack_location_x = attack_location_x - attack_mirror;
-
-        //cout << attack_location_x << endl;
+            ammo_location_x = ammo_location_x - ammo_mirror;
+        //cout << hero.y_velocity << endl;
         attack * obj = new attack(attack_to_create, hero.x_location+attack_location_x, hero.y_location+attack_location_y,
         gameWProfiles.at(hero.current_gun).x_vel*x_factor, gameWProfiles.at(hero.current_gun).y_vel*y_factor,
         hero.rot_gun, hero.horisontal_gun, hero.vertical_gun, hero.gun_sprite_nr );
         gameAttacks.push_back(*obj);
         delete obj;
+
+        //render_primitive_line(hero.x_location+ammo_location_x, hero.y_location+ammo_location_y, hero.x_location+ammo_location_x+5, hero.y_location+ammo_location_y-5, 1, 401  );
+
+        animation_requests * obj_2 = new animation_requests(2, hero.rot_gun, hero.horisontal_gun, 50, hero.x_location+ammo_location_x , hero.y_location+ammo_location_y,
+        ammo_v_x+(int)hero.x_velocity, ammo_v_y+hero.y_velocity );
+        anime_req.push_back(*obj_2);
+        delete obj_2;
+
+//        animation_requests * obj_3 = new animation_requests(1, 50, hero.x_location+ammo_location_x+1 , hero.y_location+ammo_location_y,
+//        ammo_v_x+(int)hero.x_velocity, ammo_v_y+hero.y_velocity );
+//        anime_req.push_back(*obj_3);
+//        delete obj_3;
+
     } else {
     };
 
@@ -390,8 +445,58 @@ void game::portals_run_render() {
     for ( int i = 0; i < room_portals.at(room_current).portals.size() ; i++ ) {
         room_portals.at(room_current).portals.at(i).portal_render();
         room_portals.at(room_current).portals.at(i).transport(hero, room_current);
+
         //cout << room_portals.at(room_current).portals.size() << endl;
     }
+
+};
+
+// compare function for sorting the animation vector
+bool comparefunction_anim( animation_requests &a , animation_requests &b ) {
+
+    if ( a.x != b.x ) {
+    return false;
+    }
+
+    if ( a.y != b.y ) {
+    return false;
+    }
+
+    return true;
+
+};
+
+// compare function for sorting the animation vector
+bool compare_entry_anim( const animation_requests & e1, const animation_requests & e2) {
+  if( e1.x != e2.x)
+    return (e1.x < e2.x);
+  return (e1.y < e2.y);
+}
+
+
+void game::animations_run_render() {
+
+    //cout << " size before " << anime_req.size() << endl;
+
+    sort( anime_req.begin(), anime_req.end(), compare_entry_anim );
+
+    anime_req.erase( unique(anime_req.begin(), anime_req.end(), comparefunction_anim ), anime_req.end()   );
+
+    //cout << " size after " << anime_req.size() << endl;
+
+    for ( int i = 0; i < anime_req.size(); i++ ) {
+
+        anime_req.at(i).render_animation();
+        anime_req.at(i).update_position( physics_objects.at( physics_current), room_current );
+    };
+
+
+    // Remove animations
+    anime_req.erase(
+    std::remove_if(anime_req.begin(), anime_req.end(),
+    [](const animation_requests & o) { return o.destroy == true; }),
+    anime_req.end());
+
 
 };
 
@@ -404,8 +509,10 @@ void game::game_main(){
         hero.setPos(buttons, physics_objects.at( physics_current ));
         hero.setContact(room_current);
         hero.setRender();
-        portals_run_render();
         createAttacks(buttons);
+        animations_run_render();
+
+        portals_run_render();
 
         // Enemy prototype
         enemy_manager();
@@ -427,12 +534,14 @@ void game::game_main(){
 
 
 // room prev
-
+//cout << hero.x_location << " prev- " << hero.x_location_prev << endl;
 room_prev = room_current;
 };
 
 
 void game::game_loop() {
+
+//testfunc();
 
     while ( game_is_running == true ) {
         auto start = std::chrono::system_clock::now();

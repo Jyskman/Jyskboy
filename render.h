@@ -47,16 +47,27 @@ int getY();
 
 extern vector<render_requests> render_req;
 
+
 // Will create general animation req system
 class animation_requests {
 
 public:
-animation_requests();
+animation_requests(int animation_nr, int rot, bool facing_right, int cycles_to_terminate, int x_start, int y_start, int x_vel_start, int y_vel_start);
+int sprite_width;
+int rotation = 1;
+int anime_nr, x, y, x_v, y_v, cycles, sprite_nr, sprite_index, current_cycle;
+bool destroy = false;
+void sprite_setup( int index );
+void render_animation();
+void update_position( physics &parameter, int room );
 
+bool right_orientation;
 
+float x_v_float, y_v_float, x_float, y_float;
+int x_offset;
 };
 
-
+extern vector<animation_requests> anime_req;
 
 class render {
 

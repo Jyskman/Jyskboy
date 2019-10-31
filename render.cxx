@@ -32,10 +32,10 @@ void render_requests_quad(int sprite_nr, int x_loc, int y_loc, bool white_border
         int x_off = all_sprites.at(sprite_nr).getWidth() - 1 - minus_one;
         int  y_off = all_sprites.at(sprite_nr).getHeight() - 1 - minus_one;
 
-        render_requests * obj_x  = new render_requests(sprite_nr, x_loc-x,          y_loc-y,            1, true, true, 1);
-        render_requests * obj_x2 = new render_requests(sprite_nr, x_loc-x,          y_loc+y_off-y,      1, true, false, 1);
-        render_requests * obj_x3 = new render_requests(sprite_nr, x_loc-x_off-x,    y_loc-y,            1, false, true, 1);
-        render_requests * obj_x4 = new render_requests(sprite_nr, x_loc-x_off-x,    y_loc+y_off-y,      1, false, false, 1);
+        render_requests * obj_x  = new render_requests(sprite_nr, x_loc -x,            y_loc-y,            1, false, true, 1);
+        render_requests * obj_x2 = new render_requests(sprite_nr, x_loc+x_off-x,            y_loc-y,      1, true, true, 1);
+        render_requests * obj_x3 = new render_requests(sprite_nr, x_loc-x,            y_loc+y_off-y,            1, false, false, 1);
+        render_requests * obj_x4 = new render_requests(sprite_nr, x_loc+x_off-x,            y_loc+y_off-y,      1, true, false, 1);
         render_req.push_back( *obj_x );
         render_req.push_back( *obj_x2 );
         render_req.push_back( *obj_x3 );
@@ -45,6 +45,7 @@ void render_requests_quad(int sprite_nr, int x_loc, int y_loc, bool white_border
         delete obj_x3;
         delete obj_x4;
 
+        //render_primitive_line(x_loc, y_loc, x_loc, y_loc-20, 1, 401);
 
 
 };
@@ -79,7 +80,7 @@ void render_requests_dual( int sprite_nr, int x_loc, int y_loc, bool white_borde
         delete obj_x;
         delete obj_x2;
 
-        render_primitive_line(x_loc, y_loc, x_loc-10, y_loc-50, 1, 401);
+        //render_primitive_line(x_loc, y_loc, x_loc-10, y_loc-50, 1, 401);
 
 };
 
@@ -136,7 +137,7 @@ float line_length = sqrt(  (float(y_stop) - float(y_start) )*( float(y_stop) - f
                 float alfa_radian = acos (  ( float(x_stop) - float(x_start) ) / line_length );
                 float alfa = alfa_radian*( 360/(2*M_PI) );
 
-                cout << alfa << endl;
+                //cout << alfa << endl;
                 if ( y_stop < y_start ) {
                     y_sign = -1;
                 } else {
@@ -606,6 +607,7 @@ sprite_w.push_back(width);
 // render req object class implementation
 
 vector<render_requests> render_req;
+vector<animation_requests> anime_req;
 
 render_requests::render_requests(int sprite, int xpos, int ypos, int palette){
 
@@ -659,8 +661,180 @@ bool render_requests::getDraw(const render_requests & o) {
 // Animation req system
 
 
+void animation_requests::sprite_setup( int index ) {
+            if ( current_cycle == 0 ) {
+                for (int i=0; i < all_sprites.size(); i++) {
+                    if ( all_sprites.at(i).sprite_index == index ) {
+
+                    sprite_nr = i;
+                    } else {
+
+                    };
+                };
 
 
+            } else {
+            };
+
+};
+
+animation_requests::animation_requests(int animation_nr, int rot, bool facing_right, int cycles_to_terminate, int x_start, int y_start, int x_vel_start, int y_vel_start) {
+
+rotation = rot;
+anime_nr = animation_nr;
+cycles = cycles_to_terminate;
+x = x_start;
+y = y_start;
+x_v = x_vel_start;
+y_v = y_vel_start;
+current_cycle = 0;
+right_orientation = facing_right;
+
+x_v_float = (float)x_v;
+y_v_float = (float)y_v;
+x_float = (float)x;
+y_float = (float)y;
+
+    switch (animation_nr) {
+
+        case (1):{
+            sprite_setup( 401 );
+
+
+
+        break;
+        }
+
+        case (2): {
+            sprite_setup( 402 );
+            sprite_width = all_sprites.at(sprite_nr).getWidth();
+        break;
+        }
+
+        default:
+        break;
+
+    };
+
+};
+
+void animation_requests::update_position( physics &parameter, int room ) {
+
+
+    y_v_float = y_v_float + 1;
+
+    if ( y_v_float > parameter.g ) {
+        y_v_float = parameter.g;
+    } else {
+    }
+
+    x_v_float = x_v_float*parameter.air;
+
+
+    x_float = x_float + x_v_float;
+    y_float = y_float + y_v_float;
+
+    x = (int)x_float;
+
+    y = (int)y_float;
+
+
+
+    switch (anime_nr) {
+
+    case (1):
+
+        for ( int i = 0; i < room_objects.at(room).roomblocks.size(); i++ ) {
+
+            if ( x > room_objects.at(room).roomblocks.at(i).contact_points[0][0] && x < room_objects.at(room).roomblocks.at(i).contact_points[0][1] &&
+            y > room_objects.at(room).roomblocks.at(i).contact_points[1][0] && y < room_objects.at(room).roomblocks.at(i).contact_points[1][1] ) {
+                destroy = true;
+            } else {
+
+            };
+
+        };
+
+    break;
+
+
+    case (2):
+
+            for ( int i = 0; i < room_objects.at(room).roomblocks.size(); i++ ) {
+
+            if ( x >= room_objects.at(room).roomblocks.at(i).contact_points[0][0]+room_objects.at(room).roomblocks.at(i).x_location && x <= room_objects.at(room).roomblocks.at(i).contact_points[0][1]+room_objects.at(room).roomblocks.at(i).x_location &&
+            y >= room_objects.at(room).roomblocks.at(i).contact_points[1][0]+room_objects.at(room).roomblocks.at(i).y_location && y <= room_objects.at(room).roomblocks.at(i).contact_points[1][3]+room_objects.at(room).roomblocks.at(i).y_location ) {
+
+            y_v_float = -1*y_v_float;
+                if ( x <= room_objects.at(room).roomblocks.at(i).contact_points[0][0]+room_objects.at(room).roomblocks.at(i).x_location ||
+                x >= room_objects.at(room).roomblocks.at(i).contact_points[0][1]+room_objects.at(room).roomblocks.at(i).x_location ) {
+                    x_v_float = -1*x_v_float;
+                } else {
+                };
+
+
+            } else {
+
+            };
+
+        };
+    break;
+
+    };
+
+
+};
+
+
+void animation_requests::render_animation() {
+
+
+    switch (anime_nr) {
+
+        case (1):{
+
+            render_requests * obj = new render_requests(sprite_nr, x, y, 1);
+
+            render_req.push_back(*obj);
+            delete obj;
+
+
+        break;
+        }
+
+        case (2): {
+
+            if ( rotation == 1 && right_orientation == false ) {
+                x_offset = -1*(sprite_width -1);
+            } else {
+                x_offset = 0;
+            };
+
+            render_requests * obj = new render_requests(sprite_nr, x+x_offset, y, 1, right_orientation, true, rotation);
+
+            render_req.push_back(*obj);
+            delete obj;
+
+
+        break;
+        }
+
+
+        default:
+        break;
+
+    };
+
+
+    current_cycle++;
+
+    if ( current_cycle >= cycles ) {
+        destroy = true;
+    } else {
+    }
+
+
+};
 
 
 

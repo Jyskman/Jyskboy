@@ -808,7 +808,16 @@ int single_red_width = 1;
 int single_red_height = 1;
 int single_red_size = 1 * 1 * 2 + 1;
 unsigned char single_red[1 * 1 * 2 + 1] =
-("\000\370");
+("\374\007");
+//("\000\370");
+
+
+int double_shoot_width = 3;
+int double_shoot_height = 1;
+int double_shoot_size = 3 * 1 * 2 + 1;
+unsigned char double_shoot[3 * 1 * 2 + 1] =
+//("\340\357\035\377\035\377");
+("`\372`\372\314g");
 
 
 std::vector<sprite_objects> all_sprites;
@@ -924,6 +933,11 @@ void setup_sprites(render& parameter) {
     sprite_pointers.push_back(s_red);
     delete s_red;
 
+    sprite_objects * d = new sprite_objects(13, (unsigned char*)double_shoot ,double_shoot, double_shoot_size, double_shoot_width, double_shoot_height,402);
+    all_sprites.push_back(*d);
+    sprite_pointers.push_back(d);
+    delete d;
+
 
     for (int i = 0; i < all_sprites.size(); i++) {
         all_sprites.at(i).Relation_Spritenr_type();
@@ -968,4 +982,5 @@ parameter.load_sprite_data((unsigned char*)portal_1, portal_1_width, portal_1_he
 
 // singles for primitives
 parameter.load_sprite_data((unsigned char*)single_red, single_red_width, single_red_height );
+parameter.load_sprite_data((unsigned char*)double_shoot, double_shoot_width, double_shoot_height );
 };
