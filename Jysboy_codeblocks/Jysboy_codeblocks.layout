@@ -2,29 +2,9 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="../physics.cxx" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../setup_sprites.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5335" topLine="240" />
-		</Cursor>
-	</File>
-	<File name="../buttons.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="460" topLine="1" />
-		</Cursor>
-	</File>
-	<File name="../render.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1728" topLine="42" />
-		</Cursor>
-	</File>
-	<File name="../soundmanager.cxx" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="699" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="../enemy.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="206" topLine="12" />
+			<Cursor1 position="497" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="../soundmanager.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -32,49 +12,84 @@
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="../render.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1728" topLine="42" />
+		</Cursor>
+	</File>
+	<File name="../physics.h" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="765" topLine="30" />
+		</Cursor>
+	</File>
+	<File name="../buttons.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="460" topLine="1" />
+		</Cursor>
+	</File>
+	<File name="../test.cxx" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1695" topLine="70" />
+		</Cursor>
+	</File>
+	<File name="../enemy.cxx" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1990" topLine="108" />
+		</Cursor>
+	</File>
+	<File name="../sprite_objects.cxx" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1205" topLine="27" />
+		</Cursor>
+	</File>
+	<File name="../soundmanager.cxx" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="699" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="../main.cxx" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="454" topLine="22" />
 		</Cursor>
 	</File>
-	<File name="../environment.cxx" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../game.cxx" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="15501" topLine="180" />
+			<Cursor1 position="3452" topLine="147" />
 		</Cursor>
 	</File>
-	<File name="../test.h" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../render.cxx" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="161" topLine="0" />
+			<Cursor1 position="21076" topLine="78" />
 		</Cursor>
 	</File>
-	<File name="../champ.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../physics.cxx" open="1" top="1" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1615" topLine="0" />
+			<Cursor1 position="3935" topLine="164" />
 		</Cursor>
 	</File>
-	<File name="../test.cxx" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../environment.cxx" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1695" topLine="70" />
-		</Cursor>
-	</File>
-	<File name="../render.cxx" open="1" top="1" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="22327" topLine="741" />
-		</Cursor>
-	</File>
-	<File name="../enemy.cxx" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="8" />
-		</Cursor>
-	</File>
-	<File name="../setup_sprites.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="497" topLine="0" />
+			<Cursor1 position="21267" topLine="462" />
 		</Cursor>
 	</File>
 	<File name="../game.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1254" topLine="29" />
+			<Cursor1 position="301" topLine="9" />
+		</Cursor>
+	</File>
+	<File name="../environment.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="407" topLine="82" />
+		</Cursor>
+	</File>
+	<File name="../champ.cxx" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="10496" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="../buttons.cxx" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1173" topLine="71" />
 		</Cursor>
 	</File>
 	<File name="../sprite_objects.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -82,39 +97,24 @@
 			<Cursor1 position="472" topLine="9" />
 		</Cursor>
 	</File>
-	<File name="../champ.cxx" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../setup_sprites.cxx" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="22340" topLine="579" />
+			<Cursor1 position="55679" topLine="846" />
 		</Cursor>
 	</File>
-	<File name="../physics.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../test.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2165" topLine="94" />
+			<Cursor1 position="161" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="../environment.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../champ.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="407" topLine="82" />
+			<Cursor1 position="2771" topLine="69" />
 		</Cursor>
 	</File>
-	<File name="../setup_sprites.cxx" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../enemy.h" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="55591" topLine="801" />
-		</Cursor>
-	</File>
-	<File name="../sprite_objects.cxx" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1205" topLine="27" />
-		</Cursor>
-	</File>
-	<File name="../game.cxx" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6814" topLine="234" />
-		</Cursor>
-	</File>
-	<File name="../buttons.cxx" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1173" topLine="71" />
+			<Cursor1 position="289" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

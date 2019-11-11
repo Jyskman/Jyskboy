@@ -4,18 +4,43 @@
 #include <vector>
 #include <iostream>
 
+
 using namespace::std;
+
+class hitbox_object {
+
+
+public:
+hitbox_object ( int x_upper_left, int y_upper_left, int x_lower_right, int y_lower_right );
+
+int x_u_left;
+int y_u_left;
+int x_l_right;
+int y_l_right;
+void test();
+
+};
+
+
+
 
 class attack {
 // attack class used by game object, will be linked somehow to weaponprofiles also in game
 public:
 void update_and_render();
-attack( int type, int x_pos, int y_pos, int x_vel, int y_vel, int rotation, bool horisontal, bool vertical, int gun_sprite_nr );
+
+attack( int type, int damage, int x_pos, int y_pos, int x_vel, int y_vel, int rotation, bool horisontal, bool vertical, int gun_sprite_nr, bool cross, bool shoot_direction, int hitboxtype );
 
 int a_rot;
+int a_damage;
 int a_gun_sprite_nr;
 bool a_horisontal;
 bool a_vertical;
+bool a_cross;
+
+bool shooter_direction;
+
+int hitbox_type;
 
 int a_type;
 int a_x_pos;
@@ -25,14 +50,17 @@ int a_y_vel;
 
 bool destroy;
 
+vector<hitbox_object> attack_hitbox;
+void setup_hitbox();
 };
 
 class weaponProfile {
 public:
-weaponProfile(int sprite_index, int sprite_index_rotation, int x_velocity, int y_velocity);
+weaponProfile(int sprite_index, int sprite_index_rotation, int x_velocity, int y_velocity, int set_damage, int hitbox_type);
+int hitbox_t;
 int weapon_sprite;
 int weapon_sprite_rot;
-
+int damage;
 int sprite_nr;
 int sprite_nr_rot;
 
@@ -129,6 +157,22 @@ void physics_setup ();
 
 
 extern vector<physics> physics_objects;
+
+void modifier_random( int &number, int maximum, int minimum );
+
+
+// hitbox objects
+
+
+
+
+
+
+
+
+
+
+
 
 
 #endif // PHYS

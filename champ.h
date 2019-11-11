@@ -100,7 +100,7 @@ bool LineLineIntersect(double x1, double y1, //Line 1 start
     double &ixOut, double &iyOut);
 
 unsigned char getChar(int x);
-void setRender();
+void setRender(button_input& parameter);
 void setContactPoints();
 void setContact(int room);
 //vector<render_requests> *internal;

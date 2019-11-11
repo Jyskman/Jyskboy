@@ -63,7 +63,7 @@ game::game(int a) : buttons(1), screen(1), audio(), hero(1, (100 * 100 * 3 + 1),
 
 // when game is created these items are also
 game_state_current = 0;
-room_current = 0;
+room_current = 2;
 physics_current = 0;
 game_is_running = true;
 room_prev = room_current;
@@ -161,15 +161,15 @@ void game::game_setup() {
 void game::setupWeaponprofiles(){
 
 
-weaponProfile * obj = new weaponProfile(201, 202 ,10, 10);
+weaponProfile * obj = new weaponProfile(201, 202 ,10, 10, 1, 2);
 gameWProfiles.push_back(*obj);
 delete obj;
 
-weaponProfile * obj2 = new weaponProfile(203, 204 ,10, 10);
+weaponProfile * obj2 = new weaponProfile(203, 204 ,10, 10, 1, 1);
 gameWProfiles.push_back(*obj2);
 delete obj2;
 
-weaponProfile * obj3 = new weaponProfile(205, 206 ,10, 10);
+weaponProfile * obj3 = new weaponProfile(205, 206 ,10, 10, 1, 1);
 gameWProfiles.push_back(*obj3);
 delete obj3;
 
@@ -243,7 +243,11 @@ void game::createAttacks(button_input& parameter) {
         int ammo_location_y = 0;
         int ammo_v_x = -5;
         int ammo_v_y = -3;
+
+        modifier_random(ammo_v_x, 2, 1);
+        modifier_random(ammo_v_y, 2, 1);
         int ammo_mirror = 0;
+        int animation_cycles_to_terminate = 40;
 
 
             //cout << " sprite_nr " << hero.gun_sprite_nr << " " << all_sprites.at( hero.gun_sprite_nr ).sprite_height << " " << all_sprites.at( hero.gun_sprite_nr ).sprite_widht << endl;
@@ -338,18 +342,27 @@ void game::createAttacks(button_input& parameter) {
                 attack_mirror = 0;
             };
 
+            bool cross = false;
+            //cout << hero.rot_gun << endl;
+            if ( hero.gun_direction == 2 || hero.gun_direction == 4 ) {
+                cross = true;
+            } else {
+            };
+
             attack_location_x = attack_location_x - attack_mirror;
             ammo_location_x = ammo_location_x - ammo_mirror;
         //cout << hero.y_velocity << endl;
-        attack * obj = new attack(attack_to_create, hero.x_location+attack_location_x, hero.y_location+attack_location_y,
+        attack * obj = new attack(attack_to_create,gameWProfiles.at(hero.current_gun).damage, hero.x_location+attack_location_x, hero.y_location+attack_location_y,
         gameWProfiles.at(hero.current_gun).x_vel*x_factor, gameWProfiles.at(hero.current_gun).y_vel*y_factor,
-        hero.rot_gun, hero.horisontal_gun, hero.vertical_gun, hero.gun_sprite_nr );
+        hero.rot_gun, hero.horisontal_gun, hero.vertical_gun, hero.gun_sprite_nr, cross, hero.current_sprite_direction, gameWProfiles.at(hero.current_gun).hitbox_t );
         gameAttacks.push_back(*obj);
         delete obj;
 
         //render_primitive_line(hero.x_location+ammo_location_x, hero.y_location+ammo_location_y, hero.x_location+ammo_location_x+5, hero.y_location+ammo_location_y-5, 1, 401  );
 
-        animation_requests * obj_2 = new animation_requests(2, hero.rot_gun, hero.horisontal_gun, 50, hero.x_location+ammo_location_x , hero.y_location+ammo_location_y,
+        modifier_random(animation_cycles_to_terminate, 10,10);
+
+        animation_requests * obj_2 = new animation_requests(2, hero.rot_gun, hero.horisontal_gun, animation_cycles_to_terminate , hero.x_location+ammo_location_x , hero.y_location+ammo_location_y,
         ammo_v_x+(int)hero.x_velocity, ammo_v_y+hero.y_velocity );
         anime_req.push_back(*obj_2);
         delete obj_2;
@@ -396,22 +409,22 @@ void game::createAttacks(button_input& parameter) {
 // Enemy manager function
 void game::enemy_manager() {
 
-
+    //cout << game_room_switch() << endl;
     // Room 2
-    if ( room_current == 2 && enemy_config == true ) {
-
-        enemy * new_enemy_1 = new enemy(1);
-        gameEnemys.push_back( *new_enemy_1 );
-        delete new_enemy_1;
+    if ( (game_room_switch() == true) || initial_config == true ) {
 
 
-        enemy_config = false;
+            create_and_reset_enemies(room_current, gameEnemys);
+
+
+
     } else {
     }
 
 
     for ( int i = 0 ; i < gameEnemys.size() ; i++ ) {
         gameEnemys.at(i).setRender();
+        gameEnemys.at(i).resolve_damage( gameAttacks );
     }
 
     // Remove destroyed enemies
@@ -505,10 +518,12 @@ void game::animations_run_render() {
 void game::game_main(){
 
 
+
+
         hero.updateV( buttons, physics_objects.at( physics_current ) );
         hero.setPos(buttons, physics_objects.at( physics_current ));
         hero.setContact(room_current);
-        hero.setRender();
+        hero.setRender(buttons);
         createAttacks(buttons);
         animations_run_render();
 
@@ -536,6 +551,7 @@ void game::game_main(){
 // room prev
 //cout << hero.x_location << " prev- " << hero.x_location_prev << endl;
 room_prev = room_current;
+initial_config = false;
 };
 
 

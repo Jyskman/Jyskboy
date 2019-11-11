@@ -19,6 +19,7 @@ public:
 
 // Time tools
 bool game_is_running;
+bool initial_config = true;
 long game_loop_start_ms;
 long game_loop_stop_ms;
 long fps = 30;

@@ -58,7 +58,9 @@
 		<Unit filename="../test.cxx" />
 		<Unit filename="../test.h" />
 		<Extensions>
-			<code_completion />
+			<code_completion>
+				<search_path add="/home/pi/codeblocks/Jyskboy/Jysboy_codeblocks/" />
+			</code_completion>
 			<debugger />
 		</Extensions>
 	</Project>

@@ -480,12 +480,16 @@ delete new_2;
 delete new_3;
 
 //R1
-portal * portal_room1_1 = new portal(1, 150, 180, 20, 20, 20, 1, 30, 30);
+portal * portal_room1_1 = new portal(1, 150, 180, 20, 20, 20, 2, 30, 30);
 //room_1_portals.load_portalobject( *portal_room1_1 );
 room_portals.at(0).load_portalobject(*portal_room1_1);
 delete portal_room1_1;
 
-
+//R3
+portal * portal_room3_1 = new portal(1, 100, 100, 20, 20, 20, 0, 30, 30);
+//room_1_portals.load_portalobject( *portal_room1_1 );
+room_portals.at(2).load_portalobject(*portal_room3_1);
+delete portal_room3_1;
 
 };
 

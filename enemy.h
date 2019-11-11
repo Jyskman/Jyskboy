@@ -21,6 +21,8 @@ bool destroy = false;
 
 // Render stuff
 vector<render_state> RSV;
+vector<hitbox_object> enemy_hitbox_set;
+void set_hitbox_set();
 void setRender();
 void test();
 int render_req_mode = 2;
@@ -35,6 +37,8 @@ int gun_direction = 3;
 int jump_counter = 1;
 
 bool sprite_error = false;
+bool can_take_damage;
+int life;
 
 bool current_sprite_direction = true; // true is right orientation
 bool current_sprite_v_direction = true; // true is oriented up, as sprite is drawn
@@ -47,14 +51,16 @@ bool horisontal_gun, vertical_gun;
 int palette_current = 1;
 
 void RSV_setup();
+void vulnerability_setup();
 
 int enemy_offset[2][10];
 
+void resolve_damage( vector<attack> &parameter );
 
 };
 
 
-
+void create_and_reset_enemies( int room_nr, vector<enemy>& parameter );
 
 
 

@@ -4,14 +4,24 @@
 #include "enemy.h"
 #include "setup_sprites.h"
 #include <iostream>
+#include "physics.h"
+
+using namespace std;
+// E
+
+void enemy::set_hitbox_set() {
+
+    for ( int i = 0; i < RSV.size() ; i++ ) {
+
+        hitbox_object * obj = new hitbox_object(0,0, all_sprites.at( RSV.at(i).sprite_nr ).getWidth(), all_sprites.at( RSV.at(i).sprite_nr ).getHeight() );
+        enemy_hitbox_set.push_back( *obj );
+        delete obj;
 
 
+    };
 
 
-
-
-
-
+};
 
 
 
@@ -26,18 +36,44 @@ void enemy::RSV_setup() {
 
         render_state * state_1_1 = new render_state(true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, enemy_offset[0][0], enemy_offset[1][0], 207 );
         RSV.push_back(*state_1_1);
+
         delete state_1_1;
+
     }
 
 
 }
+
+void enemy::vulnerability_setup() {
+
+    switch (enemy_type) {
+
+        case (1):
+            can_take_damage = true;
+            life = 1;
+        break;
+        case (2):
+        break;
+        default:
+        break;
+
+
+    }
+
+
+};
+
 
 enemy::enemy( int e_type) {
 
 x_location = 30 ;
 y_location = 30 ;
 enemy_type = e_type;
+vector<hitbox_object> enemy_hitbox_set;
+vector<render_state> RSV;
 RSV_setup();
+vulnerability_setup();
+set_hitbox_set();
 
 };
 
@@ -45,6 +81,65 @@ void enemy::test() {
 cout << "Func ok" << endl;
 };
 
+void enemy::resolve_damage( vector<attack> &parameter ) {
+
+//E
+int X_1_A = 0;
+int X_2_A = 0;
+int Y_1_A = 0;
+int Y_2_A = 0;
+// Shot
+int X_1_B = 0;
+int X_2_B = 0;
+int Y_1_B = 0;
+int Y_2_B = 0;
+
+bool hit = false;
+
+    for ( int i = 0; i < enemy_hitbox_set.size() ; i++) {
+
+        for ( int j = 0; j < parameter.size() ; j++ ) {
+            // Enemy
+
+            X_1_A = x_location + enemy_hitbox_set.at(i).x_u_left;
+            X_2_A = x_location + enemy_hitbox_set.at(i).x_l_right ;
+            Y_1_A = y_location + enemy_hitbox_set.at(i).y_u_left;
+            Y_2_A = y_location + enemy_hitbox_set.at(i).y_l_right ;
+            // Shot
+
+
+            X_1_B = parameter.at(j).a_x_pos + parameter.at(j).attack_hitbox.at(0).x_u_left;
+            X_2_B = parameter.at(j).a_x_pos + parameter.at(j).attack_hitbox.at(0).x_l_right;
+            Y_1_B = parameter.at(j).a_y_pos + parameter.at(j).attack_hitbox.at(0).y_u_left;
+            Y_2_B = parameter.at(j).a_y_pos + parameter.at(j).attack_hitbox.at(0).y_l_right;;
+            //cout << " X1_l_right shot " << X_1_B << " X2 " << X_2_A << " Y1 " << Y_1_A << " Y2 " << Y_2_A << endl;
+            //cout << " X1 " << X_1_B << " X2 " << X_2_B << " Y1 " << Y_1_B << " Y2 " << Y_2_B << endl;
+
+                hit = true;
+            if (  X_1_B < X_2_A && X_2_B > X_1_A && Y_1_B < Y_2_A && Y_2_B > Y_1_A ) {
+                    hit = false;
+
+
+            } else {
+
+            }
+
+            if ( hit == false ) {
+                cout << "hit" << endl;
+            } else {
+            }
+
+
+        };
+
+
+    };
+
+//cout << "end" << endl;
+//if (RectA.X1 < RectB.X2 && RectA.X2 > RectB.X1 &&
+//    RectA.Y1 > RectB.Y2 && RectA.Y2 < RectB.Y1)
+
+};
 
 void enemy::setRender()  {
 
@@ -219,4 +314,34 @@ for ( int i = 0; i < RSV.size(); i++ ) {
 
 };
 
+// Enemy create function for game
+void create_and_reset_enemies( int room_nr, vector<enemy>& parameter ) {
 
+    parameter.clear();
+
+    switch (room_nr) {
+
+    case (0):
+    break;
+    case (1):
+    break;
+    case (2):{
+
+        enemy * new_enemy_1 = new enemy(1);
+        parameter.push_back( *new_enemy_1 );
+        delete new_enemy_1;
+
+    break;
+    }
+
+    case (3):
+    break;
+
+    default:
+    break;
+
+    };
+
+
+
+};

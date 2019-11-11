@@ -9,6 +9,7 @@
 #include <cmath>
 #include <assert.h>
 #include <math.h>
+#include "physics.h"
 using namespace std;
 
 //champ::champ(int a, unsigned char sprites[], int size, int Height, int Width, std::vector<sprite_objects>& parameter) {
@@ -160,7 +161,7 @@ bool champ::LineLineIntersect(double x1, double y1, //Line 1 start
 };
 
 
-void champ::setRender()  {
+void champ::setRender(button_input& parameter)  {
 
 // For mode 2
 //int y_test = 0;
@@ -314,6 +315,16 @@ for ( int i = 0; i < RSV.size(); i++ ) {
                         vertical_gun = vertical;
                         rot_gun = rot;
                         gun_sprite_nr = RSV.at(i).sprite_nr;
+                            if ( parameter.getShootState() == true && rot == 1 ) {
+                                modifier_random(RSV_x, 2, 1);
+                            } else {
+                            };
+                            if ( parameter.getShootState() == true && rot == 2 ) {
+                                modifier_random(RSV_y, 2, 1);
+                            } else {
+                            };
+
+
                     }else {
                     }
 

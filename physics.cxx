@@ -7,17 +7,33 @@
 #include "render.h"
 #include "physics.h"
 #include "setup_sprites.h"
+#include <cstdlib>
+
 
 vector<physics> physics_objects;
 
+hitbox_object::hitbox_object ( int x_upper_left, int y_upper_left, int x_lower_right, int y_lower_right ) {
 
-weaponProfile::weaponProfile(int sprite_index, int sprite_index_rotation, int x_velocity, int y_velocity) {
+x_u_left = x_upper_left;
+y_u_left = y_upper_left ;
+x_l_right = x_lower_right ;
+y_l_right = y_lower_right ;
+
+};
+
+void hitbox_object::test() {};
+
+
+
+
+weaponProfile::weaponProfile(int sprite_index, int sprite_index_rotation, int x_velocity, int y_velocity, int set_damage, int hitbox_type) {
 
         weapon_sprite = sprite_index;
         weapon_sprite_rot = sprite_index_rotation;
-
+        damage = set_damage;
         x_vel = x_velocity;
         y_vel = y_velocity;
+        hitbox_t = hitbox_type;
 
         for (int i=0; i < all_sprites.size(); i++) {
             if ( all_sprites.at(i).sprite_index == weapon_sprite ) {
@@ -39,22 +55,202 @@ weaponProfile::weaponProfile(int sprite_index, int sprite_index_rotation, int x_
 };
 
 
+void attack::setup_hitbox() {
+        int x_base = 0;
+        int y_base = 0;
+        int x_off = 0 ;
+        int y_off = 0;
 
 
-attack::attack(int type, int x_pos, int y_pos, int x_vel, int y_vel, int rotation, bool horisontal, bool vertical, int gun_sprite_nr ) {
 
+switch (hitbox_type) {
+
+
+    case (1): {
+
+
+
+
+        x_base = 0;
+        y_base = 0;
+        x_off = all_sprites.at(a_type).getWidth() ;
+        y_off = all_sprites.at(a_type).getHeight();
+
+        if (a_rot == 2) {
+
+        x_base = 0;
+        y_base = 0;
+        x_off = all_sprites.at(a_type).getHeight();
+        y_off = all_sprites.at(a_type).getWidth();
+
+        } else {
+
+        }
+
+
+
+        if (a_cross == true ) {
+        //cout << shooter_direction << endl;
+            if ( shooter_direction == true ) {
+                x_base = all_sprites.at(a_type).getWidth()/2;
+                y_base = all_sprites.at(a_type).getHeight()/2;
+
+                x_off = all_sprites.at(a_type).getWidth();
+                y_off = 0;
+
+                    if ( a_rot == 2 ) {
+                    x_base = all_sprites.at(a_type).getWidth()/2;
+                    y_base = all_sprites.at(a_type).getHeight()/2;
+
+                    x_off = all_sprites.at(a_type).getWidth();
+                    y_off = all_sprites.at(a_type).getHeight();
+
+
+                    } else {
+                    };
+
+
+
+            } else {
+            // Horisontal false
+                x_base = 0;
+                y_base = 0;
+
+                x_off = all_sprites.at(a_type).getWidth()/2;
+                y_off = all_sprites.at(a_type).getHeight()/2;
+
+                    if ( a_rot == 2 ) {
+
+                    x_base = 0;
+                    y_base = all_sprites.at(a_type).getHeight();
+
+                    x_off = all_sprites.at(a_type).getWidth()/2;
+                    y_off = all_sprites.at(a_type).getHeight()/2;
+
+
+                    } else {
+                    };
+
+            };
+
+
+
+
+        } else {
+        };
+
+
+
+
+     break;
+    }
+    case (2):
+
+        x_base = all_sprites.at(a_type).getWidth()/2;
+        y_base = 1 - all_sprites.at(a_type).getHeight()/2;
+        x_off =  all_sprites.at(a_type).getWidth()/2;
+        y_off =  1 + all_sprites.at(a_type).getHeight()/2;
+
+        if (a_rot == 2) {
+
+        x_base = 2 - all_sprites.at(a_type).getHeight()/2;
+        y_base = all_sprites.at(a_type).getWidth()/2;
+        x_off = 1 + all_sprites.at(a_type).getHeight()/2;
+        y_off =  all_sprites.at(a_type).getWidth()/2;
+
+        } else {
+
+        }
+
+
+        if (a_cross == true ) {
+        //cout << shooter_direction << endl;
+            if ( shooter_direction == true ) {
+            x_base = all_sprites.at(a_type).getWidth()/2;
+            y_base = (all_sprites.at(a_type).getHeight()/2) -1 ;
+
+            x_off = all_sprites.at(a_type).getWidth()/2;
+            y_off = (all_sprites.at(a_type).getHeight()/2) +1;
+
+                if ( a_rot == 2 ) {
+                x_base = 0;
+                y_base = 0;
+
+                x_off = 0;
+                y_off = 0;
+
+
+                } else {
+                };
+
+
+
+            } else {
+            // Horisontal false
+            x_base = 0;
+            y_base = 0;
+
+            x_off = 0;
+            y_off = 0;
+
+                if ( a_rot == 2 ) {
+
+                x_base = 0;
+                y_base = 0;
+
+                x_off = 0;
+                y_off = 0;
+
+
+                } else {
+                };
+
+            };
+
+
+
+
+        } else {
+        };
+
+    break;
+
+
+
+};
+
+
+
+
+
+        hitbox_object * obj = new hitbox_object(x_base,y_base,x_off,y_off );
+        attack_hitbox.push_back( *obj );
+        delete obj;
+
+};
+
+
+attack::attack(int type, int damage, int x_pos, int y_pos, int x_vel, int y_vel, int rotation, bool horisontal, bool vertical, int gun_sprite_nr, bool cross, bool shoot_direction, int hitboxtype ) {
+
+    a_cross = cross;
     a_type = type;
     a_x_pos = x_pos;
     a_y_pos = y_pos;
     a_x_vel = x_vel;
     a_y_vel = y_vel;
+    hitbox_type = hitboxtype;
+    a_damage = damage;
+    shooter_direction = shoot_direction;
 
     a_horisontal = horisontal;
     a_vertical = vertical;
-    a_rot = rotation;
 
+    a_rot = rotation;
+    setup_hitbox();
 
     destroy = false;
+
+
 
 };
 
@@ -69,6 +265,8 @@ void attack::update_and_render() {
     render_requests * obj = new render_requests(a_type, a_x_pos, a_y_pos, 1, a_horisontal, a_vertical, a_rot);
     render_req.push_back(*obj);
     delete obj;
+
+    render_primitive_line(a_x_pos + attack_hitbox.at(0).x_u_left, a_y_pos + attack_hitbox.at(0).y_u_left, a_x_pos + attack_hitbox.at(0).x_l_right , a_y_pos+attack_hitbox.at(0).y_l_right, 1, 401);
 
 };
 
@@ -278,3 +476,10 @@ delete new_p;
 
 
 };
+
+void modifier_random( int &number, int maximum, int minimum ) {
+
+ number = number - rand() % maximum + minimum ;     // v2 in the range 1 to 100
+
+};
+
