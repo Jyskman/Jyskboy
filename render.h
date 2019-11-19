@@ -53,11 +53,14 @@ class animation_requests {
 
 public:
 animation_requests(int animation_nr, int rot, bool facing_right, int cycles_to_terminate, int x_start, int y_start, int x_vel_start, int y_vel_start);
+animation_requests( int profile_index, int x_start, int y_start, int x_vel_start, int y_vel_start );
+
 int sprite_width;
 int rotation = 1;
-int anime_nr, x, y, x_v, y_v, cycles, sprite_nr, sprite_index, current_cycle;
+int anime_nr, x, y, x_v, y_v, cycles, sprite_nr, sprite_index, current_cycle, profile_nr;
 bool destroy = false;
 void sprite_setup( int index );
+void profile_setup( int profile_index_parameter );
 void render_animation();
 void update_position( physics &parameter, int room );
 

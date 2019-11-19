@@ -31,6 +31,7 @@ chrono::duration<double> elapsed_seconds;
 
 // game variables
 void setupWeaponprofiles();
+void setup_animation_profiles();
 vector<weaponProfile> gameWProfiles;
 vector<attack> gameAttacks;
 vector<enemy> gameEnemys;

@@ -718,31 +718,78 @@ y_float = (float)y;
 
 };
 
+animation_requests::animation_requests( int profile_index, int x_start, int y_start, int x_vel_start, int y_vel_start ) {
+
+anime_nr = 3;
+
+x = x_start;
+y = y_start;
+x_v = x_vel_start;
+y_v = y_vel_start;
+current_cycle = 0;
+
+x_v_float = (float)x_v;
+y_v_float = (float)y_v;
+x_float = (float)x;
+y_float = (float)y;
+profile_setup(profile_index);
+};
+
+void animation_requests::profile_setup(int profile_index_parameter) {
+
+    for ( int i = 0; i < animation_profiles.size(); i++ ) {
+
+        if ( animation_profiles.at(i).animation_index == profile_index_parameter ) {
+            profile_nr = i;
+
+        } else {
+        }
+    }
+
+};
+
 void animation_requests::update_position( physics &parameter, int room ) {
 
 
-    y_v_float = y_v_float + 1;
-
-    if ( y_v_float > parameter.g ) {
-        y_v_float = parameter.g;
-    } else {
-    }
-
-    x_v_float = x_v_float*parameter.air;
-
-
-    x_float = x_float + x_v_float;
-    y_float = y_float + y_v_float;
-
-    x = (int)x_float;
-
-    y = (int)y_float;
+//    y_v_float = y_v_float + 1;
+//
+//    if ( y_v_float > parameter.g ) {
+//        y_v_float = parameter.g;
+//    } else {
+//    }
+//
+//    x_v_float = x_v_float*parameter.air;
+//
+//
+//    x_float = x_float + x_v_float;
+//    y_float = y_float + y_v_float;
+//
+//    x = (int)x_float;
+//
+//    y = (int)y_float;
 
 
 
     switch (anime_nr) {
 
     case (1):
+
+            y_v_float = y_v_float + 1;
+
+                if ( y_v_float > parameter.g ) {
+                y_v_float = parameter.g;
+                } else {
+                }
+
+            x_v_float = x_v_float*parameter.air;
+
+
+            x_float = x_float + x_v_float;
+            y_float = y_float + y_v_float;
+
+            x = (int)x_float;
+
+            y = (int)y_float;
 
         for ( int i = 0; i < room_objects.at(room).roomblocks.size(); i++ ) {
 
@@ -759,6 +806,25 @@ void animation_requests::update_position( physics &parameter, int room ) {
 
 
     case (2):
+
+            y_v_float = y_v_float + 1;
+
+                if ( y_v_float > parameter.g ) {
+                y_v_float = parameter.g;
+                } else {
+                }
+
+            x_v_float = x_v_float*parameter.air;
+
+
+            x_float = x_float + x_v_float;
+            y_float = y_float + y_v_float;
+
+            x = (int)x_float;
+
+            y = (int)y_float;
+
+
 
             for ( int i = 0; i < room_objects.at(room).roomblocks.size(); i++ ) {
 
@@ -778,6 +844,44 @@ void animation_requests::update_position( physics &parameter, int room ) {
             };
 
         };
+    break;
+
+    case (3):
+
+            for ( int i = 0; i < animation_profiles.at(profile_nr).animate_type.size() ; i++ ) {
+
+                if ( current_cycle >= animation_profiles.at(profile_nr).animate_from_cycle.at(i) && current_cycle < animation_profiles.at(profile_nr).animate_to_cycle.at(i) ) {
+                //cout << animation_profiles.at(profile_nr).animate_main_nr.at(i) << endl;
+                    if ( animation_profiles.at(profile_nr).animate_subject_to_physics.at(i) == true ) {
+                        y_v_float = y_v_float + 1;
+                        x_v_float = x_v_float*parameter.air;
+
+                            if ( y_v_float > parameter.g ) {
+                            y_v_float = parameter.g;
+                            } else {
+                            }
+
+                        x_v_float = x_v_float*parameter.air;
+
+                    } else {
+                    }
+
+
+                } else {
+                }
+
+            }
+
+
+
+
+
+            x_float = x_float + x_v_float;
+            y_float = y_float + y_v_float;
+
+            x = (int)x_float;
+
+            y = (int)y_float;
     break;
 
     };
@@ -818,7 +922,26 @@ void animation_requests::render_animation() {
 
         break;
         }
+        case (3): {
 
+//                cout << animation_profiles.at(profile_nr).animate_type.size() << endl;
+            for ( int i = 0; i < animation_profiles.at(profile_nr).animate_type.size() ; i++ ) {
+
+                if ( current_cycle >= animation_profiles.at(profile_nr).animate_from_cycle.at(i) && current_cycle < animation_profiles.at(profile_nr).animate_to_cycle.at(i) ) {
+                    //cout << animation_profiles.at(profile_nr).animate_main_nr.at(i) << endl;
+                    render_requests * obj = new render_requests(animation_profiles.at(profile_nr).animate_main_nr.at(i), x, y, 1, true, true, 1);
+
+                    render_req.push_back(*obj);
+                    delete obj;
+
+
+                } else {
+                }
+
+            }
+
+        break;
+        }
 
         default:
         break;

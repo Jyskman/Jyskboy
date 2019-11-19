@@ -7,6 +7,36 @@
 
 using namespace::std;
 
+class animation_profile {
+
+public:
+animation_profile( int type, int profile_index );
+
+int profile_type;
+int animation_index;
+int animation_nr;
+
+vector<int> animate_from_cycle;
+vector<int> animate_to_cycle;
+vector<int> animate_type;
+vector<int> animate_main_index;
+vector<int> animate_main_nr;
+vector<int> animate_sub_index_1;
+vector<bool> animate_subject_to_physics;
+
+void load_animate_from_cycle(int value);
+void load_animate_to_cycle(int value);
+void load_animate_type(int value);
+void load_animate_main_index(int value);
+void load_animate_sub_index_1(int value);
+void load_animate_physics(bool value);
+
+void set_sprite_numbers();
+
+};
+
+
+
 class hitbox_object {
 
 
@@ -157,6 +187,7 @@ void physics_setup ();
 
 
 extern vector<physics> physics_objects;
+extern vector<animation_profile> animation_profiles;
 
 void modifier_random( int &number, int maximum, int minimum );
 

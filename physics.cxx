@@ -11,6 +11,71 @@
 
 
 vector<physics> physics_objects;
+vector<animation_profile> animation_profiles;
+
+// profiles that will be used in anim req system
+animation_profile::animation_profile(int type, int profile_index) {
+profile_type = type;
+animation_index = profile_index;
+};
+
+void animation_profile::set_sprite_numbers() {
+int return_value = 0;
+
+    for ( int i = 0; i < animate_main_index.size(); i++ ) {
+
+        for (int j = 0; j < all_sprites.size(); j++ ) {
+
+           if ( all_sprites.at(j).sprite_index == animate_main_index.at(i) ) {
+                return_value = j;
+                animate_main_nr.push_back(return_value);
+                //cout << return_value << endl;
+            } else {
+
+            };
+
+        };
+
+    };
+
+
+};
+
+void animation_profile::load_animate_from_cycle( int value ) {
+
+animate_from_cycle.push_back(value);
+
+};
+
+void animation_profile::load_animate_to_cycle( int value ) {
+
+animate_to_cycle.push_back(value);
+
+};
+
+void animation_profile::load_animate_type( int value ) {
+
+animate_type.push_back(value);
+
+};
+
+void animation_profile::load_animate_main_index( int value ) {
+
+animate_main_index.push_back(value);
+
+};
+
+void animation_profile::load_animate_sub_index_1( int value ) {
+
+animate_sub_index_1.push_back(value);
+
+};
+
+void animation_profile::load_animate_physics(bool value) {
+
+animate_subject_to_physics.push_back(value);
+};
+
 
 hitbox_object::hitbox_object ( int x_upper_left, int y_upper_left, int x_lower_right, int y_lower_right ) {
 
@@ -167,17 +232,17 @@ switch (hitbox_type) {
         //cout << shooter_direction << endl;
             if ( shooter_direction == true ) {
             x_base = all_sprites.at(a_type).getWidth()/2;
-            y_base = (all_sprites.at(a_type).getHeight()/2) -1 ;
+            y_base = (all_sprites.at(a_type).getHeight()/2) -2 ;
 
             x_off = all_sprites.at(a_type).getWidth()/2;
             y_off = (all_sprites.at(a_type).getHeight()/2) +1;
 
                 if ( a_rot == 2 ) {
-                x_base = 0;
-                y_base = 0;
+                x_base = all_sprites.at(a_type).getWidth()/2;
+                y_base = (all_sprites.at(a_type).getHeight()/2) -2 ;
 
-                x_off = 0;
-                y_off = 0;
+                x_off = all_sprites.at(a_type).getWidth()/2;
+                y_off = (all_sprites.at(a_type).getHeight()/2) + 1;
 
 
                 } else {
@@ -187,19 +252,19 @@ switch (hitbox_type) {
 
             } else {
             // Horisontal false
-            x_base = 0;
-            y_base = 0;
+            x_base = all_sprites.at(a_type).getWidth()/2;
+            y_base = (all_sprites.at(a_type).getHeight()/2) -2 ;
 
-            x_off = 0;
-            y_off = 0;
+            x_off = all_sprites.at(a_type).getWidth()/2;
+            y_off = (all_sprites.at(a_type).getHeight()/2) +1;
 
                 if ( a_rot == 2 ) {
 
-                x_base = 0;
-                y_base = 0;
+                x_base = all_sprites.at(a_type).getWidth()/2;
+                y_base = (all_sprites.at(a_type).getHeight()/2) -2 ;
 
-                x_off = 0;
-                y_off = 0;
+                x_off = all_sprites.at(a_type).getWidth()/2;
+                y_off = (all_sprites.at(a_type).getHeight()/2) +1;
 
 
                 } else {
@@ -212,6 +277,102 @@ switch (hitbox_type) {
 
         } else {
         };
+
+    break;
+
+    case (3):
+
+
+        if ( shooter_direction == false ) {
+            x_base = -0*all_sprites.at(a_type).getWidth()/1;
+            y_base = 1 - all_sprites.at(a_type).getHeight()/2;
+            x_off =  -0*all_sprites.at(a_type).getWidth()/1;
+            y_off =  1 + all_sprites.at(a_type).getHeight()/2;
+
+        } else {
+
+            x_base = all_sprites.at(a_type).getWidth()/1;
+            y_base = 1 - all_sprites.at(a_type).getHeight()/2;
+            x_off =  all_sprites.at(a_type).getWidth()/1;
+            y_off =  1 + all_sprites.at(a_type).getHeight()/2;
+
+        };
+
+
+
+        if (a_rot == 2) {
+
+            if ( a_vertical == 0 ) {
+
+                x_base = 2 - all_sprites.at(a_type).getHeight()/2;
+                y_base = 1*all_sprites.at(a_type).getWidth()/1;
+                x_off = 1 + all_sprites.at(a_type).getHeight()/2;
+                y_off =  1*all_sprites.at(a_type).getWidth()/1;
+
+            } else {
+            // a_vertical == 1
+                x_base = 2 - all_sprites.at(a_type).getHeight()/2;
+                y_base = 0*all_sprites.at(a_type).getWidth()/1;
+                x_off = 1 + all_sprites.at(a_type).getHeight()/2;
+                y_off =  0*all_sprites.at(a_type).getWidth()/1;
+
+            }
+
+        } else {
+
+        }
+
+
+
+        if (a_cross == true ) {
+        cout << a_rot << endl;
+            if ( shooter_direction == true ) {
+            x_base = all_sprites.at(a_type).getWidth() - 3;
+            y_base = 4 + 0*all_sprites.at(a_type).getHeight() ;
+
+            x_off = all_sprites.at(a_type).getWidth() - 3;
+            y_off = 1 + 0*all_sprites.at(a_type).getHeight();
+
+                if ( a_rot == 2 ) {
+                x_base = all_sprites.at(a_type).getWidth() - 3;
+                y_base = -5 + 1*all_sprites.at(a_type).getHeight() ;
+
+                x_off = all_sprites.at(a_type).getWidth() - 3;
+                y_off = -2 + 1*all_sprites.at(a_type).getHeight();
+
+
+                } else {
+                };
+
+
+
+            } else {
+            // Horisontal false
+            x_base = 0*all_sprites.at(a_type).getWidth() + 2;
+            y_base = 4 + 0*all_sprites.at(a_type).getHeight() ;
+
+            x_off = 0*all_sprites.at(a_type).getWidth() + 2;
+            y_off = 1 + 0*all_sprites.at(a_type).getHeight();
+
+                if ( a_rot == 2 ) {
+                x_base = 0*all_sprites.at(a_type).getWidth() + 2;
+                y_base = -5 + 1*all_sprites.at(a_type).getHeight() ;
+
+                x_off = 0*all_sprites.at(a_type).getWidth() + 2;
+                y_off = -2 + 1*all_sprites.at(a_type).getHeight();
+
+
+                } else {
+                };
+
+            };
+
+
+
+
+        } else {
+        };
+
 
     break;
 
@@ -266,7 +427,7 @@ void attack::update_and_render() {
     render_req.push_back(*obj);
     delete obj;
 
-    render_primitive_line(a_x_pos + attack_hitbox.at(0).x_u_left, a_y_pos + attack_hitbox.at(0).y_u_left, a_x_pos + attack_hitbox.at(0).x_l_right , a_y_pos+attack_hitbox.at(0).y_l_right, 1, 401);
+    //render_primitive_line(a_x_pos + attack_hitbox.at(0).x_u_left, a_y_pos + attack_hitbox.at(0).y_u_left, a_x_pos + attack_hitbox.at(0).x_l_right , a_y_pos+attack_hitbox.at(0).y_l_right, 1, 401);
 
 };
 

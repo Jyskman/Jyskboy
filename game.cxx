@@ -138,6 +138,7 @@ void game::game_setup() {
     room_setup();
     physics_setup();
     setupWeaponprofiles();
+    setup_animation_profiles();
     all_sprites.at(0).sprite_test();
 
 
@@ -158,10 +159,26 @@ void game::game_setup() {
             hero.setY(100);
 };
 
+void game::setup_animation_profiles() {
+// configure animation patterns
+animation_profile * obj = new animation_profile(1, 10);
+animation_profiles.push_back(*obj);
+delete obj;
+//load the pattern of the first animation profile
+animation_profiles.at(0).load_animate_type(1); // type 1 simple
+animation_profiles.at(0).load_animate_from_cycle(0);
+animation_profiles.at(0).load_animate_to_cycle(10);
+animation_profiles.at(0).load_animate_main_index(401);
+animation_profiles.at(0).load_animate_sub_index_1(0);
+animation_profiles.at(0).set_sprite_numbers();
+animation_profiles.at(0).load_animate_physics(false);
+
+};
+
 void game::setupWeaponprofiles(){
 
 
-weaponProfile * obj = new weaponProfile(201, 202 ,10, 10, 1, 2);
+weaponProfile * obj = new weaponProfile(201, 202 ,10, 10, 1, 3);
 gameWProfiles.push_back(*obj);
 delete obj;
 

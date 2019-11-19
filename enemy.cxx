@@ -126,6 +126,9 @@ bool hit = false;
 
             if ( hit == false ) {
                 cout << "hit" << endl;
+                animation_requests * obj = new animation_requests(10, 20, 20, 5, 5);
+                anime_req.push_back(*obj);
+                delete obj;
             } else {
             }
 
