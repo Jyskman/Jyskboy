@@ -161,18 +161,146 @@ void game::game_setup() {
 
 void game::setup_animation_profiles() {
 // configure animation patterns
-animation_profile * obj = new animation_profile(1, 10);
+animation_profile * obj = new animation_profile(2, 10, 0, 7);
 animation_profiles.push_back(*obj);
 delete obj;
-//load the pattern of the first animation profile
-animation_profiles.at(0).load_animate_type(1); // type 1 simple
-animation_profiles.at(0).load_animate_from_cycle(0);
-animation_profiles.at(0).load_animate_to_cycle(10);
-animation_profiles.at(0).load_animate_main_index(401);
-animation_profiles.at(0).load_animate_sub_index_1(0);
-animation_profiles.at(0).set_sprite_numbers();
-animation_profiles.at(0).load_animate_physics(false);
 
+animation_profile * obj_2 = new animation_profile(2, 11, 0, 8);
+animation_profiles.push_back(*obj_2);
+delete obj_2;
+
+animation_profile * obj_3 = new animation_profile(2, 12, 0, 8);
+animation_profiles.push_back(*obj_3);
+delete obj_3;
+
+//load the pattern of the first animation profile @0
+animation_profiles.at(0).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(0);
+//animation_profiles.at(0).load_animate_to_cycle(10);
+animation_profiles.at(0).load_animate_main_index(501);
+animation_profiles.at(0).load_animate_sub_index_1(0);
+animation_profiles.at(0).load_animate_physics(false);
+animation_profiles.at(0).load_animate_duo(true);
+
+animation_profiles.at(0).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(10);
+//animation_profiles.at(0).load_animate_to_cycle(20);
+animation_profiles.at(0).load_animate_main_index(502);
+animation_profiles.at(0).load_animate_sub_index_1(0);
+animation_profiles.at(0).load_animate_physics(false);
+animation_profiles.at(0).load_animate_duo(true);
+
+animation_profiles.at(0).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(20);
+//animation_profiles.at(0).load_animate_to_cycle(30);
+animation_profiles.at(0).load_animate_main_index(503);
+animation_profiles.at(0).load_animate_sub_index_1(0);
+animation_profiles.at(0).load_animate_physics(false);
+animation_profiles.at(0).load_animate_duo(true);
+
+animation_profiles.at(0).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(30);
+//animation_profiles.at(0).load_animate_to_cycle(40);
+animation_profiles.at(0).load_animate_main_index(504);
+animation_profiles.at(0).load_animate_sub_index_1(0);
+animation_profiles.at(0).load_animate_physics(false);
+animation_profiles.at(0).load_animate_duo(true);
+
+animation_profiles.at(0).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(40);
+//animation_profiles.at(0).load_animate_to_cycle(50);
+animation_profiles.at(0).load_animate_main_index(505);
+animation_profiles.at(0).load_animate_sub_index_1(0);
+animation_profiles.at(0).load_animate_physics(false);
+animation_profiles.at(0).load_animate_duo(true);
+
+// // // // // // // // // // // //
+//load the pattern of the second animation profile @0
+animation_profiles.at(1).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(0);
+//animation_profiles.at(0).load_animate_to_cycle(10);
+animation_profiles.at(1).load_animate_main_index(506);
+animation_profiles.at(1).load_animate_sub_index_1(0);
+animation_profiles.at(1).load_animate_physics(false);
+animation_profiles.at(1).load_animate_duo(false);
+animation_profiles.at(1).load_animate_quad(true);
+
+animation_profiles.at(1).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(10);
+//animation_profiles.at(0).load_animate_to_cycle(20);
+animation_profiles.at(1).load_animate_main_index(507);
+animation_profiles.at(1).load_animate_sub_index_1(0);
+animation_profiles.at(1).load_animate_physics(false);
+animation_profiles.at(1).load_animate_duo(false);
+animation_profiles.at(1).load_animate_quad(true);
+
+animation_profiles.at(1).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(20);
+//animation_profiles.at(0).load_animate_to_cycle(30);
+animation_profiles.at(1).load_animate_main_index(508);
+animation_profiles.at(1).load_animate_sub_index_1(0);
+animation_profiles.at(1).load_animate_physics(false);
+animation_profiles.at(1).load_animate_duo(false);
+animation_profiles.at(1).load_animate_quad(true);
+
+animation_profiles.at(1).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(20);
+//animation_profiles.at(0).load_animate_to_cycle(30);
+animation_profiles.at(1).load_animate_main_index(509);
+animation_profiles.at(1).load_animate_sub_index_1(0);
+animation_profiles.at(1).load_animate_physics(false);
+animation_profiles.at(1).load_animate_duo(false);
+animation_profiles.at(1).load_animate_quad(true);
+
+// // // // // // // // // // // //
+//load the pattern of the third animation profile @0
+animation_profiles.at(2).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(0);
+//animation_profiles.at(0).load_animate_to_cycle(10);
+animation_profiles.at(2).load_animate_main_index(510);
+animation_profiles.at(2).load_animate_sub_index_1(0);
+animation_profiles.at(2).load_animate_physics(false);
+animation_profiles.at(2).load_animate_duo(false);
+animation_profiles.at(2).load_animate_quad(true);
+
+animation_profiles.at(2).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(10);
+//animation_profiles.at(0).load_animate_to_cycle(20);
+animation_profiles.at(2).load_animate_main_index(511);
+animation_profiles.at(2).load_animate_sub_index_1(0);
+animation_profiles.at(2).load_animate_physics(false);
+animation_profiles.at(2).load_animate_duo(false);
+animation_profiles.at(2).load_animate_quad(true);
+
+animation_profiles.at(2).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(20);
+//animation_profiles.at(0).load_animate_to_cycle(30);
+animation_profiles.at(2).load_animate_main_index(512);
+animation_profiles.at(2).load_animate_sub_index_1(0);
+animation_profiles.at(2).load_animate_physics(false);
+animation_profiles.at(2).load_animate_duo(false);
+animation_profiles.at(2).load_animate_quad(true);
+
+animation_profiles.at(2).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(20);
+//animation_profiles.at(0).load_animate_to_cycle(30);
+animation_profiles.at(2).load_animate_main_index(513);
+animation_profiles.at(2).load_animate_sub_index_1(0);
+animation_profiles.at(2).load_animate_physics(false);
+animation_profiles.at(2).load_animate_duo(false);
+animation_profiles.at(2).load_animate_quad(true);
+
+
+
+// setup for animations
+animation_profiles.at(0).set_sprite_numbers();
+animation_profiles.at(0).set_to_from_cycles(2);
+
+animation_profiles.at(1).set_sprite_numbers();
+animation_profiles.at(1).set_to_from_cycles(2);
+
+animation_profiles.at(2).set_sprite_numbers();
+animation_profiles.at(2).set_to_from_cycles(2);
 };
 
 void game::setupWeaponprofiles(){
@@ -442,7 +570,15 @@ void game::enemy_manager() {
     for ( int i = 0 ; i < gameEnemys.size() ; i++ ) {
         gameEnemys.at(i).setRender();
         gameEnemys.at(i).resolve_damage( gameAttacks );
+        gameEnemys.at(i).perception(hero);
+        gameEnemys.at(i).motion( physics_objects.at( physics_current ) ) ;
     }
+
+
+
+
+
+
 
     // Remove destroyed enemies
     gameEnemys.erase(

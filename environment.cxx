@@ -375,13 +375,13 @@ void portal::portal_render() {
         case (1):
         {
 
-            render_requests_quad( sprite_nr, x_loc, y_loc, true, true );
+            render_requests_quad( sprite_nr, x_loc, y_loc, true, true, true );
 
             break;
             }
         case (2):
         {
-            render_requests_dual(sprite_nr, x_loc, y_loc, true, true);
+            render_requests_dual(sprite_nr, x_loc, y_loc, true, true, true);
             //render_requests_dual(sprite_nr, x_loc, y_loc-20, true, false);
         break;
         }

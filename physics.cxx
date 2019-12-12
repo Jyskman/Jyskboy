@@ -8,19 +8,27 @@
 #include "physics.h"
 #include "setup_sprites.h"
 #include <cstdlib>
+#include <math.h>
+
+using namespace std;
 
 
 vector<physics> physics_objects;
 vector<animation_profile> animation_profiles;
 
 // profiles that will be used in anim req system
-animation_profile::animation_profile(int type, int profile_index) {
+animation_profile::animation_profile(int type, int profile_index, int min_cycle, int max_cycle) {
 profile_type = type;
 animation_index = profile_index;
+min_c = min_cycle;
+max_c = max_cycle;
+
+
+
 };
 
 void animation_profile::set_sprite_numbers() {
-int return_value = 0;
+    int return_value = 0;
 
     for ( int i = 0; i < animate_main_index.size(); i++ ) {
 
@@ -40,6 +48,64 @@ int return_value = 0;
 
 
 };
+
+void animation_profile::set_to_from_cycles(int type) {
+
+    float lower, upper;
+    int lower_int, upper_int;
+
+    switch (type) {
+
+        case(1):
+        break;
+        case(2):
+
+            for ( int i = 0; i < animate_main_index.size(); i++ ) {
+
+                lower = i * ( (float)max_c / (float)animate_main_index.size() );
+                upper = ( (float)max_c / (float)animate_main_index.size() ) + i * ( (float)max_c / (float)animate_main_index.size() );
+
+                lower_int = (int)lower;
+                upper_int = (int)upper;
+
+                animate_from_cycle.push_back(  lower_int  )  ;
+                animate_to_cycle.push_back( upper_int )  ;
+                //cout << lower_int << ".--." << upper_int << endl;
+
+
+
+            }
+
+
+        break;
+        case(3):
+
+                for ( int i = 0; i < animate_main_index.size(); i++ ) {
+
+                lower = i * ( (float)max_c / (float)animate_main_index.size() );
+                upper = ( (float)max_c / (float)animate_main_index.size() ) + i * ( (float)max_c / (float)animate_main_index.size() );
+
+                lower_int = (int)lower;
+                upper_int = (int)upper;
+
+                animate_from_cycle.push_back(  lower_int  )  ;
+                animate_to_cycle.push_back( upper_int )  ;
+                //cout << lower_int << ".--." << upper_int << endl;
+
+
+
+            }
+        break;
+        default:
+        break;
+
+
+    };
+
+
+
+}
+
 
 void animation_profile::load_animate_from_cycle( int value ) {
 
@@ -74,6 +140,16 @@ animate_sub_index_1.push_back(value);
 void animation_profile::load_animate_physics(bool value) {
 
 animate_subject_to_physics.push_back(value);
+};
+
+void animation_profile::load_animate_quad(bool value) {
+
+animate_quad.push_back(value);
+};
+
+void animation_profile::load_animate_duo(bool value) {
+
+animate_duo.push_back(value);
 };
 
 
@@ -596,6 +672,43 @@ state = index;
 
 };
 
+physics::physics( int index, float set_new_g, float set_new_air_density, int extra_parameter) {
+
+new_g = set_new_g;
+new_air_density = set_new_air_density;
+state = index;
+
+};
+
+void physics::calculate_velocity(float &v_parameter, float Area_factor, float Shape_C_factor) {
+
+     sign = -1;
+    if ( v_parameter < 0 ) {
+        sign = 1;
+    } else {
+    }
+
+
+    v_parameter = v_parameter + new_g;
+
+    //current_drag = (Area_factor * Shape_C_factor * new_air_density) * v_parameter*v_parameter;
+    current_drag = (float)sign * ( 1.00 / 81.00 ) * v_parameter*v_parameter;
+
+    if ( abs(current_drag) < 0.02 ) {
+        current_drag = 0.00;
+    } else {
+    }
+
+
+    v_parameter = v_parameter + current_drag;
+    cout << v_parameter << endl;
+//    if ( v_parameter > 7 ) {
+//        v_parameter = 8;
+//    } else {
+//    }
+
+};
+
 
 void physics::setState(int param) {
     state = param;
@@ -630,7 +743,9 @@ float physics::getG(int state) {
 void physics_setup() {
 
 
-physics * new_p = new physics(8, 0.90, 0);
+//physics * new_p = new physics(8, 0.90, 0);
+physics * new_p = new physics(0, 0.8, 0.5, 5);
+
 physics_objects.push_back(*new_p);
 delete new_p;
 

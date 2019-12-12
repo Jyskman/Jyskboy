@@ -11,11 +11,25 @@
 #include <math.h>
 using namespace std;
 
-void render_requests_quad(int sprite_nr, int x_loc, int y_loc, bool white_border, bool center ) {
+void render_requests_quad(int sprite_nr, int x_loc, int y_loc, bool white_border, bool center, bool right_orientation ) {
 
         int minus_one = 0;
         int x = 0;
         int y = 0;
+        bool right_1 = false;
+        bool right_2 = true;
+        bool right_3 = false;
+        bool right_4 = true;
+
+        if ( right_orientation == false ) {
+            right_1 = !right_1;
+            right_2 = !right_2;
+            right_3 = !right_3;
+            right_4 = !right_4;
+
+        } else {
+        }
+
 
         if ( center == true ) {
             x = all_sprites.at(sprite_nr).getWidth() -1;
@@ -32,10 +46,10 @@ void render_requests_quad(int sprite_nr, int x_loc, int y_loc, bool white_border
         int x_off = all_sprites.at(sprite_nr).getWidth() - 1 - minus_one;
         int  y_off = all_sprites.at(sprite_nr).getHeight() - 1 - minus_one;
 
-        render_requests * obj_x  = new render_requests(sprite_nr, x_loc -x,            y_loc-y,            1, false, true, 1);
-        render_requests * obj_x2 = new render_requests(sprite_nr, x_loc+x_off-x,            y_loc-y,      1, true, true, 1);
-        render_requests * obj_x3 = new render_requests(sprite_nr, x_loc-x,            y_loc+y_off-y,            1, false, false, 1);
-        render_requests * obj_x4 = new render_requests(sprite_nr, x_loc+x_off-x,            y_loc+y_off-y,      1, true, false, 1);
+        render_requests * obj_x  = new render_requests(sprite_nr, x_loc -x,            y_loc-y,                 1, right_1, true, 1);
+        render_requests * obj_x2 = new render_requests(sprite_nr, x_loc+x_off-x,            y_loc-y,            1, right_2, true, 1);
+        render_requests * obj_x3 = new render_requests(sprite_nr, x_loc-x,            y_loc+y_off-y,            1, right_3, false, 1);
+        render_requests * obj_x4 = new render_requests(sprite_nr, x_loc+x_off-x,            y_loc+y_off-y,      1, right_4, false, 1);
         render_req.push_back( *obj_x );
         render_req.push_back( *obj_x2 );
         render_req.push_back( *obj_x3 );
@@ -50,11 +64,21 @@ void render_requests_quad(int sprite_nr, int x_loc, int y_loc, bool white_border
 
 };
 
-void render_requests_dual( int sprite_nr, int x_loc, int y_loc, bool white_border, bool center ) {
+void render_requests_dual( int sprite_nr, int x_loc, int y_loc, bool white_border, bool center, bool center_orientation ) {
 
         int minus_one = 0;
         int x = 0;
         int y = 0;
+
+        bool right_orientation_1 = true;
+        bool right_orientation_2 = false;
+
+        if ( center_orientation == false ) {
+            right_orientation_1 = false;
+            right_orientation_2 = true;
+        } else {
+        }
+
 
         if ( center == true ) {
             x = all_sprites.at(sprite_nr).getWidth() -1;
@@ -71,8 +95,8 @@ void render_requests_dual( int sprite_nr, int x_loc, int y_loc, bool white_borde
         int  x_off = all_sprites.at(sprite_nr).getWidth() - 1 - minus_one;
         int  y_off = all_sprites.at(sprite_nr).getHeight() - 1 - minus_one;
 
-        render_requests * obj_x  = new render_requests(sprite_nr, x_loc+x_off - x,                y_loc-y,           1, true, true, 1);
-        render_requests * obj_x2 = new render_requests(sprite_nr, x_loc - x,          y_loc-y,           1, false, true, 1);
+        render_requests * obj_x  = new render_requests(sprite_nr, x_loc+x_off - x,          y_loc-y,           1, right_orientation_1, true, 1);
+        render_requests * obj_x2 = new render_requests(sprite_nr, x_loc - x,                y_loc-y,           1, right_orientation_2, true, 1);
 
         render_req.push_back( *obj_x );
         render_req.push_back( *obj_x2 );
@@ -728,6 +752,8 @@ x_v = x_vel_start;
 y_v = y_vel_start;
 current_cycle = 0;
 
+
+
 x_v_float = (float)x_v;
 y_v_float = (float)y_v;
 x_float = (float)x;
@@ -749,24 +775,6 @@ void animation_requests::profile_setup(int profile_index_parameter) {
 };
 
 void animation_requests::update_position( physics &parameter, int room ) {
-
-
-//    y_v_float = y_v_float + 1;
-//
-//    if ( y_v_float > parameter.g ) {
-//        y_v_float = parameter.g;
-//    } else {
-//    }
-//
-//    x_v_float = x_v_float*parameter.air;
-//
-//
-//    x_float = x_float + x_v_float;
-//    y_float = y_float + y_v_float;
-//
-//    x = (int)x_float;
-//
-//    y = (int)y_float;
 
 
 
@@ -929,10 +937,30 @@ void animation_requests::render_animation() {
 
                 if ( current_cycle >= animation_profiles.at(profile_nr).animate_from_cycle.at(i) && current_cycle < animation_profiles.at(profile_nr).animate_to_cycle.at(i) ) {
                     //cout << animation_profiles.at(profile_nr).animate_main_nr.at(i) << endl;
-                    render_requests * obj = new render_requests(animation_profiles.at(profile_nr).animate_main_nr.at(i), x, y, 1, true, true, 1);
 
+                    if ( animation_profiles.at(profile_nr).animate_duo.at(i) == true ) {
+
+                    render_requests_dual( animation_profiles.at(profile_nr).animate_main_nr.at(i), x, y, true, true, false );
+
+                    } else {
+
+                    }
+                    if ( animation_profiles.at(profile_nr).animate_quad.at(i) == true ) {
+
+                    render_requests_quad( animation_profiles.at(profile_nr).animate_main_nr.at(i), x, y, true, true, false);
+
+                    } else {
+
+                    }
+                    if (animation_profiles.at(profile_nr).animate_quad.at(i) == false && animation_profiles.at(profile_nr).animate_duo.at(i) == false ) {
+                    render_requests * obj = new render_requests(animation_profiles.at(profile_nr).animate_main_nr.at(i), x, y, 1, true, true, 1);
                     render_req.push_back(*obj);
                     delete obj;
+
+                    } else {
+                    }
+
+
 
 
                 } else {

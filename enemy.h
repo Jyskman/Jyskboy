@@ -4,7 +4,7 @@
 #include <vector>
 #include <iostream>
 #include "physics.h"
-
+#include "champ.h"
 
 
 
@@ -15,9 +15,21 @@ class enemy {
 public:
 enemy(int e_type);
 
-int x_location, y_location;
+int x_location, y_location, x_v_int, y_v_int;
+float x_float, y_float, x_v_float, y_v_float;
+
+void perception(champ &parameter);
+void motion( physics &parameter );
+
+float perception_angle;
+float perception_distance;
+bool perception_above;
+
+int center_x, center_y;
 int enemy_type;
 bool destroy = false;
+
+float champ_direction;
 
 // Render stuff
 vector<render_state> RSV;
@@ -43,8 +55,8 @@ int life;
 bool current_sprite_direction = true; // true is right orientation
 bool current_sprite_v_direction = true; // true is oriented up, as sprite is drawn
 int rotation = 1; // exp rotation parameter
-int height = 30;
-int width = 25;
+int height = 0;
+int width = 0;
 bool general_contact;
 int x_mirror_gun, RSV_x_gun, RSV_y_gun, rot_gun, gun_sprite_nr;
 bool horisontal_gun, vertical_gun;

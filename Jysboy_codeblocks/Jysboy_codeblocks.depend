@@ -11,7 +11,7 @@
 	<sr595.h>
 	<iostream>
 
-1572619685 source:/home/pi/codeblocks/Jyskboy/champ.cxx
+1576177361 source:/home/pi/codeblocks/Jyskboy/champ.cxx
 	<iostream>
 	"champ.h"
 	<vector>
@@ -24,7 +24,7 @@
 	<math.h>
 	"physics.h"
 
-1572619323 /home/pi/codeblocks/Jyskboy/champ.h
+1575999889 /home/pi/codeblocks/Jyskboy/champ.h
 	"buttons.h"
 	<iostream>
 	<vector>
@@ -62,7 +62,7 @@
 	"environment.h"
 	"game.h"
 
-1574099093 /home/pi/codeblocks/Jyskboy/render.h
+1574600127 /home/pi/codeblocks/Jyskboy/render.h
 	<iostream>
 	"champ.h"
 
@@ -72,7 +72,7 @@
 	<vector>
 	"render.h"
 
-1574186334 source:/home/pi/codeblocks/Jyskboy/render.cxx
+1574600716 source:/home/pi/codeblocks/Jyskboy/render.cxx
 	<iostream>
 	"render.h"
 	<vector>
@@ -82,7 +82,7 @@
 	<cmath>
 	<math.h>
 
-1572690835 source:/home/pi/codeblocks/Jyskboy/setup_sprites.cxx
+1575110632 source:/home/pi/codeblocks/Jyskboy/setup_sprites.cxx
 	<iostream>
 	"setup_sprites.h"
 	"sprite_objects.h"
@@ -114,7 +114,7 @@
 	<vector>
 	"setup_sprites.h"
 
-1572791321 source:/home/pi/codeblocks/Jyskboy/environment.cxx
+1574600260 source:/home/pi/codeblocks/Jyskboy/environment.cxx
 	<iostream>
 	<vector>
 	"environment.h"
@@ -138,7 +138,7 @@
 	<vector>
 	"enemy.h"
 
-1574186363 source:/home/pi/codeblocks/Jyskboy/game.cxx
+1575737358 source:/home/pi/codeblocks/Jyskboy/game.cxx
 	<iostream>
 	<vector>
 	"game.h"
@@ -178,26 +178,29 @@
 	<iostream>
 	<vector>
 
-1574185485 source:/home/pi/codeblocks/Jyskboy/physics.cxx
+1576177204 source:/home/pi/codeblocks/Jyskboy/physics.cxx
 	<iostream>
 	<vector>
 	"render.h"
 	"physics.h"
 	"setup_sprites.h"
 	<cstdlib>
+	<math.h>
 
-1574185440 /home/pi/codeblocks/Jyskboy/physics.h
+1576000136 /home/pi/codeblocks/Jyskboy/physics.h
 	<vector>
 	<iostream>
 
-1573148672 /home/pi/codeblocks/Jyskboy/enemy.h
+1575737286 /home/pi/codeblocks/Jyskboy/enemy.h
 	<vector>
 	<iostream>
 	"physics.h"
+	"champ.h"
 
-1574185160 source:/home/pi/codeblocks/Jyskboy/enemy.cxx
+1575737307 source:/home/pi/codeblocks/Jyskboy/enemy.cxx
 	"enemy.h"
 	"setup_sprites.h"
 	<iostream>
 	"physics.h"
+	<math.h>
 

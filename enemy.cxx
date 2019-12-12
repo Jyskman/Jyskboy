@@ -5,20 +5,91 @@
 #include "setup_sprites.h"
 #include <iostream>
 #include "physics.h"
+#include <math.h>
 
 using namespace std;
 // E
 
-void enemy::set_hitbox_set() {
 
-    for ( int i = 0; i < RSV.size() ; i++ ) {
 
-        hitbox_object * obj = new hitbox_object(0,0, all_sprites.at( RSV.at(i).sprite_nr ).getWidth(), all_sprites.at( RSV.at(i).sprite_nr ).getHeight() );
-        enemy_hitbox_set.push_back( *obj );
-        delete obj;
+void enemy::perception(champ &parameter) {
+
+float param_x = (float)center_x + (float)x_location;
+float param_y = (float)center_y + (float)y_location;
+
+        perception_distance = sqrt( ( param_x - parameter.x_center )*( param_x - parameter.x_center )+( param_y - parameter.y_center )*( param_y - parameter.y_center ) );
+        // direction to champ
+        perception_angle = (  ( parameter.x_center - param_x )/( perception_distance )  );
+        //cout << "angle" << acos(cos_alfa) << endl;
+        //champ_direction =  0;
+        if ( parameter.y_center > param_y ) {
+            perception_above = false;
+            //cout << "is below" << endl;
+        } else {
+            perception_above = true;
+            //cout << "is above" << endl;
+        }
+
+
+};
+
+
+
+
+
+void enemy::motion( physics &parameter ) {
+
+//length = sqrt( ( x_1 - x_2 )*( x_1 - x_2 )+( y_1 - y_2 )*( y_1 - y_2 ) )
+    switch ( enemy_type ) {
+
+        case(1):
+
+
+
+
+
+        break;
+        case(2):
+        break;
+        default:
+        break;
+
 
 
     };
+
+
+
+};
+
+
+
+void enemy::set_hitbox_set() {
+
+    switch (enemy_type) {
+
+        case (1):
+            for ( int i = 0; i < RSV.size() ; i++ ) {
+
+                hitbox_object * obj = new hitbox_object(0,0, all_sprites.at( RSV.at(i).sprite_nr ).getWidth(), all_sprites.at( RSV.at(i).sprite_nr ).getHeight() );
+                enemy_hitbox_set.push_back( *obj );
+                delete obj;
+
+                center_x = all_sprites.at( RSV.at(i).sprite_nr ).getWidth() / 2;
+                center_y = all_sprites.at( RSV.at(i).sprite_nr ).getHeight() / 2;
+
+            };
+
+        break;
+        case (2):
+        break;
+        default:
+        break;
+
+
+
+    }
+
 
 
 };
@@ -31,13 +102,42 @@ void enemy::RSV_setup() {
 
     if ( enemy_type == 1 ) {
 
-        enemy_offset[0][0] = 0 ; // first object x offset
+
+
+        render_state * state_1_1 = new render_state(true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 0, 0, 207 );
+        RSV.push_back(*state_1_1);
+        delete state_1_1;
+
+        render_state * state_1_2 = new render_state(true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 0, 0, 207 );
+        RSV.push_back(*state_1_2);
+        delete state_1_2;
+
+        render_state * state_1_3 = new render_state(true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 0, 0, 208 );
+        RSV.push_back(*state_1_3);
+        delete state_1_3;
+
+
+        //Offset setup prototype
+        //all_sprites.at(RSV.at(1).sprite_nr).getWidth() +2;
+        enemy_offset[0][2] = 0 ; // first object x offset
+        enemy_offset[1][2] = 0 ; // first object y offset
+        // enemy has a main width and height which mirror x is based on, set below
+        width = all_sprites.at(RSV.at(2).sprite_nr).getWidth();
+        height = all_sprites.at(RSV.at(2).sprite_nr).getHeight();
+
+
+        enemy_offset[0][1] = all_sprites.at(RSV.at(2).sprite_nr).getWidth() - 2 ; // first object x offset
+        enemy_offset[1][1] = 0 ; // first object y offset
+
+        enemy_offset[0][0] = enemy_offset[0][1] + all_sprites.at(RSV.at(0).sprite_nr).getWidth() - 2 ; // first object x offset
         enemy_offset[1][0] = 0 ; // first object y offset
 
-        render_state * state_1_1 = new render_state(true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, enemy_offset[0][0], enemy_offset[1][0], 207 );
-        RSV.push_back(*state_1_1);
+        for ( int i = 0; i < RSV.size(); i++ ) {
+            RSV.at(i).x_off = enemy_offset[0][i];
+            RSV.at(i).y_off = enemy_offset[1][i];
 
-        delete state_1_1;
+        }
+
 
     }
 
@@ -66,12 +166,12 @@ void enemy::vulnerability_setup() {
 
 enemy::enemy( int e_type) {
 
-x_location = 30 ;
-y_location = 30 ;
+x_location = 150 ;
+y_location = 200 ;
 enemy_type = e_type;
 vector<hitbox_object> enemy_hitbox_set;
 vector<render_state> RSV;
-RSV_setup();
+RSV_setup(); // also height and width main properties
 vulnerability_setup();
 set_hitbox_set();
 
@@ -88,6 +188,8 @@ int X_1_A = 0;
 int X_2_A = 0;
 int Y_1_A = 0;
 int Y_2_A = 0;
+
+
 // Shot
 int X_1_B = 0;
 int X_2_B = 0;
@@ -126,9 +228,10 @@ bool hit = false;
 
             if ( hit == false ) {
                 cout << "hit" << endl;
-                animation_requests * obj = new animation_requests(10, 20, 20, 5, 5);
-                anime_req.push_back(*obj);
-                delete obj;
+//                animation_requests * obj = new animation_requests(12, x_location + center_x, y_location + center_y , 0, 0);
+//                anime_req.push_back(*obj);
+//                delete obj;
+                current_sprite_direction = false;
             } else {
             }
 

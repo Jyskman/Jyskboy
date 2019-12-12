@@ -60,6 +60,8 @@ float delta_x, delta_y, increment, delta_increment, cos_alfa, a_cos, length;
 
 int height = 30;
 int width = 25;
+
+float x_center, y_center;
 int sprite_size;
 
 int palette_current;
@@ -68,6 +70,8 @@ int sprite_nr;
 int current_form_info[10] = {101,102,0,0,0,0,0,0,25,30}; // sprite 1/sprite 2, 3, 4 plus indexes and hitbox size // probably obsolete
 float x_velocity;
 int y_velocity;
+float y_vel;
+
 
 // for RSV
 int x_mirror_gun, RSV_x_gun, RSV_y_gun, rot_gun, gun_sprite_nr;

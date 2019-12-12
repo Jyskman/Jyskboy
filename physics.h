@@ -10,11 +10,12 @@ using namespace::std;
 class animation_profile {
 
 public:
-animation_profile( int type, int profile_index );
+animation_profile( int type, int profile_index, int min_cycle, int max_cycle );
 
 int profile_type;
 int animation_index;
 int animation_nr;
+int min_c, max_c;
 
 vector<int> animate_from_cycle;
 vector<int> animate_to_cycle;
@@ -23,6 +24,8 @@ vector<int> animate_main_index;
 vector<int> animate_main_nr;
 vector<int> animate_sub_index_1;
 vector<bool> animate_subject_to_physics;
+vector<bool> animate_quad;
+vector<bool> animate_duo;
 
 void load_animate_from_cycle(int value);
 void load_animate_to_cycle(int value);
@@ -30,8 +33,11 @@ void load_animate_type(int value);
 void load_animate_main_index(int value);
 void load_animate_sub_index_1(int value);
 void load_animate_physics(bool value);
-
+void load_animate_quad(bool value);
+void load_animate_duo(bool value);
 void set_sprite_numbers();
+void set_to_from_cycles(int type);
+
 
 };
 
@@ -168,6 +174,9 @@ class physics {
 
 public:
 physics( float g_force, float air_force, int index );
+physics( int index, float set_new_g, float set_new_air_density, int extra_parameter );
+
+void calculate_velocity( float &v_parameter, float Area_factor, float Shape_C_factor );
 
 void setState(int param);
 float getG(int state);
@@ -175,9 +184,14 @@ float getG(int state);
 float g;
 float air;
 int state;
-
 int vector_nr;
 //int Relation_nr_type();
+
+float new_g;
+float new_air_density;
+
+float current_drag;
+int sign;
 
 };
 

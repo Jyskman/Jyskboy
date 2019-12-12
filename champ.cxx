@@ -31,6 +31,7 @@ jump_counter = 1;
 current_gun = 0;
 //internal = &render_req;
 //setContactPoints();
+
 };
 
 // May be obsolete after render state
@@ -483,7 +484,8 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                         //cout << " floor " << endl;
                         floor_contact = true;
                         jump_counter = 1;
-                        y_velocity = 0;
+
+                        y_vel = 0;
                             while ( contact_points_all[1][0]  + getY() >= P4_y ){
                             setY( getY() -1 );
                             }
@@ -509,8 +511,9 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
 
                                 if ( contact_points_all[1][1]  + getY() >= P4_y && contact_points_all[1][1]  + getY() < P3_y && contact_points_all[0][1] + getX() >= P3_x && contact_points_all[0][1] + getX() <= P4_x ) {
                                 roof_contact = true;
-                                y_velocity = 0;
-                                cout << "top" << endl;
+
+                                y_vel = 0;
+                                //cout << "top" << endl;
                                     while ( contact_points_all[1][1]  + getY() < P3_y ){
                                     setY( getY() +1 );
                                     }
@@ -639,7 +642,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                             if ( contact_points_all[1][3]  + getY() >= P4_y && contact_points_all[1][3]  + getY() < P3_y && contact_points_all[0][3] + getX() >= P3_x && contact_points_all[0][3] + getX() <= P4_x ) {
                             //x_velocity = 0;
                             contact_right = true;
-                            cout << "Z" << endl;
+                            //cout << "Z" << endl;
                                 while ( contact_points_all[0][3]  + getX() >= P3_x ){
 
                                 setX( getX() -1 );
@@ -774,19 +777,20 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                         /////////////////
 
                                         if (x_location_intersection_int <= P3_x && y_location_intersection_int > P4_y) {
-                                            cout << " XR " << endl;
+                                            //cout << " XR " << endl;
                                             x_location_intersection_int = P3_x-1;
                                             contact_right = true;
                                         } else {
                                         }
                                         if( y_location_intersection_int <= P4_y ){
-                                            cout << " YR " << endl;
+                                            //cout << " YR " << endl;
                                             y_location_intersection_int = P4_y-1;
                                             x_location_intersection_int = x_location + width;
 
                                             //roof_contact = true;
                                             floor_contact = true;
-                                            y_velocity = 0;
+
+                                            y_vel = 0;
                                             jump_counter = 1;
                                         } else {
                                         }
@@ -963,6 +967,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                             if ( contact_points_all[1][10]  + getY() >= P4_y && contact_points_all[1][10]  + getY() < P3_y && contact_points_all[0][10] + getX() >= P3_x && contact_points_all[0][10] + getX() <= P4_x ) {
                             x_velocity = 0;
                             contact_left = true;
+                            cout << "C" << endl;
                                 while ( contact_points_all[0][10]  + getX() <= P4_x ){
 
                                 setX( getX() +1 ); //
@@ -1048,7 +1053,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                             x_location_intersection_int = P4_x+1;
                                             contact_left = true;
                                             x_velocity = 0;
-                                            //cout << "cont left x_intersection_int " << x_location_intersection_int << endl;
+
                                         } else {
                                         }
                                         if( y_location_intersection_int <= P4_y ){
@@ -1057,8 +1062,10 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                             //roof_contact = true;
                                             x_location_intersection_int = x_location;
                                             floor_contact = true;
-                                            y_velocity = 0;
+
+                                            y_vel = 0;
                                             jump_counter = 1;
+
                                         } else {
                                         }
 
@@ -1102,10 +1109,11 @@ contact_position.clear();
 void champ::setPos(button_input& parameter, physics& physics_parameter){
 
     if (floor_contact == true) {
-        //y_velocity = 0;
+        y_vel = y_vel + 0.80;
     };
     if (roof_contact == true) {
-        y_velocity = 0;
+
+        y_vel = 0;
     };
     if (contact_right == true) {
         x_velocity = 0;
@@ -1144,9 +1152,15 @@ void champ::setPos(button_input& parameter, physics& physics_parameter){
     x_location_prev = x_location;
     y_location_prev = y_location;
 
-    //cout << x_velocity << endl;
+
+
     setX( getX() + (int)x_velocity );
-    setY( getY() + (int)y_velocity );
+    setY( getY() + (int)y_vel );
+
+    //cout << x_location << "_" << x_location_prev << endl;
+
+    x_center = (float)x_location + (float)width;
+    y_center = (float)y_location + (float)height;
 
 };
 
@@ -1155,10 +1169,11 @@ void champ::updateV(button_input& parameter, physics& physics_parameter){
 
 //cout << internal_state << endl;
 
+
     switch (physics_parameter.state) {
         case 0:
             if ( parameter.getLeftState() == true) {
-                    //setX( getX() - 3 );
+
                     x_velocity--;
                     x_velocity--;
                     internal_state = runcycle.run();
@@ -1176,15 +1191,13 @@ void champ::updateV(button_input& parameter, physics& physics_parameter){
             }
             // y axis
 
-            y_velocity = y_velocity +1;
+            physics_parameter.calculate_velocity( y_vel , 0.5, 0.5);
 
-            //cout << x_location+width << endl;
             if (parameter.getJumpState() == true && jump_counter > 0) { ///
                 jump_counter--;
 
-                y_velocity = y_velocity -10;
+                y_vel = y_vel -10;
                 floor_contact = false;
-                //cout << "XX" << endl;
 
             }
 
@@ -1225,12 +1238,12 @@ void champ::updateV(button_input& parameter, physics& physics_parameter){
     } else {
     }
 
-    x_velocity = x_velocity * physics_parameter.air;
+    x_velocity = x_velocity * 0.9;
 
 
 
     if( y_velocity > physics_parameter.g ) {
-            y_velocity = physics_parameter.g;
+           // y_velocity = physics_parameter.g;
     } else {
     }
 

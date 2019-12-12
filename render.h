@@ -12,8 +12,8 @@
 // This is the content of the .h file, which is where the declarations go
 using namespace::std;
 
-void render_requests_quad( int sprite_nr, int x_loc, int y_loc, bool white_border, bool center );
-void render_requests_dual( int sprite_nr, int x_loc, int y_loc, bool white_border, bool center );
+void render_requests_quad( int sprite_nr, int x_loc, int y_loc, bool white_border, bool center, bool right_orientation );
+void render_requests_dual( int sprite_nr, int x_loc, int y_loc, bool white_border, bool center, bool center_orientation );
 void render_primitive_line( int x_start, int y_start, int x_stop, int y_stop, int orientation, int sprite_index );
 
 class render_requests {
