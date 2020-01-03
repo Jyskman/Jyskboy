@@ -30,6 +30,16 @@ float param_y = (float)center_y + (float)y_location;
             //cout << "is above" << endl;
         }
 
+        // left or right?
+        if ( parameter.x_center > param_x ) {
+            perception_right = true;
+            //cout << "C is right" << endl;
+        } else {
+            perception_right = false;
+            //cout << "C is left" << endl;
+        }
+
+
 
 };
 
@@ -44,7 +54,21 @@ void enemy::motion( physics &parameter ) {
 
         case(1):
 
+            y_v_float = y_v_float - parameter.new_g;
 
+            if ( perception_right == true ) {
+
+                x_v_float = x_v_float + 0.50;
+            } else {
+                x_v_float = x_v_float - 0.50;
+            }
+
+            if ( perception_above == true ) {
+
+                y_v_float = y_v_float - 0.50;
+            } else {
+                y_v_float = y_v_float + 0.50;
+            }
 
 
 
@@ -58,6 +82,30 @@ void enemy::motion( physics &parameter ) {
 
     };
 
+    parameter.calculate_velocity( y_v_float, x_v_float, 0.050, 1);
+
+
+    x_location_prev = x_location;
+    y_location_prev = y_location;
+
+
+    //y_v_float = 0;
+    x_location = x_location + (int)x_v_float;
+    y_location = y_location + (int)y_v_float;
+
+    previous_x.push_back(x_location + width );
+    previous_y.push_back(y_location + height );
+    //previous_y.push_back(y_location);
+    previous_x.erase( previous_x.begin() + 0 );
+    previous_y.erase( previous_y.begin() + 0 );
+
+
+
+    if ( (x_location - x_location_prev) > 0 ) {
+        current_sprite_direction = false;
+    } else {
+        current_sprite_direction = true;
+    };
 
 
 };
@@ -69,14 +117,19 @@ void enemy::set_hitbox_set() {
     switch (enemy_type) {
 
         case (1):
+
             for ( int i = 0; i < RSV.size() ; i++ ) {
 
                 hitbox_object * obj = new hitbox_object(0,0, all_sprites.at( RSV.at(i).sprite_nr ).getWidth(), all_sprites.at( RSV.at(i).sprite_nr ).getHeight() );
                 enemy_hitbox_set.push_back( *obj );
                 delete obj;
 
-                center_x = all_sprites.at( RSV.at(i).sprite_nr ).getWidth() / 2;
-                center_y = all_sprites.at( RSV.at(i).sprite_nr ).getHeight() / 2;
+                if ( RSV.at(i).use_special_offset == false ) {
+                    center_x = all_sprites.at( RSV.at(i).sprite_nr ).getWidth() / 2;
+                    center_y = all_sprites.at( RSV.at(i).sprite_nr ).getHeight() / 2;
+
+                } else {
+                };
 
             };
 
@@ -103,16 +156,22 @@ void enemy::RSV_setup() {
     if ( enemy_type == 1 ) {
 
 
+        for (int i = 0; i < 10; i++) {
+            previous_x.push_back(0);
+            previous_y.push_back(0);
+        };
+        //cout << previous_x.size() << endl;
 
-        render_state * state_1_1 = new render_state(true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 0, 0, 207 );
+
+        render_state * state_1_1 = new render_state( true, 1, false, true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 0, 0, 207 );
         RSV.push_back(*state_1_1);
         delete state_1_1;
 
-        render_state * state_1_2 = new render_state(true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 0, 0, 207 );
+        render_state * state_1_2 = new render_state(true, 2, false, true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 0, 0, 207 );
         RSV.push_back(*state_1_2);
         delete state_1_2;
 
-        render_state * state_1_3 = new render_state(true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 0, 0, 208 );
+        render_state * state_1_3 = new render_state(false, 0, false, true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 0, 0, 208 );
         RSV.push_back(*state_1_3);
         delete state_1_3;
 
@@ -171,6 +230,7 @@ y_location = 200 ;
 enemy_type = e_type;
 vector<hitbox_object> enemy_hitbox_set;
 vector<render_state> RSV;
+vector<int> previous_x;
 RSV_setup(); // also height and width main properties
 vulnerability_setup();
 set_hitbox_set();
@@ -181,7 +241,7 @@ void enemy::test() {
 cout << "Func ok" << endl;
 };
 
-void enemy::resolve_damage( vector<attack> &parameter ) {
+void enemy::resolve_damage( vector<attack> &parameter, champ &hero_parameter ) {
 
 //E
 int X_1_A = 0;
@@ -189,6 +249,11 @@ int X_2_A = 0;
 int Y_1_A = 0;
 int Y_2_A = 0;
 
+//C
+int X_1_C = hero_parameter.x_location;
+int X_2_C = hero_parameter.x_location + hero_parameter.width;
+int Y_1_C = hero_parameter.y_location;
+int Y_2_C = hero_parameter.y_location + hero_parameter.height;
 
 // Shot
 int X_1_B = 0;
@@ -199,6 +264,32 @@ int Y_2_B = 0;
 bool hit = false;
 
     for ( int i = 0; i < enemy_hitbox_set.size() ; i++) {
+
+        X_1_A = x_location + enemy_hitbox_set.at(i).x_u_left;
+        X_2_A = x_location + enemy_hitbox_set.at(i).x_l_right ;
+        Y_1_A = y_location + enemy_hitbox_set.at(i).y_u_left;
+        Y_2_A = y_location + enemy_hitbox_set.at(i).y_l_right ;
+
+
+
+        // hitbox contact
+        hit = true;
+
+        if (  X_1_C < X_2_A && X_2_C > X_1_A && Y_1_C < Y_2_A && Y_2_C > Y_1_A ) {
+                hit = false;
+
+                if ( hero_parameter.hero_invincible_counter == 0 ) {
+                    cout << "hit" << endl;
+                    hero_parameter.hero_life--;
+                    hero_parameter.hero_invincible_counter =+ 10;
+                } else {
+                }
+
+        } else {
+
+        }
+
+
 
         for ( int j = 0; j < parameter.size() ; j++ ) {
             // Enemy
@@ -228,15 +319,17 @@ bool hit = false;
 
             if ( hit == false ) {
                 cout << "hit" << endl;
-//                animation_requests * obj = new animation_requests(12, x_location + center_x, y_location + center_y , 0, 0);
-//                anime_req.push_back(*obj);
-//                delete obj;
-                current_sprite_direction = false;
+                animation_requests * obj = new animation_requests(12, x_location + center_x, y_location + center_y , 0, 0);
+                anime_req.push_back(*obj);
+                delete obj;
+                //current_sprite_direction = false;
+                destroy = true;
             } else {
             }
 
 
         };
+
 
 
     };
@@ -307,6 +400,12 @@ for ( int i = 0; i < RSV.size(); i++ ) {
     rot = 1;
     RSV_x = x_location+RSV.at(i).x_off;
     RSV_y = y_location+RSV.at(i).y_off;
+
+
+
+
+
+
                         // gun direction
                     if ( RSV.at(i).gu_1 == 1 && RSV.at(i).gu_2 == 1 && RSV.at(i).gu_3 == 1 && RSV.at(i).gu_4 == 1 && RSV.at(i).gu_5 == 1) {
 
@@ -395,6 +494,57 @@ for ( int i = 0; i < RSV.size(); i++ ) {
                         gun_sprite_nr = RSV.at(i).sprite_nr;
                     }else {
                     }
+
+                    if ( RSV.at(i).use_special_offset == true ) {
+
+                        switch (enemy_type) {
+
+                            case (1):
+
+                                switch ( RSV.at(i).use_special_index ) {
+                                    case(1):
+                                        RSV_x = previous_x.at(7) - all_sprites.at(RSV.at(i).sprite_nr).getWidth()-1 ;
+                                        RSV_y = previous_y.at(7) - all_sprites.at(RSV.at(i).sprite_nr).getHeight()-1 ;
+                                    break;
+                                    case(2):
+                                        RSV_x = previous_x.at(5) - all_sprites.at(RSV.at(i).sprite_nr).getWidth()-1 ;
+                                        RSV_y = previous_y.at(5) - all_sprites.at(RSV.at(i).sprite_nr).getHeight()-1 ;
+                                    break;
+                                    case(3):
+                                    break;
+                                    default:
+                                    break;
+
+                                }
+
+
+
+                                //cout << previous_x.at(6) << endl;
+                                x_mirror = 0;
+                            break;
+
+
+                        };
+
+
+                    } else {
+                        switch (enemy_type) {
+                            case (1):
+                                if ( abs(y_v_float) > abs(x_v_float)  ) {
+                                    vertical = true;
+                                    rot = 2;
+                                } else {
+                                };
+
+
+                            break;
+                            case (2):
+                            break;
+                        };
+
+
+                    };
+
 
                     render_requests * obj = new render_requests(RSV.at(i).sprite_nr, RSV_x-x_mirror, RSV_y, palette_current,horisontal, vertical, rot);
                     render_req.push_back(*obj);

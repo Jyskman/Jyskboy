@@ -61,6 +61,10 @@ float delta_x, delta_y, increment, delta_increment, cos_alfa, a_cos, length;
 int height = 30;
 int width = 25;
 
+int hero_life = 6;
+int hero_invincible_counter = 0;
+bool hero_destroy = false;
+
 float x_center, y_center;
 int sprite_size;
 
@@ -71,6 +75,8 @@ int current_form_info[10] = {101,102,0,0,0,0,0,0,25,30}; // sprite 1/sprite 2, 3
 float x_velocity;
 int y_velocity;
 float y_vel;
+
+float champ_area;
 
 
 // for RSV

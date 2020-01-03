@@ -15,7 +15,7 @@ class enemy {
 public:
 enemy(int e_type);
 
-int x_location, y_location, x_v_int, y_v_int;
+int x_location, y_location, x_v_int, y_v_int, x_location_prev, y_location_prev;
 float x_float, y_float, x_v_float, y_v_float;
 
 void perception(champ &parameter);
@@ -24,6 +24,7 @@ void motion( physics &parameter );
 float perception_angle;
 float perception_distance;
 bool perception_above;
+bool perception_right;
 
 int center_x, center_y;
 int enemy_type;
@@ -34,6 +35,10 @@ float champ_direction;
 // Render stuff
 vector<render_state> RSV;
 vector<hitbox_object> enemy_hitbox_set;
+
+vector<int> previous_x;
+vector<int> previous_y;
+
 void set_hitbox_set();
 void setRender();
 void test();
@@ -67,7 +72,7 @@ void vulnerability_setup();
 
 int enemy_offset[2][10];
 
-void resolve_damage( vector<attack> &parameter );
+void resolve_damage( vector<attack> &parameter, champ &hero_parameter );
 
 };
 

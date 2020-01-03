@@ -569,7 +569,7 @@ void game::enemy_manager() {
 
     for ( int i = 0 ; i < gameEnemys.size() ; i++ ) {
         gameEnemys.at(i).setRender();
-        gameEnemys.at(i).resolve_damage( gameAttacks );
+        gameEnemys.at(i).resolve_damage( gameAttacks, hero );
         gameEnemys.at(i).perception(hero);
         gameEnemys.at(i).motion( physics_objects.at( physics_current ) ) ;
     }
@@ -671,13 +671,17 @@ void game::animations_run_render() {
 void game::game_main(){
 
 
+        if ( hero.hero_life > 0 ) {
+
+            hero.updateV( buttons, physics_objects.at( physics_current ) );
+            hero.setPos(buttons, physics_objects.at( physics_current ));
+            hero.setContact(room_current);
+            hero.setRender(buttons);
+            createAttacks(buttons);
+        }
 
 
-        hero.updateV( buttons, physics_objects.at( physics_current ) );
-        hero.setPos(buttons, physics_objects.at( physics_current ));
-        hero.setContact(room_current);
-        hero.setRender(buttons);
-        createAttacks(buttons);
+
         animations_run_render();
 
         portals_run_render();

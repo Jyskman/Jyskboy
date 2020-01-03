@@ -599,6 +599,7 @@ int_6 = i_6;
 int_7 = i_7;
 
 is_g = false;
+use_special_offset = false;
 
 x_off = x_offset;
 y_off = y_offset;
@@ -620,6 +621,53 @@ index = sprite_index;
 render_state::render_state( bool is_gun, bool f_c1, bool f_c2, bool w_c1, bool w_c2, bool r_c1, bool r_c2,int g_1, int g_2, int g_3, int g_4, int g_5, int i_1, int i_2, int i_3, int i_4, int i_5, int i_6, int i_7, int x_offset, int y_offset, int sprite_index) {
 
 is_g = is_gun; // for use with weapon profile and attack offset
+use_special_offset = false;
+
+f_1 = f_c1;
+f_2 = f_c2;
+w_1 = w_c1;
+w_2 = w_c2;
+r_1 = r_c1;
+r_2 = w_c2;
+
+gu_1 = g_1;
+gu_2 = g_2;
+gu_3 = g_3;
+gu_4 = g_4;
+gu_5 = g_5;
+
+int_1 = i_1;
+int_2 = i_2;
+int_3 = i_3;
+int_4 = i_4;
+int_5 = i_5;
+int_6 = i_6;
+int_7 = i_7;
+
+is_g = is_gun;
+
+x_off = x_offset;
+y_off = y_offset;
+index = sprite_index;
+        for (int i=0; i < all_sprites.size(); i++) {
+            if ( all_sprites.at(i).sprite_index == index ) {
+                sprite_nr = i;
+                //sprite_error = false;
+                //width = all_sprites.at(i).getWidth();
+                //height = all_sprites.at(i).getHeight();
+
+            } else {
+
+            };
+        };
+
+};
+
+render_state::render_state( bool special_offset, int special_index, bool is_gun, bool f_c1, bool f_c2, bool w_c1, bool w_c2, bool r_c1, bool r_c2,int g_1, int g_2, int g_3, int g_4, int g_5, int i_1, int i_2, int i_3, int i_4, int i_5, int i_6, int i_7, int x_offset, int y_offset, int sprite_index) {
+
+is_g = is_gun; // for use with weapon profile and attack offset
+use_special_offset = special_offset;
+use_special_index = special_index;
 
 f_1 = f_c1;
 f_2 = f_c2;
@@ -662,7 +710,6 @@ index = sprite_index;
 };
 
 
-
 physics::physics( float g_force, float air_force, int index ) {
 
 g = g_force;
@@ -680,7 +727,7 @@ state = index;
 
 };
 
-void physics::calculate_velocity(float &v_parameter, float Area_factor, float Shape_C_factor) {
+void physics::calculate_velocity(float &v_parameter, float &v_x_parameter, float Area_factor, float Area_x_fraction) {
 
      sign = -1;
     if ( v_parameter < 0 ) {
@@ -692,7 +739,7 @@ void physics::calculate_velocity(float &v_parameter, float Area_factor, float Sh
     v_parameter = v_parameter + new_g;
 
     //current_drag = (Area_factor * Shape_C_factor * new_air_density) * v_parameter*v_parameter;
-    current_drag = (float)sign * ( 1.00 / 81.00 ) * v_parameter*v_parameter;
+    current_drag = (float)sign * ( Area_factor * new_air_density ) * v_parameter*v_parameter;
 
     if ( abs(current_drag) < 0.02 ) {
         current_drag = 0.00;
@@ -701,12 +748,23 @@ void physics::calculate_velocity(float &v_parameter, float Area_factor, float Sh
 
 
     v_parameter = v_parameter + current_drag;
-    cout << v_parameter << endl;
-//    if ( v_parameter > 7 ) {
-//        v_parameter = 8;
-//    } else {
-//    }
+    //cout << v_parameter << endl;
 
+    // x velocity
+         sign = 1;
+    if ( v_x_parameter < 0 ) {
+        sign = -1;
+    } else {
+    }
+
+    current_drag = (float)sign * ( Area_factor*Area_x_fraction * new_air_density ) * v_x_parameter*v_x_parameter;
+
+    if ( abs(current_drag) < 0.02 ) {
+        current_drag = 0.00;
+    } else {
+    }
+    v_x_parameter = v_x_parameter - current_drag;
+    //cout << v_parameter << endl;
 };
 
 
@@ -744,7 +802,7 @@ void physics_setup() {
 
 
 //physics * new_p = new physics(8, 0.90, 0);
-physics * new_p = new physics(0, 0.8, 0.5, 5);
+physics * new_p = new physics(0, 0.8, 0.111, 5);
 
 physics_objects.push_back(*new_p);
 delete new_p;

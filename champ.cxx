@@ -21,6 +21,7 @@ palette_current = 1;
 
 //sprite_nr = Relation_Spritenr_type(); // translates the index/current/type to vector position in all_sprites
 
+champ_area = 0.111;
 x_velocity = 0;
 y_velocity = 0;
 x_max_speed = 3;
@@ -1108,8 +1109,18 @@ contact_position.clear();
 
 void champ::setPos(button_input& parameter, physics& physics_parameter){
 
+    // update the invulnerable counter
+    if ( hero_invincible_counter > 0 ) {
+        hero_invincible_counter--;
+    } else {
+    }
+
+
+
+
+
     if (floor_contact == true) {
-        y_vel = y_vel + 0.80;
+        y_vel = y_vel + physics_parameter.new_g;
     };
     if (roof_contact == true) {
 
@@ -1175,7 +1186,7 @@ void champ::updateV(button_input& parameter, physics& physics_parameter){
             if ( parameter.getLeftState() == true) {
 
                     x_velocity--;
-                    x_velocity--;
+                    //x_velocity--;
                     internal_state = runcycle.run();
             } else {
                     internal_state = runcycle.idle( internal_state );
@@ -1184,14 +1195,14 @@ void champ::updateV(button_input& parameter, physics& physics_parameter){
             if ( parameter.getRightState() == true) {
                     //setX( getX() + 3 );
                     x_velocity++;
-                    x_velocity++;
+                    //x_velocity++;
                     internal_state = runcycle.run();
             } else {
                    internal_state = runcycle.idle( internal_state );
             }
             // y axis
 
-            physics_parameter.calculate_velocity( y_vel , 0.5, 0.5);
+            physics_parameter.calculate_velocity( y_vel , x_velocity, champ_area, 4.00);
 
             if (parameter.getJumpState() == true && jump_counter > 0) { ///
                 jump_counter--;
@@ -1230,15 +1241,15 @@ void champ::updateV(button_input& parameter, physics& physics_parameter){
     };
 
     if (x_velocity > x_max_speed) {
-        x_velocity = x_max_speed;
+        //x_velocity = x_max_speed;
     } else {
     }
     if (x_velocity < -x_max_speed) {
-        x_velocity = -x_max_speed;
+        //x_velocity = -x_max_speed;
     } else {
     }
 
-    x_velocity = x_velocity * 0.9;
+    //x_velocity = x_velocity * 0.9;
 
 
 

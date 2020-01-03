@@ -139,6 +139,9 @@ render_state(  bool f_c1, bool f_c2, bool w_c1, bool w_c2, bool r_c1, bool r_c2,
 // Overload RSV med gun true false
 render_state(  bool is_gun ,bool f_c1, bool f_c2, bool w_c1, bool w_c2, bool r_c1, bool r_c2,int g_1, int g_2, int g_3, int g_4, int g_5, int i_1, int i_2, int i_3, int i_4, int i_5, int i_6, int i_7, int x_offset, int y_offset, int sprite_index);
 
+render_state( bool special_offset, int special_index, bool is_gun ,bool f_c1, bool f_c2, bool w_c1, bool w_c2, bool r_c1, bool r_c2,int g_1, int g_2, int g_3, int g_4, int g_5, int i_1, int i_2, int i_3, int i_4, int i_5, int i_6, int i_7, int x_offset, int y_offset, int sprite_index);
+
+
 bool is_g;
 
 bool f_1;
@@ -167,6 +170,9 @@ int sprite_nr;
 
 int x_off;
 int y_off;
+
+bool use_special_offset;
+int use_special_index;
 };
 
 
@@ -176,7 +182,7 @@ public:
 physics( float g_force, float air_force, int index );
 physics( int index, float set_new_g, float set_new_air_density, int extra_parameter );
 
-void calculate_velocity( float &v_parameter, float Area_factor, float Shape_C_factor );
+void calculate_velocity( float &v_parameter, float &v_x_parameter , float Area_factor, float Area_x_fraction );
 
 void setState(int param);
 float getG(int state);
