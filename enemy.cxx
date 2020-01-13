@@ -6,6 +6,7 @@
 #include <iostream>
 #include "physics.h"
 #include <math.h>
+#include <cstdlib>
 
 using namespace std;
 // E
@@ -58,16 +59,16 @@ void enemy::motion( physics &parameter ) {
 
             if ( perception_right == true ) {
 
-                x_v_float = x_v_float + 0.50;
+                x_v_float = x_v_float + main_v;
             } else {
-                x_v_float = x_v_float - 0.50;
+                x_v_float = x_v_float - main_v;
             }
 
             if ( perception_above == true ) {
 
-                y_v_float = y_v_float - 0.50;
+                y_v_float = y_v_float - main_v;
             } else {
-                y_v_float = y_v_float + 0.50;
+                y_v_float = y_v_float + main_v;
             }
 
 
@@ -235,6 +236,14 @@ RSV_setup(); // also height and width main properties
 vulnerability_setup();
 set_hitbox_set();
 
+    switch (e_type) {
+        case(1):
+            main_v = 0.20;
+        break;
+
+    };
+
+
 };
 
 void enemy::test() {
@@ -305,6 +314,8 @@ bool hit = false;
             X_2_B = parameter.at(j).a_x_pos + parameter.at(j).attack_hitbox.at(0).x_l_right;
             Y_1_B = parameter.at(j).a_y_pos + parameter.at(j).attack_hitbox.at(0).y_u_left;
             Y_2_B = parameter.at(j).a_y_pos + parameter.at(j).attack_hitbox.at(0).y_l_right;;
+
+
             //cout << " X1_l_right shot " << X_1_B << " X2 " << X_2_A << " Y1 " << Y_1_A << " Y2 " << Y_2_A << endl;
             //cout << " X1 " << X_1_B << " X2 " << X_2_B << " Y1 " << Y_1_B << " Y2 " << Y_2_B << endl;
 
@@ -319,11 +330,22 @@ bool hit = false;
 
             if ( hit == false ) {
                 cout << "hit" << endl;
+                life = life - parameter.at(j).a_damage ;
+                parameter.at(j).destroy = true;
+                if ( life <= 0 ) {
+                    destroy = true;
+
+                    destroy_v_x = parameter.at(j).a_x_vel ;
+                    destroy_v_y = parameter.at(j).a_y_vel ;
+
+                } else {
+                }
+
+
                 animation_requests * obj = new animation_requests(12, x_location + center_x, y_location + center_y , 0, 0);
                 anime_req.push_back(*obj);
                 delete obj;
-                //current_sprite_direction = false;
-                destroy = true;
+
             } else {
             }
 
@@ -545,16 +567,25 @@ for ( int i = 0; i < RSV.size(); i++ ) {
 
                     };
 
-
+                    RSV.at(i).RSV_x_store = RSV_x-x_mirror;
+                    RSV.at(i).RSV_y_store = RSV_y;
                     render_requests * obj = new render_requests(RSV.at(i).sprite_nr, RSV_x-x_mirror, RSV_y, palette_current,horisontal, vertical, rot);
                     render_req.push_back(*obj);
                     delete obj;
+
+
 
         //cout << fc << endl;
     };
 
 
 }
+if (destroy == true) {
+particle_generator( this, 0, 0, 50);
+} else {
+}
+
+
     break;
     default:
     break;
@@ -586,6 +617,7 @@ void create_and_reset_enemies( int room_nr, vector<enemy>& parameter ) {
         enemy * new_enemy_1 = new enemy(1);
         parameter.push_back( *new_enemy_1 );
         delete new_enemy_1;
+        new_enemy_1 = 0;
 
     break;
     }

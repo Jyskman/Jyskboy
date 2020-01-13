@@ -741,7 +741,7 @@ void physics::calculate_velocity(float &v_parameter, float &v_x_parameter, float
     //current_drag = (Area_factor * Shape_C_factor * new_air_density) * v_parameter*v_parameter;
     current_drag = (float)sign * ( Area_factor * new_air_density ) * v_parameter*v_parameter;
 
-    if ( abs(current_drag) < 0.02 ) {
+    if ( abs(current_drag) < 0.001 ) {
         current_drag = 0.00;
     } else {
     }
@@ -817,3 +817,21 @@ void modifier_random( int &number, int maximum, int minimum ) {
 
 };
 
+float modifier_random_float( float number, int maximum, bool negative_possibility ) {
+
+    int random = rand() % maximum;
+
+    if ( rand() % 2 == 0 && negative_possibility == true ) {
+        random = random * -1;
+
+    } else {
+        random = random * -1;
+    }
+
+
+
+    number = number + (float)random ;     // v2 in the range 1 to 100
+
+    return number;
+
+};

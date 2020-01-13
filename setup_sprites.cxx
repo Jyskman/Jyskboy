@@ -1143,8 +1143,28 @@ unsigned char ex_3_4[11 * 11 * 2 + 1] =
  "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
  "\377\377\377\377\377\377\377\377\377\377\377\377\377\377");
 
+// Particles
 
-
+int p_1_width = 3;
+int p_1_height = 3;
+int p_1_size = 3 * 3 * 2 + 1;
+unsigned char p_1[3 * 3 * 2 + 1] =
+("\377\377\377\377\377\377\377\377\342\307\377\377\377\377\377\377\377\377");
+int p_2_width = 4;
+int p_2_height = 5;
+int p_2_size = 4 * 5 * 2 + 1;
+unsigned char p_2[4 * 5 * 2 + 1] =
+("\377\377\377\377\377\377\377\377\377\377\377\377\342\307\377\377\377\377\342"
+ "\307\342\307\377\377\377\377\342\307\377\377\377\377\377\377\377\377\377\377"
+ "\377\377");
+int p_3_width = 6;
+int p_3_height = 6;
+int p_3_size = 6 * 6 * 2 + 1;
+unsigned char p_3[6 * 6 * 2 + 1] =
+("\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\001"
+ "\375\001\375\377\377\377\377\377\377\001\375\001\375\001\375\377\377\377\377\001\375"
+ "\001\375\001\375\377\377\377\377\377\377\001\375\377\377\377\377\001\375\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377");
 
 
 std::vector<sprite_objects> all_sprites;
@@ -1338,6 +1358,21 @@ void setup_sprites(render& parameter) {
     sprite_pointers.push_back(ex4_3);
     delete ex4_3;
 
+    // particles , part of 400series
+    sprite_objects * pp_1 = new sprite_objects(27, (unsigned char*)p_1 ,p_1, p_1_size, p_1_width, p_1_height,403);
+    all_sprites.push_back(*pp_1);
+    sprite_pointers.push_back(pp_1);
+    delete pp_1;
+
+    sprite_objects * pp_2 = new sprite_objects(28, (unsigned char*)p_2 ,p_2, p_2_size, p_2_width, p_2_height,404);
+    all_sprites.push_back(*pp_2);
+    sprite_pointers.push_back(pp_2);
+    delete pp_2;
+
+    sprite_objects * pp_3 = new sprite_objects(29, (unsigned char*)p_3 ,p_3, p_3_size, p_3_width, p_3_height,405);
+    all_sprites.push_back(*pp_3);
+    sprite_pointers.push_back(pp_3);
+    delete pp_3;
 
 
 
@@ -1403,5 +1438,11 @@ parameter.load_sprite_data((unsigned char*)ex_3_1, ex_3_1_width, ex_3_1_height )
 parameter.load_sprite_data((unsigned char*)ex_3_2, ex_3_2_width, ex_3_2_height );
 parameter.load_sprite_data((unsigned char*)ex_3_3, ex_3_3_width, ex_3_3_height );
 parameter.load_sprite_data((unsigned char*)ex_3_4, ex_3_4_width, ex_3_4_height );
+
+// particles
+
+parameter.load_sprite_data((unsigned char*)p_1, p_1_width, p_1_height );
+parameter.load_sprite_data((unsigned char*)p_2, p_2_width, p_2_height );
+parameter.load_sprite_data((unsigned char*)p_3, p_3_width, p_3_height );
 
 };

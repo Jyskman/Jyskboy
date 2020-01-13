@@ -25,6 +25,7 @@ champ(int a, int size, int Height, int Width);	// constructor
 int Relation_Spritenr_type();
 int Relation_Spritenr_type_dev( int parameter );
 bool sprite_error;
+bool only_once = true;
 int render_req_mode = 2;
 // hitbox contactpoints
 int contact_points_all[2][12];
@@ -61,9 +62,19 @@ float delta_x, delta_y, increment, delta_increment, cos_alfa, a_cos, length;
 int height = 30;
 int width = 25;
 
-int hero_life = 6;
+
+int destroy_counter = 0;
+int hero_life = 10;
 int hero_invincible_counter = 0;
 bool hero_destroy = false;
+//vector<int> x_destroy_pos;
+//vector<int> y_destroy_pos;
+vector<bool> destroy_animation;
+vector<bool> destroy_animation_extra;
+vector<float> x_destroy_pos_float;
+vector<float> y_destroy_pos_float;
+vector<float> x_destroy_v_float;
+vector<float> y_destroy_v_float;
 
 float x_center, y_center;
 int sprite_size;
@@ -110,7 +121,7 @@ bool LineLineIntersect(double x1, double y1, //Line 1 start
     double &ixOut, double &iyOut);
 
 unsigned char getChar(int x);
-void setRender(button_input& parameter);
+void setRender(button_input& parameter, physics &physics_parameter, int room);
 void setContactPoints();
 void setContact(int room);
 //vector<render_requests> *internal;

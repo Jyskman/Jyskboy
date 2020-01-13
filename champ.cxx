@@ -10,6 +10,7 @@
 #include <assert.h>
 #include <math.h>
 #include "physics.h"
+#include <cstdlib>
 using namespace std;
 
 //champ::champ(int a, unsigned char sprites[], int size, int Height, int Width, std::vector<sprite_objects>& parameter) {
@@ -163,7 +164,7 @@ bool champ::LineLineIntersect(double x1, double y1, //Line 1 start
 };
 
 
-void champ::setRender(button_input& parameter)  {
+void champ::setRender(button_input& parameter, physics &physics_parameter, int room)  {
 
 // For mode 2
 //int y_test = 0;
@@ -182,17 +183,12 @@ void champ::setRender(button_input& parameter)  {
         };
     break;
     case 1:
-        if (sprite_error == false) {
-//            render_requests * obj = new render_requests(current_form_info[4], x_location, y_location, palette_current,current_sprite_direction);
-//            render_requests * obj2 = new render_requests(current_form_info[5], x_location, y_location+12, palette_current, current_sprite_direction);
-//            render_req.push_back(*obj);
-//            render_req.push_back(*obj2);
-//            delete obj;
-//            delete obj2;
+        if (only_once == true) {
+
 
 
         } else {
-//        cout << "ok" << endl;
+
         };
     break;
     case 2:
@@ -202,7 +198,7 @@ void champ::setRender(button_input& parameter)  {
 //        } else {
 //        }
 
-
+destroy_counter = 0;
 for ( int i = 0; i < RSV.size(); i++ ) {
 
 //RSV.at(i).f_1 == floor_contact || RSV.at(i).f_2 == floor_contact && RSV.at(i).w_1 == general_contact || RSV.at(i).w_2 == general_contact && RSV.at(i).int_1 == internal_state || RSV.at(i).int_2 == internal_state || RSV.at(i).int_3 == internal_state || RSV.at(i).int_4 == internal_state
@@ -210,6 +206,7 @@ for ( int i = 0; i < RSV.size(); i++ ) {
 //RSV.at(i).w_1 == general_contact || RSV.at(i).w_2 == general_contact
 //RSV.at(i).int_1 == internal_state || RSV.at(i).int_2 == internal_state || RSV.at(i).int_3 == internal_state || RSV.at(i).int_4 == internal_state
 //
+    bool animate = true;
     bool fc = floor_contact;
     bool gc = general_contact;
     int in = internal_state;
@@ -219,11 +216,12 @@ for ( int i = 0; i < RSV.size(); i++ ) {
     int x_mirror = 0;
     int RSV_x, RSV_y;
 
-
-
     int rot;
     bool vertical;
     bool horisontal;
+
+    int rand_v_x = 0;
+    int rand_v_y = 0;
 
     if ( (RSV.at(i).f_1 == fc || RSV.at(i).f_2 == fc) && (RSV.at(i).gu_1 == g || RSV.at(i).gu_2 == g || RSV.at(i).gu_3 == g || RSV.at(i).gu_4 == g || RSV.at(i).gu_5 == g) && ( RSV.at(i).int_1 == in || RSV.at(i).int_2 == in || RSV.at(i).int_3 == in || RSV.at(i).int_4 == in || RSV.at(i).int_5 == in || RSV.at(i).int_6 == in || RSV.at(i).int_7 == in ) ) {
     vertical = current_sprite_v_direction;
@@ -330,15 +328,128 @@ for ( int i = 0; i < RSV.size(); i++ ) {
                     }else {
                     }
 
-                    render_requests * obj = new render_requests(RSV.at(i).sprite_nr, RSV_x-x_mirror, RSV_y, palette_current,horisontal, vertical, rot);
-                    render_req.push_back(*obj);
-                    delete obj;
+                    // Setup the destroy sequence
+                    if ( hero_life <= 0 && only_once == true ) {
 
-        //cout << fc << endl;
+                            x_destroy_pos_float.push_back(  (float)RSV_x );
+                            y_destroy_pos_float.push_back(  (float)RSV_y );
+                            destroy_animation.push_back(true);
+                            destroy_animation_extra.push_back(true);
+
+                            x_destroy_v_float.push_back( modifier_random_float(0.00, 10, true) );
+                            y_destroy_v_float.push_back( modifier_random_float(0.00, 15, false) );
+
+                                animation_requests * obj_ex = new animation_requests(12, RSV_x - x_mirror + all_sprites.at(RSV.at(i).sprite_nr).getWidth()/2,
+                                RSV_y + all_sprites.at(RSV.at(i).sprite_nr).getHeight()/2 , 0, 0);
+                                anime_req.push_back(*obj_ex);
+                                delete obj_ex;
+//
+//                                            rand_v_x = (rand() % 40) - (rand() % 40) ;
+//                                            rand_v_y = -1 * rand() % 20;
+//
+//                                            animation_requests * obj_e1 = new animation_requests(2, 1, true, 50,
+//                                           150, 100 ,
+//                                            rand_v_x, rand_v_y);
+//                                            anime_req.push_back(*obj_e1);
+//                                            delete obj_e1;
+//                                            obj_e1 = 0;
+                                            particle_generator(RSV_x - x_mirror + all_sprites.at(RSV.at(i).sprite_nr).getWidth()/2,
+                                            RSV_y + all_sprites.at(RSV.at(i).sprite_nr).getHeight()/2, 0, 5, true, 30, 20 );
+
+                                            for (int ii = 0; ii < 3; ii++) {
+                                                particle_generator(RSV_x - x_mirror + all_sprites.at(RSV.at(i).sprite_nr).getWidth()/2,
+                                                RSV_y + all_sprites.at(RSV.at(i).sprite_nr).getHeight()/2, false ,4, true, 30, 20 );
+                                            };
+
+
+
+
+                    } else {
+                    }
+
+
+                    if ( hero_life <= 0 && only_once == false ) {
+
+                        int test = (rand() % 100);
+                        if (  test > 98 ) {
+                            destroy_animation.at(0 + destroy_counter) = false;
+
+                                if ( destroy_animation_extra.at( 0 + destroy_counter ) == true ) {
+
+                                        animation_requests * obj_e = new animation_requests(12, (int)x_destroy_pos_float.at( 0 + destroy_counter ) + all_sprites.at(RSV.at(i).sprite_nr).getWidth()/2,
+                                        (int)y_destroy_pos_float.at( 0 + destroy_counter ) + all_sprites.at(RSV.at(i).sprite_nr).getHeight()/2 , 0, 0);
+                                        anime_req.push_back(*obj_e);
+                                        delete obj_e;
+
+                                            for (int ii = 0; ii < 4; ii++) {
+                                                particle_generator((int)x_destroy_pos_float.at( 0 + destroy_counter ) + all_sprites.at(RSV.at(i).sprite_nr).getWidth()/2,
+                                                (int)y_destroy_pos_float.at( 0 + destroy_counter ) + all_sprites.at(RSV.at(i).sprite_nr).getHeight()/2, 0 ,5, true, 30, 20 );
+
+                                                particle_generator((int)x_destroy_pos_float.at( 0 + destroy_counter ) + all_sprites.at(RSV.at(i).sprite_nr).getWidth()/2,
+                                                (int)y_destroy_pos_float.at( 0 + destroy_counter ) + all_sprites.at(RSV.at(i).sprite_nr).getHeight()/2, 0, 4, true, 30, 20 );
+                                            };
+
+
+
+                                        destroy_animation_extra.at( 0 + destroy_counter ) = false;
+                                } else {
+                                }
+
+                        } else {
+                        }
+
+
+
+                        physics_parameter.calculate_velocity(y_destroy_v_float.at(0 + destroy_counter), x_destroy_v_float.at(0 + destroy_counter),0.5, 1.00 );
+
+                        float x_pos = x_destroy_pos_float.at( 0 + destroy_counter ) ;
+                        float y_pos = y_destroy_pos_float.at( 0 + destroy_counter ) + (float)all_sprites.at(RSV.at(i).sprite_nr).getHeight();
+
+
+                        roomblocks_simple_deflection( room, x_pos, y_pos,
+                        x_destroy_v_float.at(0 + destroy_counter), y_destroy_v_float.at(0 + destroy_counter)   );
+
+                        x_destroy_pos_float.at( 0 + destroy_counter ) = x_destroy_pos_float.at( 0 + destroy_counter ) - x_destroy_v_float.at(0 + destroy_counter);
+                        y_destroy_pos_float.at( 0 + destroy_counter ) = y_destroy_pos_float.at( 0 + destroy_counter ) + y_destroy_v_float.at(0 + destroy_counter);
+
+
+                       RSV_x = (int)x_destroy_pos_float.at( 0 + destroy_counter )  ;
+                       RSV_y = (int)y_destroy_pos_float.at( 0 + destroy_counter )  ;
+                       //cout << x_destroy_pos.at( 0 + destroy_counter ) << endl;
+
+                    if ( destroy_animation.at(0 + destroy_counter) == false ) {
+                        animate = false;
+
+                    } else {
+                    }
+                    destroy_counter++;
+
+                    } else {
+                    }
+
+
+                    if ( animate == true ) {
+                        render_requests * obj = new render_requests(RSV.at(i).sprite_nr, RSV_x-x_mirror, RSV_y, palette_current,horisontal, vertical, rot);
+                        render_req.push_back(*obj);
+                        delete obj;
+
+                    } else {
+                    }
+
+
+
+
+
     };
 
 
 }
+
+if ( hero_life <= 0 && only_once == true ) {
+    only_once = false;
+} else {
+}
+
     break;
     default:
     break;

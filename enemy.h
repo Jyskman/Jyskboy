@@ -20,6 +20,8 @@ float x_float, y_float, x_v_float, y_v_float;
 
 void perception(champ &parameter);
 void motion( physics &parameter );
+float main_v;
+
 
 float perception_angle;
 float perception_distance;
@@ -53,6 +55,8 @@ bool roof_contact = false;
 int gun_direction = 3;
 int jump_counter = 1;
 
+int destroy_v_x, destroy_v_y;
+
 bool sprite_error = false;
 bool can_take_damage;
 int life;
@@ -66,6 +70,8 @@ bool general_contact;
 int x_mirror_gun, RSV_x_gun, RSV_y_gun, rot_gun, gun_sprite_nr;
 bool horisontal_gun, vertical_gun;
 int palette_current = 1;
+
+int RSV_x_end, RSV_y_end;
 
 void RSV_setup();
 void vulnerability_setup();

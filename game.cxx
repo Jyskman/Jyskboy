@@ -507,7 +507,7 @@ void game::createAttacks(button_input& parameter) {
 
         modifier_random(animation_cycles_to_terminate, 10,10);
 
-        animation_requests * obj_2 = new animation_requests(2, hero.rot_gun, hero.horisontal_gun, animation_cycles_to_terminate , hero.x_location+ammo_location_x , hero.y_location+ammo_location_y,
+        animation_requests * obj_2 = new animation_requests( 0 ,2, hero.rot_gun, hero.horisontal_gun,true , animation_cycles_to_terminate , hero.x_location+ammo_location_x , hero.y_location+ammo_location_y,
         ammo_v_x+(int)hero.x_velocity, ammo_v_y+hero.y_velocity );
         anime_req.push_back(*obj_2);
         delete obj_2;
@@ -568,8 +568,9 @@ void game::enemy_manager() {
 
 
     for ( int i = 0 ; i < gameEnemys.size() ; i++ ) {
-        gameEnemys.at(i).setRender();
         gameEnemys.at(i).resolve_damage( gameAttacks, hero );
+        gameEnemys.at(i).setRender();
+
         gameEnemys.at(i).perception(hero);
         gameEnemys.at(i).motion( physics_objects.at( physics_current ) ) ;
     }
@@ -619,14 +620,19 @@ void game::portals_run_render() {
 
 // compare function for sorting the animation vector
 bool comparefunction_anim( animation_requests &a , animation_requests &b ) {
+//
+//    if ( a.x != b.x ) {
+//    return false;
+//    }
+//
+//    if ( a.y != b.y ) {
+//    return false;
+//    }
 
-    if ( a.x != b.x ) {
+    if ( a.x != b.x && a.y != b.y && a.x_v != b.x_v && a.y_v != b.y_v ) {
     return false;
     }
 
-    if ( a.y != b.y ) {
-    return false;
-    }
 
     return true;
 
@@ -644,9 +650,9 @@ void game::animations_run_render() {
 
     //cout << " size before " << anime_req.size() << endl;
 
-    sort( anime_req.begin(), anime_req.end(), compare_entry_anim );
-
-    anime_req.erase( unique(anime_req.begin(), anime_req.end(), comparefunction_anim ), anime_req.end()   );
+//    sort( anime_req.begin(), anime_req.end(), compare_entry_anim );
+//
+//    anime_req.erase( unique(anime_req.begin(), anime_req.end(), comparefunction_anim ), anime_req.end()   );
 
     //cout << " size after " << anime_req.size() << endl;
 
@@ -672,14 +678,14 @@ void game::game_main(){
 
 
         if ( hero.hero_life > 0 ) {
-
+            createAttacks(buttons);
             hero.updateV( buttons, physics_objects.at( physics_current ) );
             hero.setPos(buttons, physics_objects.at( physics_current ));
             hero.setContact(room_current);
-            hero.setRender(buttons);
-            createAttacks(buttons);
-        }
 
+
+        }
+        hero.setRender(buttons, physics_objects.at( physics_current ), room_current );
 
 
         animations_run_render();

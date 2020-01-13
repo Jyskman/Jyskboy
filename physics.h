@@ -173,6 +173,10 @@ int y_off;
 
 bool use_special_offset;
 int use_special_index;
+
+
+int RSV_x_store, RSV_y_store;
+
 };
 
 
@@ -210,7 +214,7 @@ extern vector<physics> physics_objects;
 extern vector<animation_profile> animation_profiles;
 
 void modifier_random( int &number, int maximum, int minimum );
-
+float modifier_random_float( float number, int maximum, bool negative_possibility );
 
 // hitbox objects
 

@@ -11,7 +11,7 @@
 	<sr595.h>
 	<iostream>
 
-1578061911 source:/home/pi/codeblocks/Jyskboy/champ.cxx
+1578732358 source:/home/pi/codeblocks/Jyskboy/champ.cxx
 	<iostream>
 	"champ.h"
 	<vector>
@@ -23,8 +23,9 @@
 	<assert.h>
 	<math.h>
 	"physics.h"
+	<cstdlib>
 
-1578061978 /home/pi/codeblocks/Jyskboy/champ.h
+1578736753 /home/pi/codeblocks/Jyskboy/champ.h
 	"buttons.h"
 	<iostream>
 	<vector>
@@ -62,9 +63,10 @@
 	"environment.h"
 	"game.h"
 
-1574600127 /home/pi/codeblocks/Jyskboy/render.h
+1578758074 /home/pi/codeblocks/Jyskboy/render.h
 	<iostream>
 	"champ.h"
+	"enemy.h"
 
 1560001324 /home/pi/codeblocks/Jyskboy/setup_sprites.h
 	<iostream>
@@ -72,7 +74,7 @@
 	<vector>
 	"render.h"
 
-1574600716 source:/home/pi/codeblocks/Jyskboy/render.cxx
+1578835502 source:/home/pi/codeblocks/Jyskboy/render.cxx
 	<iostream>
 	"render.h"
 	<vector>
@@ -82,7 +84,7 @@
 	<cmath>
 	<math.h>
 
-1575110632 source:/home/pi/codeblocks/Jyskboy/setup_sprites.cxx
+1578592676 source:/home/pi/codeblocks/Jyskboy/setup_sprites.cxx
 	<iostream>
 	"setup_sprites.h"
 	"sprite_objects.h"
@@ -114,21 +116,24 @@
 	<vector>
 	"setup_sprites.h"
 
-1576777364 source:/home/pi/codeblocks/Jyskboy/environment.cxx
+1578939165 source:/home/pi/codeblocks/Jyskboy/environment.cxx
 	<iostream>
 	<vector>
 	"environment.h"
 	"render.h"
 	"setup_sprites.h"
 	<math.h>
+	<fstream>
+	<sstream>
+	<string>
 
-1570280241 /home/pi/codeblocks/Jyskboy/environment.h
+1578245302 /home/pi/codeblocks/Jyskboy/environment.h
 	<iostream>
 	<vector>
 	"render.h"
 	"champ.h"
 
-1573908865 /home/pi/codeblocks/Jyskboy/game.h
+1578831248 /home/pi/codeblocks/Jyskboy/game.h
 	"buttons.h"
 	"render.h"
 	"soundmanager.h"
@@ -138,7 +143,7 @@
 	<vector>
 	"enemy.h"
 
-1577035160 source:/home/pi/codeblocks/Jyskboy/game.cxx
+1578755004 source:/home/pi/codeblocks/Jyskboy/game.cxx
 	<iostream>
 	<vector>
 	"game.h"
@@ -178,7 +183,7 @@
 	<iostream>
 	<vector>
 
-1577784376 source:/home/pi/codeblocks/Jyskboy/physics.cxx
+1578321869 source:/home/pi/codeblocks/Jyskboy/physics.cxx
 	<iostream>
 	<vector>
 	"render.h"
@@ -187,20 +192,21 @@
 	<cstdlib>
 	<math.h>
 
-1577784217 /home/pi/codeblocks/Jyskboy/physics.h
+1578757050 /home/pi/codeblocks/Jyskboy/physics.h
 	<vector>
 	<iostream>
 
-1577623314 /home/pi/codeblocks/Jyskboy/enemy.h
+1578831659 /home/pi/codeblocks/Jyskboy/enemy.h
 	<vector>
 	<iostream>
 	"physics.h"
 	"champ.h"
 
-1578062176 source:/home/pi/codeblocks/Jyskboy/enemy.cxx
+1578847348 source:/home/pi/codeblocks/Jyskboy/enemy.cxx
 	"enemy.h"
 	"setup_sprites.h"
 	<iostream>
 	"physics.h"
 	<math.h>
+	<cstdlib>
 

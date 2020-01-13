@@ -97,6 +97,20 @@ extern vector<room_portal> room_portals;
 void room_setup();
 void room_render_req(int roomnr);
 
+void roomblocks_simple_deflection( int room, float x_f, float y_f, float &x_v, float &y_v );
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Just an example
 //#include <iostream>
 //using namespace std;

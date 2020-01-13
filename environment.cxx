@@ -5,6 +5,11 @@
 #include "render.h"
 #include "setup_sprites.h"
 #include <math.h>
+
+#include <fstream>
+#include <sstream>
+#include <string>
+
 using namespace std;
 
 int room1_cols = 128;
@@ -313,6 +318,22 @@ void room_object::room_object_setup() {
             }
         };
     };
+    // first attempt at reading from CSV to configure room
+
+    ifstream room_2;
+    room_2.open("room2.txt");
+//    while ( room_2.good() ) {
+//        string line;
+//        getline(room_2, line, ';');
+//        cout << line << endl;
+//    }
+    int room_type, x, y;
+
+    while( room_2 >> room_type >> x >> y ) {
+        cout << room_type << "," << x << "," << y << endl;
+    };
+
+    room_2.close();
 
 };
 
@@ -418,6 +439,8 @@ void portal::transport( champ &parameter, int &game_room ) {
 
             if (distance <= 20 ) {
                 game_room = room_destination;
+                parameter.x_location = destination_x;
+                parameter.y_location = destination_y;
             } else {
             }
 
@@ -480,13 +503,13 @@ delete new_2;
 delete new_3;
 
 //R1
-portal * portal_room1_1 = new portal(1, 150, 180, 20, 20, 20, 2, 30, 30);
+portal * portal_room1_1 = new portal(1, 50, 200, 20, 20, 20, 2, 30, 30);
 //room_1_portals.load_portalobject( *portal_room1_1 );
 room_portals.at(0).load_portalobject(*portal_room1_1);
 delete portal_room1_1;
 
 //R3
-portal * portal_room3_1 = new portal(1, 100, 100, 20, 20, 20, 0, 30, 30);
+portal * portal_room3_1 = new portal(1, 252, 200, 20, 20, 20, 0, 30, 30);
 //room_1_portals.load_portalobject( *portal_room1_1 );
 room_portals.at(2).load_portalobject(*portal_room3_1);
 delete portal_room3_1;
@@ -534,7 +557,33 @@ room_objects.at(roomnr).roomblocks.at(i).setRender();
 };
 
 
+void roomblocks_simple_deflection( int room, float x_f, float y_f, float &x_v, float &y_v ) {
+// simple deflector attempt
+int x = (int)x_f;
+int y = (int)y_f;
 
+
+    for ( int i = 0; i < room_objects.at(room).roomblocks.size(); i++ ) {
+
+        if ( x >= room_objects.at(room).roomblocks.at(i).contact_points[0][0]+room_objects.at(room).roomblocks.at(i).x_location && x <= room_objects.at(room).roomblocks.at(i).contact_points[0][1]+room_objects.at(room).roomblocks.at(i).x_location &&
+        y >= room_objects.at(room).roomblocks.at(i).contact_points[1][0]+room_objects.at(room).roomblocks.at(i).y_location && y <= room_objects.at(room).roomblocks.at(i).contact_points[1][3]+room_objects.at(room).roomblocks.at(i).y_location ) {
+
+                y_v = -1*y_v;
+
+                if ( x <= room_objects.at(room).roomblocks.at(i).contact_points[0][0]+room_objects.at(room).roomblocks.at(i).x_location ||
+                x >= room_objects.at(room).roomblocks.at(i).contact_points[0][1]+room_objects.at(room).roomblocks.at(i).x_location ) {
+                    x_v = -1*x_v;
+                } else {
+                };
+
+
+        } else {
+
+        };
+
+    };
+
+};
 
 
 

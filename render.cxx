@@ -11,6 +11,87 @@
 #include <math.h>
 using namespace std;
 
+
+void particle_generator( int x_pos, int y_pos, int animation_type_as_index, int animation_type, bool random_v, int cycles, int random_factor ) {
+
+    int rand_v_x = rand() % random_factor - rand() % random_factor  ;
+    int rand_v_y = -1*rand() % random_factor - rand() % random_factor;
+
+    animation_requests * obj_e1 = new animation_requests(animation_type_as_index, animation_type, 1, true, true , cycles,
+    x_pos, y_pos ,
+    rand_v_x, rand_v_y);
+    anime_req.push_back(*obj_e1);
+    delete obj_e1;
+    obj_e1 = 0;
+
+};
+
+void particle_generator( int x_pos, int y_pos, int animation_type_as_index , int animation_type, int v_x, int v_y, int cycles ) {
+
+    int rand_v_x = v_x;
+    int rand_v_y = v_y;
+
+    animation_requests * obj_e1 = new animation_requests(animation_type_as_index, animation_type, 1, true, true , cycles,
+    x_pos, y_pos ,
+    rand_v_x, rand_v_y);
+    anime_req.push_back(*obj_e1);
+    delete obj_e1;
+    obj_e1 = 0;
+
+};
+// Enemy destruction variant to destroy all enemy components
+void particle_generator( enemy *parameter, int x_pos, int y_pos, int cycles ) {
+
+    int vx = 1;
+    int vy = 1;
+    int explosion_v = 3;
+
+    int animation_type = 5;
+
+    for ( int i = 0; i < parameter->RSV.size() ; i++ ) {
+
+
+    if ( parameter->destroy_v_x != 0 ) {
+        vx = parameter->destroy_v_x / abs(parameter->destroy_v_x);
+    } else {
+    };
+    if ( parameter->destroy_v_y != 0 ) {
+        vy = -1*parameter->destroy_v_y / abs(parameter->destroy_v_y);
+        if ( rand() % 2 == 1 ) {
+            vx = vx *-1;
+        } else {
+        }
+    } else {
+    };
+
+
+
+        cout << parameter->RSV.at(i).f_2 << "hej" << endl;
+        animation_requests * obj_e1 = new animation_requests(parameter->RSV.at(i).index, 6, 1,
+        true, true,
+        cycles,
+        parameter->RSV.at(i).RSV_x_store, parameter->RSV.at(i).RSV_y_store ,
+        vx * (explosion_v + rand() % 6 ), -1* (explosion_v + rand() % 6 )*vy  );
+        anime_req.push_back(*obj_e1);
+        delete obj_e1;
+        obj_e1 = 0;
+
+
+        animation_requests * obj_e = new animation_requests(12, parameter->RSV.at(i).RSV_x_store + all_sprites.at(parameter->RSV.at(i).sprite_nr).getWidth()/2,
+        parameter->RSV.at(i).RSV_y_store + all_sprites.at(parameter->RSV.at(i).sprite_nr).getHeight()/2 , 0, 0);
+        anime_req.push_back(*obj_e);
+        delete obj_e;
+
+    }
+
+
+
+
+};
+
+
+
+
 void render_requests_quad(int sprite_nr, int x_loc, int y_loc, bool white_border, bool center, bool right_orientation ) {
 
         int minus_one = 0;
@@ -702,11 +783,90 @@ void animation_requests::sprite_setup( int index ) {
 
 };
 
-animation_requests::animation_requests(int animation_nr, int rot, bool facing_right, int cycles_to_terminate, int x_start, int y_start, int x_vel_start, int y_vel_start) {
+void animation_requests::animation_as_index() {
 
+    if ( animation_as_nr > 0 )  {
+
+        sprite_index = animation_as_nr;
+    } else {
+    };
+
+};
+
+
+void animation_requests::modifier() {
+
+
+    switch (anime_nr) {
+
+        case (1):
+        break;
+        case (2):
+        break;
+        case (3):
+        break;
+        case (4):
+        break;
+        case (5):
+//            rotation = rand() % 2 + 1;
+//            if ( rotation == 2 ) {
+//                right_orientation = false;
+//            } else {
+//                right_orientation = true;
+//            }
+
+            switch (state) {
+                case(1):
+                rotation = 1;
+                right_orientation = true;
+                up_orientation = true;
+                break;
+                case(2):
+                rotation = 2;
+                right_orientation = true;
+                up_orientation = false;
+                break;
+                case(3):
+                rotation = 1;
+                right_orientation = false;
+                up_orientation = false;
+                break;
+                case(4):
+                rotation = 2;
+                right_orientation = false;
+                up_orientation = true;
+                break;
+
+            }
+            state++;
+            if (state >4){
+                state = 1;
+            } else {
+            };
+        break;
+        case(6):
+        if ( current_cycle == cycles-1 ) {
+            animation_requests * obj_e = new animation_requests(12, x + all_sprites.at(sprite_nr).getWidth()/2,
+            y + all_sprites.at(sprite_nr).getHeight()/2 , 0, 0);
+            anime_req.push_back(*obj_e);
+            delete obj_e;
+
+        }
+
+        break;
+
+
+    };
+
+
+};
+
+animation_requests::animation_requests(int animation_nr_as_index, int animation_nr, int rot, bool facing_right,bool facing_up , int cycles_to_terminate, int x_start, int y_start, int x_vel_start, int y_vel_start) {
+animation_as_nr = animation_nr_as_index;
 rotation = rot;
 anime_nr = animation_nr;
 cycles = cycles_to_terminate;
+up_orientation = facing_up;
 x = x_start;
 y = y_start;
 x_v = x_vel_start;
@@ -719,10 +879,18 @@ y_v_float = (float)y_v;
 x_float = (float)x;
 y_float = (float)y;
 
+update_position_case = 0;
+update_position_case = anime_nr;
+
+
+
     switch (animation_nr) {
 
         case (1):{
-            sprite_setup( 401 );
+
+            sprite_index = 401;
+            animation_as_index();
+            sprite_setup( sprite_index );
 
 
 
@@ -730,22 +898,54 @@ y_float = (float)y;
         }
 
         case (2): {
-            sprite_setup( 402 );
+            sprite_index = 402;
+            animation_as_index();
+            sprite_setup( sprite_index );
             sprite_width = all_sprites.at(sprite_nr).getWidth();
         break;
         }
 
+        case (3):
+        break;
+
+        case (4):
+            sprite_index = 403;
+            animation_as_index();
+            sprite_setup( sprite_index );
+            sprite_width = all_sprites.at(sprite_nr).getWidth();
+            update_position_case = 2;
+        break;
+
+        case (5):
+            sprite_index = 405;
+            animation_as_index();
+            sprite_setup( sprite_index );
+            sprite_width = all_sprites.at(sprite_nr).getWidth();
+            update_position_case = 2;
+            state = rand() % 4 + 1;
+        break;
+
+        case (6):
+        // ends with another animation
+            sprite_index = 111;
+            animation_as_index();
+            sprite_setup( sprite_index );
+            sprite_width = all_sprites.at(sprite_nr).getWidth();
+            update_position_case = 2;
         default:
         break;
 
     };
+
+
+
 
 };
 
 animation_requests::animation_requests( int profile_index, int x_start, int y_start, int x_vel_start, int y_vel_start ) {
 
 anime_nr = 3;
-
+update_position_case = 3;
 x = x_start;
 y = y_start;
 x_v = x_vel_start;
@@ -778,7 +978,7 @@ void animation_requests::update_position( physics &parameter, int room ) {
 
 
 
-    switch (anime_nr) {
+    switch (update_position_case) {
 
     case (1):
 
@@ -815,14 +1015,16 @@ void animation_requests::update_position( physics &parameter, int room ) {
 
     case (2):
 
-            y_v_float = y_v_float + 1;
+            //y_v_float = y_v_float + 1;
 
                 if ( y_v_float > parameter.g ) {
-                y_v_float = parameter.g;
+                //y_v_float = parameter.g;
                 } else {
                 }
 
-            x_v_float = x_v_float*parameter.air;
+//            x_v_float = x_v_float*parameter.air;
+            //x_v_float = x_v_float*0.90;
+            parameter.calculate_velocity(y_v_float, x_v_float, 0.1, 1);
 
 
             x_float = x_float + x_v_float;
@@ -861,15 +1063,15 @@ void animation_requests::update_position( physics &parameter, int room ) {
                 if ( current_cycle >= animation_profiles.at(profile_nr).animate_from_cycle.at(i) && current_cycle < animation_profiles.at(profile_nr).animate_to_cycle.at(i) ) {
                 //cout << animation_profiles.at(profile_nr).animate_main_nr.at(i) << endl;
                     if ( animation_profiles.at(profile_nr).animate_subject_to_physics.at(i) == true ) {
-                        y_v_float = y_v_float + 1;
-                        x_v_float = x_v_float*parameter.air;
+                        y_v_float = y_v_float;
+                        x_v_float = x_v_float;
 
                             if ( y_v_float > parameter.g ) {
-                            y_v_float = parameter.g;
+                            //y_v_float = parameter.g;
                             } else {
                             }
 
-                        x_v_float = x_v_float*parameter.air;
+                        x_v_float = x_v_float;
 
                     } else {
                     }
@@ -891,6 +1093,8 @@ void animation_requests::update_position( physics &parameter, int room ) {
 
             y = (int)y_float;
     break;
+    case (4):
+    break;
 
     };
 
@@ -900,8 +1104,11 @@ void animation_requests::update_position( physics &parameter, int room ) {
 
 void animation_requests::render_animation() {
 
+    modifier();
 
-    switch (anime_nr) {
+
+
+    switch (update_position_case) {
 
         case (1):{
 
@@ -917,12 +1124,14 @@ void animation_requests::render_animation() {
         case (2): {
 
             if ( rotation == 1 && right_orientation == false ) {
-                x_offset = -1*(sprite_width -1);
+                //x_offset = -1*(sprite_width -1);
+                x_offset = 0;
             } else {
                 x_offset = 0;
             };
 
-            render_requests * obj = new render_requests(sprite_nr, x+x_offset, y, 1, right_orientation, true, rotation);
+            cout << rotation << endl;
+            render_requests * obj = new render_requests(sprite_nr, x+x_offset, y, 1, right_orientation, up_orientation, rotation);
 
             render_req.push_back(*obj);
             delete obj;

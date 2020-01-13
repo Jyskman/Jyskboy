@@ -8,9 +8,16 @@
 
 //~ #include "enemy.h"
 #include "champ.h"
+#include "enemy.h"
 
 // This is the content of the .h file, which is where the declarations go
 using namespace::std;
+
+void particle_generator( int x_pos, int y_pos, int animation_type_as_index , int animation_type, bool random_v, int cycles, int random_factor );
+void particle_generator( int x_pos, int y_pos, int animation_type_as_index , int animation_type, int v_x, int v_y, int cycles );
+//specific for detruction of enemies
+void particle_generator( enemy *parameter, int x_pos, int y_pos, int cycles );
+
 
 void render_requests_quad( int sprite_nr, int x_loc, int y_loc, bool white_border, bool center, bool right_orientation );
 void render_requests_dual( int sprite_nr, int x_loc, int y_loc, bool white_border, bool center, bool center_orientation );
@@ -24,6 +31,7 @@ render_requests(int sprite_nr, int x_pos, int y_pos, int palette, bool right_ori
 
 //~render_requests();
 int sprite_nr;
+int sprite_index;
 int x_pos;
 int y_pos;
 bool draw;
@@ -52,8 +60,10 @@ extern vector<render_requests> render_req;
 class animation_requests {
 
 public:
-animation_requests(int animation_nr, int rot, bool facing_right, int cycles_to_terminate, int x_start, int y_start, int x_vel_start, int y_vel_start);
+animation_requests(int animation_nr_as_index, int animation_nr, int rot, bool facing_right, bool facing_up ,int cycles_to_terminate, int x_start, int y_start, int x_vel_start, int y_vel_start);
 animation_requests( int profile_index, int x_start, int y_start, int x_vel_start, int y_vel_start );
+
+int update_position_case = 0;
 
 int sprite_width;
 int rotation = 1;
@@ -63,8 +73,14 @@ void sprite_setup( int index );
 void profile_setup( int profile_index_parameter );
 void render_animation();
 void update_position( physics &parameter, int room );
+void modifier();
+void animation_as_index();
+int animation_as_nr;
+
+int state =1;
 
 bool right_orientation;
+bool up_orientation;
 
 float x_v_float, y_v_float, x_float, y_float;
 int x_offset;
