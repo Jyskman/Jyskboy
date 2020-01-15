@@ -75,7 +75,7 @@ class room_object {
 
     public:
     int room_nr;
-
+    string name;
     int rows, cols;
     int xlim_up, xlim_low, ylim_up, ylim_low;
     int *adress;
@@ -84,9 +84,11 @@ class room_object {
     vector<int> testvec;
     room_object(int *arr, int *arr_pal, int row, int col, int x_up, int x_low, int y_up, int y_low, int nr);
     room_object(int *arr, int row, int col, int x_up, int x_low, int y_up, int y_low, int nr);
+    room_object( string file, int x_up, int x_low, int y_up, int y_low, int nr);
     ~room_object();
 
     void room_object_setup();
+    void room_object_setupCSV();
     void testfunc();
 };
 
@@ -95,6 +97,7 @@ extern vector<room_portal> room_portals;
 
 
 void room_setup();
+
 void room_render_req(int roomnr);
 
 void roomblocks_simple_deflection( int room, float x_f, float y_f, float &x_v, float &y_v );
