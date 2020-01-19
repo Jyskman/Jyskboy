@@ -90,6 +90,11 @@ class room_object {
     void room_object_setup();
     void room_object_setupCSV();
     void testfunc();
+    int column_items;
+
+    vector< vector<int> > columns_storage ;
+    vector<int> temp_v;
+    vector<string> temp_string;
 };
 
 extern vector<room_object> room_objects;

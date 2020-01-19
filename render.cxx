@@ -66,7 +66,7 @@ void particle_generator( enemy *parameter, int x_pos, int y_pos, int cycles ) {
 
 
 
-        cout << parameter->RSV.at(i).f_2 << "hej" << endl;
+        //cout << parameter->RSV.at(i).f_2 << "hej" << endl;
         animation_requests * obj_e1 = new animation_requests(parameter->RSV.at(i).index, 6, 1,
         true, true,
         cycles,
@@ -1130,7 +1130,7 @@ void animation_requests::render_animation() {
                 x_offset = 0;
             };
 
-            cout << rotation << endl;
+            //cout << rotation << endl;
             render_requests * obj = new render_requests(sprite_nr, x+x_offset, y, 1, right_orientation, up_orientation, rotation);
 
             render_req.push_back(*obj);

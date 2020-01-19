@@ -296,9 +296,16 @@ room_nr = nr;
 
 
 room_object_setup();
+    if ( nr == 2 ) {
+     room_object_setupCSV();
+    } else {
+    }
+
+
+
 };
 
-room_object::room_object( string file, int x_up, int x_low, int y_up, int y_low, int nr) : roomblocks() {
+room_object::room_object( string file, int x_up, int x_low, int y_up, int y_low, int nr) : roomblocks(), columns_storage() {
 
 name = file;
 
@@ -308,8 +315,8 @@ ylim_low = y_low;
 ylim_up = y_up;
 room_nr = nr;
 
+room_object_setupCSV();
 
-room_object_setup();
 };
 
 
@@ -318,18 +325,52 @@ room_object::~room_object() {
 };
 
 void room_object::room_object_setupCSV() {
+// How many col of data to create
+column_items = 3;
+    for ( int i = 0; i < column_items; i++ ) {
+
+    // v within v creation
+    vector<int> *obj = new vector<int> ;
+    columns_storage.push_back( *obj );
+    delete obj;
+    obj = 0;
+
+    };
+
+
+
 
     string file_name = "room1_extracted.csv";
-
+    string line;
     ifstream room_2;
     room_2.open(file_name);
     while ( room_2.good() ) {
-        string line;
+
         getline(room_2, line, ',');
-        cout << line << endl;
+
+        temp_string.push_back(line);
+        //temp_v.push_back( stoi (line) );
+        //cout << line << endl;
+//        for ( int i = 0; i < column_items; i++ ) {
+//            getline(room_2, line, ',');
+//            columns_storage.at(i).push_back(  atoi (line.c_str())  );
+//        };
+
+
+
     }
 //    int room_type, x, y;
-//
+
+for ( int i = 0; i < temp_string.size() ; i++ ) {
+
+
+   temp_v.push_back( stoi ( temp_string.at(i) ) );
+    cout << temp_v.at(i) << endl;
+
+}
+
+
+
 //    while( room_2 >> room_type >> x >> y ) {
 //        cout << room_type << "," << x << "," << y << endl;
 //    };
@@ -355,24 +396,6 @@ void room_object::room_object_setup() {
             }
         };
     };
-    // first attempt at reading from CSV to configure room
-
-    string file_name = "room1_extracted.csv";
-
-    ifstream room_2;
-    room_2.open(file_name);
-    while ( room_2.good() ) {
-        string line;
-        getline(room_2, line, ',');
-        cout << line << endl;
-    }
-//    int room_type, x, y;
-//
-//    while( room_2 >> room_type >> x >> y ) {
-//        cout << room_type << "," << x << "," << y << endl;
-//    };
-
-    room_2.close();
 
 };
 
