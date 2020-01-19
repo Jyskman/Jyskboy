@@ -344,36 +344,50 @@ column_items = 3;
     string line;
     ifstream room_2;
     room_2.open(file_name);
+
+    int counter = 0;
     while ( room_2.good() ) {
 
-        getline(room_2, line, ',');
-
-        temp_string.push_back(line);
         //temp_v.push_back( stoi (line) );
         //cout << line << endl;
-//        for ( int i = 0; i < column_items; i++ ) {
-//            getline(room_2, line, ',');
-//            columns_storage.at(i).push_back(  atoi (line.c_str())  );
-//        };
+        if ( counter == 0 ) {
+
+            for ( int i = 0; i < column_items+1; i++ ) {
+
+            getline(room_2, line, ',');
+                if ( stoi (line.c_str()) == -1 ) {
+
+                } else {
+
+                columns_storage.at(i - 1).push_back( stoi (line.c_str())  );
+
+                }
+
+        };
+
+
+        } else {
+        }
+        counter++;
+
+        for ( int i = 0; i < column_items; i++ ) {
+        getline(room_2, line, ',');
+        columns_storage.at(i).push_back( stoi (line.c_str()));
+        }
 
 
 
     }
 //    int room_type, x, y;
 
-for ( int i = 0; i < temp_string.size() ; i++ ) {
-
-
-   temp_v.push_back( stoi ( temp_string.at(i) ) );
-    cout << temp_v.at(i) << endl;
-
-}
+//cout << columns_storage.at(0).size() << columns_storage.at(1).size() << columns_storage.at(2).size() << endl;
 
 
 
-//    while( room_2 >> room_type >> x >> y ) {
-//        cout << room_type << "," << x << "," << y << endl;
-//    };
+    for ( int j = 0; j < columns_storage.at(0).size() ; j++ ) {
+        cout << columns_storage.at(0).at(j) << columns_storage.at(1).at(j) << columns_storage.at(2).at(j) << endl;
+    }
+
 
     room_2.close();
 
