@@ -326,50 +326,40 @@ room_object::~room_object() {
 
 void room_object::room_object_setupCSV() {
 // How many col of data to create
+
 column_items = 3;
-    for ( int i = 0; i < column_items; i++ ) {
-
-    // v within v creation
-    vector<int> *obj = new vector<int> ;
-    columns_storage.push_back( *obj );
-    delete obj;
-    obj = 0;
-
-    };
 
 
-
-
-    string file_name = "room1_extracted.csv";
+    string file_name = "room1.csv";
     string line;
     ifstream room_2;
     room_2.open(file_name);
 
+    // counter for once only col items +1 loop, could be bool
     int counter = 0;
     while ( room_2.good() ) {
 
-        //temp_v.push_back( stoi (line) );
-        //cout << line << endl;
+        // First time only read 4 values and ignore the -1 index in the CSV
         if ( counter == 0 ) {
-
-            for ( int i = 0; i < column_items+1; i++ ) {
-
-            getline(room_2, line, ',');
-                if ( stoi (line.c_str()) == -1 ) {
-
-                } else {
-
-                columns_storage.at(i - 1).push_back( stoi (line.c_str())  );
-
-                }
-
-        };
+        getline(room_2, line, ',');
+        column_items = -1 * stoi (line.c_str()) ;
 
 
         } else {
         }
+        // end first time only, 3 values stored -1 ignored
         counter++;
+        for ( int i = 0; i < column_items; i++ ) {
 
+        // v within v creation
+        vector<int> *obj = new vector<int> ;
+        columns_storage.push_back( *obj );
+        delete obj;
+        obj = 0;
+
+        };
+
+        // here the rest of the CSV is cycled within the while loop 3 items at a time, the -1 is sacrificed to get the right readings. Sacrifice necessary for lack of comma at end of CSV rows
         for ( int i = 0; i < column_items; i++ ) {
         getline(room_2, line, ',');
         columns_storage.at(i).push_back( stoi (line.c_str()));
@@ -380,12 +370,15 @@ column_items = 3;
     }
 //    int room_type, x, y;
 
-//cout << columns_storage.at(0).size() << columns_storage.at(1).size() << columns_storage.at(2).size() << endl;
-
-
-
     for ( int j = 0; j < columns_storage.at(0).size() ; j++ ) {
-        cout << columns_storage.at(0).at(j) << columns_storage.at(1).at(j) << columns_storage.at(2).at(j) << endl;
+        //cout << columns_storage.at(0).at(j) << "_" << columns_storage.at(1).at(j) << "_" << columns_storage.at(2).at(j) << endl;
+        for ( int i = 0; i < column_items; i++ ) {
+            cout << columns_storage.at(i).at(j) << "_ ";
+
+        }
+        cout << "_" << endl;
+
+
     }
 
 

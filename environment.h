@@ -81,7 +81,7 @@ class room_object {
     int *adress;
     int *adress_pal;
     vector<block> roomblocks;
-    vector<int> testvec;
+
     room_object(int *arr, int *arr_pal, int row, int col, int x_up, int x_low, int y_up, int y_low, int nr);
     room_object(int *arr, int row, int col, int x_up, int x_low, int y_up, int y_low, int nr);
     room_object( string file, int x_up, int x_low, int y_up, int y_low, int nr);
@@ -93,8 +93,7 @@ class room_object {
     int column_items;
 
     vector< vector<int> > columns_storage ;
-    vector<int> temp_v;
-    vector<string> temp_string;
+
 };
 
 extern vector<room_object> room_objects;
