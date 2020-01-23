@@ -156,7 +156,7 @@ void game::game_setup() {
     hero.setContactPoints();
     champ_setup(hero);
             hero.setX(20);
-            hero.setY(100);
+            hero.setY(20);
 };
 
 void game::setup_animation_profiles() {

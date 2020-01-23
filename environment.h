@@ -89,6 +89,9 @@ class room_object {
 
     void room_object_setup();
     void room_object_setupCSV();
+
+    void create_blocks();
+
     void testfunc();
     int column_items;
 

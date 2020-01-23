@@ -295,10 +295,13 @@ ylim_up = y_up;
 room_nr = nr;
 
 
-room_object_setup();
+
     if ( nr == 2 ) {
      room_object_setupCSV();
+     create_blocks();
     } else {
+
+    room_object_setup();
     }
 
 
@@ -343,7 +346,7 @@ column_items = 3;
         if ( counter == 0 ) {
         getline(room_2, line, ',');
         column_items = -1 * stoi (line.c_str()) ;
-
+        //cout << column_items << endl;
 
         } else {
         }
@@ -380,12 +383,52 @@ column_items = 3;
 
 
     }
+    cout << "____" << endl;
+    cout << columns_storage.size()/9 << endl;
+
+
+    for ( int i = 0; i < columns_storage.at(0).size() ; i++ ) {
+
+    cout << columns_storage.at(i).size() << "_";
+
+    }
 
 
     room_2.close();
 
 
 }
+
+// Function will be separate for creating blocks
+
+void room_object::create_blocks() {
+
+
+    for ( int i = 0; i < (columns_storage.size() / column_items); i++ ) {
+
+
+        if ( columns_storage.at(0).at(i) > 0 ) {
+
+                block * obj = new block(columns_storage.at(1).at(i), columns_storage.at(2).at(i), columns_storage.at(0).at(i) ) ;
+                obj->setContactpoints();
+                //cout << *( (adress_pal + i*cols) +ii ) << endl;
+                roomblocks.push_back(*obj);
+                obj = 0;
+
+        } else {
+        }
+
+
+
+    }
+
+};
+
+
+
+
+
+
 
 void room_object::room_object_setup() {
 
