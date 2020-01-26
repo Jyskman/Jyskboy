@@ -91,7 +91,7 @@ class room_object {
     void room_object_setupCSV();
 
     void create_blocks();
-
+    void set_limits();
     void testfunc();
     int column_items;
 

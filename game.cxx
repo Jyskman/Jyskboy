@@ -155,8 +155,8 @@ void game::game_setup() {
         cout << hero.sprite_nr << endl;
     hero.setContactPoints();
     champ_setup(hero);
-            hero.setX(20);
-            hero.setY(20);
+            hero.setX(300);
+            hero.setY(280);
 };
 
 void game::setup_animation_profiles() {

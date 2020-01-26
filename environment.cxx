@@ -170,6 +170,19 @@ room_nr = nr;
 
 };
 
+
+void room_object::set_limits() {
+
+xlim_low = 100;
+cout << columns_storage.at(0).at(0) << endl;
+xlim_up =1000;
+ylim_low = 0;
+cout << columns_storage.at(1).at(0) << endl;
+ylim_up = 1000;
+
+
+};
+
 room_object::room_object( string file, int x_up, int x_low, int y_up, int y_low, int nr) : roomblocks(), columns_storage() {
 
 name = file;
@@ -182,6 +195,7 @@ room_nr = nr;
 
 room_object_setupCSV();
 create_blocks();
+set_limits();
 cout << " end const " << endl;
 };
 
@@ -239,17 +253,17 @@ column_items = 3;
     for ( int j = 0; j < columns_storage.at(0).size() ; j++ ) {
         //cout << columns_storage.at(0).at(j) << "_" << columns_storage.at(1).at(j) << "_" << columns_storage.at(2).at(j) << endl;
         for ( int i = 0; i < column_items; i++ ) {
-            cout << columns_storage.at(i).at(j) << "_ ";
+//            cout << columns_storage.at(i).at(j) << "_ ";
 
         }
-        cout << "_" << endl;
+//        cout << "_" << endl;
 
 
     }
-    cout << "____" << endl;
+//    cout << "____" << endl;
 
     room_2.close();
-    cout << " after close" << endl;
+//    cout << " after close" << endl;
 
 }
 
@@ -258,7 +272,7 @@ column_items = 3;
 void room_object::create_blocks() {
 
 
-    for ( int i = 0; i < (columns_storage.size() / column_items); i++ ) {
+    for ( int i = 1; i < (columns_storage.size() / column_items); i++ ) {
 
 
         if ( columns_storage.at(0).at(i) > 0 ) {
