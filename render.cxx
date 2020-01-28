@@ -326,10 +326,10 @@ current_x_offset = room_objects.at(roomnr).xlim_low + ( parameter.getX() - offse
 // xoffset done
 offset_parameter_y_low = 120;
 offset_parameter_y_up = (240 - offset_parameter_y_low);
-current_y_offset = parameter.getY() -  room_objects.at(roomnr).ylim_low - offset_parameter_y_low ;
+current_y_offset = room_objects.at(roomnr).ylim_low + ( parameter.getY() - offset_parameter_y_low - room_objects.at(roomnr).ylim_low  );
 
 if (parameter.getY() < (room_objects.at(roomnr).ylim_low + offset_parameter_y_low) ) {
-    current_y_offset = 0;
+    current_y_offset = room_objects.at(roomnr).ylim_low;;
 } else {
 }
 

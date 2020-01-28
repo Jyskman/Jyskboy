@@ -1323,6 +1323,14 @@ void champ::updateV(button_input& parameter, physics& physics_parameter){
 
             }
 
+            // Dev
+            if ( parameter.getUpState() == true ) {
+                y_vel--;
+                y_vel--;
+                y_vel--;
+            } else {
+            }
+
 
 
         break;

@@ -7,6 +7,7 @@
 #include "physics.h"
 #include <math.h>
 #include <cstdlib>
+#include "environment.h"
 
 using namespace std;
 // E
@@ -224,10 +225,10 @@ void enemy::vulnerability_setup() {
 };
 
 
-enemy::enemy( int e_type) {
+enemy::enemy( int e_type, int start_x, int start_y) {
 
-x_location = 150 ;
-y_location = 200 ;
+x_location = start_x ;
+y_location = start_y ;
 enemy_type = e_type;
 vector<hitbox_object> enemy_hitbox_set;
 vector<render_state> RSV;
@@ -606,6 +607,26 @@ void create_and_reset_enemies( int room_nr, vector<enemy>& parameter ) {
 
     parameter.clear();
 
+
+    for ( int i = 0; i < room_objects.at(room_nr).columns_storage.size()/room_objects.at(room_nr).column_items ; i++ ) {
+
+        if ( room_objects.at(room_nr).columns_storage.at(3).at(i)  > 0 ) {
+
+            enemy * new_enemy_1 = new enemy( room_objects.at(room_nr).columns_storage.at(3).at(i), room_objects.at(room_nr).columns_storage.at(4).at(i), room_objects.at(room_nr).columns_storage.at(4).at(i));
+            parameter.push_back( *new_enemy_1 );
+            delete new_enemy_1;
+            new_enemy_1 = 0;
+
+        }else {
+        }
+
+
+    }
+
+
+
+
+
     switch (room_nr) {
 
     case (0):
@@ -614,10 +635,10 @@ void create_and_reset_enemies( int room_nr, vector<enemy>& parameter ) {
     break;
     case (2):{
 
-        enemy * new_enemy_1 = new enemy(1);
-        parameter.push_back( *new_enemy_1 );
-        delete new_enemy_1;
-        new_enemy_1 = 0;
+//        enemy * new_enemy_1 = new enemy(1, 1, 1);
+//        parameter.push_back( *new_enemy_1 );
+//        delete new_enemy_1;
+//        new_enemy_1 = 0;
 
     break;
     }

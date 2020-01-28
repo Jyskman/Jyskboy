@@ -63,7 +63,7 @@ game::game(int a) : buttons(1), screen(1), audio(), hero(1, (100 * 100 * 3 + 1),
 
 // when game is created these items are also
 game_state_current = 0;
-room_current = 2;
+room_current = 0;
 physics_current = 0;
 game_is_running = true;
 room_prev = room_current;
@@ -155,8 +155,8 @@ void game::game_setup() {
         cout << hero.sprite_nr << endl;
     hero.setContactPoints();
     champ_setup(hero);
-            hero.setX(300);
-            hero.setY(280);
+            hero.setX(30);
+            hero.setY(30);
 };
 
 void game::setup_animation_profiles() {
