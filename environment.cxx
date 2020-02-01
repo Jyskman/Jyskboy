@@ -9,6 +9,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <list>
+#include <algorithm>
 
 using namespace std;
 //
@@ -56,10 +58,43 @@ x_location = x_pos;
 y_location = y_pos;
 current_palette = 1;
 block_type = type; // also called index type/index
+set_index();
 sprite_nr = Relation_Spritenr_type();
 friction_coeff = setFriction(type);
 };
 
+// set index dependent on type, various types can have the same sprite
+void block::set_index() {
+destroyed = false;
+
+    switch (block_type) {
+
+        case(1):
+            sprite_index = block_type;
+            destructible = false;
+        break;
+        case(2):
+            sprite_index = block_type;
+            destructible = false;
+        break;
+        case(3):
+            sprite_index = block_type;
+            destructible = false;
+        break;
+        case(4):
+            sprite_index = block_type;
+            destructible = false;
+        break;
+        case(5):
+            sprite_index = 1;
+            destructible = true;
+        break;
+
+
+
+    }
+
+};
 
 block::~block(){};
 
@@ -110,7 +145,7 @@ int block::Relation_Spritenr_type() {
     int return_value = 0;
     sprite_error = true;
         for (int i=0; i < all_sprites.size(); i++) {
-            if ( all_sprites.at(i).sprite_index == block_type ) {
+            if ( all_sprites.at(i).sprite_index == sprite_index ) {
                 return_value = i;
                 sprite_error = false;
                 //cout << return_value << endl;
@@ -183,15 +218,11 @@ ylim_up = columns_storage.at(3).at(0);
 
 };
 
-room_object::room_object( string file, int x_up, int x_low, int y_up, int y_low, int nr) : roomblocks(), columns_storage() {
+room_object::room_object( string file, int room) : roomblocks(), columns_storage() {
 
 name = file;
+room_nr = room;
 
-xlim_low = x_low;
-xlim_up =x_up;
-ylim_low = y_low;
-ylim_up = y_up;
-room_nr = nr;
 
 room_object_setupCSV();
 create_blocks();
@@ -207,7 +238,7 @@ room_object::~room_object() {
 void room_object::room_object_setupCSV() {
 // How many col of data to create
 
-column_items = 3;
+column_items = 3; // redundant
 
 
     string file_name = name;
@@ -456,80 +487,114 @@ void room_portal::load_portalobject(portal &parameter) {
 
 
 
-void room_setup() {
+void room_setup( game *parameter ) {
 
-int room0_cols = 128;
-int room0_rows = 16;
-int room0_xlimit_upper = 128 * 15;
-int room0_xlimit_lower = 0;
-int room0_ylimit_lower = 0;
-int room0_ylimit_upper = 16 * 15;
-int room0_nr = 0;
 
-int room1_cols = 128;
-int room1_rows = 16;
-int room1_xlimit_upper = 128 * 15;
-int room1_xlimit_lower = 0;
-int room1_ylimit_lower = 0;
-int room1_ylimit_upper = 16 * 15;
-int room1_nr = 1;
-
-int room2_cols = 26;
-int room2_rows = 16;
-int room2_xlimit_upper = 26 * 15;
-int room2_xlimit_lower = 0;
-int room2_ylimit_lower = 0;
-int room2_ylimit_upper = 16 * 15;
-//int nr = 2;
 
 
 
 //room_object * new_room1 = new room_object( (int*)room_1,room1_rows, room1_cols, room1_xlimit_upper, room1_xlimit_lower, room1_ylimit_upper, room1_ylimit_lower,0);
-room_object * new_room0 = new room_object( "room0.csv", room0_xlimit_upper, room0_xlimit_lower, room0_ylimit_upper, room0_ylimit_lower,0);
+room_object * new_room0 = new room_object( "room0.csv",0);
 room_objects.push_back( *new_room0 );
 delete new_room0;
 
 //room_object * new_room2 = new room_object( (int*)room_2, room2_rows, room2_cols, room2_xlimit_upper, room2_xlimit_lower, room2_ylimit_upper, room2_ylimit_lower,1);
-room_object * new_room1 = new room_object( "room1.csv", room1_xlimit_upper, room1_xlimit_lower, room1_ylimit_upper, room1_ylimit_lower,1);
+room_object * new_room1 = new room_object( "room1.csv",1);
 room_objects.push_back( *new_room1 );
 delete new_room1;
 
 //room_object * new_room3 = new room_object( (int*)room_3, room3_rows, room3_cols, room3_xlimit_upper, room3_xlimit_lower, room3_ylimit_upper, room3_ylimit_lower,2);
-room_object * new_room2 = new room_object( "room2.csv", room2_xlimit_upper, room2_xlimit_lower, room2_ylimit_upper, room2_ylimit_lower,2);
+room_object * new_room2 = new room_object( "room2.csv",2);
 room_objects.push_back( *new_room2 );
 delete new_room2;
 
 
 
-// room portal objects
 
-room_portal * new_1 = new room_portal(1);
-room_portal * new_2 = new room_portal(2);
-room_portal * new_3 = new room_portal(3);
-room_portals.push_back( *new_1 );
-room_portals.push_back( *new_2 );
-room_portals.push_back( *new_3 );
-delete new_1;
-delete new_2;
-delete new_3;
 
-//R1
-portal * portal_room1_1 = new portal(1, 50, 200, 20, 20, 20, 2, 30, 30);
-//room_1_portals.load_portalobject( *portal_room1_1 );
-room_portals.at(0).load_portalobject(*portal_room1_1);
-delete portal_room1_1;
+    // make one portal container for each room
+    for ( int i = 0; i < parameter->room_max; i++ ) {
+    // room portal objects
 
-//R3
-portal * portal_room3_1 = new portal(1, 252, 200, 20, 20, 20, 0, 30, 30);
-//room_1_portals.load_portalobject( *portal_room1_1 );
-room_portals.at(2).load_portalobject(*portal_room3_1);
-delete portal_room3_1;
+        room_portal * new_1 = new room_portal(i);
+
+        room_portals.push_back( *new_1 );
+
+        delete new_1;
+        new_1 = 0;
+
+
+
+
+    }
+
+
+
+
+
+
+    int room_nr;
+    for (int j = 0; j < 2; j++) {
+    room_nr = j;
+
+        // attempt reading from the col storage for creation of portals
+        for ( int i = 0; i < room_objects.at(room_nr).columns_storage.size()/room_objects.at(room_nr).column_items ; i++ ) {
+
+            //index 6 is the in-room locator variable
+            if ( room_objects.at(room_nr).columns_storage.at(7).at(i)  > 0 ) {
+
+                //general room
+                int in_room = room_objects.at(room_nr).columns_storage.at(6).at(i);
+                int c_index = 0;
+                int x_pos = room_objects.at(room_nr).columns_storage.at(8).at(i);
+                int y_pos = room_objects.at(room_nr).columns_storage.at(9).at(i);
+                int h = room_objects.at(room_nr).columns_storage.at(10).at(i);
+                int w = room_objects.at(room_nr).columns_storage.at(11).at(i);
+                int r = room_objects.at(room_nr).columns_storage.at(12).at(i);
+                int dest_room = room_objects.at(room_nr).columns_storage.at(13).at(i);
+                int dest_x = room_objects.at(room_nr).columns_storage.at(14).at(i);
+                int dest_y = room_objects.at(room_nr).columns_storage.at(15).at(i);
+
+
+                portal * portal_room1_1 = new portal(1, x_pos, y_pos, h, w, r, dest_room, dest_x, dest_y);
+                //room_1_portals.load_portalobject( *portal_room1_1 );
+                room_portals.at(in_room).load_portalobject(*portal_room1_1);
+                delete portal_room1_1;
+
+            }else {
+            }
+
+
+        }
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 };
 
-void room_render_req(int roomnr) {
+void room_render_req(int roomnr, game *parameter) {
 
-//cout <<  room_objects.size() << ".\n";
+    // remove dest room blocks
+    room_objects.at(roomnr).roomblocks.erase(
+    remove_if(room_objects.at(roomnr).roomblocks.begin(), room_objects.at(roomnr).roomblocks.end(),
+    [](const block & o) { return o.destroyed == true; }),
+    room_objects.at(roomnr).roomblocks.end());
+
+
+
 
 for (int i = 0; i < room_objects.at(roomnr).roomblocks.size(); i++ ) {
 
@@ -539,33 +604,83 @@ room_objects.at(roomnr).roomblocks.at(i).setRender();
 
 
 
-
-//        for (int i=0; i < room_objects.at(roomnr).roomblocks.size();i++) {
-//        room_objects.at(roomnr).roomblocks.at(i).setRender();
-//        };
+};
 
 
-//    switch (roomnr) {
-//
-//    case 0:
-//        for (int i=0; i < blocks.size();i++) {
-//        blocks.at(i).setRender();
-//        };
-//
-//    break;
-//    case 1:
-//        for (int i=0; i < blocks.size();i++) {
-//        blocks.at(i).setRender();
-//        };
-//
-//    break;
-//
-//    default:
-//    break;
-//
-//    };
+// Attacks will be destroyed and destroy
+void roomblocks_attack_interaction( int room, vector<attack> &parameter ) {
+
+    bool hit = true;
+
+    int X_1_A, X_2_A, Y_1_A, Y_2_A, X_1_B, X_2_B, Y_1_B, Y_2_B;
+
+        for (int i = 0; i < room_objects.at(room).roomblocks.size(); i++) {
+
+            for ( int j = 0; j < parameter.size() ; j++ ) {
+
+                // blocks
+
+                X_1_A = room_objects.at(room).roomblocks.at(i).contact_points[0][0]+room_objects.at(room).roomblocks.at(i).x_location ;
+                X_2_A = room_objects.at(room).roomblocks.at(i).contact_points[0][1]+room_objects.at(room).roomblocks.at(i).x_location ;
+                Y_1_A = room_objects.at(room).roomblocks.at(i).contact_points[1][0]+room_objects.at(room).roomblocks.at(i).y_location ;
+                Y_2_A = room_objects.at(room).roomblocks.at(i).contact_points[1][3]+room_objects.at(room).roomblocks.at(i).y_location ;
+
+
+                // Shot
+                X_1_B = parameter.at(j).a_x_pos + parameter.at(j).attack_hitbox.at(0).x_u_left;
+                X_2_B = parameter.at(j).a_x_pos + parameter.at(j).attack_hitbox.at(0).x_l_right;
+                Y_1_B = parameter.at(j).a_y_pos + parameter.at(j).attack_hitbox.at(0).y_u_left;
+                Y_2_B = parameter.at(j).a_y_pos + parameter.at(j).attack_hitbox.at(0).y_l_right;;
+
+
+                //cout << " X1_l_right shot " << X_1_B << " X2 " << X_2_A << " Y1 " << Y_1_A << " Y2 " << Y_2_A << endl;
+                //cout << " X1 " << X_1_B << " X2 " << X_2_B << " Y1 " << Y_1_B << " Y2 " << Y_2_B << endl;
+
+                    hit = true;
+                if (  X_1_B < X_2_A && X_2_B > X_1_A && Y_1_B < Y_2_A && Y_2_B > Y_1_A ) {
+                        hit = false;
+
+
+                } else {
+
+                }
+
+                if ( hit == false ) {
+
+                    parameter.at(j).destroy = true;
+
+                        animation_requests * obj = new animation_requests(13, parameter.at(j).mid_x, parameter.at(j).mid_y , 0, 0);
+                        anime_req.push_back(*obj);
+                        delete obj;
+                        obj = 0;
+
+
+                    particle_generator(parameter.at(j).mid_x, parameter.at(j).mid_y, 403, 5, true, 10, 10);
+                    particle_generator(parameter.at(j).mid_x, parameter.at(j).mid_y, 403, 5, true, 10, 10);
+
+                    // if block destructible destroyed will become true
+                    if ( room_objects.at(room).roomblocks.at(i).destructible == true ) {
+                        room_objects.at(room).roomblocks.at(i).destroyed = true;
+                    } else {
+                    }
+
+
+                } else {
+                }
+
+
+            };
+
+
+
+
+        };
+
+
+
 
 };
+
 
 
 void roomblocks_simple_deflection( int room, float x_f, float y_f, float &x_v, float &y_v ) {

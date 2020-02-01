@@ -135,7 +135,7 @@ void game::game_close() {
 
 void game::game_setup() {
     setup_sprites(screen);
-    room_setup();
+    room_setup( this );
     physics_setup();
     setupWeaponprofiles();
     setup_animation_profiles();
@@ -172,6 +172,10 @@ delete obj_2;
 animation_profile * obj_3 = new animation_profile(2, 12, 0, 8);
 animation_profiles.push_back(*obj_3);
 delete obj_3;
+
+animation_profile * obj_4 = new animation_profile(2, 13, 0, 8);
+animation_profiles.push_back(*obj_4);
+delete obj_4;
 
 //load the pattern of the first animation profile @0
 animation_profiles.at(0).load_animate_type(1); // type 1 simple
@@ -290,6 +294,34 @@ animation_profiles.at(2).load_animate_physics(false);
 animation_profiles.at(2).load_animate_duo(false);
 animation_profiles.at(2).load_animate_quad(true);
 
+// V small explosion
+//load the pattern of the 4th animation profile @0
+animation_profiles.at(3).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(0);
+//animation_profiles.at(0).load_animate_to_cycle(10);
+animation_profiles.at(3).load_animate_main_index(514);
+animation_profiles.at(3).load_animate_sub_index_1(0);
+animation_profiles.at(3).load_animate_physics(false);
+animation_profiles.at(3).load_animate_duo(false);
+animation_profiles.at(3).load_animate_quad(true);
+
+animation_profiles.at(3).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(10);
+//animation_profiles.at(0).load_animate_to_cycle(20);
+animation_profiles.at(3).load_animate_main_index(515);
+animation_profiles.at(3).load_animate_sub_index_1(0);
+animation_profiles.at(3).load_animate_physics(false);
+animation_profiles.at(3).load_animate_duo(false);
+animation_profiles.at(3).load_animate_quad(true);
+
+animation_profiles.at(3).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(20);
+//animation_profiles.at(0).load_animate_to_cycle(30);
+animation_profiles.at(3).load_animate_main_index(516);
+animation_profiles.at(3).load_animate_sub_index_1(0);
+animation_profiles.at(3).load_animate_physics(false);
+animation_profiles.at(3).load_animate_duo(false);
+animation_profiles.at(3).load_animate_quad(true);
 
 
 // setup for animations
@@ -301,6 +333,9 @@ animation_profiles.at(1).set_to_from_cycles(2);
 
 animation_profiles.at(2).set_sprite_numbers();
 animation_profiles.at(2).set_to_from_cycles(2);
+
+animation_profiles.at(3).set_sprite_numbers();
+animation_profiles.at(3).set_to_from_cycles(2);
 };
 
 void game::setupWeaponprofiles(){
@@ -559,13 +594,12 @@ void game::enemy_manager() {
     if ( (game_room_switch() == true) || initial_config == true ) {
 
 
-            create_and_reset_enemies(room_current, gameEnemys);
+        create_and_reset_enemies(room_current, gameEnemys);
 
 
 
     } else {
     }
-
 
     for ( int i = 0 ; i < gameEnemys.size() ; i++ ) {
         gameEnemys.at(i).resolve_damage( gameAttacks, hero );
@@ -573,6 +607,7 @@ void game::enemy_manager() {
 
         gameEnemys.at(i).perception(hero);
         gameEnemys.at(i).motion( physics_objects.at( physics_current ) ) ;
+
     }
 
 
@@ -687,7 +722,7 @@ void game::game_main(){
         }
         hero.setRender(buttons, physics_objects.at( physics_current ), room_current );
 
-
+        room_render_req(room_current, this); // in environment
         animations_run_render();
 
         portals_run_render();
@@ -698,7 +733,8 @@ void game::game_main(){
 
 
 
-        room_render_req(room_current); // in environment
+
+       roomblocks_attack_interaction(room_current, gameAttacks);
 
 
         // audio prof of principle

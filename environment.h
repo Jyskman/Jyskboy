@@ -5,6 +5,7 @@
 #include <vector>
 #include "render.h"
 #include "champ.h"
+#include "game.h"
 using namespace::std;
 
 
@@ -57,7 +58,10 @@ void setContactpoints();
 float friction_coeff;
 
 int sprite_nr;
+int sprite_index;
 bool sprite_error;
+bool destructible;
+bool destroyed;
 
 block(int x_pos, int y_pos, int palette, int type);
 block(int x_pos, int y_pos, int type);
@@ -66,6 +70,7 @@ block(int x_pos, int y_pos, int type);
 void setRender();
 int Relation_Spritenr_type(); // need to create a relation between position in all_sprites and type/index
 float setFriction(int type);
+void set_index();
 };
 
 extern vector<block> blocks;
@@ -84,7 +89,7 @@ class room_object {
 
     room_object(int *arr, int *arr_pal, int row, int col, int x_up, int x_low, int y_up, int y_low, int nr);
     room_object(int *arr, int row, int col, int x_up, int x_low, int y_up, int y_low, int nr);
-    room_object( string file, int x_up, int x_low, int y_up, int y_low, int nr);
+    room_object( string file, int room);
     ~room_object();
 
     void room_object_setup();
@@ -103,13 +108,13 @@ extern vector<room_object> room_objects;
 extern vector<room_portal> room_portals;
 
 
-void room_setup();
+void room_setup( game *parameter );
 
-void room_render_req(int roomnr);
+void room_render_req(int roomnr, game *parameter);
 
 void roomblocks_simple_deflection( int room, float x_f, float y_f, float &x_v, float &y_v );
 
-
+void roomblocks_attack_interaction( int room, vector<attack> &parameter );
 
 
 

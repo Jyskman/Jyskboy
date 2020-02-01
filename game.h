@@ -40,6 +40,7 @@ void setXYfactor();
 int x_factor, y_factor;
 
 int room_current;
+int room_max = 10; // 0 is a room
 int room_prev;
 int game_state_current;
 int physics_current;

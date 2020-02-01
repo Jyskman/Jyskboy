@@ -84,6 +84,8 @@ int a_y_pos;
 int a_x_vel;
 int a_y_vel;
 
+int mid_x, mid_y;
+
 bool destroy;
 
 vector<hitbox_object> attack_hitbox;

@@ -1143,6 +1143,41 @@ unsigned char ex_3_4[11 * 11 * 2 + 1] =
  "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
  "\377\377\377\377\377\377\377\377\377\377\377\377\377\377");
 
+ // very small explosion
+
+int ex_4_1_width = 6;
+int ex_4_1_height = 6;
+int ex_4_1_size = 6 * 6 * 2 + 1;
+unsigned char ex_4_1[6 * 6 * 2 + 1] =
+("\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377`"
+ "\372`\372\377\377\377\377\377\377`\372`\372\040\374\377\377\377\377`\372`\372"
+ "\040\374\040\374\377\377\377\377`\372\040\374\040\374\040\374\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377");
+
+int ex_4_2_width = 6;
+int ex_4_2_height = 6;
+int ex_4_2_size = 6 * 6 * 2 + 1;
+unsigned char ex_4_2[6 * 6 * 2 + 1] =
+("\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\040"
+ "\374\040\374\377\377\377\377\377\377\040\374\040\374`\376\377\377\377\377\040"
+ "\374\040\374`\376\377\377\377\377\377\377\040\374`\376\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377");
+
+int ex_4_3_width = 6;
+int ex_4_3_height = 6;
+int ex_4_3_size = 6 * 6 * 2 + 1;
+unsigned char ex_4_3[6 * 6 * 2 + 1] =
+("\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377`"
+ "\376`\376\377\377\377\377\377\377`\376\377\377\377\377\377\377\377\377`\376"
+ "\377\377\377\377\377\377\377\377\377\377`\376\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\377");
+
+
+
+
+
+
+
 // Particles
 
 int p_1_width = 3;
@@ -1358,6 +1393,26 @@ void setup_sprites(render& parameter) {
     sprite_pointers.push_back(ex4_3);
     delete ex4_3;
 
+    //Vsmall
+    sprite_objects * ex1_4 = new sprite_objects(30, (unsigned char*)ex_4_1 ,ex_4_1, ex_4_1_size, ex_4_1_width, ex_4_1_height,514);
+    all_sprites.push_back(*ex1_4);
+    sprite_pointers.push_back(ex1_4);
+    delete ex1_4;
+
+    sprite_objects * ex2_4 = new sprite_objects(31, (unsigned char*)ex_4_2 ,ex_4_2, ex_4_2_size, ex_4_2_width, ex_4_2_height,515);
+    all_sprites.push_back(*ex2_4);
+    sprite_pointers.push_back(ex2_4);
+    delete ex2_4;
+
+    sprite_objects * ex3_4 = new sprite_objects(32, (unsigned char*)ex_4_3 ,ex_4_3, ex_4_3_size, ex_4_3_width, ex_4_3_height,516);
+    all_sprites.push_back(*ex3_4);
+    sprite_pointers.push_back(ex3_4);
+    delete ex3_4;
+
+
+
+
+
     // particles , part of 400series
     sprite_objects * pp_1 = new sprite_objects(27, (unsigned char*)p_1 ,p_1, p_1_size, p_1_width, p_1_height,403);
     all_sprites.push_back(*pp_1);
@@ -1438,6 +1493,11 @@ parameter.load_sprite_data((unsigned char*)ex_3_1, ex_3_1_width, ex_3_1_height )
 parameter.load_sprite_data((unsigned char*)ex_3_2, ex_3_2_width, ex_3_2_height );
 parameter.load_sprite_data((unsigned char*)ex_3_3, ex_3_3_width, ex_3_3_height );
 parameter.load_sprite_data((unsigned char*)ex_3_4, ex_3_4_width, ex_3_4_height );
+
+parameter.load_sprite_data((unsigned char*)ex_4_1, ex_4_1_width, ex_4_1_height );
+parameter.load_sprite_data((unsigned char*)ex_4_2, ex_4_2_width, ex_4_2_height );
+parameter.load_sprite_data((unsigned char*)ex_4_3, ex_4_3_width, ex_4_3_height );
+
 
 // particles
 

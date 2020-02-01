@@ -236,7 +236,7 @@ vector<int> previous_x;
 RSV_setup(); // also height and width main properties
 vulnerability_setup();
 set_hitbox_set();
-
+destroy = false;
     switch (e_type) {
         case(1):
             main_v = 0.20;
@@ -612,7 +612,7 @@ void create_and_reset_enemies( int room_nr, vector<enemy>& parameter ) {
 
         if ( room_objects.at(room_nr).columns_storage.at(3).at(i)  > 0 ) {
 
-            enemy * new_enemy_1 = new enemy( room_objects.at(room_nr).columns_storage.at(3).at(i), room_objects.at(room_nr).columns_storage.at(4).at(i), room_objects.at(room_nr).columns_storage.at(4).at(i));
+            enemy * new_enemy_1 = new enemy( room_objects.at(room_nr).columns_storage.at(3).at(i), room_objects.at(room_nr).columns_storage.at(4).at(i), room_objects.at(room_nr).columns_storage.at(5).at(i));
             parameter.push_back( *new_enemy_1 );
             delete new_enemy_1;
             new_enemy_1 = 0;

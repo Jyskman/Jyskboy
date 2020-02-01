@@ -499,6 +499,17 @@ void attack::update_and_render() {
     // render
     // render_requests * obj = new render_requests(RSV.at(i).sprite_nr, RSV_x-x_mirror, RSV_y, palette_current,horisontal, vertical, rot);
 
+    mid_x = ( ( attack_hitbox.at(0).x_l_right + attack_hitbox.at(0).x_u_left ) / 2 ) + a_x_pos;
+    mid_y = ( ( attack_hitbox.at(0).y_l_right + attack_hitbox.at(0).y_u_left ) / 2 ) + a_y_pos;
+
+//    cout << "x_left " << a_x_pos + attack_hitbox.at(0).x_u_left <<
+//    "x_right " << a_x_pos + attack_hitbox.at(0).x_l_right <<
+//    "y_left " << a_y_pos + attack_hitbox.at(0).y_u_left <<
+//    "y_right " << a_y_pos + attack_hitbox.at(0).y_l_right <<
+//    "y_mid " << mid_y <<
+//    "x_mid " << mid_x << endl;
+
+
     render_requests * obj = new render_requests(a_type, a_x_pos, a_y_pos, 1, a_horisontal, a_vertical, a_rot);
     render_req.push_back(*obj);
     delete obj;
