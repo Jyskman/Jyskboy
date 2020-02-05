@@ -723,7 +723,7 @@ void game::game_main(){
         hero.setRender(buttons, physics_objects.at( physics_current ), room_current );
 
 
-        animations_run_render();
+        
 
         portals_run_render();
 
@@ -731,7 +731,7 @@ void game::game_main(){
         enemy_manager();
 
         room_render_req(room_current, this); // in environment
-
+		animations_run_render();
 
 
        roomblocks_attack_interaction(room_current, gameAttacks);
