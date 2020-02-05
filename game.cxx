@@ -722,7 +722,7 @@ void game::game_main(){
         }
         hero.setRender(buttons, physics_objects.at( physics_current ), room_current );
 
-        room_render_req(room_current, this); // in environment
+
         animations_run_render();
 
         portals_run_render();
@@ -730,7 +730,7 @@ void game::game_main(){
         // Enemy prototype
         enemy_manager();
 
-
+        room_render_req(room_current, this); // in environment
 
 
 

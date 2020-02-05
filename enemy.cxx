@@ -557,6 +557,7 @@ for ( int i = 0; i < RSV.size(); i++ ) {
                                     vertical = true;
                                     rot = 2;
                                 } else {
+									
                                 };
 
 
@@ -568,9 +569,10 @@ for ( int i = 0; i < RSV.size(); i++ ) {
 
                     };
 
+
                     RSV.at(i).RSV_x_store = RSV_x-x_mirror;
                     RSV.at(i).RSV_y_store = RSV_y;
-                    render_requests * obj = new render_requests(RSV.at(i).sprite_nr, RSV_x-x_mirror, RSV_y, palette_current,horisontal, vertical, rot);
+                    render_requests * obj = new render_requests( RSV.at(i).sprite_nr, RSV_x-x_mirror, RSV_y, palette_current,horisontal, vertical, rot);
                     render_req.push_back(*obj);
                     delete obj;
 
