@@ -608,7 +608,7 @@ void create_and_reset_enemies( int room_nr, vector<enemy>& parameter ) {
     parameter.clear();
 
 
-    for ( int i = 0; i < room_objects.at(room_nr).columns_storage.size()/room_objects.at(room_nr).column_items ; i++ ) {
+    for ( int i = 1; i < room_objects.at(room_nr).columns_storage.size()/room_objects.at(room_nr).column_items ; i++ ) {
 
         if ( room_objects.at(room_nr).columns_storage.at(3).at(i)  > 0 ) {
 
@@ -622,7 +622,6 @@ void create_and_reset_enemies( int room_nr, vector<enemy>& parameter ) {
 
 
     }
-
 
 
 
