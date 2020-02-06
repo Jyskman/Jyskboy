@@ -122,9 +122,10 @@ void enemy::set_hitbox_set() {
 
             for ( int i = 0; i < RSV.size() ; i++ ) {
 
-                hitbox_object * obj = new hitbox_object(0,0, all_sprites.at( RSV.at(i).sprite_nr ).getWidth(), all_sprites.at( RSV.at(i).sprite_nr ).getHeight() );
-                enemy_hitbox_set.push_back( *obj );
-                delete obj;
+                hitbox_object * obj_h = new hitbox_object(0,0, all_sprites.at( RSV.at(i).sprite_nr ).getWidth(), all_sprites.at( RSV.at(i).sprite_nr ).getHeight() );
+                enemy_hitbox_set.push_back( *obj_h );
+                delete obj_h;
+                obj_h = 0;
 
                 if ( RSV.at(i).use_special_offset == false ) {
                     center_x = all_sprites.at( RSV.at(i).sprite_nr ).getWidth() / 2;
@@ -575,6 +576,7 @@ for ( int i = 0; i < RSV.size(); i++ ) {
                     render_requests * obj = new render_requests( RSV.at(i).sprite_nr, RSV_x-x_mirror, RSV_y, palette_current,horisontal, vertical, rot);
                     render_req.push_back(*obj);
                     delete obj;
+                    obj = 0;
 
 
 

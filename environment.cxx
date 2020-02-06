@@ -127,13 +127,14 @@ switch (type) {
 return return_value;
 };
 
-void block::setRender(){
+void block::setRender_Block(){
 
     if ( sprite_error == false) {
-            render_requests * obj = new render_requests(sprite_nr, x_location, y_location, current_palette);
+            render_requests * obj_e = new render_requests(sprite_nr, x_location, y_location, current_palette);
 
-            render_req.push_back(*obj);
-            delete obj;
+            render_req.push_back(*obj_e);
+            delete obj_e;
+            obj_e = 0;
     } else {
     };
 
@@ -585,7 +586,7 @@ delete new_room2;
 
 };
 
-void room_render_req(int roomnr, game *parameter) {
+void room_render_req(int roomnr) {
 
     // remove dest room blocks
     room_objects.at(roomnr).roomblocks.erase(
@@ -598,7 +599,7 @@ void room_render_req(int roomnr, game *parameter) {
 
 for (int i = 0; i < room_objects.at(roomnr).roomblocks.size(); i++ ) {
 
-room_objects.at(roomnr).roomblocks.at(i).setRender();
+room_objects.at(roomnr).roomblocks.at(i).setRender_Block();
 };
 
 

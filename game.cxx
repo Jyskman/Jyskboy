@@ -589,8 +589,7 @@ void game::createAttacks(button_input& parameter) {
 // Enemy manager function
 void game::enemy_manager() {
 
-    //cout << game_room_switch() << endl;
-    // Room 2
+
     if ( (game_room_switch() == true) || initial_config == true ) {
 
 
@@ -606,8 +605,8 @@ void game::enemy_manager() {
         gameEnemys.at(i).setRender();
 
         gameEnemys.at(i).perception(hero);
-        gameEnemys.at(i).motion( physics_objects.at( physics_current ) ) ;
-
+        gameEnemys.at(i).motion( physics_objects.at( physics_current ) ) ;// here is error big
+		cout << gameEnemys.at(i).y_location << endl;
     }
 
 
@@ -728,9 +727,12 @@ void game::game_main(){
         portals_run_render();
 
         // Enemy prototype
-        enemy_manager();
 
-        room_render_req(room_current, this); // in environment
+
+
+        room_render_req(room_current); // in environment
+		enemy_manager();
+
 		animations_run_render();
 
 
