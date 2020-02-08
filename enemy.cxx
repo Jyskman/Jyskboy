@@ -52,6 +52,7 @@ float param_y = (float)center_y + (float)y_location;
 void enemy::motion( physics &parameter ) {
 
 //length = sqrt( ( x_1 - x_2 )*( x_1 - x_2 )+( y_1 - y_2 )*( y_1 - y_2 ) )
+
     switch ( enemy_type ) {
 
         case(1):
@@ -83,6 +84,9 @@ void enemy::motion( physics &parameter ) {
 
 
     };
+    
+    
+            
 
     parameter.calculate_velocity( y_v_float, x_v_float, 0.050, 1);
 
@@ -91,7 +95,7 @@ void enemy::motion( physics &parameter ) {
     y_location_prev = y_location;
 
 
-    //y_v_float = 0;
+    //~ y_v_float = 0;
     x_location = x_location + (int)x_v_float;
     y_location = y_location + (int)y_v_float;
 
@@ -230,6 +234,8 @@ enemy::enemy( int e_type, int start_x, int start_y) {
 
 x_location = start_x ;
 y_location = start_y ;
+y_v_float = 0;
+
 enemy_type = e_type;
 vector<hitbox_object> enemy_hitbox_set;
 vector<render_state> RSV;
@@ -552,13 +558,25 @@ for ( int i = 0; i < RSV.size(); i++ ) {
 
 
                     } else {
+						
+						
                         switch (enemy_type) {
                             case (1):
                                 if ( abs(y_v_float) > abs(x_v_float)  ) {
-                                    vertical = true;
+                                    
                                     rot = 2;
-                                } else {
+                                    
+                                    if ( (int)y_v_float < 0 ) {
+										horisontal = true;
+									} else {
+										horisontal = false;
+									};
 									
+										
+                                    
+                                    
+                                } else {
+									rot = 1;
                                 };
 
 

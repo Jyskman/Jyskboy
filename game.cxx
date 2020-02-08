@@ -186,6 +186,7 @@ animation_profiles.at(0).load_animate_sub_index_1(0);
 animation_profiles.at(0).load_animate_physics(false);
 animation_profiles.at(0).load_animate_duo(true);
 
+
 animation_profiles.at(0).load_animate_type(1); // type 1 simple
 //animation_profiles.at(0).load_animate_from_cycle(10);
 //animation_profiles.at(0).load_animate_to_cycle(20);
@@ -193,6 +194,7 @@ animation_profiles.at(0).load_animate_main_index(502);
 animation_profiles.at(0).load_animate_sub_index_1(0);
 animation_profiles.at(0).load_animate_physics(false);
 animation_profiles.at(0).load_animate_duo(true);
+
 
 animation_profiles.at(0).load_animate_type(1); // type 1 simple
 //animation_profiles.at(0).load_animate_from_cycle(20);
@@ -202,6 +204,7 @@ animation_profiles.at(0).load_animate_sub_index_1(0);
 animation_profiles.at(0).load_animate_physics(false);
 animation_profiles.at(0).load_animate_duo(true);
 
+
 animation_profiles.at(0).load_animate_type(1); // type 1 simple
 //animation_profiles.at(0).load_animate_from_cycle(30);
 //animation_profiles.at(0).load_animate_to_cycle(40);
@@ -210,6 +213,7 @@ animation_profiles.at(0).load_animate_sub_index_1(0);
 animation_profiles.at(0).load_animate_physics(false);
 animation_profiles.at(0).load_animate_duo(true);
 
+
 animation_profiles.at(0).load_animate_type(1); // type 1 simple
 //animation_profiles.at(0).load_animate_from_cycle(40);
 //animation_profiles.at(0).load_animate_to_cycle(50);
@@ -217,6 +221,7 @@ animation_profiles.at(0).load_animate_main_index(505);
 animation_profiles.at(0).load_animate_sub_index_1(0);
 animation_profiles.at(0).load_animate_physics(false);
 animation_profiles.at(0).load_animate_duo(true);
+
 
 // // // // // // // // // // // //
 //load the pattern of the second animation profile @0
@@ -600,13 +605,14 @@ void game::enemy_manager() {
     } else {
     }
 
+
     for ( int i = 0 ; i < gameEnemys.size() ; i++ ) {
         gameEnemys.at(i).resolve_damage( gameAttacks, hero );
         gameEnemys.at(i).setRender();
 
         gameEnemys.at(i).perception(hero);
         gameEnemys.at(i).motion( physics_objects.at( physics_current ) ) ;// here is error big
-		cout << gameEnemys.at(i).y_location << endl;
+
     }
 
 
@@ -726,7 +732,6 @@ void game::game_main(){
 
         portals_run_render();
 
-        // Enemy prototype
 
 
 

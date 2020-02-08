@@ -16,7 +16,10 @@ public:
 enemy(int e_type, int start_x, int start_y);
 
 int x_location, y_location, x_v_int, y_v_int, x_location_prev, y_location_prev;
-float x_float, y_float, x_v_float, y_v_float;
+float x_float, x_v_float;
+
+float y_v_float = 0;
+float y_float = 0;
 
 void perception(champ &parameter);
 void motion( physics &parameter );

@@ -111,6 +111,8 @@ contact_points[1][2] = all_sprites.at(sprite_nr).getHeight();
 contact_points[0][3] = all_sprites.at(sprite_nr).getWidth();
 contact_points[1][3] = all_sprites.at(sprite_nr).getHeight();
 
+
+
 };
 
 
@@ -127,7 +129,26 @@ switch (type) {
 return return_value;
 };
 
+void block::destruction() {
+		
+		int mid_x = x_location + contact_points[0][1]/2;
+		int mid_y = y_location + contact_points[1][2]/2;	
+	
+		if ( destroyed == true) {
+		animation_requests * anim = new animation_requests(11, mid_x, mid_y, 0, 0);
+		anime_req.push_back(*anim);
+		delete anim;
+		anim = 0;
+		} 
+		else {
+		};
+		
+	};
+
+
 void block::setRender_Block(){
+
+
 
     if ( sprite_error == false) {
             render_requests * obj_e = new render_requests(sprite_nr, x_location, y_location, current_palette);
@@ -282,17 +303,17 @@ column_items = 3; // redundant
     }
 //    int room_type, x, y;
 
-    for ( int j = 0; j < columns_storage.at(0).size() ; j++ ) {
-        //cout << columns_storage.at(0).at(j) << "_" << columns_storage.at(1).at(j) << "_" << columns_storage.at(2).at(j) << endl;
-        for ( int i = 0; i < column_items; i++ ) {
-//            cout << columns_storage.at(i).at(j) << "_ ";
+    //~ for ( int j = 0; j < columns_storage.at(0).size() ; j++ ) {
+        //~ //cout << columns_storage.at(0).at(j) << "_" << columns_storage.at(1).at(j) << "_" << columns_storage.at(2).at(j) << endl;
+        //~ for ( int i = 0; i < column_items; i++ ) {
+//~ //            cout << columns_storage.at(i).at(j) << "_ ";
 
-        }
-//        cout << "_" << endl;
+        //~ }
+//~ //        cout << "_" << endl;
 
 
-    }
-//    cout << "____" << endl;
+    //~ }
+//~ //    cout << "____" << endl;
 
     room_2.close();
 //    cout << " after close" << endl;
@@ -662,6 +683,7 @@ void roomblocks_attack_interaction( int room, vector<attack> &parameter ) {
                     // if block destructible destroyed will become true
                     if ( room_objects.at(room).roomblocks.at(i).destructible == true ) {
                         room_objects.at(room).roomblocks.at(i).destroyed = true;
+                        room_objects.at(room).roomblocks.at(i).destruction();
                     } else {
                     }
 

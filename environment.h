@@ -52,6 +52,8 @@ int y_location;
 int current_palette;
 int block_type;
 
+
+
 int contact_points[2][4];
 void setContactpoints();
 
@@ -71,6 +73,7 @@ void setRender_Block();
 int Relation_Spritenr_type(); // need to create a relation between position in all_sprites and type/index
 float setFriction(int type);
 void set_index();
+void destruction();
 };
 
 extern vector<block> blocks;
