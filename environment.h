@@ -6,6 +6,7 @@
 #include "render.h"
 #include "champ.h"
 #include "game.h"
+#include "roomblocks_properties.h"
 using namespace::std;
 
 
@@ -104,6 +105,7 @@ class room_object {
     int column_items;
 
     vector< vector<int> > columns_storage ;
+    vector< room_limits > limits ;
 
 };
 

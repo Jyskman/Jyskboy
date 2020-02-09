@@ -3,7 +3,7 @@
 #Change output_file_name.a below to your desired executible filename
 
 #Set all your object files (the object files of all the .c files in your project, e.g. main.o my_sub_functions.o )
-OBJ = main.o game.o render.o sprite_objects.o setup_sprites.o buttons.o soundmanager.o champ.o physics.o enemy.o environment.o
+OBJ = main.o game.o render.o sprite_objects.o setup_sprites.o buttons.o soundmanager.o champ.o physics.o enemy.o environment.o roomblocks_properties.o
 
 #Set any dependant header files so that if they are edited they cause a complete re-compile (e.g. main.h some_subfunctions.h some_definitions_file.h ), or leave blank
 DEPS = 

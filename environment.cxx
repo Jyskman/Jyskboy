@@ -520,6 +520,21 @@ room_object * new_room0 = new room_object( "room0.csv",0);
 room_objects.push_back( *new_room0 );
 delete new_room0;
 
+// for attempt limit development
+
+room_limits * new_lim_1 = new room_limits( 0, 0, 150, 240, 0, 0, 150, 240 );
+room_objects.at(0).limits.push_back( *new_lim_1 );
+delete new_lim_1;
+new_lim_1 = 0;
+
+room_limits * new_lim_2 = new room_limits( 150, 0, 200, 240, 150, 0, 1000, 240 );
+room_objects.at(0).limits.push_back( *new_lim_2 );
+delete new_lim_2;
+new_lim_2 = 0;
+
+// end dev
+
+
 //room_object * new_room2 = new room_object( (int*)room_2, room2_rows, room2_cols, room2_xlimit_upper, room2_xlimit_lower, room2_ylimit_upper, room2_ylimit_lower,1);
 room_object * new_room1 = new room_object( "room1.csv",1);
 room_objects.push_back( *new_room1 );

@@ -10,6 +10,7 @@
 #include <ctime>
 #include <vector>
 #include "enemy.h"
+#include "roomblocks_properties.h"
 using namespace std;
 
 class game {
@@ -61,6 +62,7 @@ void game_close();
 void game_fbp_clear();
 void game_frame();
 bool game_room_switch();
+void check_lim();
 
 // enemy functions
 

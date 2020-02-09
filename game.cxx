@@ -16,6 +16,7 @@
 #include <vector>
 
 
+
 #include "render.h"
 
 #include "champ.h"
@@ -712,6 +713,14 @@ void game::animations_run_render() {
 
 };
 
+// checklim function below
+void game::check_lim() {
+
+//~ cout << "lim check" << room_objects.at(room_current).limits.at(0).x_down_right << endl;
+
+	
+	
+};
 
 
 void game::game_main(){
@@ -726,6 +735,7 @@ void game::game_main(){
 
         }
         hero.setRender(buttons, physics_objects.at( physics_current ), room_current );
+		check_lim();
 
 
         
