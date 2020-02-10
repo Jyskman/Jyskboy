@@ -307,6 +307,11 @@ void render::determine_current_offset(champ& parameter, int roomnr){
 offset_parameter_x_left = 140;
 offset_parameter_x_right= (320-offset_parameter_x_left);
 
+cout << "start" << endl;
+cout << room_objects.at(roomnr).xlim_low << room_objects.at(roomnr).ylim_low << room_objects.at(roomnr).xlim_up << room_objects.at(roomnr).ylim_up << endl;
+cout << room_objects.at(roomnr).xlim_low_set << room_objects.at(roomnr).ylim_low_set << room_objects.at(roomnr).xlim_up_set << room_objects.at(roomnr).ylim_up_set << endl;
+cout << "end" << endl;
+
 //current_x_offset = parameter.getX() - ( room_objects.at(roomnr).xlim_low + offset_parameter_x_left );
 current_x_offset = room_objects.at(roomnr).xlim_low + ( parameter.getX() - offset_parameter_x_left - room_objects.at(roomnr).xlim_low  );
     if ( parameter.getX() < ( room_objects.at(roomnr).xlim_low + offset_parameter_x_left ) ) {

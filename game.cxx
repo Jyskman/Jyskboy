@@ -718,6 +718,34 @@ void game::check_lim() {
 
 //~ cout << "lim check" << room_objects.at(room_current).limits.at(0).x_down_right << endl;
 
+	for (int i = 0; i < room_objects.at(room_current).limits.size(); i++) {
+		
+		// if inside x-bounds
+		if ( hero.x_location > room_objects.at(room_current).limits.at(i).x_down_left && hero.x_location < room_objects.at(room_current).limits.at(i).x_up_right  ) {
+			// if inside y bound
+			if ( hero.y_location > room_objects.at(room_current).limits.at(i).y_down_left && hero.y_location < room_objects.at(room_current).limits.at(i).y_up_right ) {
+				//~ cout << "trigger" << endl;
+				//~ the set lim values will be set to that of the lim box identified by this condition
+				room_objects.at(room_current).xlim_low_set = room_objects.at(room_current).limits.at(i).x_down_left_set;
+				room_objects.at(room_current).ylim_low_set = room_objects.at(room_current).limits.at(i).y_down_left_set;
+				room_objects.at(room_current).xlim_up_set = room_objects.at(room_current).limits.at(i).x_up_right_set;
+				room_objects.at(room_current).ylim_up_set = room_objects.at(room_current).limits.at(i).y_up_right_set;
+				
+				
+			} else {
+			};
+			
+			
+			
+		} else {
+		
+
+		};
+		
+		
+	}
+	
+	
 	
 	
 };

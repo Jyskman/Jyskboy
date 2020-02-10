@@ -87,6 +87,9 @@ class room_object {
     string name;
     int rows, cols;
     int xlim_up, xlim_low, ylim_up, ylim_low;
+    
+    int xlim_up_set, xlim_low_set, ylim_up_set, ylim_low_set;
+    
     int *adress;
     int *adress_pal;
     vector<block> roomblocks;
