@@ -110,6 +110,8 @@ class room_object {
     vector< vector<int> > columns_storage ;
     vector< room_limits > limits ;
 
+	void update_limits( int xoff, int yoff );
+
 };
 
 extern vector<room_object> room_objects;

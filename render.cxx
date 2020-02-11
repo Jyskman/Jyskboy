@@ -312,6 +312,14 @@ cout << room_objects.at(roomnr).xlim_low << room_objects.at(roomnr).ylim_low << 
 cout << room_objects.at(roomnr).xlim_low_set << room_objects.at(roomnr).ylim_low_set << room_objects.at(roomnr).xlim_up_set << room_objects.at(roomnr).ylim_up_set << endl;
 cout << "end" << endl;
 
+
+
+
+
+
+
+
+
 //current_x_offset = parameter.getX() - ( room_objects.at(roomnr).xlim_low + offset_parameter_x_left );
 current_x_offset = room_objects.at(roomnr).xlim_low + ( parameter.getX() - offset_parameter_x_left - room_objects.at(roomnr).xlim_low  );
     if ( parameter.getX() < ( room_objects.at(roomnr).xlim_low + offset_parameter_x_left ) ) {
@@ -342,6 +350,10 @@ if (parameter.getY() > (room_objects.at(roomnr).ylim_up -  offset_parameter_y_up
     current_y_offset = room_objects.at(roomnr).ylim_up - offset_parameter_y_low - offset_parameter_y_up;
 } else {
 }
+
+
+
+room_objects.at(roomnr).update_limits( current_x_offset, current_y_offset );
 
 };
 

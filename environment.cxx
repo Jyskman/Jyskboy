@@ -351,6 +351,87 @@ void room_object::create_blocks() {
 
 };
 
+// update the limits for the render function 
+
+void room_object::update_limits( int xoff, int yoff ) {
+	int v = 3;
+	
+	//~ update the x lims
+	
+	if ( xlim_low < xlim_low_set ) {
+		xlim_low += v;
+	} else {
+	};
+	
+	if ( xlim_low > xlim_low_set ) {
+		xlim_low -= v;
+	} else {
+	};	
+	
+	if ( xlim_up < xlim_up_set ) {
+		xlim_up += v;
+		if ( xlim_up > (xoff+320+10) ) {
+			xlim_up = xoff+320+10;
+		} else {
+		};
+	} else {
+	};
+	
+	if ( xlim_up > xlim_up_set ) {
+		xlim_up -= v;
+	} else {
+	};	
+	
+	
+	
+		//~ update the y lims
+	
+	if ( ylim_low < ylim_low_set ) {
+		ylim_low += v;
+	} else {
+	};
+	
+	if ( ylim_low > ylim_low_set ) {
+		ylim_low -= v;
+	} else {
+	};	
+	
+	if ( ylim_up < ylim_up_set ) {
+		ylim_up += v;
+	} else {
+	};
+	
+	if ( ylim_up > ylim_up_set ) {
+		ylim_up -= v;
+	} else {
+	};
+	
+	// set the lims if proximity is below value
+
+	if ( abs( abs(xlim_low) - abs(xlim_low_set) ) < v ) {
+		xlim_low = xlim_low_set;
+	} else {
+	};
+	
+	if ( abs( abs(xlim_up) - abs(xlim_up_set) ) < v ) {
+		xlim_up = xlim_up_set;
+	} else {
+	};
+	//y
+	if ( abs( abs(ylim_low) - abs(ylim_low_set) ) < v ) {
+		ylim_low = ylim_low_set;
+	} else {
+	};
+	
+	if ( abs( abs(ylim_up) - abs(ylim_up_set) ) < v ) {
+		ylim_up = ylim_up_set;
+	} else {
+	};
+	
+	
+	
+};
+
 
 
 
