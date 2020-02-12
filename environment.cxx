@@ -359,26 +359,43 @@ void room_object::update_limits( int xoff, int yoff ) {
 	//~ update the x lims
 	
 	if ( xlim_low < xlim_low_set ) {
-		xlim_low += v;
+		if ( xlim_up > (xoff + 0 + 0) ) {
+
+		} else {
+
+			xlim_up += v;
+		};
 	} else {
 	};
 	
 	if ( xlim_low > xlim_low_set ) {
-		xlim_low -= v;
+		if ( xlim_up < (xoff + 0 + 0) ) {
+
+		} else {
+
+			xlim_up -= v;
+		};
 	} else {
 	};	
 	
 	if ( xlim_up < xlim_up_set ) {
-		xlim_up += v;
-		if ( xlim_up > (xoff+320+10) ) {
-			xlim_up = xoff+320+10;
+		// if the xlim up is over a certain level of x offset, it will not go to the setpoint. here lev is 0
+		if ( xlim_up > (xoff+320 + 0) ) {
+
 		} else {
+			// If it is below this level it will progress towards setpoint
+			xlim_up += v;
 		};
 	} else {
 	};
 	
 	if ( xlim_up > xlim_up_set ) {
-		xlim_up -= v;
+		if ( xlim_up < (xoff+320 + 0) ) {
+
+		} else {
+
+			xlim_up -= v;
+		};
 	} else {
 	};	
 	
@@ -387,22 +404,42 @@ void room_object::update_limits( int xoff, int yoff ) {
 		//~ update the y lims
 	
 	if ( ylim_low < ylim_low_set ) {
-		ylim_low += v;
+		if ( ylim_low > (yoff + 0 + 0) ) {
+
+		} else {
+
+			ylim_low += v;
+		};
 	} else {
 	};
 	
 	if ( ylim_low > ylim_low_set ) {
-		ylim_low -= v;
+		if ( ylim_low < (yoff + 0 + 0) ) {
+
+		} else {
+
+			ylim_low -= v;
+		};
 	} else {
 	};	
 	
 	if ( ylim_up < ylim_up_set ) {
-		ylim_up += v;
+		if ( ylim_up > (yoff + 240 + 0) ) {
+
+		} else {
+
+			ylim_up += v;
+		};
 	} else {
 	};
 	
 	if ( ylim_up > ylim_up_set ) {
-		ylim_up -= v;
+		if ( ylim_up < (yoff + 240 + 0) ) {
+
+		} else {
+
+			ylim_up -= v;
+		};
 	} else {
 	};
 	
