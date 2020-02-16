@@ -656,7 +656,7 @@ room_objects.at(0).limits.push_back( *new_lim_2 );
 delete new_lim_2;
 new_lim_2 = 0;
 
-room_limits * new_lim_3 = new room_limits( 375, 250, 1000, 600, 375, 0, 1000, 615 );
+room_limits * new_lim_3 = new room_limits( 360, 240, 1000, 600, 375, 0, 1000, 615 );
 room_objects.at(0).limits.push_back( *new_lim_3 );
 delete new_lim_3;
 new_lim_3 = 0;

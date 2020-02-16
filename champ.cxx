@@ -529,7 +529,7 @@ roof_contact = false;
 contact_left = false;
 contact_right = false;
 contact_roof = false;
-
+grab = false;
 
 
 for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
@@ -646,7 +646,8 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                             int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
 
                                 if ( contact_points_all[1][2]  + getY() >= P4_y && contact_points_all[1][2]  + getY() <= P3_y && contact_points_all[0][2] + getX() >= P3_x && contact_points_all[0][2] + getX() <= P4_x ) {
-
+								
+								grab = true;
                                 // champ pos
                                 float x_1 = x_location + width ;
                                 float y_1 = y_location ;
@@ -937,6 +938,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
 
                                     //cout << P4_x << "_" << getX() << endl;
                                     if ( contact_points_all[1][7]  + getY() >= P4_y && contact_points_all[1][7]  + getY() <= P3_y && contact_points_all[0][7] + getX() >= P3_x && contact_points_all[0][7] + getX() <= P4_x ) {
+                                    grab = true;
                                     //champ pos
                                     float x_1 = x_location ;
                                     float y_1 = y_location ;
@@ -1226,8 +1228,14 @@ void champ::setPos(button_input& parameter, physics& physics_parameter){
     } else {
     }
 
+	// will try the grab thing here
+	if ( grab == true && parameter.getRightState() == true ) {
+		y_vel = 0;
+	} else {
+	};
+	
 
-
+	//
 
 
     if (floor_contact == true) {
