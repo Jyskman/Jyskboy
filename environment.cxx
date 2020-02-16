@@ -354,7 +354,7 @@ void room_object::create_blocks() {
 // update the limits for the render function 
 
 void room_object::update_limits( int xoff, int yoff ) {
-	int v = 3;
+	int v = 6;
 	
 	//~ update the x lims
 	
@@ -646,15 +646,25 @@ delete new_room0;
 
 // for attempt limit development
 
-room_limits * new_lim_1 = new room_limits( 0, 0, 150, 240, 0, 0, 320, 240 );
+room_limits * new_lim_1 = new room_limits( 0, 0, 320, 240, 0, 0, 320, 240 );
 room_objects.at(0).limits.push_back( *new_lim_1 );
 delete new_lim_1;
 new_lim_1 = 0;
 
-room_limits * new_lim_2 = new room_limits( 200, 0, 320, 240, 0, 0, 1000, 240 );
+room_limits * new_lim_2 = new room_limits( 320, 0, 1000, 240, 0, 0, 1000, 240 );
 room_objects.at(0).limits.push_back( *new_lim_2 );
 delete new_lim_2;
 new_lim_2 = 0;
+
+room_limits * new_lim_3 = new room_limits( 375, 250, 1000, 600, 375, 0, 1000, 615 );
+room_objects.at(0).limits.push_back( *new_lim_3 );
+delete new_lim_3;
+new_lim_3 = 0;
+
+//~ room_limits * new_lim_4 = new room_limits( 0, 380, 360, 600, 0, 380, 360, 600 );
+//~ room_objects.at(0).limits.push_back( *new_lim_4 );
+//~ delete new_lim_4;
+//~ new_lim_4 = 0;
 
 // end dev
 
