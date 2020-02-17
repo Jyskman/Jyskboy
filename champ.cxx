@@ -33,6 +33,10 @@ jump_counter = 1;
 current_gun = 0;
 //internal = &render_req;
 //setContactPoints();
+grab_left = false;
+grab_right = false;
+grab_lock = false;
+
 
 };
 
@@ -529,7 +533,7 @@ roof_contact = false;
 contact_left = false;
 contact_right = false;
 contact_roof = false;
-grab = false;
+
 
 
 for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
@@ -647,7 +651,11 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
 
                                 if ( contact_points_all[1][2]  + getY() >= P4_y && contact_points_all[1][2]  + getY() <= P3_y && contact_points_all[0][2] + getX() >= P3_x && contact_points_all[0][2] + getX() <= P4_x ) {
 								
-								grab = true;
+									if ( current_sprite_direction == true ) {
+										grab_right = true;
+									} else {
+									}
+								
                                 // champ pos
                                 float x_1 = x_location + width ;
                                 float y_1 = y_location ;
@@ -938,7 +946,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
 
                                     //cout << P4_x << "_" << getX() << endl;
                                     if ( contact_points_all[1][7]  + getY() >= P4_y && contact_points_all[1][7]  + getY() <= P3_y && contact_points_all[0][7] + getX() >= P3_x && contact_points_all[0][7] + getX() <= P4_x ) {
-                                    grab = true;
+                                    grab_left = true;
                                     //champ pos
                                     float x_1 = x_location ;
                                     float y_1 = y_location ;
@@ -1228,15 +1236,6 @@ void champ::setPos(button_input& parameter, physics& physics_parameter){
     } else {
     }
 
-	// will try the grab thing here
-	if ( grab == true && parameter.getRightState() == true ) {
-		y_vel = 0;
-	} else {
-	};
-	
-
-	//
-
 
     if (floor_contact == true) {
         y_vel = y_vel + physics_parameter.new_g;
@@ -1321,13 +1320,66 @@ void champ::updateV(button_input& parameter, physics& physics_parameter){
             }
             // y axis
 
-            physics_parameter.calculate_velocity( y_vel , x_velocity, champ_area, 4.00);
+            
+			physics_parameter.calculate_velocity( y_vel , x_velocity, champ_area, 4.00);
+						
+			// will try the grab thing here
+			if ( grab_right == true && parameter.getRightState() == true && y_vel > 0.00 && grab_lock == false) {
+				grab_lock = true;
+				jump_counter++;
+				
+			} else {
+
+			};
+			if ( grab_left == true && parameter.getLeftState() == true && y_vel > 0.00 && grab_lock == false) {
+				grab_lock = true;
+				jump_counter++;
+				
+			} else {
+
+			};
+			
+			if ( grab_lock == true ) { 
+				y_vel = 0;
+				x_velocity = 0;
+				
+				if ( parameter.getLeftState() == true ) {
+					current_sprite_direction = false;
+				} else {
+				};
+				if ( parameter.getRightState() == true ) {
+					current_sprite_direction = true;
+				} else {
+				};
+				
+			} else {
+
+			};
+			
+
+			//
+
+
 
             if (parameter.getJumpState() == true && jump_counter > 0) { ///
                 jump_counter--;
 
                 y_vel = y_vel -10;
                 floor_contact = false;
+                
+                // if grab is true
+                if ( grab_right == true) {
+					x_velocity = x_velocity - 5;
+					grab_lock = false; 
+					grab_right = false;
+				} else {
+				};
+				if ( grab_left == true) {
+					x_velocity = x_velocity + 5;
+					grab_lock = false; 
+					grab_left = false;
+				} else {
+				};
 
             }
 

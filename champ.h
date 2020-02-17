@@ -44,7 +44,7 @@ bool roof_contact;
 int gun_direction;
 int jump_counter;
 
-bool grab;
+bool grab_left, grab_right, grab_lock;
 
 bool current_sprite_direction = true; // true is right orientation
 bool current_sprite_v_direction = true; // true is oriented up, as sprite is drawn
