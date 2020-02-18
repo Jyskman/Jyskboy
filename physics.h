@@ -179,6 +179,11 @@ int use_special_index;
 
 int RSV_x_store, RSV_y_store;
 
+
+// For advanced loader 
+bool Advanced;  
+bool grab;
+
 };
 
 

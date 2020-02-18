@@ -212,11 +212,11 @@ for ( int i = 0; i < RSV.size(); i++ ) {
 //
     bool animate = true;
     bool fc = floor_contact;
-    bool gc = general_contact;
+    bool gc = general_contact; // maybe redundanty
     int in = internal_state;
     int g = gun_direction;
     bool r = roof_contact;
-
+   
     int x_mirror = 0;
     int RSV_x, RSV_y;
 
@@ -227,7 +227,7 @@ for ( int i = 0; i < RSV.size(); i++ ) {
     int rand_v_x = 0;
     int rand_v_y = 0;
 
-    if ( (RSV.at(i).f_1 == fc || RSV.at(i).f_2 == fc) && (RSV.at(i).gu_1 == g || RSV.at(i).gu_2 == g || RSV.at(i).gu_3 == g || RSV.at(i).gu_4 == g || RSV.at(i).gu_5 == g) && ( RSV.at(i).int_1 == in || RSV.at(i).int_2 == in || RSV.at(i).int_3 == in || RSV.at(i).int_4 == in || RSV.at(i).int_5 == in || RSV.at(i).int_6 == in || RSV.at(i).int_7 == in ) ) {
+    if ( (RSV.at(i).w_1 == grab_lock || RSV.at(i).w_2 == grab_lock) && (RSV.at(i).f_1 == fc || RSV.at(i).f_2 == fc) && (RSV.at(i).gu_1 == g || RSV.at(i).gu_2 == g || RSV.at(i).gu_3 == g || RSV.at(i).gu_4 == g || RSV.at(i).gu_5 == g) && ( RSV.at(i).int_1 == in || RSV.at(i).int_2 == in || RSV.at(i).int_3 == in || RSV.at(i).int_4 == in || RSV.at(i).int_5 == in || RSV.at(i).int_6 == in || RSV.at(i).int_7 == in ) ) {
     vertical = current_sprite_v_direction;
     horisontal = current_sprite_direction;
     rot = 1;
@@ -430,6 +430,25 @@ for ( int i = 0; i < RSV.size(); i++ ) {
 
                     } else {
                     }
+
+
+					// Grab settings
+					if ( RSV.at(i).grab == true ) {
+						
+						if ( grab_right == true ) {
+							horisontal = true;
+							x_mirror = 0;
+						} else {
+						}
+						if ( grab_left == true ) {
+							horisontal = false;
+							x_mirror = 2*(RSV.at(i).x_off - width/2) + all_sprites.at(RSV.at(i).sprite_nr).getWidth()-1;
+						} else {
+						}
+						
+					} else {
+					};
+
 
 
                     if ( animate == true ) {
@@ -1499,6 +1518,20 @@ void champ_setup(champ &parameter) {
     render_state * state_1_8 = new render_state(true,false, true, true, false, true, false, 4, 4, 4, 4, 4, 1, 2, 3, 4, 5, 6, 7, 11, 10, 106 );
     parameter.RSV.push_back(*state_1_8);
     delete state_1_8;
+    
+    //Grab
+	render_state * state_grab = new render_state(true, false, true, true, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 20, 0, 117 );
+	state_grab->Advanced = true;
+	state_grab->grab = true;
+    parameter.RSV.push_back(*state_grab);
+    delete state_grab;
+    
+    
+    
+    
+    
+    
+    
 //    render_state * state_1_5 = new render_state(false, true, true, false, true, false, 2, 2, 2, 1, 2, 3, 4, 12, -12, 105 );
 //    parameter.RSV.push_back(*state_1_5);
 //    delete state_1_5;

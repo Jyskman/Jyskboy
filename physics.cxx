@@ -571,7 +571,7 @@ render_state::render_state( bool floor_contact, int sprite_index) {
 
 x_off = 0;
 y_off = 0;
-
+Advanced = false;
         for (int i=0; i < all_sprites.size(); i++) {
             if ( all_sprites.at(i).sprite_index == index ) {
                 sprite_nr = i;
@@ -593,7 +593,7 @@ f_2 = f_c2;
 w_1 = w_c1;
 w_2 = w_c2;
 r_1 = r_c1;
-r_2 = w_c2;
+r_2 = r_c2;
 
 gu_1 = g_1;
 gu_2 = g_2;
@@ -611,7 +611,7 @@ int_7 = i_7;
 
 is_g = false;
 use_special_offset = false;
-
+Advanced = false;
 x_off = x_offset;
 y_off = y_offset;
 index = sprite_index;
@@ -656,7 +656,7 @@ int_6 = i_6;
 int_7 = i_7;
 
 is_g = is_gun;
-
+Advanced = false;
 x_off = x_offset;
 y_off = y_offset;
 index = sprite_index;
@@ -702,7 +702,7 @@ int_6 = i_6;
 int_7 = i_7;
 
 is_g = is_gun;
-
+Advanced = false;
 x_off = x_offset;
 y_off = y_offset;
 index = sprite_index;

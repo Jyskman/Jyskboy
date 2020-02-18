@@ -1202,6 +1202,30 @@ unsigned char p_3[6 * 6 * 2 + 1] =
  "\377\377\377\377\377\377\377\377\377\377\377");
 
 
+// Champ hand for grabbing
+int champ_hand_width = 8;
+int champ_hand_height = 15;
+int champ_hand_size = 8 * 15 * 2 + 1;
+unsigned char champ_hand[8 * 15 * 2 + 1] =
+("\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\241\273\241\273\241\273\377\377\377\377\377\377\377\377"
+ "\241\273\241\273\210\355\210\355\377\377\377\377\377\377\241\273\241\273\210"
+ "\355\377\377\377\377\377\377\377\377\241\273\241\273\241\273\210\355\377\377"
+ "\377\377\377\377\377\377\241\273\241\273\210\355\377\377\377\377\377\377\377"
+ "\377\377\377\241\273\210\355\241\273\241\273\377\377\210\355\377\377\377\377"
+ "\241\273\210\355.\366.\366\241\273\241\273\377\377\377\377\241\273\210\355"
+ ".\366.\366\241\273\241\273\377\377\377\377\241\273\210\355.\366.\366.\366"
+ "\241\273\377\377\377\377\241\273\210\355.\366.\366.\366\241\273\377\377\377"
+ "\377\241\273\210\355.\366.\366\241\273\241\273\377\377\377\377\241\273\241"
+ "\273\241\273\241\273\241\273\241\273\377\377\377\377\377\377\241\273\241\273"
+ "\241\273\241\273\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377");
+
+
+
+
+
+
 std::vector<sprite_objects> all_sprites;
 std::vector<sprite_objects*> sprite_pointers;
 
@@ -1429,6 +1453,12 @@ void setup_sprites(render& parameter) {
     sprite_pointers.push_back(pp_3);
     delete pp_3;
 
+	// Champ hand grab
+    sprite_objects * champ_hand_1 = new sprite_objects(61, (unsigned char*)champ_hand ,champ_hand, champ_hand_size, champ_hand_width, champ_hand_height,117);
+    all_sprites.push_back(*champ_hand_1);
+    sprite_pointers.push_back(champ_hand_1);
+    delete champ_hand_1;
+
 
 
     for (int i = 0; i < all_sprites.size(); i++) {
@@ -1504,5 +1534,9 @@ parameter.load_sprite_data((unsigned char*)ex_4_3, ex_4_3_width, ex_4_3_height )
 parameter.load_sprite_data((unsigned char*)p_1, p_1_width, p_1_height );
 parameter.load_sprite_data((unsigned char*)p_2, p_2_width, p_2_height );
 parameter.load_sprite_data((unsigned char*)p_3, p_3_width, p_3_height );
+
+// Champ hand
+parameter.load_sprite_data((unsigned char*)champ_hand, champ_hand_width, champ_hand_height );
+
 
 };
