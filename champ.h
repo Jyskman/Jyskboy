@@ -30,6 +30,7 @@ int render_req_mode = 2;
 // hitbox contactpoints
 int contact_points_all[2][12];
 
+
 int internal_state;
 int current_gun;
 int current_gun_sprite_nr;
@@ -43,6 +44,8 @@ bool floor_contact;
 bool roof_contact;
 int gun_direction;
 int jump_counter;
+int jump_counter_set;
+int jump_v;
 
 bool grab_left, grab_right, grab_lock;
 

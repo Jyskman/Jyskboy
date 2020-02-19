@@ -37,6 +37,8 @@ grab_left = false;
 grab_right = false;
 grab_lock = false;
 
+jump_counter_set = 4;
+jump_v = 3;
 
 };
 
@@ -553,6 +555,11 @@ contact_left = false;
 contact_right = false;
 contact_roof = false;
 
+if (grab_lock == false) {
+	grab_right = false;
+	grab_left = false;
+} else {
+}
 
 
 for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
@@ -618,7 +625,8 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                         if ( contact_points_all[1][0]  + getY() >= P4_y && contact_points_all[1][0]  + getY() < P3_y && contact_points_all[0][0] + getX() >= P3_x && contact_points_all[0][0] + getX() <= P4_x ) {
                         //cout << " floor " << endl;
                         floor_contact = true;
-                        jump_counter = 1;
+                        //jump_counter = 1;
+                        jump_counter = jump_counter_set;
 
                         y_vel = 0;
                             while ( contact_points_all[1][0]  + getY() >= P4_y ){
@@ -931,7 +939,8 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                             floor_contact = true;
 
                                             y_vel = 0;
-                                            jump_counter = 1;
+                                            //jump_counter = 1;
+                                            jump_counter = jump_counter_set;
                                         } else {
                                         }
 
@@ -1205,7 +1214,8 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                             floor_contact = true;
 
                                             y_vel = 0;
-                                            jump_counter = 1;
+                                            //jump_counter = 1;
+                                            jump_counter = jump_counter_set;
 
                                         } else {
                                         }
@@ -1343,16 +1353,19 @@ void champ::updateV(button_input& parameter, physics& physics_parameter){
 			physics_parameter.calculate_velocity( y_vel , x_velocity, champ_area, 4.00);
 						
 			// will try the grab thing here
-			if ( grab_right == true && parameter.getRightState() == true && y_vel > 0.00 && grab_lock == false) {
+			cout << floor_contact << endl;
+			if ( grab_right == true && parameter.getRightState() == true && y_vel > 1.00 && grab_lock == false && floor_contact == false) {
 				grab_lock = true;
-				jump_counter++;
+				//jump_counter++;
+				jump_counter = jump_counter_set;
 				
 			} else {
 
 			};
-			if ( grab_left == true && parameter.getLeftState() == true && y_vel > 0.00 && grab_lock == false) {
+			if ( grab_left == true && parameter.getLeftState() == true && y_vel > 1.00 && grab_lock == false && floor_contact == false) {
 				grab_lock = true;
-				jump_counter++;
+				//jump_counter++;
+				jump_counter = jump_counter_set;
 				
 			} else {
 
@@ -1383,17 +1396,18 @@ void champ::updateV(button_input& parameter, physics& physics_parameter){
             if (parameter.getJumpState() == true && jump_counter > 0) { ///
                 jump_counter--;
 
-                y_vel = y_vel -10;
+                //y_vel = y_vel -10;
+                y_vel = y_vel - jump_v;
                 floor_contact = false;
                 
                 // if grab is true
-                if ( grab_right == true) {
+                if ( grab_right == true && grab_lock == true) {
 					x_velocity = x_velocity - 5;
 					grab_lock = false; 
 					grab_right = false;
 				} else {
 				};
-				if ( grab_left == true) {
+				if ( grab_left == true && grab_lock == true ) {
 					x_velocity = x_velocity + 5;
 					grab_lock = false; 
 					grab_left = false;
