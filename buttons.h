@@ -37,6 +37,8 @@ bool getRightState();
 bool getStartState();
 bool getSelectState();
 
+bool getJumpstate_justpressed();
+bool getJumpstate_justreleased();
 
 void printAll();
 };

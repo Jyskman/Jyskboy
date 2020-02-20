@@ -46,6 +46,8 @@ int gun_direction;
 int jump_counter;
 int jump_counter_set;
 int jump_v;
+int nr_of_jumps_set;
+int nr_of_jumps;
 
 bool grab_left, grab_right, grab_lock;
 

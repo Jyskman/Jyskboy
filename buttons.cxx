@@ -98,6 +98,31 @@ bool button_input::getJumpState(){
 
 };
 
+bool button_input::getJumpstate_justpressed() {
+	
+	if( button_array[2][2] == 1 && button_array[3][2] == 0 ) {
+		return true;
+	} else {
+		return false;
+	};
+	
+	
+	
+};
+
+bool button_input::getJumpstate_justreleased() {
+	
+	if( button_array[2][2] == 0 && button_array[3][2] == 1 ) {
+		return true;
+	} else {
+		return false;
+	};
+	
+	
+	
+};
+
+
 bool button_input::getShootState(){
 
 

@@ -37,8 +37,9 @@ grab_left = false;
 grab_right = false;
 grab_lock = false;
 
-jump_counter_set = 4;
+jump_counter_set = 6;
 jump_v = 3;
+nr_of_jumps_set = 2;
 
 };
 
@@ -627,6 +628,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                         floor_contact = true;
                         //jump_counter = 1;
                         jump_counter = jump_counter_set;
+                        nr_of_jumps = nr_of_jumps_set;
 
                         y_vel = 0;
                             while ( contact_points_all[1][0]  + getY() >= P4_y ){
@@ -941,6 +943,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                             y_vel = 0;
                                             //jump_counter = 1;
                                             jump_counter = jump_counter_set;
+                                            nr_of_jumps = nr_of_jumps_set;
                                         } else {
                                         }
 
@@ -1216,6 +1219,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                             y_vel = 0;
                                             //jump_counter = 1;
                                             jump_counter = jump_counter_set;
+                                            nr_of_jumps = nr_of_jumps_set;
 
                                         } else {
                                         }
@@ -1353,11 +1357,12 @@ void champ::updateV(button_input& parameter, physics& physics_parameter){
 			physics_parameter.calculate_velocity( y_vel , x_velocity, champ_area, 4.00);
 						
 			// will try the grab thing here
-			cout << floor_contact << endl;
+			//~ cout << floor_contact << endl;
 			if ( grab_right == true && parameter.getRightState() == true && y_vel > 1.00 && grab_lock == false && floor_contact == false) {
 				grab_lock = true;
 				//jump_counter++;
 				jump_counter = jump_counter_set;
+				nr_of_jumps = nr_of_jumps_set;
 				
 			} else {
 
@@ -1366,6 +1371,7 @@ void champ::updateV(button_input& parameter, physics& physics_parameter){
 				grab_lock = true;
 				//jump_counter++;
 				jump_counter = jump_counter_set;
+				nr_of_jumps = nr_of_jumps_set;
 				
 			} else {
 
@@ -1389,12 +1395,23 @@ void champ::updateV(button_input& parameter, physics& physics_parameter){
 			};
 			
 
-			//
+			// jumpstuff
 
 
-
-            if (parameter.getJumpState() == true && jump_counter > 0) { ///
+			
+            if (parameter.getJumpState() == true && jump_counter >= 0 && nr_of_jumps > 0) { ///
                 jump_counter--;
+                //~ if (jump_counter == 0) {
+					//~ nr_of_jumps--;
+					
+					//~ if ( nr_of_jumps > 0 ) {
+						//~ jump_counter = jump_counter_set;
+					//~ } else {
+					//~ }
+					
+				//~ } else{
+				//~ }
+                
 
                 //y_vel = y_vel -10;
                 y_vel = y_vel - jump_v;
@@ -1415,6 +1432,17 @@ void champ::updateV(button_input& parameter, physics& physics_parameter){
 				};
 
             }
+            
+            // decrease jumpnr
+            if ( parameter.getJumpstate_justreleased() == true && floor_contact == false && grab_lock == false ) {
+				nr_of_jumps--;
+					if ( nr_of_jumps > 0 ) {
+						jump_counter = jump_counter_set;
+					} else {
+					}
+			} else {
+			}; 
+            
 
             // Dev
             if ( parameter.getUpState() == true ) {
