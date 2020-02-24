@@ -230,17 +230,46 @@ room_nr = nr;
 
 void room_object::set_limits() {
 
-// For a static room you add 320 resp 240 to the low value of x and y eg xlim 0 -> xlim uo 320
+	// For a static room you add 320 resp 240 to the low value of x and y eg xlim 0 -> xlim uo 320
 
-xlim_low = columns_storage.at(0).at(0);
-xlim_up = columns_storage.at(2).at(0);
-ylim_low = columns_storage.at(1).at(0);
-ylim_up = columns_storage.at(3).at(0);
+	xlim_low = columns_storage.at(0).at(0);
+	xlim_up = columns_storage.at(2).at(0);
+	ylim_low = columns_storage.at(1).at(0);
+	ylim_up = columns_storage.at(3).at(0);
 
-xlim_low_set = xlim_low;
-xlim_up_set = xlim_up;
-ylim_low_set = ylim_low;
-ylim_up_set = ylim_up;
+	xlim_low_set = xlim_low;
+	xlim_up_set = xlim_up;
+	ylim_low_set = ylim_low;
+	ylim_up_set = ylim_up;
+	// So the low is closest to zero
+
+    for ( int i = 1; i < (columns_storage.size() / column_items); i++ ) {
+
+
+        if ( columns_storage.at(16).at(i) > 0 || columns_storage.at(17).at(i) > 0 || columns_storage.at(18).at(i) > 0 || columns_storage.at(19).at(i) > 0 ||
+			columns_storage.at(20).at(i) > 0 || columns_storage.at(21).at(i) > 0 || columns_storage.at(22).at(i) > 0 || columns_storage.at(23).at(i) > 0 ) {
+
+				room_limits * new_lim_1 = new room_limits( columns_storage.at(16).at(i), columns_storage.at(17).at(i), columns_storage.at(18).at(i), columns_storage.at(19).at(i),
+														   columns_storage.at(20).at(i), columns_storage.at(21).at(i), columns_storage.at(22).at(i), columns_storage.at(23).at(i)  );
+				
+				
+				limits.push_back( *new_lim_1 );
+				delete new_lim_1;
+				new_lim_1 = 0;
+
+
+
+
+        } else {
+        }
+
+    }
+
+
+
+
+
+
 
 
 
@@ -644,29 +673,24 @@ room_object * new_room0 = new room_object( "room0.csv",0);
 room_objects.push_back( *new_room0 );
 delete new_room0;
 
-// for attempt limit development
+//~ // for attempt limit development
 
-room_limits * new_lim_1 = new room_limits( 0, 0, 320, 240, 0, 0, 320, 240 );
-room_objects.at(0).limits.push_back( *new_lim_1 );
-delete new_lim_1;
-new_lim_1 = 0;
+//~ room_limits * new_lim_1 = new room_limits( 0, 0, 320, 240, 0, 0, 320, 240 );
+//~ room_objects.at(0).limits.push_back( *new_lim_1 );
+//~ delete new_lim_1;
+//~ new_lim_1 = 0;
 
-room_limits * new_lim_2 = new room_limits( 320, 0, 1000, 240, 0, 0, 1000, 240 );
-room_objects.at(0).limits.push_back( *new_lim_2 );
-delete new_lim_2;
-new_lim_2 = 0;
+//~ room_limits * new_lim_2 = new room_limits( 320, 0, 1000, 240, 0, 0, 1000, 240 );
+//~ room_objects.at(0).limits.push_back( *new_lim_2 );
+//~ delete new_lim_2;
+//~ new_lim_2 = 0;
 
-room_limits * new_lim_3 = new room_limits( 360, 240, 1000, 600, 375, 0, 1000, 615 );
-room_objects.at(0).limits.push_back( *new_lim_3 );
-delete new_lim_3;
-new_lim_3 = 0;
+//~ room_limits * new_lim_3 = new room_limits( 360, 240, 1000, 600, 375, 0, 1000, 615 );
+//~ room_objects.at(0).limits.push_back( *new_lim_3 );
+//~ delete new_lim_3;
+//~ new_lim_3 = 0;
 
-//~ room_limits * new_lim_4 = new room_limits( 0, 380, 360, 600, 0, 380, 360, 600 );
-//~ room_objects.at(0).limits.push_back( *new_lim_4 );
-//~ delete new_lim_4;
-//~ new_lim_4 = 0;
-
-// end dev
+//~ // end dev
 
 
 //room_object * new_room2 = new room_object( (int*)room_2, room2_rows, room2_cols, room2_xlimit_upper, room2_xlimit_lower, room2_ylimit_upper, room2_ylimit_lower,1);
