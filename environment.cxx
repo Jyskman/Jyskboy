@@ -231,11 +231,16 @@ room_nr = nr;
 void room_object::set_limits() {
 
 	// For a static room you add 320 resp 240 to the low value of x and y eg xlim 0 -> xlim uo 320
-
-	xlim_low = columns_storage.at(0).at(0);
-	xlim_up = columns_storage.at(2).at(0);
-	ylim_low = columns_storage.at(1).at(0);
-	ylim_up = columns_storage.at(3).at(0);
+	//~ Previously there was an original limit derived from the first line se commented below
+	//~ xlim_low = columns_storage.at(0).at(0);
+	//~ xlim_up = columns_storage.at(2).at(0);
+	//~ ylim_low = columns_storage.at(1).at(0);
+	//~ ylim_up = columns_storage.at(3).at(0);
+	
+	xlim_low = 0;
+	xlim_up = 320;
+	ylim_low = 0;
+	ylim_up = 240;
 
 	xlim_low_set = xlim_low;
 	xlim_up_set = xlim_up;
