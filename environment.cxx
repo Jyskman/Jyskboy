@@ -385,6 +385,82 @@ void room_object::create_blocks() {
 
 };
 
+
+void room_object::update_limits_upon_room_switch( champ &parameter, bool switched, render &screen_parameter ) {
+	
+
+	
+	if ( switched == true ) {
+			//cout << " switched true " << endl;
+			xlim_low = parameter.x_location - 160;
+			xlim_up = xlim_low + 320;
+
+			ylim_low = parameter.y_location - 120;
+			ylim_up = 240 - ylim_low;
+			cout << "XXXX" << endl;
+			
+			
+			
+		for (int i = 0; i < limits.size(); i++) {
+			
+			// if inside x-bounds
+			if ( (int)parameter.x_center > limits.at(i).x_down_left && (int)parameter.x_center < limits.at(i).x_up_right  ) {
+				// if inside y bound
+				if ( (int)parameter.y_center > limits.at(i).y_down_left && (int)parameter.y_center < limits.at(i).y_up_right ) {
+					//~ cout << "trigger" << endl;
+					//~ the set lim values will be set to that of the lim box identified by this condition
+					xlim_low_set = limits.at(i).x_down_left_set;
+					ylim_low_set = limits.at(i).y_down_left_set;
+					xlim_up_set  = limits.at(i).x_up_right_set;
+					ylim_up_set  = limits.at(i).y_up_right_set;
+					
+					
+				} else {
+				};
+				
+				
+				
+			} else {
+			
+
+			};
+			
+			
+		};
+		
+		if ( ylim_low < ylim_low_set ) {
+			ylim_low = ylim_low_set;
+		
+		} else {
+		}; 
+		if ( ylim_up > ylim_up_set ) {
+			ylim_up = ylim_up_set;
+		
+		} else {
+		};
+		if ( xlim_low < xlim_low_set ) {
+			xlim_low = xlim_low_set;
+		
+		} else {
+		}; 
+		if ( xlim_up > xlim_up_set ) {
+			xlim_up = xlim_up_set;
+		
+		} else {
+		};			
+			
+			
+			
+	
+	} else {
+	};
+	
+
+	
+	
+};
+
+
 // update the limits for the render function 
 
 void room_object::update_limits( int xoff, int yoff ) {
@@ -393,28 +469,30 @@ void room_object::update_limits( int xoff, int yoff ) {
 	//~ update the x lims
 	
 	if ( xlim_low < xlim_low_set ) {
+		xlim_low += v;
 		if ( xlim_up > (xoff + 0 + 0) ) {
 
 		} else {
 
-			xlim_up += v;
+
 		};
 	} else {
 	};
 	
 	if ( xlim_low > xlim_low_set ) {
+		xlim_low -= v;
 		if ( xlim_up < (xoff + 0 + 0) ) {
 
 		} else {
 
-			xlim_up -= v;
+			//~ xlim_up -= v;
 		};
 	} else {
 	};	
 	
 	if ( xlim_up < xlim_up_set ) {
 		// if the xlim up is over a certain level of x offset, it will not go to the setpoint. here lev is 0
-		if ( xlim_up > (xoff+320 + 0) ) {
+		if ( xlim_up > xlim_up_set ) {
 
 		} else {
 			// If it is below this level it will progress towards setpoint
@@ -424,7 +502,8 @@ void room_object::update_limits( int xoff, int yoff ) {
 	};
 	
 	if ( xlim_up > xlim_up_set ) {
-		if ( xlim_up < (xoff+320 + 0) ) {
+		
+		if ( xlim_up < xlim_up_set ) {
 
 		} else {
 
@@ -500,7 +579,8 @@ void room_object::update_limits( int xoff, int yoff ) {
 	};
 	
 	
-	
+	cout << xlim_low << " " << xlim_up << " set " << xlim_low_set  << " " << xlim_up_set << endl;
+	cout << "xoff" << xoff << " xoff320" << (xoff+320) << endl;
 };
 
 

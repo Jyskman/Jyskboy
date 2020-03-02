@@ -316,10 +316,6 @@ offset_parameter_x_right= (320-offset_parameter_x_left);
 
 
 
-
-
-
-
 //current_x_offset = parameter.getX() - ( room_objects.at(roomnr).xlim_low + offset_parameter_x_left );
 current_x_offset = room_objects.at(roomnr).xlim_low + ( parameter.getX() - offset_parameter_x_left - room_objects.at(roomnr).xlim_low  );
     if ( parameter.getX() < ( room_objects.at(roomnr).xlim_low + offset_parameter_x_left ) ) {

@@ -793,7 +793,8 @@ void game::game_main(){
 
 
 // room prev
-//cout << hero.x_location << " prev- " << hero.x_location_prev << endl;
+cout << game_room_switch() << endl;
+room_objects.at(room_current).update_limits_upon_room_switch(hero, game_room_switch(), screen );
 room_prev = room_current;
 initial_config = false;
 };
@@ -821,8 +822,10 @@ void game::game_loop() {
             break;
 
         };
+
         screen.determine_current_offset(hero, room_current );
 
+        
         //screen.filler_dev(room_current);
         screen.filler_general(room_current);
         game_frame();
