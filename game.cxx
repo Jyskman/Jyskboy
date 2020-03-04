@@ -716,6 +716,8 @@ void game::animations_run_render() {
 // checklim function below
 void game::check_lim() {
 
+
+
 //~ cout << "lim check" << room_objects.at(room_current).limits.at(0).x_down_right << endl;
 
 	for (int i = 0; i < room_objects.at(room_current).limits.size(); i++) {
@@ -726,10 +728,14 @@ void game::check_lim() {
 			if ( (int)hero.y_center > room_objects.at(room_current).limits.at(i).y_down_left && (int)hero.y_center < room_objects.at(room_current).limits.at(i).y_up_right ) {
 				//~ cout << "trigger" << endl;
 				//~ the set lim values will be set to that of the lim box identified by this condition
+				
+
 				room_objects.at(room_current).xlim_low_set = room_objects.at(room_current).limits.at(i).x_down_left_set;
 				room_objects.at(room_current).ylim_low_set = room_objects.at(room_current).limits.at(i).y_down_left_set;
 				room_objects.at(room_current).xlim_up_set = room_objects.at(room_current).limits.at(i).x_up_right_set;
 				room_objects.at(room_current).ylim_up_set = room_objects.at(room_current).limits.at(i).y_up_right_set;
+				
+				current_lim = i;
 				
 				
 			} else {
@@ -747,6 +753,71 @@ void game::check_lim() {
 	
 	
 	
+	
+};
+
+// upon room switch the game will reset and correct the limits
+void game::check_lim_upon_roomswitch() {
+	
+	//cout << " current _" << room_current << endl;
+	
+	if ( game_room_switch() == true ) {
+	
+			for (int i = 0; i < room_objects.at(room_current).limits.size(); i++) {
+				
+				// if inside x-bounds
+				if ( (int)hero.x_location > room_objects.at(room_current).limits.at(i).x_down_left && (int)hero.x_location < room_objects.at(room_current).limits.at(i).x_up_right  ) {
+					// if inside y bound
+					if ( hero.y_location > room_objects.at(room_current).limits.at(i).y_down_left && hero.y_location < room_objects.at(room_current).limits.at(i).y_up_right ) {
+						cout << "trigger" << endl;
+						//~ the set lim values will be set to that of the lim box identified by this condition
+						room_objects.at(room_current).xlim_low_set = room_objects.at(room_current).limits.at(i).x_down_left_set;
+						room_objects.at(room_current).ylim_low_set = room_objects.at(room_current).limits.at(i).y_down_left_set;
+						room_objects.at(room_current).xlim_up_set = room_objects.at(room_current).limits.at(i).x_up_right_set;
+						room_objects.at(room_current).ylim_up_set = room_objects.at(room_current).limits.at(i).y_up_right_set;
+						
+					} else {
+					};
+
+				} else {
+
+				};
+				
+			};
+			
+			room_objects.at(room_current).xlim_low = hero.x_location - 160;
+			room_objects.at(room_current).xlim_up = hero.x_location + 160;
+
+			room_objects.at(room_current).ylim_low = hero.y_location - 200;
+			room_objects.at(room_current).ylim_up = hero.y_location + 200;
+
+			if ( room_objects.at(room_current).ylim_low < room_objects.at(room_current).ylim_low_set ) {
+				room_objects.at(room_current).ylim_low = room_objects.at(room_current).ylim_low_set;
+
+			} else {
+			}; 
+			if ( room_objects.at(room_current).ylim_up > room_objects.at(room_current).ylim_up_set ) {
+				room_objects.at(room_current).ylim_up = room_objects.at(room_current).ylim_up_set;
+
+			} else {
+			};
+			if ( room_objects.at(room_current).xlim_low < room_objects.at(room_current).xlim_low_set ) {
+				room_objects.at(room_current).xlim_low = room_objects.at(room_current).xlim_low_set;
+
+			} else {
+			}; 
+			if ( room_objects.at(room_current).xlim_up > room_objects.at(room_current).xlim_up_set ) {
+				room_objects.at(room_current).xlim_up = room_objects.at(room_current).xlim_up_set;
+
+			} else {
+			};
+	
+	
+	
+	} else {
+	};
+
+
 	
 };
 
@@ -794,7 +865,8 @@ void game::game_main(){
 
 // room prev
 cout << game_room_switch() << endl;
-room_objects.at(room_current).update_limits_upon_room_switch(hero, game_room_switch(), screen );
+check_lim_upon_roomswitch();
+//~ room_objects.at(room_current).update_limits_upon_room_switch(hero, game_room_switch(), screen );
 room_prev = room_current;
 initial_config = false;
 };
@@ -823,7 +895,9 @@ void game::game_loop() {
 
         };
 
-        screen.determine_current_offset(hero, room_current );
+				screen.determine_current_offset(hero, room_current );
+
+
 
         
         //screen.filler_dev(room_current);

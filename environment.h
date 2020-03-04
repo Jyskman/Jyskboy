@@ -110,9 +110,8 @@ class room_object {
     vector< vector<int> > columns_storage ;
     vector< room_limits > limits ;
 
-	void update_limits( int xoff, int yoff );
-	void update_limits_upon_room_switch( champ &parameter, bool switched, render &screen_parameter );
-	
+	void update_limits( int xoff, int yoff, champ &parameter );
+
 };
 
 extern vector<room_object> room_objects;

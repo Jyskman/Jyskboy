@@ -349,7 +349,7 @@ if (parameter.getY() > (room_objects.at(roomnr).ylim_up -  offset_parameter_y_up
 
 
 
-room_objects.at(roomnr).update_limits( current_x_offset, current_y_offset );
+room_objects.at(roomnr).update_limits( current_x_offset, current_y_offset, parameter );
 
 };
 

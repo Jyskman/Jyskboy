@@ -63,7 +63,8 @@ void game_fbp_clear();
 void game_frame();
 bool game_room_switch();
 void check_lim();
-
+void check_lim_upon_roomswitch();
+int current_lim = 0;
 // enemy functions
 
 void enemy_manager();
