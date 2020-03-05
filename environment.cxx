@@ -391,11 +391,11 @@ void room_object::create_blocks() {
 // update the limits for the render function 
 
 void room_object::update_limits( int xoff, int yoff, champ &parameter ) {
-	int v = 6;
+	int v = 10;
 	
 	//~ update the x lims. Doesnt work.. all commented text works wierd. its circular and inabsolute. 
 	
-	if ( xlim_low < xlim_low_set ) {
+	if ( xlim_low < xlim_low_set || xlim_low < (parameter.x_location - 200) ) {
 		xlim_low += v;
 
 	} else {
@@ -411,7 +411,7 @@ void room_object::update_limits( int xoff, int yoff, champ &parameter ) {
 	} else {
 	};	
 	
-	if ( xlim_up < xlim_up_set ) {
+	if ( xlim_up < xlim_up_set || xlim_up < (parameter.x_location + 200) ) {
 		
 		// New approach seems to work will try for xlow also
 		if ( xlim_up > parameter.x_location + 200 ) {
@@ -440,12 +440,13 @@ void room_object::update_limits( int xoff, int yoff, champ &parameter ) {
 	if ( ylim_low < ylim_low_set || ylim_low < ( parameter.y_location - 200  ) ) {
 		
 		ylim_low += v; 
-
+		//~ cout << " 1+ " << endl;
 	} else {
 	};
 	
 	if ( ylim_up > ylim_up_set || ylim_up > ( parameter.y_location + 200  ) ) {
 		ylim_up -= v;
+		//~ cout << " 1- " << endl;
 
 	} else {
 	};	
@@ -455,22 +456,28 @@ void room_object::update_limits( int xoff, int yoff, champ &parameter ) {
 	if ( ylim_low > ylim_low_set ) {
 
 		if ( ylim_low <= (parameter.y_location - 200) ) {
-			//ylim_low += v;
+			ylim_low += v;
+			//~ cout << " 2+ " << endl;
 		} else {
 
-			ylim_low -= v;
+			
 		};
+		ylim_low -= v;
+		//~ cout << " 2- " << endl;
 	} else {
 	};	
 	
 	if ( ylim_up < ylim_up_set ) {
 
 		if ( ylim_up >= ( parameter.y_location + 200  ) ) {
-			//ylim_up -= v;
+			ylim_up -= v;
+			//~ cout << " 3- " << endl;
 		} else {
-			ylim_up += v;
+			
 			
 		};
+		ylim_up += v;
+		//~ cout << " 3+ " << endl;
 	} else {
 	};
 	
@@ -499,7 +506,9 @@ void room_object::update_limits( int xoff, int yoff, champ &parameter ) {
 	};
 	
 	
-	cout << ylim_low << " " << ylim_up << " set " << ylim_low_set  << " " << ylim_up_set << endl;
+    //~ cout << ylim_low << " " << ylim_up << " set " << ylim_low_set  << " " << ylim_up_set << endl;
+	//~ cout << xlim_low << " " << xlim_up << " xset " << xlim_low_set  << " " << xlim_up_set << endl;
+	//~ cout <<" end "<< endl;
 
 };
 

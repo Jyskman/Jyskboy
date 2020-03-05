@@ -769,7 +769,7 @@ void game::check_lim_upon_roomswitch() {
 				if ( (int)hero.x_location > room_objects.at(room_current).limits.at(i).x_down_left && (int)hero.x_location < room_objects.at(room_current).limits.at(i).x_up_right  ) {
 					// if inside y bound
 					if ( hero.y_location > room_objects.at(room_current).limits.at(i).y_down_left && hero.y_location < room_objects.at(room_current).limits.at(i).y_up_right ) {
-						cout << "trigger" << endl;
+						//cout << "trigger" << endl;
 						//~ the set lim values will be set to that of the lim box identified by this condition
 						room_objects.at(room_current).xlim_low_set = room_objects.at(room_current).limits.at(i).x_down_left_set;
 						room_objects.at(room_current).ylim_low_set = room_objects.at(room_current).limits.at(i).y_down_left_set;
@@ -864,7 +864,7 @@ void game::game_main(){
 
 
 // room prev
-cout << game_room_switch() << endl;
+//cout << game_room_switch() << endl;
 check_lim_upon_roomswitch();
 //~ room_objects.at(room_current).update_limits_upon_room_switch(hero, game_room_switch(), screen );
 room_prev = room_current;
