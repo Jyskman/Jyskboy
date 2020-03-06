@@ -392,123 +392,95 @@ void room_object::create_blocks() {
 
 void room_object::update_limits( int xoff, int yoff, champ &parameter ) {
 	int v = 10;
-	
-	//~ update the x lims. Doesnt work.. all commented text works wierd. its circular and inabsolute. 
-	
-	if ( xlim_low < xlim_low_set || xlim_low < (parameter.x_location - 200) ) {
-		xlim_low += v;
 
-	} else {
-	};
-	
-	if ( xlim_low > xlim_low_set ) {
+	int type = 1;
+	switch ( type ) {
+		case(0):
+				//~ update the x lims. Doesnt work.. all commented text works wierd. its circular and inabsolute. 
+				
 
-		if ( xlim_low < (parameter.x_location - 200) ) {
-			xlim_low += v;
-		} else {
-			xlim_low -= v;
-		};
-	} else {
-	};	
-	
-	if ( xlim_up < xlim_up_set || xlim_up < (parameter.x_location + 200) ) {
+		break;
+		case(1):
+				if ( xlim_low < xlim_low_set || xlim_low < (parameter.x_location - 200) ) {
+					
+					xlim_low += v;
+
+				} else {
+				};
+				
+				if ( xlim_low > xlim_low_set && xlim_low > (parameter.x_location - 200) ) {
+
+					xlim_low -= v;
+
+				} else {
+				};
+				if ( abs( abs(xlim_low) - abs(xlim_low_set) ) < v ) {
+
+				} else {
+				};
+				//
+				if ( xlim_up < xlim_up_set && xlim_up < (parameter.x_location + 200) ) {
+					
+					xlim_up += v;
+
+				} else {
+				};
+				
+				if ( xlim_up > xlim_up_set || xlim_up > (parameter.x_location + 200) ) {
+
+					xlim_up -= v;
+
+				} else {
+				};
+				if ( abs( abs(xlim_up) - abs(xlim_up_set) ) < v ) {
+
+				} else {
+				};	
+				// YY //
+				if ( ylim_low < ylim_low_set || ylim_low < (parameter.y_location - 150) ) {
+					
+					ylim_low += v;
+
+				} else {
+				};
+				
+				if ( ylim_low > ylim_low_set && ylim_low > (parameter.y_location - 150) ) {
+
+					ylim_low -= v;
+
+				} else {
+				};
+				
+				if ( abs( abs(ylim_low) - abs(ylim_low_set) ) < v ) {
+
+				} else {
+				};
+				//
+				if ( ylim_up < ylim_up_set && ylim_up < (parameter.y_location + 150) ) {
+					
+					ylim_up += v;
+
+				} else {
+				};
+				
+				if ( ylim_up > ylim_up_set || ylim_up > (parameter.y_location + 150)  ) {
+
+					ylim_up -= v;
+
+				} else {
+				};
+				if ( abs( abs(ylim_up) - abs(ylim_up_set) ) < v ) {
+
+				} else {
+				};	
+				// //
+				cout << ylim_low << " " << ylim_up << " set " << ylim_low_set  << " " << ylim_up_set << "yoff" << yoff <<endl;
+				cout << xlim_low << " " << xlim_up << " set " << xlim_low_set  << " " << xlim_up_set << "xoff" << xoff <<endl;
+		break;
 		
-		// New approach seems to work will try for xlow also
-		if ( xlim_up > parameter.x_location + 200 ) {
-			xlim_up -= v;
-		} else {
-			xlim_up += v;
-		};
-	} else {
 	};
-	
-	if ( xlim_up > xlim_up_set ) {
-		
-		if ( xlim_up < xlim_up_set ) {
 
-		} else {
 
-			xlim_up -= v;
-		};
-	} else {
-	};	
-	
-	
-	
-		//~ update the y lims
-	
-	if ( ylim_low < ylim_low_set || ylim_low < ( parameter.y_location - 200  ) ) {
-		
-		ylim_low += v; 
-		//~ cout << " 1+ " << endl;
-	} else {
-	};
-	
-	if ( ylim_up > ylim_up_set || ylim_up > ( parameter.y_location + 200  ) ) {
-		ylim_up -= v;
-		//~ cout << " 1- " << endl;
-
-	} else {
-	};	
-	
-	
-	
-	if ( ylim_low > ylim_low_set ) {
-
-		if ( ylim_low <= (parameter.y_location - 200) ) {
-			ylim_low += v;
-			//~ cout << " 2+ " << endl;
-		} else {
-
-			
-		};
-		ylim_low -= v;
-		//~ cout << " 2- " << endl;
-	} else {
-	};	
-	
-	if ( ylim_up < ylim_up_set ) {
-
-		if ( ylim_up >= ( parameter.y_location + 200  ) ) {
-			ylim_up -= v;
-			//~ cout << " 3- " << endl;
-		} else {
-			
-			
-		};
-		ylim_up += v;
-		//~ cout << " 3+ " << endl;
-	} else {
-	};
-	
-
-	
-	// set the lims if proximity is below value
-
-	if ( abs( abs(xlim_low) - abs(xlim_low_set) ) < v ) {
-		//xlim_low = xlim_low_set;
-	} else {
-	};
-	
-	if ( abs( abs(xlim_up) - abs(xlim_up_set) ) < v ) {
-		//xlim_up = xlim_up_set;
-	} else {
-	};
-	//y
-	if ( abs( abs(ylim_low) - abs(ylim_low_set) ) < v ) {
-		//ylim_low = ylim_low_set;
-	} else {
-	};
-	
-	if ( abs( abs(ylim_up) - abs(ylim_up_set) ) < v ) {
-		//ylim_up = ylim_up_set;
-	} else {
-	};
-	
-	
-    //~ cout << ylim_low << " " << ylim_up << " set " << ylim_low_set  << " " << ylim_up_set << endl;
-	//~ cout << xlim_low << " " << xlim_up << " xset " << xlim_low_set  << " " << xlim_up_set << endl;
-	//~ cout <<" end "<< endl;
 
 };
 
