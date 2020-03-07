@@ -577,7 +577,7 @@ void game::createAttacks(button_input& parameter) {
 
     //update attacks
     for ( int i = 0; i < gameAttacks.size(); i++ ) {
-        gameAttacks.at(i).update_and_render();
+        gameAttacks.at(i).render_attacks();
     }
 
 
@@ -590,6 +590,14 @@ void game::createAttacks(button_input& parameter) {
 
     //cout << gameAttacks.size() <<endl;
 
+};
+
+void game::update_attacks() {
+	//update attacks
+    for ( int i = 0; i < gameAttacks.size(); i++ ) {
+        gameAttacks.at(i).update();
+    }
+	
 };
 
 // Enemy manager function
@@ -785,11 +793,12 @@ void game::check_lim_upon_roomswitch() {
 				
 			};
 			
-			room_objects.at(room_current).xlim_low = hero.x_location - 160;
-			room_objects.at(room_current).xlim_up = hero.x_location + 160;
+			room_objects.at(room_current).xlim_low = hero.x_location - 200;
+			room_objects.at(room_current).xlim_up = hero.x_location + 200;
 
 			room_objects.at(room_current).ylim_low = hero.y_location - 200;
 			room_objects.at(room_current).ylim_up = hero.y_location + 200;
+			
 
 			if ( room_objects.at(room_current).ylim_low < room_objects.at(room_current).ylim_low_set ) {
 				room_objects.at(room_current).ylim_low = room_objects.at(room_current).ylim_low_set;
@@ -811,14 +820,13 @@ void game::check_lim_upon_roomswitch() {
 
 			} else {
 			};
-	
-	
-	
+
+	cout << "xoff" << screen.current_x_offset << "yoff" << screen.current_y_offset << endl;	
 	} else {
 	};
 
 
-	
+
 };
 
 
@@ -851,7 +859,7 @@ void game::game_main(){
 
 
        roomblocks_attack_interaction(room_current, gameAttacks);
-
+		update_attacks();
 
         // audio prof of principle
         if ( buttons.getSelectState() == true ) {

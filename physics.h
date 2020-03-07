@@ -63,8 +63,8 @@ void test();
 class attack {
 // attack class used by game object, will be linked somehow to weaponprofiles also in game
 public:
-void update_and_render();
-
+void render_attacks();
+void update();
 attack( int type, int damage, int x_pos, int y_pos, int x_vel, int y_vel, int rotation, bool horisontal, bool vertical, int gun_sprite_nr, bool cross, bool shoot_direction, int hitboxtype );
 
 int a_rot;

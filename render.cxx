@@ -354,7 +354,7 @@ if (parameter.getY() < (room_objects.at(roomnr).ylim_low + offset_parameter_y_lo
 
 } else {
 }
-	cout << " end" << endl;
+	cout << " end" << parameter.y_location << endl;
 //~ if (parameter.getY() > (room_objects.at(roomnr).ylim_up -  offset_parameter_y_up) ) {
     //~ current_y_offset = room_objects.at(roomnr).ylim_up - offset_parameter_y_low - offset_parameter_y_up;
 
