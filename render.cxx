@@ -336,13 +336,13 @@ current_x_offset = room_objects.at(roomnr).xlim_low + ( parameter.getX() - offse
 offset_parameter_y_low = 120;
 offset_parameter_y_up =  (240 - offset_parameter_y_low);
 current_y_offset = room_objects.at(roomnr).ylim_low + ( parameter.getY() - offset_parameter_y_low - room_objects.at(roomnr).ylim_low  );
-cout << current_y_offset << " 1" << endl;
+//~ cout << current_y_offset << " 1" << endl;
 
 
 if (parameter.getY() > (room_objects.at(roomnr).ylim_up -  offset_parameter_y_up) ) {
     current_y_offset = room_objects.at(roomnr).ylim_up - offset_parameter_y_low - offset_parameter_y_up;
     //~ current_y_offset = room_objects.at(roomnr).ylim_up - room_objects.at(roomnr).ylim_low - offset_parameter_y_low - offset_parameter_y_up;
-	cout << current_y_offset << "  2" << endl;
+	//~ cout << current_y_offset << "  2" << endl;
 } else {
 }
 
@@ -350,11 +350,11 @@ if (parameter.getY() > (room_objects.at(roomnr).ylim_up -  offset_parameter_y_up
 
 if (parameter.getY() < (room_objects.at(roomnr).ylim_low + offset_parameter_y_low ) ) {
     current_y_offset = room_objects.at(roomnr).ylim_low;
-	cout << current_y_offset << " 3" << endl;
+	//~ cout << current_y_offset << " 3" << endl;
 
 } else {
 }
-	cout << " end" << parameter.y_location << endl;
+	//~ cout << " end" << parameter.y_location << endl;
 //~ if (parameter.getY() > (room_objects.at(roomnr).ylim_up -  offset_parameter_y_up) ) {
     //~ current_y_offset = room_objects.at(roomnr).ylim_up - offset_parameter_y_low - offset_parameter_y_up;
 

@@ -474,8 +474,7 @@ void room_object::update_limits( int xoff, int yoff, champ &parameter ) {
 				} else {
 				};	
 				// //
-				cout << ylim_low << " " << ylim_up << " set " << ylim_low_set  << " " << ylim_up_set << "yoff" << yoff <<endl;
-				cout << xlim_low << " " << xlim_up << " set " << xlim_low_set  << " " << xlim_up_set << "xoff" << xoff <<endl;
+
 		break;
 		
 	};
