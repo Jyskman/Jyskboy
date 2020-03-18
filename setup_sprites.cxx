@@ -834,6 +834,13 @@ unsigned char single_red[1 * 1 * 2 + 1] =
 ("\374\007");
 //("\000\370");
 
+int single_bright_width = 1;
+int single_bright_height = 1;
+int single_bright_size = 1 * 1 * 2 + 1;
+unsigned char single_bright[1 * 1 * 2 + 1] =
+("^\366");
+//("\000\370");
+
 
 int double_shoot_width = 3;
 int double_shoot_height = 1;
@@ -1221,10 +1228,75 @@ unsigned char champ_hand[8 * 15 * 2 + 1] =
  "\241\273\241\273\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
  "\377\377\377\377\377");
 
+// Fields, stone for ex
+
+#define GIMP_IMAGE_WIDTH (8)
+#define GIMP_IMAGE_HEIGHT (12)
+#define GIMP_IMAGE_BYTES_PER_PIXEL (2) /* 2:RGB16, 3:RGB, 4:RGBA */
+#define GIMP_IMAGE_PIXEL_DATA ((unsigned char*) GIMP_IMAGE_pixel_data)
+
+int field_stone_width = 8;
+int field_stone_height = 12;
+int field_stone_size = 8 * 15 * 2 + 1;
+unsigned char field_stone[8 * 12 * 2 + 1] =
+ ("\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\212\010\212\010\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\212\010\377\377\377\377\377\377\377\377\212\010`\040\377\377"
+ "`\040\377\377\377\377\377\377\377\377\377\377`\040\377\377\377\377\377\377\377"
+ "\377\377\377\212\010\377\377\377\377\212\010\377\377\377\377\377\377\377\377"
+ "\377\377\212\010\377\377\377\377\377\377\212\010\377\377\377\377\377\377`\040"
+ "\377\377`\040\377\377`\040\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\212\010\377\377\212\010`\040\377\377\377"
+ "\377\377\377\377\377\377\377`\040\377\377\377\377\212\010\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\377");
+
+int field_stone_2_width = 8;
+int field_stone_2_height = 12;
+int field_stone_2_size = 8 * 15 * 2 + 1;
+unsigned char field_2_stone[8 * 12 * 2 + 1] =
+("\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\212"
+ "\010\377\377\\B\377\377\327\020\377\377\377\377\377\377\212\010\327\020\\B\377"
+ "\377\327\020\327\020\377\377\377\377\212\010\327\020\377\377\377\377\377\377\327"
+ "\020\377\377\377\377\212\010\327\020\327\020\377\377\327\020\212\010\377\377\377"
+ "\377\212\010\327\020\\B\327\020\327\020\212\010\377\377\377\377\212\010\327\020\327"
+ "\020\\B\327\020\212\010\377\377\377\377\377\377\212\010\327\020\\B\327\020\212\010"
+ "\377\377\377\377\377\377\212\010\327\020\\B\212\010\377\377\377\377\377\377\377"
+ "\377\377\377\212\010\\B\212\010\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\212\010\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377");
+ 
+int field_stone_3_width = 8;
+int field_stone_3_height = 12;
+int field_stone_3_size = 8 * 15 * 2 + 1;
+unsigned char field_3_stone[8 * 12 * 2 + 1] =
+("\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\212"
+ "\010\377\377\377\377\377\377\327\020\377\377\377\377\377\377\212\010\377\377"
+ "\377\377\377\377\377\377\212\010\377\377\377\377\212\010\377\377\377\377\377"
+ "\377\212\010\212\010\377\377\377\377\377\377\212\010\327\020\327\020\327\020\377"
+ "\377\377\377\377\377\377\377\377\377\212\010\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\212\010\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\212\010\212\010\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\212\010\377\377\212\010\377\377\377\377\377\377\377\377\377\377\327\020\327"
+ "\020\327\020\377\377\377\377\377\377\377\377\212\010\377\377\377\377\212\010\212"
+ "\010\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377");
 
 
 
-
+int field_stone_4_width = 8;
+int field_stone_4_height = 12;
+int field_stone_4_size = 8 * 15 * 2 + 1;
+unsigned char field_4_stone[8 * 12 * 2 + 1] =
+("\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\212"
+ "\010\212\010\377\377`\040\377\377\377\377\377\377\377\377\327\020\063\003\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\327\020\377\377\212\010\377"
+ "\377\377\377\377\377\377\377\377\377\327\020\227!\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\212\010\327\020\377\377\377\377\377\377\377\377\377\377"
+ "`\040\377\377\327\020\377\377\377\377`\040\377\377\377\377\377\377\377\377\212"
+ "\010\327\020\377\377`\040\377\377\377\377\377\377\377\377\063\003\212\010\327\020"
+ "\063\003\377\377\377\377\377\377\377\377\377\377\212\010\327\020\212\010\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\212\010\327\020\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\377");
+ 
 
 std::vector<sprite_objects> all_sprites;
 std::vector<sprite_objects*> sprite_pointers;
@@ -1348,6 +1420,11 @@ void setup_sprites(render& parameter) {
     all_sprites.push_back(*d);
     sprite_pointers.push_back(d);
     delete d;
+    
+	sprite_objects * s_red_2 = new sprite_objects(66, (unsigned char*)single_bright ,single_bright, single_bright_size, single_bright_width, single_bright_height,410);
+    all_sprites.push_back(*s_red_2);
+    sprite_pointers.push_back(s_red_2);
+    delete s_red_2;
 
     // Explosions
     sprite_objects * ex1 = new sprite_objects(14, (unsigned char*)ex_1 ,ex_1, ex_1_size, ex_1_width, ex_1_height,501);
@@ -1458,6 +1535,27 @@ void setup_sprites(render& parameter) {
     all_sprites.push_back(*champ_hand_1);
     sprite_pointers.push_back(champ_hand_1);
     delete champ_hand_1;
+    
+    // Field spr
+    sprite_objects * field_stone_1 = new sprite_objects(62, (unsigned char*)field_stone ,field_stone, field_stone_size, field_stone_width, field_stone_height,406);
+    all_sprites.push_back(*field_stone_1);
+    sprite_pointers.push_back(field_stone_1);
+    delete field_stone_1;
+    
+	sprite_objects * field_stone_2 = new sprite_objects(63, (unsigned char*)field_2_stone ,field_2_stone, field_stone_2_size, field_stone_2_width, field_stone_2_height,407);
+    all_sprites.push_back(*field_stone_2);
+    sprite_pointers.push_back(field_stone_2);
+    delete field_stone_2;     
+    
+	sprite_objects * field_stone_3 = new sprite_objects(64, (unsigned char*)field_3_stone ,field_3_stone, field_stone_3_size, field_stone_3_width, field_stone_3_height,408);
+    all_sprites.push_back(*field_stone_3);
+    sprite_pointers.push_back(field_stone_3);
+    delete field_stone_3;
+    
+	sprite_objects * field_stone_4 = new sprite_objects(65, (unsigned char*)field_4_stone ,field_4_stone, field_stone_4_size, field_stone_4_width, field_stone_4_height,409);
+    all_sprites.push_back(*field_stone_4);
+    sprite_pointers.push_back(field_stone_4);
+    delete field_stone_4;    
 
 
 
@@ -1506,6 +1604,7 @@ parameter.load_sprite_data((unsigned char*)portal_1, portal_1_width, portal_1_he
 // singles for primitives
 parameter.load_sprite_data((unsigned char*)single_red, single_red_width, single_red_height );
 parameter.load_sprite_data((unsigned char*)double_shoot, double_shoot_width, double_shoot_height );
+parameter.load_sprite_data((unsigned char*)single_bright, single_bright_width, single_bright_height );
 
 // explosions
 parameter.load_sprite_data((unsigned char*)ex_1, ex_1_width, ex_1_height );
@@ -1538,5 +1637,10 @@ parameter.load_sprite_data((unsigned char*)p_3, p_3_width, p_3_height );
 // Champ hand
 parameter.load_sprite_data((unsigned char*)champ_hand, champ_hand_width, champ_hand_height );
 
+// Fields
+parameter.load_sprite_data((unsigned char*)field_stone, field_stone_width, field_stone_height );
+parameter.load_sprite_data((unsigned char*)field_2_stone, field_stone_2_width, field_stone_2_height );
+parameter.load_sprite_data((unsigned char*)field_3_stone, field_stone_3_width, field_stone_3_height );
+parameter.load_sprite_data((unsigned char*)field_4_stone, field_stone_4_width, field_stone_4_height );
 
 };

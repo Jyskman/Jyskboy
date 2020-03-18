@@ -7,6 +7,33 @@
 #define ROOMBLOCKS_PROPERTIES_H
 
 #include <iostream>
+#include <vector>
+#include <stdlib.h>
+#include "render.h"
+#include "setup_sprites.h"
+
+using namespace std;
+
+class stars {
+	
+	public:
+	stars( int type, int x_low, int y_low, int x_up, int y_up );
+	void set_stars();
+	void render_stars();
+	void sprite_config();
+	vector<int> x;
+	vector<int> y;
+	vector<int> nr;
+	
+	int field_type;
+	int x_lo, y_lo, x_u, y_u;
+	
+	
+	vector<int> sprite_nr;
+	vector<int> sprite_index;
+	
+};
+
 
 
 

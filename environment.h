@@ -104,11 +104,13 @@ class room_object {
 
     void create_blocks();
     void set_limits();
+    void set_modifiers();
     void testfunc();
     int column_items;
 
     vector< vector<int> > columns_storage ;
     vector< room_limits > limits ;
+    vector< stars > starfields ;
 
 	void update_limits( int xoff, int yoff, champ &parameter );
 

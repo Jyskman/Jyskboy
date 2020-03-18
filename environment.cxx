@@ -280,6 +280,37 @@ void room_object::set_limits() {
 
 };
 
+void room_object::set_modifiers() {
+ //~ configure for example the star field modifier	
+ int type = 0;
+ 
+	    for ( int i = 1; i < (columns_storage.size() / column_items); i++ ) {
+
+
+        if ( columns_storage.at(16).at(i) < 0  ) {
+
+
+				type = columns_storage.at(16).at(i) * -1 ;
+				stars * new_stars_1 = new stars(  type ,
+			    columns_storage.at(20).at(i), columns_storage.at(21).at(i), columns_storage.at(22).at(i), columns_storage.at(23).at(i)  );
+				
+				
+				starfields.push_back( *new_stars_1 );
+				delete new_stars_1;
+				new_stars_1 = 0;
+
+
+
+
+        } else {
+        }
+
+    }
+	
+	
+};
+
+
 room_object::room_object( string file, int room) : roomblocks(), columns_storage() {
 
 name = file;
@@ -289,6 +320,7 @@ room_nr = room;
 room_object_setupCSV();
 create_blocks();
 set_limits();
+set_modifiers();
 cout << " end const " << endl;
 };
 
@@ -773,14 +805,17 @@ void room_render_req(int roomnr) {
     [](const block & o) { return o.destroyed == true; }),
     room_objects.at(roomnr).roomblocks.end());
 
+	for (int i = 0; i < room_objects.at(roomnr).starfields.size(); i++ ) {
+
+		room_objects.at(roomnr).starfields.at(i).render_stars();
+
+	};
 
 
+	for (int i = 0; i < room_objects.at(roomnr).roomblocks.size(); i++ ) {
 
-for (int i = 0; i < room_objects.at(roomnr).roomblocks.size(); i++ ) {
-
-room_objects.at(roomnr).roomblocks.at(i).setRender_Block();
-};
-
+	room_objects.at(roomnr).roomblocks.at(i).setRender_Block();
+	};
 
 
 
