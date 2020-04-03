@@ -42,6 +42,22 @@ vector<room_object> room_objects;
 //vector<portal> portal_objects;
 vector<room_portal> room_portals;
 
+block::block(int x_pos, int y_pos, int type, int x_start, int x_stop, int y_start, int y_stop ) {
+x_location = x_pos;
+y_location = y_pos;
+
+xstart = x_start;
+xstop = x_stop;
+ystart = y_start;
+ystop = y_stop;
+
+current_palette = 1;
+block_type = type; // also called index type/index
+set_index();
+sprite_nr = Relation_Spritenr_type();
+friction_coeff = setFriction(type);
+};
+
 block::block(int x_pos, int y_pos, int palette, int type) {
 
 x_location = x_pos;
@@ -88,6 +104,12 @@ destroyed = false;
         case(5):
             sprite_index = 1;
             destructible = true;
+        break;
+		case(100):
+            sprite_index = 1;
+            destructible = false;
+            xvel = 1;
+            yvel = 1;
         break;
 
 
@@ -145,11 +167,70 @@ void block::destruction() {
 		
 	};
 
+void block::motion() {
+
+	switch ( block_type ) {
+		
+		case(100):
+			xvel_communicated = false;
+			yvel_communicated = false;
+			//~ cout << "xloc " << x_location << " xstart " << xstart << "xstop" << xstop << endl;
+			if ( x_location < xstart ) {
+				xvel = xvel * -1;
+			} else {
+			};
+			if ( x_location > xstop ) {
+				xvel = xvel * - 1;
+			} else {
+			};
+			
+			if ( y_location < ystart ) {
+				yvel = yvel * -1;
+			} else {
+			};
+			if ( y_location > ystop ) {
+				yvel = yvel * - 1;
+			} else {
+			};
+		
+			x_location += xvel;
+			y_location += yvel;
+					
+		break;
+		
+	};
+
+
+
+
+};
+
+void block::convey_v( champ * parameter ) {
+
+	
+	if ( xvel_communicated == false ) {
+		parameter->x_location = parameter->x_location + xvel;
+		xvel_communicated = true;
+
+	} else {
+	};
+	
+	if ( yvel_communicated == false ) {
+		parameter->y_location = parameter->y_location + yvel;
+		//~ cout << " y v" << yvel << endl;
+		yvel_communicated = true;
+
+	} else {
+	};
+	
+
+	
+};
 
 void block::setRender_Block(){
 
-
-
+	motion();
+	
     if ( sprite_error == false) {
             render_requests * obj_e = new render_requests(sprite_nr, x_location, y_location, current_palette);
 
@@ -214,14 +295,6 @@ ylim_up = y_up;
 room_nr = nr;
 
 
-
-//    if ( nr == 2 ) {
-//     room_object_setupCSV();
-//     create_blocks();
-//    } else {
-//
-//
-//    }
     room_object_setup();
 
 
@@ -400,7 +473,7 @@ void room_object::create_blocks() {
     for ( int i = 1; i < (columns_storage.size() / column_items); i++ ) {
 
 
-        if ( columns_storage.at(0).at(i) > 0 ) {
+        if ( columns_storage.at(0).at(i) > 0 && columns_storage.at(0).at(i) < 100 ) {
 
                 block * obj = new block(columns_storage.at(1).at(i), columns_storage.at(2).at(i), columns_storage.at(0).at(i) ) ;
                 obj->setContactpoints();
@@ -410,10 +483,51 @@ void room_object::create_blocks() {
 
         } else {
         }
+        // Here special blocks like motion blocks is made
+		if ( columns_storage.at(0).at(i) >= 100 ) {
+                block * obj_1 = new block(columns_storage.at(1).at(i), columns_storage.at(2).at(i), columns_storage.at(0).at(i) ) ;
+                obj_1->setContactpoints();
+                //cout << *( (adress_pal + i*cols) +ii ) << endl;
+                block_temp.push_back(*obj_1);
+                obj_1 = 0;
+
+
+        } else {
+        }
 
 
 
     }
+
+	
+	for ( int i = 0; i < block_temp.size(); i ++ ) {
+	
+		cout << block_temp.at(i).block_type << endl;
+	};
+
+	// Sort the temp vector
+   sort(block_temp.begin(), block_temp.end(), [](const block& lhs, const block& rhs) {
+      return lhs.block_type < rhs.block_type;
+   });
+   cout << "X" << endl;
+   for ( int i = 0; i < block_temp.size(); i ++ ) {
+		
+		cout << block_temp.at(i).block_type << endl;
+	};
+
+	// The special creation will assume an even number, two temp blocks for one real 
+
+	for (int i = 0; i < block_temp.size()/2; i++ ) {
+		
+				
+        //cout << "xloc " << block_temp.at( 0 + i*2 ).x_location << " xstart " << block_temp.at(0 + i*2).x_location << "xstop" << block_temp.at(1 + i*2).x_location << endl;
+		block * obj_m = new block(	block_temp.at( 0 + i*2 ).x_location , block_temp.at(0 + i*2).y_location, 100,
+									block_temp.at(0 + i*2).x_location, block_temp.at(1 + i*2).x_location, block_temp.at(0 + i*2).y_location, block_temp.at(1 + i*2).y_location ) ;
+		obj_m->setContactpoints();
+		roomblocks.push_back(*obj_m);
+		obj_m = 0;
+	
+	};
 
 };
 
@@ -797,13 +911,28 @@ delete new_room2;
 
 };
 
-void room_render_req(int roomnr) {
+void room_render_req(int roomnr, champ &parameter) {
 
     // remove dest room blocks
     room_objects.at(roomnr).roomblocks.erase(
     remove_if(room_objects.at(roomnr).roomblocks.begin(), room_objects.at(roomnr).roomblocks.end(),
     [](const block & o) { return o.destroyed == true; }),
     room_objects.at(roomnr).roomblocks.end());
+    
+    
+    //~ need to find the potentially grabbed block and reasign after potential block destruction
+	for (int i = 0; i < room_objects.at(roomnr).roomblocks.size(); i++ ) {
+
+		if ( room_objects.at(roomnr).roomblocks.at(i).grabbed == true ) {
+	
+			
+			parameter.grab_block_nr = i;
+		} else {
+		};
+	
+	};
+    
+    
 
 	for (int i = 0; i < room_objects.at(roomnr).starfields.size(); i++ ) {
 

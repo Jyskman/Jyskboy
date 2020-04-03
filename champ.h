@@ -9,6 +9,7 @@
 #include <vector>
 #include "sprite_objects.h"
 #include "physics.h"
+
 //#include "render.h"
 // This is the content of the .h file, which is where the declarations go
 
@@ -115,7 +116,7 @@ int getSpriteSize();
 void setX(int x);
 void setY(int y);
 
-void updateV(button_input& parameter, physics& physics_parameter);
+void updateV(button_input& parameter, physics& physics_parameter, int room);
 void setPos(button_input& parameter, physics& physics_parameter);
 int getPalette();
 //int blockCompare_y(int champ_x, int champ_y, int block_x, int block_y, int block_p3x, int block_p3y, int block_p4x, int block_p4y ); // for determination of position in upp blocks left and rigt
@@ -131,6 +132,7 @@ unsigned char getChar(int x);
 void setRender(button_input& parameter, physics &physics_parameter, int room);
 void setContactPoints();
 void setContact(int room);
+int grab_block_nr;
 //vector<render_requests> *internal;
 
 };

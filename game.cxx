@@ -821,7 +821,15 @@ void game::check_lim_upon_roomswitch() {
 			} else {
 			};
 
-	cout << "xoff" << screen.current_x_offset << "yoff" << screen.current_y_offset << endl;	
+	// remove all grabtrues to avoid potential error
+			for (int ij = 0; ij < room_objects.at(room_current).roomblocks.size(); ij++) {
+			
+				room_objects.at(room_current).roomblocks.at(ij).grabbed = false;
+			
+			};
+	
+	
+		
 	} else {
 	};
 
@@ -835,7 +843,7 @@ void game::game_main(){
 
         if ( hero.hero_life > 0 ) {
             createAttacks(buttons);
-            hero.updateV( buttons, physics_objects.at( physics_current ) );
+            hero.updateV( buttons, physics_objects.at( physics_current ), room_current );
             hero.setPos(buttons, physics_objects.at( physics_current ));
             hero.setContact(room_current);
 
@@ -852,7 +860,7 @@ void game::game_main(){
 
 
 
-        room_render_req(room_current); // in environment
+        room_render_req(room_current, hero); // in environment
 		enemy_manager();
 
 		animations_run_render();

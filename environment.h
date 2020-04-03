@@ -7,6 +7,7 @@
 #include "champ.h"
 #include "game.h"
 #include "roomblocks_properties.h"
+#include <algorithm>
 using namespace::std;
 
 
@@ -52,7 +53,7 @@ int x_location;
 int y_location;
 int current_palette;
 int block_type;
-
+bool grabbed = false;
 
 
 int contact_points[2][4];
@@ -68,6 +69,10 @@ bool destroyed;
 
 block(int x_pos, int y_pos, int palette, int type);
 block(int x_pos, int y_pos, int type);
+block(int x_pos, int y_pos, int type, int x_start, int x_stop, int y_start, int y_stop );
+
+int xstart, xstop, ystart, ystop;
+
 ~block();
 
 void setRender_Block();
@@ -75,6 +80,14 @@ int Relation_Spritenr_type(); // need to create a relation between position in a
 float setFriction(int type);
 void set_index();
 void destruction();
+void motion();
+int xvel = 0;
+int yvel = 0;
+
+void convey_v( champ * parameter );
+bool xvel_communicated;
+bool yvel_communicated;
+
 };
 
 extern vector<block> blocks;
@@ -93,6 +106,7 @@ class room_object {
     int *adress;
     int *adress_pal;
     vector<block> roomblocks;
+    vector<block> block_temp;
 
     room_object(int *arr, int *arr_pal, int row, int col, int x_up, int x_low, int y_up, int y_low, int nr);
     room_object(int *arr, int row, int col, int x_up, int x_low, int y_up, int y_low, int nr);
@@ -111,6 +125,11 @@ class room_object {
     vector< vector<int> > columns_storage ;
     vector< room_limits > limits ;
     vector< stars > starfields ;
+    
+    vector<int> type_temp;
+    vector<int> x_temp;
+    vector<int> y_temp;
+    
 
 	void update_limits( int xoff, int yoff, champ &parameter );
 
@@ -122,7 +141,7 @@ extern vector<room_portal> room_portals;
 
 void room_setup( game *parameter );
 
-void room_render_req(int roomnr);
+void room_render_req(int roomnr, champ &parameter);
 
 void roomblocks_simple_deflection( int room, float x_f, float y_f, float &x_v, float &y_v );
 
