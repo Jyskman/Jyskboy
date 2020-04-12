@@ -8,6 +8,9 @@
 #include "game.h"
 #include "roomblocks_properties.h"
 #include <algorithm>
+#include "physics.h"
+
+
 using namespace::std;
 
 
@@ -125,6 +128,7 @@ class room_object {
     vector< vector<int> > columns_storage ;
     vector< room_limits > limits ;
     vector< stars > starfields ;
+    vector< item > room_items;
     
     vector<int> type_temp;
     vector<int> x_temp;
@@ -146,6 +150,7 @@ void room_render_req(int roomnr, champ &parameter);
 void roomblocks_simple_deflection( int room, float x_f, float y_f, float &x_v, float &y_v );
 
 void roomblocks_attack_interaction( int room, vector<attack> &parameter );
+
 
 
 

@@ -1297,6 +1297,38 @@ unsigned char field_4_stone[8 * 12 * 2 + 1] =
  "\377\377\377\377\377\377\377\377\377\377\212\010\327\020\377\377\377\377\377"
  "\377\377\377\377\377\377\377\377\377\377\377\377\377");
  
+// Statics for champ
+
+int lifebar_1_width = 1;
+int lifebar_1_height = 8;
+int lifebar_1_size = 8 * 1 * 2 + 1;
+unsigned char lifebar_1[1 * 8 * 2 + 1] =
+("\367\360\236\360\236\360\236\360\236\360\236\360\236\360\236\360");
+
+int lifebar_frame_width = 15;
+int lifebar_frame_height = 10;
+int lifebar_frame_size = 10 * 15 * 2 + 1;
+unsigned char lifebar_frame[15 * 10 * 2 + 1] =
+("\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\377\034\346\034\346\034\346"
+ "\034\346\034\346\034\346\034\346\034\346\034\346\034\346\034\346\034\346\034\346\377"
+ "\377\377\377\034\346\332\321\034\346\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\034\346\034\346\034"
+ "\346\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\034\346\332\321\034\346\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\034\346"
+ "\034\346\034\346\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\034\346\332\321\034\346\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\034\346\332\321\034\346\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\034\346\034\346\034\346\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\377");
+
+
+
+
 
 std::vector<sprite_objects> all_sprites;
 std::vector<sprite_objects*> sprite_pointers;
@@ -1556,6 +1588,17 @@ void setup_sprites(render& parameter) {
     all_sprites.push_back(*field_stone_4);
     sprite_pointers.push_back(field_stone_4);
     delete field_stone_4;    
+    
+    // Statics
+	sprite_objects * lifebar_1_1 = new sprite_objects(66, (unsigned char*)lifebar_1 ,lifebar_1, lifebar_1_size, lifebar_1_width, lifebar_1_height,701);
+    all_sprites.push_back(*lifebar_1_1);
+    sprite_pointers.push_back(lifebar_1_1);
+    delete lifebar_1_1;
+    
+	sprite_objects * lifebar_frame_1 = new sprite_objects(67, (unsigned char*)lifebar_frame ,lifebar_frame, lifebar_frame_size, lifebar_frame_width, lifebar_frame_height,702);
+    all_sprites.push_back(*lifebar_frame_1);
+    sprite_pointers.push_back(lifebar_frame_1);
+    delete lifebar_frame_1;      
 
 
 
@@ -1643,4 +1686,7 @@ parameter.load_sprite_data((unsigned char*)field_2_stone, field_stone_2_width, f
 parameter.load_sprite_data((unsigned char*)field_3_stone, field_stone_3_width, field_stone_3_height );
 parameter.load_sprite_data((unsigned char*)field_4_stone, field_stone_4_width, field_stone_4_height );
 
+// statics
+parameter.load_sprite_data((unsigned char*)lifebar_1, lifebar_1_width, lifebar_1_height );
+parameter.load_sprite_data((unsigned char*)lifebar_frame, lifebar_frame_width, lifebar_frame_height );
 };

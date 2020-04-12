@@ -10,6 +10,8 @@
 #include "sprite_objects.h"
 #include "physics.h"
 
+
+
 //#include "render.h"
 // This is the content of the .h file, which is where the declarations go
 
@@ -59,10 +61,13 @@ int rotation = 1; // exp rotation parameter
 bool general_contact;
 vector<int> contact_position;
 vector<render_state> RSV;
+vector<item> hero_items;
+
 int x_location, y_location;
 int x_location_prev, y_location_prev;
 float x_location_intersection, y_location_intersection;
 int x_location_intersection_int, y_location_intersection_int;
+
 
 //float x_1, x_2, y_1, y_2;
 float delta_x, delta_y, increment, delta_increment, cos_alfa, a_cos, length;
@@ -70,6 +75,8 @@ float delta_x, delta_y, increment, delta_increment, cos_alfa, a_cos, length;
 int height = 30;
 int width = 25;
 
+int life_bar_index = 701;
+int life_bar_nr;
 
 int destroy_counter = 0;
 int hero_life = 10;
@@ -130,6 +137,7 @@ bool LineLineIntersect(double x1, double y1, //Line 1 start
 
 unsigned char getChar(int x);
 void setRender(button_input& parameter, physics &physics_parameter, int room);
+void render_life();
 void setContactPoints();
 void setContact(int room);
 int grab_block_nr;

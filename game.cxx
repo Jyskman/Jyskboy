@@ -156,8 +156,8 @@ void game::game_setup() {
         cout << hero.sprite_nr << endl;
     hero.setContactPoints();
     champ_setup(hero);
-            hero.setX(30);
-            hero.setY(30);
+            hero.setX(100);
+            hero.setY(100);
 };
 
 void game::setup_animation_profiles() {
@@ -347,15 +347,15 @@ animation_profiles.at(3).set_to_from_cycles(2);
 void game::setupWeaponprofiles(){
 
 
-weaponProfile * obj = new weaponProfile(201, 202 ,10, 10, 1, 3);
+weaponProfile * obj = new weaponProfile(201, 202 ,10, 10, 1, 3, 20);
 gameWProfiles.push_back(*obj);
 delete obj;
 
-weaponProfile * obj2 = new weaponProfile(203, 204 ,10, 10, 1, 1);
+weaponProfile * obj2 = new weaponProfile(203, 204 ,10, 10, 1, 1, 10);
 gameWProfiles.push_back(*obj2);
 delete obj2;
 
-weaponProfile * obj3 = new weaponProfile(205, 206 ,10, 10, 1, 1);
+weaponProfile * obj3 = new weaponProfile(205, 206 ,10, 10, 1, 1, 10);
 gameWProfiles.push_back(*obj3);
 delete obj3;
 
@@ -540,7 +540,8 @@ void game::createAttacks(button_input& parameter) {
         //cout << hero.y_velocity << endl;
         attack * obj = new attack(attack_to_create,gameWProfiles.at(hero.current_gun).damage, hero.x_location+attack_location_x, hero.y_location+attack_location_y,
         gameWProfiles.at(hero.current_gun).x_vel*x_factor, gameWProfiles.at(hero.current_gun).y_vel*y_factor,
-        hero.rot_gun, hero.horisontal_gun, hero.vertical_gun, hero.gun_sprite_nr, cross, hero.current_sprite_direction, gameWProfiles.at(hero.current_gun).hitbox_t );
+        hero.rot_gun, hero.horisontal_gun, hero.vertical_gun, hero.gun_sprite_nr, cross, hero.current_sprite_direction, gameWProfiles.at(hero.current_gun).hitbox_t,
+        gameWProfiles.at(hero.current_gun).cycles_to_terminate );
         gameAttacks.push_back(*obj);
         delete obj;
 
@@ -849,6 +850,7 @@ void game::game_main(){
 
 
         }
+        room_render_req(room_current, hero); // in environment
         hero.setRender(buttons, physics_objects.at( physics_current ), room_current );
 		check_lim();
 
@@ -860,7 +862,7 @@ void game::game_main(){
 
 
 
-        room_render_req(room_current, hero); // in environment
+        //~ room_render_req(room_current, hero); // in environment
 		enemy_manager();
 
 		animations_run_render();

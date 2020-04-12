@@ -30,7 +30,7 @@ floor_contact = false;
 internal_state = 7;
 gun_direction = 3;
 jump_counter = 1;
-current_gun = 0;
+current_gun = 1;
 //internal = &render_req;
 //setContactPoints();
 grab_left = false;
@@ -40,6 +40,8 @@ grab_lock = false;
 jump_counter_set = 6;
 jump_v = 3;
 nr_of_jumps_set = 2;
+
+
 
 };
 
@@ -170,11 +172,34 @@ bool champ::LineLineIntersect(double x1, double y1, //Line 1 start
 
 };
 
+void champ::render_life() {
+
+	if ( hero_life > 0 ) {
+	
+		for ( int i = 0; i < hero_life; i++ ) {
+		
+			render_requests * obj = new render_requests(life_bar_nr, 105 + 2*i, 13, true);
+
+			render_req.push_back(*obj);
+			delete obj;
+			
+		};
+	
+	} else {
+	};
+
+
+
+};
+
+
 
 void champ::setRender(button_input& parameter, physics &physics_parameter, int room)  {
 
 // For mode 2
 //int y_test = 0;
+
+	render_life();
 
     switch (render_req_mode) {
     case 0:
@@ -454,8 +479,15 @@ for ( int i = 0; i < RSV.size(); i++ ) {
 
 
 
-                    if ( animate == true ) {
+                    if ( animate == true && RSV.at(i).static_ == false ) {
                         render_requests * obj = new render_requests(RSV.at(i).sprite_nr, RSV_x-x_mirror, RSV_y, palette_current,horisontal, vertical, rot);
+                        render_req.push_back(*obj);
+                        delete obj;
+
+                    } else {
+                    }
+                    if ( animate == true && RSV.at(i).static_ == true ) {
+                        render_requests * obj = new render_requests(RSV.at(i).sprite_nr, RSV.at(i).x_off , RSV.at(i).y_off, true);
                         render_req.push_back(*obj);
                         delete obj;
 
@@ -1524,7 +1556,7 @@ void champ::updateV(button_input& parameter, physics& physics_parameter, int roo
 
 void champ_setup(champ &parameter) {
     // render_requests * obj = new render_requests(sprite_nr, x_location, y_location, current_palette);
-    // upper body
+    // upper body 
     render_state * state_1_1 = new render_state(true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 0, 0, 101 );
     parameter.RSV.push_back(*state_1_1);
     delete state_1_1;
@@ -1588,8 +1620,15 @@ void champ_setup(champ &parameter) {
 	state_grab->grab = true;
     parameter.RSV.push_back(*state_grab);
     delete state_grab;
-    
-    
+
+    // Static
+    parameter.life_bar_nr = parameter.Relation_Spritenr_type_dev( 701 ); 
+
+	render_state * state_frame = new render_state(true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 100, 10, 702 );
+	state_frame->Advanced = true;
+	state_frame->static_ = true;
+    parameter.RSV.push_back(*state_frame);
+    delete state_frame;
     
     
     

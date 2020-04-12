@@ -12,6 +12,65 @@
 
 using namespace std;
 
+void item::setup() {
+	switch (nr) {
+		case (501):
+			sprite_index = 117;
+			sprite_nr = index_nr( sprite_index );
+		break;
+	
+	};
+	
+};
+
+int item::index_nr(int index) {
+    int return_value = 0;
+    
+        for (int i=0; i < all_sprites.size(); i++) {
+            if ( all_sprites.at(i).sprite_index == index ) {
+                return_value = i;
+
+            } else {
+
+            };
+        };
+
+    return return_value;
+
+};
+
+item::item( int item_nr, int x, int y ) {
+	
+	nr = item_nr;
+	x_pos = x;
+	y_pos = y;
+	
+	
+};
+
+void item::render_item() {
+	
+	switch ( nr ) {
+		
+		case(501):
+		
+			render_requests * obj_e = new render_requests(sprite_nr, x_pos, y_pos, 1);
+
+			render_req.push_back(*obj_e);
+			delete obj_e;
+			obj_e = 0;
+		
+		break;
+		
+		
+	};
+	
+	
+};
+
+
+
+
 
 vector<physics> physics_objects;
 vector<animation_profile> animation_profiles;
@@ -167,7 +226,9 @@ void hitbox_object::test() {};
 
 
 
-weaponProfile::weaponProfile(int sprite_index, int sprite_index_rotation, int x_velocity, int y_velocity, int set_damage, int hitbox_type) {
+weaponProfile::weaponProfile(int sprite_index, int sprite_index_rotation, int x_velocity, int y_velocity, int set_damage, int hitbox_type, int cycles) {
+
+		cycles_to_terminate = cycles;
 
         weapon_sprite = sprite_index;
         weapon_sprite_rot = sprite_index_rotation;
@@ -467,7 +528,7 @@ switch (hitbox_type) {
 };
 
 
-attack::attack(int type, int damage, int x_pos, int y_pos, int x_vel, int y_vel, int rotation, bool horisontal, bool vertical, int gun_sprite_nr, bool cross, bool shoot_direction, int hitboxtype ) {
+attack::attack(int type, int damage, int x_pos, int y_pos, int x_vel, int y_vel, int rotation, bool horisontal, bool vertical, int gun_sprite_nr, bool cross, bool shoot_direction, int hitboxtype, int cycles ) {
 
     a_cross = cross;
     a_type = type;
@@ -486,6 +547,8 @@ attack::attack(int type, int damage, int x_pos, int y_pos, int x_vel, int y_vel,
     setup_hitbox();
 
     destroy = false;
+    
+    cycles_to_terminate = cycles;
 
 
 
@@ -501,6 +564,13 @@ void attack::update() {
 
     mid_x = ( ( attack_hitbox.at(0).x_l_right + attack_hitbox.at(0).x_u_left ) / 2 ) + a_x_pos;
     mid_y = ( ( attack_hitbox.at(0).y_l_right + attack_hitbox.at(0).y_u_left ) / 2 ) + a_y_pos;
+
+	current_cycle++;
+	
+	if ( current_cycle >= cycles_to_terminate ) {
+		destroy = true;
+	} else {
+	};
 
 
 };
@@ -570,7 +640,7 @@ return idle_return;
 };
 
 
-render_state::render_state( bool floor_contact, int sprite_index) {
+render_state::render_state( bool static_, int sprite_index) {
 
 //direction = direction_condition;
 //floor = floor_contact;
@@ -619,6 +689,8 @@ int_7 = i_7;
 is_g = false;
 use_special_offset = false;
 Advanced = false;
+static_ = false;
+
 x_off = x_offset;
 y_off = y_offset;
 index = sprite_index;

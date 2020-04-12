@@ -13,29 +13,15 @@
 #include <algorithm>
 
 using namespace std;
-//
-//int room1_cols = 128;
-//int room1_rows = 16;
-//int room1_xlimit_upper = 128 * 15;
-//int room1_xlimit_lower = 0;
-//int room1_ylimit_lower = 0;
-//int room1_ylimit_upper = 16 * 15;
-//int room1_nr = 1;
-//
-//int room2_cols = 26;
-//int room2_rows = 16;
-//int room2_xlimit_upper = 26 * 15;
-//int room2_xlimit_lower = 0;
-//int room2_ylimit_lower = 0;
-//int room2_ylimit_upper = 16 * 15;
-////int nr = 2;
-//
-//int room3_cols = 26;
-//int room3_rows = 16*2;
-//int room3_xlimit_upper = 26 * 15;
-//int room3_xlimit_lower = 0;
-//int room3_ylimit_lower = 0;
-//int room3_ylimit_upper = 2*16 * 15;
+
+
+
+
+
+
+
+
+
 
 vector<block> blocks;
 vector<room_object> room_objects;
@@ -483,8 +469,22 @@ void room_object::create_blocks() {
 
         } else {
         }
+        // item creation 
+		if ( columns_storage.at(0).at(i) > 500 ) {
+
+                item * obj = new item(columns_storage.at(0).at(i), columns_storage.at(1).at(i), columns_storage.at(2).at(i) ) ;
+                obj->setup();
+                room_items.push_back(*obj);
+                obj = 0;
+
+        } else {
+        }
+        
+        
+        
+        
         // Here special blocks like motion blocks is made
-		if ( columns_storage.at(0).at(i) >= 100 ) {
+		if ( columns_storage.at(0).at(i) >= 100 && columns_storage.at(0).at(i) < 500 ) {
                 block * obj_1 = new block(columns_storage.at(1).at(i), columns_storage.at(2).at(i), columns_storage.at(0).at(i) ) ;
                 obj_1->setContactpoints();
                 //cout << *( (adress_pal + i*cols) +ii ) << endl;
@@ -945,7 +945,12 @@ void room_render_req(int roomnr, champ &parameter) {
 
 	room_objects.at(roomnr).roomblocks.at(i).setRender_Block();
 	};
+	
+	// items render
+	for (int i = 0; i < room_objects.at(roomnr).room_items.size(); i++ ) {
 
+		room_objects.at(roomnr).room_items.at(i).render_item();
+	};
 
 
 };

@@ -27,6 +27,7 @@ class render_requests {
 
 public:
 render_requests(int sprite_nr, int x_pos, int y_pos, int palette);
+render_requests(int sprite_nr, int x_pos, int y_pos, bool static_);
 render_requests(int sprite_nr, int x_pos, int y_pos, int palette, bool right_orientation, bool up_orientation, int rot);
 
 //~render_requests();
@@ -39,6 +40,7 @@ bool draw_evaluate;
 bool orientation;
 bool up_down;
 int rotation;
+bool static_render = false;
 
 bool checkers;
 
@@ -92,6 +94,8 @@ class render {
 
 
 public:
+
+int null_static = 1;
 vector<render_requests> *internal;
 int x_pos, y_pos;
 int current_x_offset, current_y_offset;

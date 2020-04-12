@@ -565,6 +565,15 @@ for ( int i = 0; i < render_req.size(); i++ ) {
     }
 
 
+	// Static overide
+	if ( render_req.at(i).static_render == true ) {
+	
+		render_req.at(i).draw = true;
+		render_req.at(i).draw_evaluate = false;
+	
+	} else {
+	};
+
 
 }
 
@@ -686,16 +695,21 @@ render_req_filter();
             R_888_byte = *( sprite_address.at( internal->at(iii).getSprite_nr() ) + 0 + ( horisontal_p1*ii + horisontal_p2 )*2 + ( vertical_p1*i + vertical_p2 )*2*sprite_w.at( internal->at(iii).getSprite_nr()  ));
             G_888_byte = *( sprite_address.at( internal->at(iii).getSprite_nr() ) + 1 + ( horisontal_p1*ii + horisontal_p2 )*2 + ( vertical_p1*i + vertical_p2 )*2*sprite_w.at( internal->at(iii).getSprite_nr()  ));
 
+					if ( render_req.at(iii).static_render == true ) {
+						null_static = 0;
+					} else {
+						null_static = 1;
+					};
 
                    if (R_888_byte != 255 && G_888_byte != 255) {
 
-                            rotation_p1 = 2*ii - current_x_offset*2;
-                            rotation_p2 = i - current_y_offset;
+                            rotation_p1 = 2*ii - current_x_offset*2*null_static;
+                            rotation_p2 = i - current_y_offset*null_static;
                             render_limit_p1 = 2*ii;
                             render_limit_p2 = i;
                             if ( render_req.at(iii).rotation == 2 ) {
-                                    rotation_p1 =2*i - current_x_offset*2;
-                                    rotation_p2 =ii - current_y_offset;
+                                    rotation_p1 =2*i - current_x_offset*2*null_static;
+                                    rotation_p2 =ii - current_y_offset*null_static;
                                     render_limit_p1 = i*2;
                                     render_limit_p2 = ii;
                             } else {
@@ -754,6 +768,21 @@ orientation = true;
 up_down = true;
 rotation = 1;
 checkers = false;
+};
+
+render_requests::render_requests(int sprite, int xpos, int ypos, bool static_){
+
+sprite_nr = sprite;
+x_pos = xpos;
+y_pos = ypos;
+draw = true;
+draw_evaluate = false;
+current_palette = 1;
+orientation = true;
+up_down = true;
+rotation = 1;
+checkers = false;
+static_render = static_;
 };
 
 render_requests::render_requests(int sprite, int xpos, int ypos, int palette, bool right_orientation, bool up_orientation, int rot ){

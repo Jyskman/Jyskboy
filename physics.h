@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <iostream>
-
+//~ #include "setup_sprites.h"
 
 using namespace::std;
 
@@ -65,7 +65,7 @@ class attack {
 public:
 void render_attacks();
 void update();
-attack( int type, int damage, int x_pos, int y_pos, int x_vel, int y_vel, int rotation, bool horisontal, bool vertical, int gun_sprite_nr, bool cross, bool shoot_direction, int hitboxtype );
+attack( int type, int damage, int x_pos, int y_pos, int x_vel, int y_vel, int rotation, bool horisontal, bool vertical, int gun_sprite_nr, bool cross, bool shoot_direction, int hitboxtype, int cycles );
 
 int a_rot;
 int a_damage;
@@ -73,6 +73,9 @@ int a_gun_sprite_nr;
 bool a_horisontal;
 bool a_vertical;
 bool a_cross;
+
+int cycles_to_terminate;
+int current_cycle = 0;
 
 bool shooter_direction;
 
@@ -94,14 +97,14 @@ void setup_hitbox();
 
 class weaponProfile {
 public:
-weaponProfile(int sprite_index, int sprite_index_rotation, int x_velocity, int y_velocity, int set_damage, int hitbox_type);
+weaponProfile(int sprite_index, int sprite_index_rotation, int x_velocity, int y_velocity, int set_damage, int hitbox_type, int cycles);
 int hitbox_t;
 int weapon_sprite;
 int weapon_sprite_rot;
 int damage;
 int sprite_nr;
 int sprite_nr_rot;
-
+int cycles_to_terminate;
 
 int x_vel;
 int y_vel;
@@ -136,7 +139,7 @@ class render_state {
 
 
 public:
-render_state(  bool floor_contact, int sprite_index );
+render_state(  bool static_, int sprite_index );
 render_state(  bool f_c1, bool f_c2, bool w_c1, bool w_c2, bool r_c1, bool r_c2,int g_1, int g_2, int g_3, int g_4, int g_5, int i_1, int i_2, int i_3, int i_4, int i_5, int i_6, int i_7, int x_offset, int y_offset, int sprite_index);
 // Overload RSV med gun true false
 render_state(  bool is_gun ,bool f_c1, bool f_c2, bool w_c1, bool w_c2, bool r_c1, bool r_c2,int g_1, int g_2, int g_3, int g_4, int g_5, int i_1, int i_2, int i_3, int i_4, int i_5, int i_6, int i_7, int x_offset, int y_offset, int sprite_index);
@@ -183,6 +186,7 @@ int RSV_x_store, RSV_y_store;
 // For advanced loader 
 bool Advanced;  
 bool grab;
+bool static_;
 
 };
 
@@ -227,7 +231,22 @@ float modifier_random_float( float number, int maximum, bool negative_possibilit
 
 
 
+// Item updrade class
+class item {
+	
+	public:
 
+	item( int item_nr, int x, int y );	
+	int index_nr( int index );
+	int nr;
+	int x_pos, y_pos;
+	int sprite_index;
+	int sprite_nr;
+	void render_item();
+	void setup();
+	
+	
+};
 
 
 
