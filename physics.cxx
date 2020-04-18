@@ -17,6 +17,12 @@ void item::setup() {
 		case (501):
 			sprite_index = 117;
 			sprite_nr = index_nr( sprite_index );
+			
+			hitbox_object * obj_h = new hitbox_object(0,0, all_sprites.at( sprite_nr ).getWidth(), all_sprites.at( sprite_nr ).getHeight() );
+			item_hitbox.push_back( *obj_h );
+			delete obj_h;
+			obj_h = 0;
+                
 		break;
 	
 	};
@@ -44,6 +50,8 @@ item::item( int item_nr, int x, int y ) {
 	nr = item_nr;
 	x_pos = x;
 	y_pos = y;
+	active = true;
+	hit = false;
 	
 	
 };
@@ -54,11 +62,33 @@ void item::render_item() {
 		
 		case(501):
 		
-			render_requests * obj_e = new render_requests(sprite_nr, x_pos, y_pos, 1);
+		
+			if ( hit == true & active == true ) {
+			
+				animation_requests * obj = new animation_requests(12, x_pos, y_pos , 0, 0);
+                anime_req.push_back(*obj);
+                delete obj;
+                
+                active = false;
+			
+			
+			} else {
+	
+			};
 
-			render_req.push_back(*obj_e);
-			delete obj_e;
-			obj_e = 0;
+			if ( active == true ) {
+
+				render_requests * obj = new render_requests(sprite_nr, x_pos, y_pos,1);
+
+				render_req.push_back(*obj);
+				delete obj;
+
+			} else {
+
+			};	
+
+			
+			
 		
 		break;
 		
@@ -68,8 +98,35 @@ void item::render_item() {
 	
 };
 
+void item::update_hitbox() {
+	
+	for ( int i = 0; i < item_hitbox.size(); i++ ) {
+	
+		item_hitbox.at(i).load_base( x_pos, y_pos );
+		
+	};
+	 
+	
+	
+	
+};
 
+void item::run_effect(champ * parameter) {
 
+	//~ cout << parameter->x_location << endl;
+	
+		switch ( nr ) {
+		
+		case(501):
+		
+			parameter->nr_of_jumps_set = 2;
+		
+		break;
+		
+		
+	};
+
+};
 
 
 vector<physics> physics_objects;
@@ -223,7 +280,52 @@ y_l_right = y_lower_right ;
 
 void hitbox_object::test() {};
 
+void hitbox_object::load_base( int x, int y ) {
+	
+	x_base = x;
+	y_base = y;
+	
+	x_u_left_plusbase = x_u_left + x_base;
+	y_u_left_plusbase = y_u_left + y_base;
+	x_l_right_plusbase = x_l_right + x_base ;
+	y_l_right_plusbase = y_l_right + y_base;
+	
+};
 
+bool hitbox_object::hitbox_compare( hitbox_object &parameter ) {
+
+	bool hit = true;
+	bool return_value = false;
+
+	// This
+
+	int X_1_A = x_base + x_u_left;
+	int X_2_A = x_base + x_l_right ;
+	int Y_1_A = y_base + y_u_left;
+	int Y_2_A = y_base + y_l_right ;
+
+
+	// Other
+	
+	int X_1_B = parameter.x_u_left_plusbase;
+	int X_2_B = parameter.x_l_right_plusbase ;
+	int Y_1_B = parameter.y_u_left_plusbase;
+	int Y_2_B = parameter.y_l_right_plusbase ;
+
+		hit = true;
+	if (  X_1_B < X_2_A && X_2_B > X_1_A && Y_1_B < Y_2_A && Y_2_B > Y_1_A ) {
+			hit = false;
+
+
+	} else {
+
+	}
+
+
+	return_value = hit;
+	return return_value;
+
+};
 
 
 weaponProfile::weaponProfile(int sprite_index, int sprite_index_rotation, int x_velocity, int y_velocity, int set_damage, int hitbox_type, int cycles) {

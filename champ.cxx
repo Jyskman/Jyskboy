@@ -39,11 +39,57 @@ grab_lock = false;
 
 jump_counter_set = 6;
 jump_v = 3;
-nr_of_jumps_set = 2;
+nr_of_jumps_set = 1;
 
 
 
 };
+
+void champ::check_items( int room ) {
+
+	room_objects.at(room).update_hitbox();
+	
+	hero_hitbox.at(0).load_base( x_location, y_location );
+	
+	for ( int i = 0; i < room_objects.at(room).room_items.size(); i++ ) {
+		
+		//~ room_objects.at(room).room_items.at(i).update_hitbox();
+		
+			if ( room_objects.at(room).room_items.at(i).item_hitbox.at(0).hitbox_compare( hero_hitbox.at(0) ) == false ) {
+				
+				hero_items.push_back( &room_objects.at(room).room_items.at(i) );
+				
+				room_objects.at(room).room_items.at(i).hit = true;
+				
+				//~ cout << " XX" << endl;
+			} else {
+			}; 
+		
+
+	};
+
+
+	
+	
+};
+
+void champ::run_items() {
+
+	for ( int i = 0; i < hero_items.size(); i ++ ) {
+	
+		//~ temp = hero_items.at(i) ; 
+	
+		hero_items.at(i)->run_effect(this)    ;
+	
+	};
+
+
+
+	
+};
+
+
+
 
 // May be obsolete after render state
 int champ::Relation_Spritenr_type() {
@@ -577,6 +623,15 @@ contact_points_all[0][11] = 0;
 contact_points_all[1][11] = height;
 
 //cout << contact_points_all[1][3] << endl;
+
+
+hitbox_object * obj_h = new hitbox_object(0,0, width, height );
+hero_hitbox.push_back( *obj_h );
+delete obj_h;
+obj_h = 0;
+
+
+
 };
 
 void champ::setContact(int room) {

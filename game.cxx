@@ -847,6 +847,8 @@ void game::game_main(){
             hero.updateV( buttons, physics_objects.at( physics_current ), room_current );
             hero.setPos(buttons, physics_objects.at( physics_current ));
             hero.setContact(room_current);
+            hero.check_items(room_current);
+            hero.run_items();
 
 
         }

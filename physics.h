@@ -3,7 +3,14 @@
 
 #include <vector>
 #include <iostream>
+
+
+
+
 //~ #include "setup_sprites.h"
+
+class champ;
+
 
 using namespace::std;
 
@@ -53,7 +60,18 @@ int x_u_left;
 int y_u_left;
 int x_l_right;
 int y_l_right;
+
+int x_base, y_base;
+
+int x_u_left_plusbase;
+int y_u_left_plusbase;
+int x_l_right_plusbase;
+int y_l_right_plusbase;
+
 void test();
+bool hitbox_compare( hitbox_object &parameter );
+void load_base( int x, int y );
+
 
 };
 
@@ -243,7 +261,16 @@ class item {
 	int sprite_index;
 	int sprite_nr;
 	void render_item();
+	
+	bool active;
+	bool hit;
+	
 	void setup();
+	
+	void update_hitbox();
+	void run_effect( champ * parameter );
+	
+	vector< hitbox_object > item_hitbox;
 	
 	
 };

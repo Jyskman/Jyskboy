@@ -32,7 +32,7 @@ bool only_once = true;
 int render_req_mode = 2;
 // hitbox contactpoints
 int contact_points_all[2][12];
-
+vector<hitbox_object> hero_hitbox;
 
 int internal_state;
 int current_gun;
@@ -61,7 +61,9 @@ int rotation = 1; // exp rotation parameter
 bool general_contact;
 vector<int> contact_position;
 vector<render_state> RSV;
-vector<item> hero_items;
+vector<item*> hero_items;
+
+//~ item * temp;
 
 int x_location, y_location;
 int x_location_prev, y_location_prev;
@@ -141,6 +143,10 @@ void render_life();
 void setContactPoints();
 void setContact(int room);
 int grab_block_nr;
+void check_items( int room );
+void run_items();
+
+
 //vector<render_requests> *internal;
 
 };

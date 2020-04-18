@@ -129,6 +129,7 @@ class room_object {
     vector< room_limits > limits ;
     vector< stars > starfields ;
     vector< item > room_items;
+    void update_hitbox();
     
     vector<int> type_temp;
     vector<int> x_temp;

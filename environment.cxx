@@ -286,6 +286,24 @@ room_nr = nr;
 
 };
 
+void room_object::update_hitbox() {
+
+	for ( int i = 0; i < room_items.size(); i++ ) {
+			
+			
+			
+			for ( int j = 0; j < room_items.at(i).item_hitbox.size(); j++ ) {
+				room_items.at(i).item_hitbox.at(j).load_base( room_items.at(i).x_pos, room_items.at(i).y_pos );
+			
+			}; 
+	
+	};
+
+
+	
+};
+
+
 
 void room_object::set_limits() {
 
