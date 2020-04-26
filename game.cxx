@@ -178,6 +178,23 @@ animation_profile * obj_4 = new animation_profile(2, 13, 0, 8);
 animation_profiles.push_back(*obj_4);
 delete obj_4;
 
+animation_profile * obj_5 = new animation_profile(2, 14, 0, 10);
+animation_profiles.push_back(*obj_5);
+delete obj_5;
+
+animation_profile * obj_6 = new animation_profile(2, 15, 0, 10);
+animation_profiles.push_back(*obj_6);
+delete obj_6;
+
+animation_profile * obj_7 = new animation_profile(2, 16, 0, 10);
+animation_profiles.push_back(*obj_7);
+delete obj_7;
+
+animation_profile * obj_8 = new animation_profile(2, 17, 0, 10);
+animation_profiles.push_back(*obj_8);
+delete obj_8;
+
+
 //load the pattern of the first animation profile @0
 animation_profiles.at(0).load_animate_type(1); // type 1 simple
 //animation_profiles.at(0).load_animate_from_cycle(0);
@@ -329,6 +346,155 @@ animation_profiles.at(3).load_animate_physics(false);
 animation_profiles.at(3).load_animate_duo(false);
 animation_profiles.at(3).load_animate_quad(true);
 
+// Upgrade animation 
+//load the pattern of the 5th animation profile @0
+animation_profiles.at(4).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(0);
+//animation_profiles.at(0).load_animate_to_cycle(10);
+animation_profiles.at(4).load_animate_main_index(517);
+animation_profiles.at(4).load_animate_sub_index_1(0);
+animation_profiles.at(4).load_animate_physics(false);
+animation_profiles.at(4).load_animate_duo(false);
+animation_profiles.at(4).load_animate_quad(true);
+
+animation_profiles.at(4).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(10);
+//animation_profiles.at(0).load_animate_to_cycle(20);
+animation_profiles.at(4).load_animate_main_index(518);
+animation_profiles.at(4).load_animate_sub_index_1(0);
+animation_profiles.at(4).load_animate_physics(false);
+animation_profiles.at(4).load_animate_duo(false);
+animation_profiles.at(4).load_animate_quad(true);
+
+animation_profiles.at(4).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(20);
+//animation_profiles.at(0).load_animate_to_cycle(30);
+animation_profiles.at(4).load_animate_main_index(519);
+animation_profiles.at(4).load_animate_sub_index_1(0);
+animation_profiles.at(4).load_animate_physics(false);
+animation_profiles.at(4).load_animate_duo(false);
+animation_profiles.at(4).load_animate_quad(true);
+
+animation_profiles.at(4).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(20);
+//animation_profiles.at(0).load_animate_to_cycle(30);
+animation_profiles.at(4).load_animate_main_index(520);
+animation_profiles.at(4).load_animate_sub_index_1(0);
+animation_profiles.at(4).load_animate_physics(false);
+animation_profiles.at(4).load_animate_duo(false);
+animation_profiles.at(4).load_animate_quad(true);
+
+animation_profiles.at(4).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(20);
+//animation_profiles.at(0).load_animate_to_cycle(30);
+animation_profiles.at(4).load_animate_main_index(521);
+animation_profiles.at(4).load_animate_sub_index_1(0);
+animation_profiles.at(4).load_animate_physics(false);
+animation_profiles.at(4).load_animate_duo(false);
+animation_profiles.at(4).load_animate_quad(true);
+
+// V small explosion with physics
+//load the pattern of the 6th animation profile @0
+animation_profiles.at(5).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(0);
+//animation_profiles.at(0).load_animate_to_cycle(10);
+animation_profiles.at(5).load_animate_main_index(514);
+animation_profiles.at(5).load_animate_sub_index_1(0);
+animation_profiles.at(5).load_animate_physics(true);
+animation_profiles.at(5).load_animate_duo(false);
+animation_profiles.at(5).load_animate_quad(true);
+
+animation_profiles.at(5).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(10);
+//animation_profiles.at(0).load_animate_to_cycle(20);
+animation_profiles.at(5).load_animate_main_index(515);
+animation_profiles.at(5).load_animate_sub_index_1(0);
+animation_profiles.at(5).load_animate_physics(true);
+animation_profiles.at(5).load_animate_duo(false);
+animation_profiles.at(5).load_animate_quad(true);
+
+animation_profiles.at(5).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(20);
+//animation_profiles.at(0).load_animate_to_cycle(30);
+animation_profiles.at(5).load_animate_main_index(516);
+animation_profiles.at(5).load_animate_sub_index_1(0);
+animation_profiles.at(5).load_animate_physics(true);
+animation_profiles.at(5).load_animate_duo(false);
+animation_profiles.at(5).load_animate_quad(true);
+
+// spark
+//load the pattern of the 7th animation profile @0
+animation_profiles.at(6).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(0);
+//animation_profiles.at(0).load_animate_to_cycle(10);
+animation_profiles.at(6).load_animate_main_index(411);
+animation_profiles.at(6).load_animate_sub_index_1(0);
+animation_profiles.at(6).load_animate_physics(true);
+animation_profiles.at(6).load_animate_duo(false);
+animation_profiles.at(6).load_animate_quad(true);
+
+animation_profiles.at(6).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(10);
+//animation_profiles.at(0).load_animate_to_cycle(20);
+animation_profiles.at(6).load_animate_main_index(412);
+animation_profiles.at(6).load_animate_sub_index_1(0);
+animation_profiles.at(6).load_animate_physics(true);
+animation_profiles.at(6).load_animate_duo(false);
+animation_profiles.at(6).load_animate_quad(true);
+
+animation_profiles.at(6).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(20);
+//animation_profiles.at(0).load_animate_to_cycle(30);
+animation_profiles.at(6).load_animate_main_index(413);
+animation_profiles.at(6).load_animate_sub_index_1(0);
+animation_profiles.at(6).load_animate_physics(true);
+animation_profiles.at(6).load_animate_duo(false);
+animation_profiles.at(6).load_animate_quad(true);
+
+animation_profiles.at(6).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(20);
+//animation_profiles.at(0).load_animate_to_cycle(30);
+animation_profiles.at(6).load_animate_main_index(413);
+animation_profiles.at(6).load_animate_sub_index_1(0);
+animation_profiles.at(6).load_animate_physics(true);
+animation_profiles.at(6).load_animate_duo(false);
+animation_profiles.at(6).load_animate_quad(true);
+
+// life drop
+//load the pattern of the 8th animation profile @0
+animation_profiles.at(7).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(0);
+//animation_profiles.at(0).load_animate_to_cycle(10);
+animation_profiles.at(7).load_animate_main_index(415);
+animation_profiles.at(7).load_animate_sub_index_1(0);
+animation_profiles.at(7).load_animate_physics(true);
+animation_profiles.at(7).load_animate_duo(false);
+animation_profiles.at(7).load_animate_quad(true);
+
+animation_profiles.at(7).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(10);
+//animation_profiles.at(0).load_animate_to_cycle(20);
+animation_profiles.at(7).load_animate_main_index(416);
+animation_profiles.at(7).load_animate_sub_index_1(0);
+animation_profiles.at(7).load_animate_physics(true);
+animation_profiles.at(7).load_animate_duo(false);
+animation_profiles.at(7).load_animate_quad(true);
+
+animation_profiles.at(7).load_animate_type(1); // type 1 simple
+//animation_profiles.at(0).load_animate_from_cycle(20);
+//animation_profiles.at(0).load_animate_to_cycle(30);
+animation_profiles.at(7).load_animate_main_index(417);
+animation_profiles.at(7).load_animate_sub_index_1(0);
+animation_profiles.at(7).load_animate_physics(true);
+animation_profiles.at(7).load_animate_duo(false);
+animation_profiles.at(7).load_animate_quad(true);
+
+
+
+
+
+
+
 
 // setup for animations
 animation_profiles.at(0).set_sprite_numbers();
@@ -342,6 +508,19 @@ animation_profiles.at(2).set_to_from_cycles(2);
 
 animation_profiles.at(3).set_sprite_numbers();
 animation_profiles.at(3).set_to_from_cycles(2);
+
+animation_profiles.at(4).set_sprite_numbers();
+animation_profiles.at(4).set_to_from_cycles(2);
+
+animation_profiles.at(5).set_sprite_numbers();
+animation_profiles.at(5).set_to_from_cycles(2);
+
+animation_profiles.at(6).set_sprite_numbers();
+animation_profiles.at(6).set_to_from_cycles(2);
+
+animation_profiles.at(7).set_sprite_numbers();
+animation_profiles.at(7).set_to_from_cycles(2);
+
 };
 
 void game::setupWeaponprofiles(){
@@ -601,6 +780,20 @@ void game::update_attacks() {
 	
 };
 
+// remove used one time items
+void game::remove_used_items() {
+
+    room_objects.at(room_current).room_drop_items.erase(
+    std::remove_if(room_objects.at(room_current).room_drop_items.begin(), room_objects.at(room_current).room_drop_items.end(),
+    [](const item & o) { return o.destroy == true; }),
+    room_objects.at(room_current).room_drop_items.end());
+
+
+	
+};
+
+
+
 // Enemy manager function
 void game::enemy_manager() {
 
@@ -622,13 +815,18 @@ void game::enemy_manager() {
 
         gameEnemys.at(i).perception(hero);
         gameEnemys.at(i).motion( physics_objects.at( physics_current ) ) ;// here is error big
+        
+        if ( gameEnemys.at(i).destroy == true ) {
+			gameEnemys.at(i).item_drop(room_current);
+		} else {
+		};
 
     }
 
 
 
 
-
+	remove_used_items();
 
 
     // Remove destroyed enemies
@@ -708,8 +906,16 @@ void game::animations_run_render() {
 
     for ( int i = 0; i < anime_req.size(); i++ ) {
 
-        anime_req.at(i).render_animation();
-        anime_req.at(i).update_position( physics_objects.at( physics_current), room_current );
+        //~ anime_req.at(i).render_animation();
+        //~ anime_req.at(i).update_position( physics_objects.at( physics_current), room_current );
+		if ( anime_req.at(i).front == true ) {
+			
+			anime_req.at(i).render_animation();
+			anime_req.at(i).update_position( physics_objects.at( physics_current), room_current );
+			
+		} else {
+		};
+		
     };
 
 
@@ -718,6 +924,26 @@ void game::animations_run_render() {
     std::remove_if(anime_req.begin(), anime_req.end(),
     [](const animation_requests & o) { return o.destroy == true; }),
     anime_req.end());
+
+
+};
+
+void game::animations_run_render_back() {
+
+
+    for ( int i = 0; i < anime_req.size(); i++ ) {
+
+		if ( anime_req.at(i).front == false ) {
+			
+			anime_req.at(i).render_animation();
+			anime_req.at(i).update_position( physics_objects.at( physics_current), room_current );
+			
+		} else {
+		};
+
+
+
+    };
 
 
 };
@@ -841,6 +1067,7 @@ void game::check_lim_upon_roomswitch() {
 
 void game::game_main(){
 
+		animations_run_render_back();
 
         if ( hero.hero_life > 0 ) {
             createAttacks(buttons);

@@ -298,6 +298,17 @@ void room_object::update_hitbox() {
 			}; 
 	
 	};
+	
+	for ( int i = 0; i < room_drop_items.size(); i++ ) {
+			
+			
+			
+			for ( int j = 0; j < room_drop_items.at(i).item_hitbox.size(); j++ ) {
+				room_drop_items.at(i).item_hitbox.at(j).load_base( room_drop_items.at(i).x_pos, room_drop_items.at(i).y_pos );
+			
+			}; 
+	
+	};
 
 
 	
@@ -398,7 +409,7 @@ room_object_setupCSV();
 create_blocks();
 set_limits();
 set_modifiers();
-cout << " end const " << endl;
+//cout << " end const " << endl;
 };
 
 
@@ -494,6 +505,7 @@ void room_object::create_blocks() {
                 obj->setup();
                 room_items.push_back(*obj);
                 obj = 0;
+                
 
         } else {
         }
@@ -518,19 +530,19 @@ void room_object::create_blocks() {
     }
 
 	
-	for ( int i = 0; i < block_temp.size(); i ++ ) {
+	//~ for ( int i = 0; i < block_temp.size(); i ++ ) {
 	
-		cout << block_temp.at(i).block_type << endl;
-	};
+		//~ cout << block_temp.at(i).block_type << endl;
+	//~ };
 
 	// Sort the temp vector
    sort(block_temp.begin(), block_temp.end(), [](const block& lhs, const block& rhs) {
       return lhs.block_type < rhs.block_type;
    });
-   cout << "X" << endl;
+   //~ cout << "X" << endl;
    for ( int i = 0; i < block_temp.size(); i ++ ) {
 		
-		cout << block_temp.at(i).block_type << endl;
+		//cout << block_temp.at(i).block_type << endl;
 	};
 
 	// The special creation will assume an even number, two temp blocks for one real 
@@ -968,6 +980,13 @@ void room_render_req(int roomnr, champ &parameter) {
 	for (int i = 0; i < room_objects.at(roomnr).room_items.size(); i++ ) {
 
 		room_objects.at(roomnr).room_items.at(i).render_item();
+
+	};
+	
+	for (int i = 0; i < room_objects.at(roomnr).room_drop_items.size(); i++ ) {
+
+		room_objects.at(roomnr).room_drop_items.at(i).render_item();
+
 	};
 
 

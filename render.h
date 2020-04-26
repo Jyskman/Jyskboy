@@ -65,11 +65,15 @@ public:
 animation_requests(int animation_nr_as_index, int animation_nr, int rot, bool facing_right, bool facing_up ,int cycles_to_terminate, int x_start, int y_start, int x_vel_start, int y_vel_start);
 animation_requests( int profile_index, int x_start, int y_start, int x_vel_start, int y_vel_start );
 
+animation_requests(int *x_start, int *y_start, int x_vel_start, int y_vel_start, bool upgrade_scan );
+
 int update_position_case = 0;
 
 int sprite_width;
 int rotation = 1;
 int anime_nr, x, y, x_v, y_v, cycles, sprite_nr, sprite_index, current_cycle, profile_nr;
+int * x_pos;
+int * y_pos;
 bool destroy = false;
 void sprite_setup( int index );
 void profile_setup( int profile_index_parameter );
@@ -86,6 +90,9 @@ bool up_orientation;
 
 float x_v_float, y_v_float, x_float, y_float;
 int x_offset;
+
+bool front = true;
+
 };
 
 extern vector<animation_requests> anime_req;

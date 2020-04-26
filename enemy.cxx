@@ -258,6 +258,43 @@ void enemy::test() {
 cout << "Func ok" << endl;
 };
 
+void enemy::item_drop(int room) {
+	
+	switch ( enemy_type ) {
+		
+		case(1): {
+		
+			item * obj = new item(510, x_location , y_location ) ;
+			obj->setup();
+			room_objects.at(room).room_drop_items.push_back(*obj);
+			obj = 0;
+			
+			item * obj2 = new item(510, x_location + 40 , y_location ) ;
+			obj2->setup();
+			room_objects.at(room).room_drop_items.push_back(*obj2);
+			obj2 = 0;
+		
+		
+		break;
+		}
+		case(2):
+		break;
+		case(3):
+		break;
+		
+		
+		
+	};
+	
+	
+	
+};
+
+
+
+
+
+
 void enemy::resolve_damage( vector<attack> &parameter, champ &hero_parameter ) {
 
 //E
@@ -345,6 +382,7 @@ bool hit = false;
 
                     destroy_v_x = parameter.at(j).a_x_vel ;
                     destroy_v_y = parameter.at(j).a_y_vel ;
+                    
 
                 } else {
                 }

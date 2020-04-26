@@ -14,18 +14,41 @@ using namespace std;
 
 void item::setup() {
 	switch (nr) {
-		case (501):
-			sprite_index = 117;
+		case (501): {
+			sprite_index = 118;
 			sprite_nr = index_nr( sprite_index );
 			
 			hitbox_object * obj_h = new hitbox_object(0,0, all_sprites.at( sprite_nr ).getWidth(), all_sprites.at( sprite_nr ).getHeight() );
 			item_hitbox.push_back( *obj_h );
 			delete obj_h;
 			obj_h = 0;
+			
+			x_mid = x_pos + all_sprites.at(sprite_nr).getWidth()/2;
+			y_mid = y_pos + all_sprites.at(sprite_nr).getHeight()/2;
                 
 		break;
-	
+		}
+		case (510): {
+			sprite_index = 401;
+			one_use = true;
+			sprite_nr = index_nr( sprite_index );
+			
+			hitbox_object * obj_h2 = new hitbox_object(0,0, 8, 8 );
+			item_hitbox.push_back( *obj_h2 );
+			delete obj_h2;
+			obj_h2 = 0;
+			
+			x_mid = x_pos + 8/2;
+			y_mid = y_pos + 8/2;
+                
+		break;
+		}
 	};
+	
+	//~ x_mid = x_pos + all_sprites.at(sprite_nr).getWidth()/2;
+	//~ y_mid = y_pos + all_sprites.at(sprite_nr).getHeight()/2;
+
+	
 	
 };
 
@@ -45,14 +68,14 @@ int item::index_nr(int index) {
 
 };
 
-item::item( int item_nr, int x, int y ) {
+item::item( int item_nr, int x, int y ) : item_cycle(1) {
 	
 	nr = item_nr;
 	x_pos = x;
 	y_pos = y;
 	active = true;
 	hit = false;
-	
+	destroy = false;
 	
 };
 
@@ -62,10 +85,18 @@ void item::render_item() {
 		
 		case(501):
 		
+			y_current = y_pos + item_cycle.cycle();
+			
+			x_mid = x_pos + all_sprites.at(sprite_nr).getWidth()/2;
+			y_mid = y_current + all_sprites.at(sprite_nr).getHeight()/2;
+		
 		
 			if ( hit == true & active == true ) {
-			
-				animation_requests * obj = new animation_requests(12, x_pos, y_pos , 0, 0);
+				
+				//~ x_mid = x_pos + all_sprites.at(sprite_nr).getWidth()/2;
+				//~ y_mid = y_pos + all_sprites.at(sprite_nr).getHeight()/2;
+				
+				animation_requests * obj = new animation_requests(14, x_mid, y_mid , 0, 0);
                 anime_req.push_back(*obj);
                 delete obj;
                 
@@ -78,10 +109,88 @@ void item::render_item() {
 
 			if ( active == true ) {
 
-				render_requests * obj = new render_requests(sprite_nr, x_pos, y_pos,1);
+
+				// cycler
+				
+				
+				render_requests * obj = new render_requests(sprite_nr, x_pos, y_current,1);
 
 				render_req.push_back(*obj);
 				delete obj;
+				
+				if ( (rand() % 10) >5 ) {
+				
+						animation_requests * obj = new animation_requests(16, x_mid, y_mid , (( rand() % 10 ) - ( rand() % 10 )), (( rand() % 10 ) - ( rand() % 10 )));
+						obj->update_position_case = 5;
+                        anime_req.push_back(*obj);
+                        delete obj;
+                        obj = 0;
+				
+				} else {
+				};
+				
+				
+
+			} else {
+
+			};	
+
+			
+			
+		
+		break;
+		case(510):
+		
+			y_current = y_pos + 4 + item_cycle.cycle();
+			
+			x_mid = x_pos + 8/2;
+			y_mid = y_current + 8/2;
+		
+		
+			if ( hit == true & active == true ) {
+				
+				//~ x_mid = x_pos + all_sprites.at(sprite_nr).getWidth()/2;
+				//~ y_mid = y_pos + all_sprites.at(sprite_nr).getHeight()/2;
+				
+				animation_requests * obj = new animation_requests(14, x_mid, y_mid , 0, 0);
+                anime_req.push_back(*obj);
+                delete obj;
+                
+                active = false;
+			
+			
+			} else {
+	
+			};
+
+			if ( active == true ) {
+
+
+				// cycler
+				
+				
+				//~ render_requests * obj = new render_requests(sprite_nr, x_pos, y_current,1);
+
+				//~ render_req.push_back(*obj);
+				//~ delete obj;
+						animation_requests * obj2 = new animation_requests(17, x_mid, y_current , 0, 0);
+						
+                        anime_req.push_back(*obj2);
+                        delete obj2;
+                        obj2 = 0;
+				
+				if ( (rand() % 10) >9 ) {
+				
+						animation_requests * obj = new animation_requests(16, x_mid, y_mid , (( rand() % 10 ) - ( rand() % 10 )), (( rand() % 10 ) - ( rand() % 10 )));
+						obj->update_position_case = 5;
+                        anime_req.push_back(*obj);
+                        delete obj;
+                        obj = 0;
+				
+				} else {
+				};
+				
+				
 
 			} else {
 
@@ -102,7 +211,7 @@ void item::update_hitbox() {
 	
 	for ( int i = 0; i < item_hitbox.size(); i++ ) {
 	
-		item_hitbox.at(i).load_base( x_pos, y_pos );
+		item_hitbox.at(i).load_base( x_pos, y_current );
 		
 	};
 	 
@@ -121,6 +230,13 @@ void item::run_effect(champ * parameter) {
 		
 			parameter->nr_of_jumps_set = 2;
 		
+		break;
+		
+		case(510):
+			
+			parameter->hero_life = parameter->hero_life + 10;
+			
+			
 		break;
 		
 		
@@ -304,6 +420,7 @@ bool hitbox_object::hitbox_compare( hitbox_object &parameter ) {
 	int Y_1_A = y_base + y_u_left;
 	int Y_2_A = y_base + y_l_right ;
 
+	render_primitive_line(X_1_A, Y_1_A, X_2_A, Y_2_A, 1, 401);
 
 	// Other
 	
@@ -311,6 +428,8 @@ bool hitbox_object::hitbox_compare( hitbox_object &parameter ) {
 	int X_2_B = parameter.x_l_right_plusbase ;
 	int Y_1_B = parameter.y_u_left_plusbase;
 	int Y_2_B = parameter.y_l_right_plusbase ;
+	
+	render_primitive_line(X_1_B, Y_1_B, X_2_B, Y_2_B, 1, 401);
 
 		hit = true;
 	if (  X_1_B < X_2_A && X_2_B > X_1_A && Y_1_B < Y_2_A && Y_2_B > Y_1_A ) {
@@ -564,7 +683,7 @@ switch (hitbox_type) {
 
 
         if (a_cross == true ) {
-        cout << a_rot << endl;
+        //cout << a_rot << endl;
             if ( shooter_direction == true ) {
             x_base = all_sprites.at(a_type).getWidth() - 3;
             y_base = 4 + 0*all_sprites.at(a_type).getHeight() ;
@@ -1027,3 +1146,65 @@ float modifier_random_float( float number, int maximum, bool negative_possibilit
     return number;
 
 };
+
+
+
+
+cycler::cycler(int type) {
+	
+
+	cycle_type = type;
+
+};
+	
+
+int cycler::cycle() {
+	
+	int return_value = 0;
+	
+	switch ( cycle_type ) {
+		
+		case(1):
+		
+			counter = counter + 0.10;
+			
+			
+			
+			//~ cout << 5 * sin(counter) << endl;
+			
+			if ( counter >= (2 * M_PI) ) {
+				counter = 0;
+			} else {
+			};
+			
+			return_value = 3 * sin(counter);
+		
+		
+		break;
+		
+		default:
+		break;
+		
+		
+	};
+	
+	
+	return return_value;
+};	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

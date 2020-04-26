@@ -83,6 +83,9 @@ int enemy_offset[2][10];
 
 void resolve_damage( vector<attack> &parameter, champ &hero_parameter );
 
+void item_drop(int room);
+
+
 };
 
 

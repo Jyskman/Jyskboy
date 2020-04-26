@@ -1018,6 +1018,33 @@ y_float = (float)y;
 profile_setup(profile_index);
 };
 
+// This one is just for the hero upgrade animation
+animation_requests::animation_requests( int *x_start, int *y_start, int x_vel_start, int y_vel_start, bool upgrade_scan ) {
+
+anime_nr = 4;
+update_position_case = 4;
+
+x_pos = x_start;
+y_pos = y_start;
+
+x = *x_start;
+y = *y_start;
+
+
+
+x_v = x_vel_start;
+y_v = y_vel_start;
+current_cycle = 0;
+cycles = 25;
+
+
+x_v_float = (float)x_v;
+y_v_float = (float)y_v;
+x_float = (float)x;
+y_float = (float)y;
+//~ profile_setup(profile_index);
+};
+
 void animation_requests::profile_setup(int profile_index_parameter) {
 
     for ( int i = 0; i < animation_profiles.size(); i++ ) {
@@ -1151,6 +1178,28 @@ void animation_requests::update_position( physics &parameter, int room ) {
             y = (int)y_float;
     break;
     case (4):
+    
+		y = * y_pos;
+		x = * x_pos;
+    
+
+		
+    
+    break;
+    
+    case (5):
+			
+			parameter.calculate_velocity(y_v_float, x_v_float, 0.1, 1);
+
+
+            x_float = x_float + x_v_float;
+            y_float = y_float + y_v_float;
+
+            x = (int)x_float;
+
+            y = (int)y_float;
+    
+    
     break;
 
     };
@@ -1162,7 +1211,7 @@ void animation_requests::update_position( physics &parameter, int room ) {
 void animation_requests::render_animation() {
 
     modifier();
-
+	int random = 0;
 
 
     switch (update_position_case) {
@@ -1236,6 +1285,60 @@ void animation_requests::render_animation() {
 
         break;
         }
+        case (4): {
+		
+			random = (rand() % 10);
+		
+			render_primitive_line(x-5 - random, y + current_cycle, x+25 + random, y + current_cycle, 1, 401);
+			
+			render_primitive_line(x + current_cycle, y - random, x + current_cycle, y+25+random, 1, 401);
+
+		
+		break;	
+		}
+		case (5): {
+		
+//                cout << animation_profiles.at(profile_nr).animate_type.size() << endl;
+            for ( int i = 0; i < animation_profiles.at(profile_nr).animate_type.size() ; i++ ) {
+
+                if ( current_cycle >= animation_profiles.at(profile_nr).animate_from_cycle.at(i) && current_cycle < animation_profiles.at(profile_nr).animate_to_cycle.at(i) ) {
+                    //cout << animation_profiles.at(profile_nr).animate_main_nr.at(i) << endl;
+
+                    if ( animation_profiles.at(profile_nr).animate_duo.at(i) == true ) {
+
+                    render_requests_dual( animation_profiles.at(profile_nr).animate_main_nr.at(i), x, y, true, true, false );
+
+                    } else {
+
+                    }
+                    if ( animation_profiles.at(profile_nr).animate_quad.at(i) == true ) {
+
+                    render_requests_quad( animation_profiles.at(profile_nr).animate_main_nr.at(i), x, y, true, true, false);
+
+                    } else {
+
+                    }
+                    if (animation_profiles.at(profile_nr).animate_quad.at(i) == false && animation_profiles.at(profile_nr).animate_duo.at(i) == false ) {
+                    render_requests * obj = new render_requests(animation_profiles.at(profile_nr).animate_main_nr.at(i), x, y, 1, true, true, 1);
+                    render_req.push_back(*obj);
+                    delete obj;
+
+                    } else {
+                    }
+
+
+
+
+                } else {
+                }
+
+            }
+
+		
+		break;	
+		}
+		
+		
 
         default:
         break;

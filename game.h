@@ -72,7 +72,10 @@ bool enemy_config = true;
 
 void portals_run_render();
 void animations_run_render();
+void animations_run_render_back();
 void update_attacks();
+
+void remove_used_items();
 
 };
 

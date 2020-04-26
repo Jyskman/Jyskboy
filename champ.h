@@ -146,6 +146,9 @@ int grab_block_nr;
 void check_items( int room );
 void run_items();
 
+void upgrade_animation();
+bool upgrade_animation_trigger = false;
+int upgrade_animation_counter = 0;
 
 //vector<render_requests> *internal;
 

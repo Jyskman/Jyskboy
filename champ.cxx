@@ -11,6 +11,7 @@
 #include <math.h>
 #include "physics.h"
 #include <cstdlib>
+#include <algorithm>
 using namespace std;
 
 //champ::champ(int a, unsigned char sprites[], int size, int Height, int Width, std::vector<sprite_objects>& parameter) {
@@ -45,27 +46,128 @@ nr_of_jumps_set = 1;
 
 };
 
+void champ::upgrade_animation() {
+	
+	//~ void modifier_random( int &number, int maximum, int minimum );
+	int x = rand() % 10 - rand() % 10 ;
+	int y = rand() % 10 - rand() % 10 ;
+
+	
+	int type = 2;
+	switch ( type ) {
+	
+		case(1):
+		
+			if ( ( rand() % 10 ) > 7 ) {
+				
+				animation_requests * obj = new animation_requests(14, x_location + width/2, y_location + height/2 , x, y);
+				anime_req.push_back(*obj);
+				delete obj;
+				obj = 0;
+			
+			} else {
+			};
+		
+		break;
+		
+		case(2):
+		
+
+
+			if ( ( rand() % 10 ) > 8 ) {
+				
+				animation_requests * obj = new animation_requests(&x_location, &y_location , 0, 0, true);
+								
+				if ( ( rand() % 10 ) > 7 ) {
+					obj->front = false;
+				} else {
+				};
+				
+				
+				anime_req.push_back(*obj);
+				delete obj;
+				obj = 0;
+
+			} else {
+			};
+			
+			upgrade_animation_counter++;
+			if ( upgrade_animation_counter > 30 ) {
+			
+				upgrade_animation_trigger = false;
+				upgrade_animation_counter = 0;
+				
+			} else {
+			};
+			
+						
+		break;
+	
+	
+	
+	};
+	
+	
+	
+};
+
+
 void champ::check_items( int room ) {
 
 	room_objects.at(room).update_hitbox();
 	
 	hero_hitbox.at(0).load_base( x_location, y_location );
 	
+
+	
 	for ( int i = 0; i < room_objects.at(room).room_items.size(); i++ ) {
 		
 		//~ room_objects.at(room).room_items.at(i).update_hitbox();
 		
-			if ( room_objects.at(room).room_items.at(i).item_hitbox.at(0).hitbox_compare( hero_hitbox.at(0) ) == false ) {
+			if ( room_objects.at(room).room_items.at(i).item_hitbox.at(0).hitbox_compare( hero_hitbox.at(0) ) == false && room_objects.at(room).room_items.at(i).active == true ) {
 				
-				hero_items.push_back( &room_objects.at(room).room_items.at(i) );
+
+					hero_items.push_back( &room_objects.at(room).room_items.at(i) );
+					upgrade_animation_trigger = true;
+
+					room_objects.at(room).room_items.at(i).hit = true;
+					
 				
-				room_objects.at(room).room_items.at(i).hit = true;
-				
-				//~ cout << " XX" << endl;
+
 			} else {
 			}; 
 		
 
+	};
+	
+	// drop items
+	for ( int i = 0; i < room_objects.at(room).room_drop_items.size(); i++ ) {
+		
+		//~ room_objects.at(room).room_items.at(i).update_hitbox();
+		
+			if ( room_objects.at(room).room_drop_items.at(i).item_hitbox.at(0).hitbox_compare( hero_hitbox.at(0) ) == false ) {
+				
+
+					room_objects.at(room).room_drop_items.at(i).run_effect(this);
+					//~ upgrade_animation_trigger = true;
+
+					room_objects.at(room).room_drop_items.at(i).hit = true;
+					room_objects.at(room).room_drop_items.at(i).destroy = true;
+				
+				
+
+			} else {
+			}; 
+		
+
+	};
+	
+	
+	if ( upgrade_animation_trigger == true ) {
+	
+		upgrade_animation();	
+	
+	} else {
 	};
 
 
@@ -74,17 +176,23 @@ void champ::check_items( int room ) {
 };
 
 void champ::run_items() {
+	
 
 	for ( int i = 0; i < hero_items.size(); i ++ ) {
 	
-		//~ temp = hero_items.at(i) ; 
+		//~ cout << hero_items.size() << " " << hero_items.at(i)->nr << endl;
 	
-		hero_items.at(i)->run_effect(this)    ;
+		hero_items.at(i)->run_effect(this);
+		
+
+
 	
 	};
+	
 
+	
 
-
+	
 	
 };
 
@@ -408,36 +516,35 @@ for ( int i = 0; i < RSV.size(); i++ ) {
 
                     // Setup the destroy sequence
                     if ( hero_life <= 0 && only_once == true ) {
+							
 
-                            x_destroy_pos_float.push_back(  (float)RSV_x );
-                            y_destroy_pos_float.push_back(  (float)RSV_y );
+							x_destroy_pos_float.push_back(  (float)RSV_x );
+							y_destroy_pos_float.push_back(  (float)RSV_y );
+
                             destroy_animation.push_back(true);
                             destroy_animation_extra.push_back(true);
 
                             x_destroy_v_float.push_back( modifier_random_float(0.00, 10, true) );
                             y_destroy_v_float.push_back( modifier_random_float(0.00, 15, false) );
 
-                                animation_requests * obj_ex = new animation_requests(12, RSV_x - x_mirror + all_sprites.at(RSV.at(i).sprite_nr).getWidth()/2,
-                                RSV_y + all_sprites.at(RSV.at(i).sprite_nr).getHeight()/2 , 0, 0);
-                                anime_req.push_back(*obj_ex);
-                                delete obj_ex;
-//
-//                                            rand_v_x = (rand() % 40) - (rand() % 40) ;
-//                                            rand_v_y = -1 * rand() % 20;
-//
-//                                            animation_requests * obj_e1 = new animation_requests(2, 1, true, 50,
-//                                           150, 100 ,
-//                                            rand_v_x, rand_v_y);
-//                                            anime_req.push_back(*obj_e1);
-//                                            delete obj_e1;
-//                                            obj_e1 = 0;
-                                            particle_generator(RSV_x - x_mirror + all_sprites.at(RSV.at(i).sprite_nr).getWidth()/2,
-                                            RSV_y + all_sprites.at(RSV.at(i).sprite_nr).getHeight()/2, 0, 5, true, 30, 20 );
+							if ( RSV.at(i).Advanced == false ) {
+							
+								animation_requests * obj_ex = new animation_requests(12, RSV_x - x_mirror + all_sprites.at(RSV.at(i).sprite_nr).getWidth()/2,
+								RSV_y + all_sprites.at(RSV.at(i).sprite_nr).getHeight()/2 , 0, 0);
+								anime_req.push_back(*obj_ex);
+								delete obj_ex;
 
-                                            for (int ii = 0; ii < 3; ii++) {
-                                                particle_generator(RSV_x - x_mirror + all_sprites.at(RSV.at(i).sprite_nr).getWidth()/2,
-                                                RSV_y + all_sprites.at(RSV.at(i).sprite_nr).getHeight()/2, false ,4, true, 30, 20 );
-                                            };
+
+								particle_generator(RSV_x - x_mirror + all_sprites.at(RSV.at(i).sprite_nr).getWidth()/2,
+								RSV_y + all_sprites.at(RSV.at(i).sprite_nr).getHeight()/2, 0, 5, true, 30, 20 );
+
+								for (int ii = 0; ii < 3; ii++) {
+									particle_generator(RSV_x - x_mirror + all_sprites.at(RSV.at(i).sprite_nr).getWidth()/2,
+									RSV_y + all_sprites.at(RSV.at(i).sprite_nr).getHeight()/2, false ,4, true, 30, 20 );
+								};
+							
+							} else {
+							};
 
 
 
@@ -446,11 +553,11 @@ for ( int i = 0; i < RSV.size(); i++ ) {
                     }
 
 
-                    if ( hero_life <= 0 && only_once == false ) {
+                    if ( hero_life <= 0 && only_once == false  ) {
 
                         int test = (rand() % 100);
                         if (  test > 98 ) {
-                            destroy_animation.at(0 + destroy_counter) = false;
+                            destroy_animation.at(0 + destroy_counter ) = false;
 
                                 if ( destroy_animation_extra.at( 0 + destroy_counter ) == true ) {
 

@@ -3,7 +3,8 @@
 
 #include <vector>
 #include <iostream>
-
+#include <math.h>
+#include <cmath>
 
 
 
@@ -247,22 +248,43 @@ float modifier_random_float( float number, int maximum, bool negative_possibilit
 
 // hitbox objects
 
-
+class cycler {
+	
+	
+	public:
+	
+	cycler(int type);
+	
+	int cycle();
+	
+	int cycle_type = 0;
+	double counter = 0;
+	
+};
 
 // Item updrade class
 class item {
 	
 	public:
 
+	cycler item_cycle;
+
 	item( int item_nr, int x, int y );	
 	int index_nr( int index );
 	int nr;
 	int x_pos, y_pos;
+	int x_current, y_current;
+	
+	
+	int x_mid, y_mid;
+	
 	int sprite_index;
 	int sprite_nr;
 	void render_item();
 	
 	bool active;
+	bool destroy = false;
+	bool one_use = false;
 	bool hit;
 	
 	void setup();
@@ -274,6 +296,8 @@ class item {
 	
 	
 };
+
+
 
 
 
