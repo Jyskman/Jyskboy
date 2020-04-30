@@ -1079,7 +1079,7 @@ void game::game_main(){
 
 
         }
-        room_render_req(room_current, hero); // in environment
+        room_render_req(room_current, hero, physics_objects.at( physics_current ) ); // in environment
         hero.setRender(buttons, physics_objects.at( physics_current ), room_current );
 		check_lim();
 

@@ -32,14 +32,16 @@ void item::setup() {
 			sprite_index = 401;
 			one_use = true;
 			sprite_nr = index_nr( sprite_index );
+			height = 8;
+			width = 8;
 			
-			hitbox_object * obj_h2 = new hitbox_object(0,0, 8, 8 );
+			hitbox_object * obj_h2 = new hitbox_object(0,0, width, height );
 			item_hitbox.push_back( *obj_h2 );
 			delete obj_h2;
 			obj_h2 = 0;
 			
-			x_mid = x_pos + 8/2;
-			y_mid = y_pos + 8/2;
+			x_mid = x_pos + width/2;
+			y_mid = y_pos + height/2;
                 
 		break;
 		}
@@ -51,6 +53,33 @@ void item::setup() {
 	
 	
 };
+
+void item::motion(physics &parameter) {
+
+	switch (nr) {
+		case (501): {
+
+		break;
+		}
+		case (510): {
+
+			//~ void calculate_velocity_no_g( float &v_parameter, float &v_x_parameter , float Area_factor, float Area_x_fraction );
+			parameter.calculate_velocity_no_g( y_v_float, x_v_float, 0.60, 0.60 );
+			
+			x_pos = x_pos + (int)x_v_float;
+			y_pos = y_pos + (int)y_v_float;
+
+                
+		break;
+		}
+	};
+
+
+
+
+};
+
+
 
 int item::index_nr(int index) {
     int return_value = 0;
@@ -68,7 +97,7 @@ int item::index_nr(int index) {
 
 };
 
-item::item( int item_nr, int x, int y ) : item_cycle(1) {
+item::item( int item_nr, int x, int y ) : item_cycle(1), item_cycle_animation(2) {
 	
 	nr = item_nr;
 	x_pos = x;
@@ -76,6 +105,8 @@ item::item( int item_nr, int x, int y ) : item_cycle(1) {
 	active = true;
 	hit = false;
 	destroy = false;
+	
+	item_cycle_animation.counter_int_set = 6;
 	
 };
 
@@ -141,10 +172,10 @@ void item::render_item() {
 		break;
 		case(510):
 		
-			y_current = y_pos + 4 + item_cycle.cycle();
+			y_current = y_pos + item_cycle.cycle();
 			
-			x_mid = x_pos + 8/2;
-			y_mid = y_current + 8/2;
+			x_mid = x_pos + width/2;
+			y_mid = y_current + height/2;
 		
 		
 			if ( hit == true & active == true ) {
@@ -165,19 +196,19 @@ void item::render_item() {
 
 			if ( active == true ) {
 
-
-				// cycler
-				
-				
-				//~ render_requests * obj = new render_requests(sprite_nr, x_pos, y_current,1);
-
-				//~ render_req.push_back(*obj);
-				//~ delete obj;
-						animation_requests * obj2 = new animation_requests(17, x_mid, y_current , 0, 0);
+						if ( item_cycle_animation.cycle() == 1 ) {
 						
-                        anime_req.push_back(*obj2);
-                        delete obj2;
-                        obj2 = 0;
+							animation_requests * obj2 = new animation_requests(17, x_mid, y_mid , 0, 0);
+							
+							anime_req.push_back(*obj2);
+							delete obj2;
+							obj2 = 0;
+						
+						} else {
+						};
+
+
+						
 				
 				if ( (rand() % 10) >9 ) {
 				
@@ -420,7 +451,7 @@ bool hitbox_object::hitbox_compare( hitbox_object &parameter ) {
 	int Y_1_A = y_base + y_u_left;
 	int Y_2_A = y_base + y_l_right ;
 
-	render_primitive_line(X_1_A, Y_1_A, X_2_A, Y_2_A, 1, 401);
+	//~ render_primitive_line(X_1_A, Y_1_A, X_2_A, Y_2_A, 1, 401);
 
 	// Other
 	
@@ -429,7 +460,7 @@ bool hitbox_object::hitbox_compare( hitbox_object &parameter ) {
 	int Y_1_B = parameter.y_u_left_plusbase;
 	int Y_2_B = parameter.y_l_right_plusbase ;
 	
-	render_primitive_line(X_1_B, Y_1_B, X_2_B, Y_2_B, 1, 401);
+	//~ render_primitive_line(X_1_B, Y_1_B, X_2_B, Y_2_B, 1, 401);
 
 		hit = true;
 	if (  X_1_B < X_2_A && X_2_B > X_1_A && Y_1_B < Y_2_A && Y_2_B > Y_1_A ) {
@@ -1038,6 +1069,47 @@ state = index;
 
 };
 
+void physics::calculate_velocity_no_g(float &v_parameter, float &v_x_parameter, float Area_factor, float Area_x_fraction) {
+
+     sign = -1;
+    if ( v_parameter < 0 ) {
+        sign = 1;
+    } else {
+    }
+
+
+    //~ v_parameter = v_parameter + new_g;
+
+    //current_drag = (Area_factor * Shape_C_factor * new_air_density) * v_parameter*v_parameter;
+    current_drag = (float)sign * ( Area_factor * new_air_density ) * v_parameter*v_parameter;
+
+    if ( abs(current_drag) < 0.001 ) {
+        current_drag = 0.00;
+    } else {
+    }
+
+
+    v_parameter = v_parameter + current_drag;
+    //cout << v_parameter << endl;
+
+    // x velocity
+         sign = 1;
+    if ( v_x_parameter < 0 ) {
+        sign = -1;
+    } else {
+    }
+
+    current_drag = (float)sign * ( Area_factor*Area_x_fraction * new_air_density ) * v_x_parameter*v_x_parameter;
+
+    if ( abs(current_drag) < 0.02 ) {
+        current_drag = 0.00;
+    } else {
+    }
+    v_x_parameter = v_x_parameter - current_drag;
+    //cout << v_parameter << endl;
+};
+
+
 void physics::calculate_velocity(float &v_parameter, float &v_x_parameter, float Area_factor, float Area_x_fraction) {
 
      sign = -1;
@@ -1179,6 +1251,19 @@ int cycler::cycle() {
 			
 			return_value = 3 * sin(counter);
 		
+		
+		break;
+		case(2):
+		
+			if ( counter_int > counter_int_set ) {
+				return_value = 1;
+				counter_int = 0;
+			} else {
+				counter_int++;
+			};
+		
+		
+			
 		
 		break;
 		

@@ -304,7 +304,7 @@ void room_object::update_hitbox() {
 			
 			
 			for ( int j = 0; j < room_drop_items.at(i).item_hitbox.size(); j++ ) {
-				room_drop_items.at(i).item_hitbox.at(j).load_base( room_drop_items.at(i).x_pos, room_drop_items.at(i).y_pos );
+				room_drop_items.at(i).item_hitbox.at(j).load_base( room_drop_items.at(i).x_pos, room_drop_items.at(i).y_current );
 			
 			}; 
 	
@@ -941,7 +941,7 @@ delete new_room2;
 
 };
 
-void room_render_req(int roomnr, champ &parameter) {
+void room_render_req(int roomnr, champ &parameter, physics &parameter_physics) {
 
     // remove dest room blocks
     room_objects.at(roomnr).roomblocks.erase(
@@ -985,6 +985,7 @@ void room_render_req(int roomnr, champ &parameter) {
 	
 	for (int i = 0; i < room_objects.at(roomnr).room_drop_items.size(); i++ ) {
 
+		room_objects.at(roomnr).room_drop_items.at(i).motion( parameter_physics );
 		room_objects.at(roomnr).room_drop_items.at(i).render_item();
 
 	};

@@ -266,13 +266,11 @@ void enemy::item_drop(int room) {
 		
 			item * obj = new item(510, x_location , y_location ) ;
 			obj->setup();
+			obj->x_v_float = (float)destroy_v_x;
+			obj->y_v_float = (float)destroy_v_y;
 			room_objects.at(room).room_drop_items.push_back(*obj);
 			obj = 0;
-			
-			item * obj2 = new item(510, x_location + 40 , y_location ) ;
-			obj2->setup();
-			room_objects.at(room).room_drop_items.push_back(*obj2);
-			obj2 = 0;
+
 		
 		
 		break;

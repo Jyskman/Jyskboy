@@ -147,7 +147,7 @@ extern vector<room_portal> room_portals;
 
 void room_setup( game *parameter );
 
-void room_render_req(int roomnr, champ &parameter);
+void room_render_req(int roomnr, champ &parameter, physics &parameter_physics);
 
 void roomblocks_simple_deflection( int room, float x_f, float y_f, float &x_v, float &y_v );
 

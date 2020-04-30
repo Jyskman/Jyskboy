@@ -217,6 +217,9 @@ physics( float g_force, float air_force, int index );
 physics( int index, float set_new_g, float set_new_air_density, int extra_parameter );
 
 void calculate_velocity( float &v_parameter, float &v_x_parameter , float Area_factor, float Area_x_fraction );
+void calculate_velocity_no_g( float &v_parameter, float &v_x_parameter , float Area_factor, float Area_x_fraction );
+
+
 
 void setState(int param);
 float getG(int state);
@@ -259,6 +262,8 @@ class cycler {
 	
 	int cycle_type = 0;
 	double counter = 0;
+	int counter_int = 0;
+	int counter_int_set = 0;
 	
 };
 
@@ -268,6 +273,7 @@ class item {
 	public:
 
 	cycler item_cycle;
+	cycler item_cycle_animation;
 
 	item( int item_nr, int x, int y );	
 	int index_nr( int index );
@@ -278,9 +284,17 @@ class item {
 	
 	int x_mid, y_mid;
 	
+	int x_v = 0;
+	int y_v = 0;
+	
+	float x_v_float = 0;
+	float y_v_float = 0;
+	
 	int sprite_index;
 	int sprite_nr;
 	void render_item();
+	// if animation need to hardcode the h w
+	int width, height;
 	
 	bool active;
 	bool destroy = false;
@@ -288,6 +302,7 @@ class item {
 	bool hit;
 	
 	void setup();
+	void motion( physics &parameter );
 	
 	void update_hitbox();
 	void run_effect( champ * parameter );
