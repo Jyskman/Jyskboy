@@ -788,6 +788,16 @@ void portal::transport( champ &parameter, int &game_room ) {
                 game_room = room_destination;
                 parameter.x_location = destination_x;
                 parameter.y_location = destination_y;
+                
+					for ( int i = 0; i < anime_req.size(); i++ ) {
+	
+						anime_req.at(i).destroy = true;
+
+
+					};
+                
+                
+                
             } else {
             }
 

@@ -28,6 +28,35 @@ void item::setup() {
                 
 		break;
 		}
+		case(502):{
+		
+			sprite_index = 118;
+			sprite_nr = index_nr( sprite_index );
+			
+			hitbox_object * obj_h = new hitbox_object(0,0, all_sprites.at( sprite_nr ).getWidth(), all_sprites.at( sprite_nr ).getHeight() );
+			item_hitbox.push_back( *obj_h );
+			delete obj_h;
+			obj_h = 0;
+			
+			x_mid = x_pos + all_sprites.at(sprite_nr).getWidth()/2;
+			y_mid = y_pos + all_sprites.at(sprite_nr).getHeight()/2;
+		}
+		break;
+		case(503):{
+		
+					sprite_index = 118;
+			sprite_nr = index_nr( sprite_index );
+			
+			hitbox_object * obj_h = new hitbox_object(0,0, all_sprites.at( sprite_nr ).getWidth(), all_sprites.at( sprite_nr ).getHeight() );
+			item_hitbox.push_back( *obj_h );
+			delete obj_h;
+			obj_h = 0;
+			
+			x_mid = x_pos + all_sprites.at(sprite_nr).getWidth()/2;
+			y_mid = y_pos + all_sprites.at(sprite_nr).getHeight()/2;
+		}
+		break;
+		
 		case (510): {
 			sprite_index = 401;
 			one_use = true;
@@ -61,6 +90,13 @@ void item::motion(physics &parameter) {
 
 		break;
 		}
+		
+		case(502):
+		
+		break;
+		case(503):
+		
+		break;
 		case (510): {
 
 			//~ void calculate_velocity_no_g( float &v_parameter, float &v_x_parameter , float Area_factor, float Area_x_fraction );
@@ -170,6 +206,115 @@ void item::render_item() {
 			
 		
 		break;
+		case(502):
+		y_current = y_pos + item_cycle.cycle();
+			
+			x_mid = x_pos + all_sprites.at(sprite_nr).getWidth()/2;
+			y_mid = y_current + all_sprites.at(sprite_nr).getHeight()/2;
+		
+		
+			if ( hit == true & active == true ) {
+				
+				//~ x_mid = x_pos + all_sprites.at(sprite_nr).getWidth()/2;
+				//~ y_mid = y_pos + all_sprites.at(sprite_nr).getHeight()/2;
+				
+				animation_requests * obj = new animation_requests(14, x_mid, y_mid , 0, 0);
+                anime_req.push_back(*obj);
+                delete obj;
+                
+                active = false;
+			
+			
+			} else {
+	
+			};
+
+			if ( active == true ) {
+
+
+				// cycler
+				
+				
+				render_requests * obj = new render_requests(sprite_nr, x_pos, y_current,1);
+
+				render_req.push_back(*obj);
+				delete obj;
+				
+				if ( (rand() % 10) >5 ) {
+				
+						animation_requests * obj = new animation_requests(16, x_mid, y_mid , (( rand() % 10 ) - ( rand() % 10 )), (( rand() % 10 ) - ( rand() % 10 )));
+						obj->update_position_case = 5;
+                        anime_req.push_back(*obj);
+                        delete obj;
+                        obj = 0;
+				
+				} else {
+				};
+				
+				
+
+			} else {
+
+			};	
+		
+		
+		break;
+		
+		case(503):
+		
+		y_current = y_pos + item_cycle.cycle();
+			
+			x_mid = x_pos + all_sprites.at(sprite_nr).getWidth()/2;
+			y_mid = y_current + all_sprites.at(sprite_nr).getHeight()/2;
+		
+		
+			if ( hit == true & active == true ) {
+				
+				//~ x_mid = x_pos + all_sprites.at(sprite_nr).getWidth()/2;
+				//~ y_mid = y_pos + all_sprites.at(sprite_nr).getHeight()/2;
+				
+				animation_requests * obj = new animation_requests(14, x_mid, y_mid , 0, 0);
+                anime_req.push_back(*obj);
+                delete obj;
+                
+                active = false;
+			
+			
+			} else {
+	
+			};
+
+			if ( active == true ) {
+
+
+				// cycler
+				
+				
+				render_requests * obj = new render_requests(sprite_nr, x_pos, y_current,1);
+
+				render_req.push_back(*obj);
+				delete obj;
+				
+				if ( (rand() % 10) >5 ) {
+				
+						animation_requests * obj = new animation_requests(16, x_mid, y_mid , (( rand() % 10 ) - ( rand() % 10 )), (( rand() % 10 ) - ( rand() % 10 )));
+						obj->update_position_case = 5;
+                        anime_req.push_back(*obj);
+                        delete obj;
+                        obj = 0;
+				
+				} else {
+				};
+				
+				
+
+			} else {
+
+			};	
+		
+		
+		break;
+		
 		case(510):
 		
 			y_current = y_pos + item_cycle.cycle();
@@ -184,6 +329,7 @@ void item::render_item() {
 				//~ y_mid = y_pos + all_sprites.at(sprite_nr).getHeight()/2;
 				
 				animation_requests * obj = new animation_requests(14, x_mid, y_mid , 0, 0);
+                obj->front = false;
                 anime_req.push_back(*obj);
                 delete obj;
                 
@@ -262,6 +408,17 @@ void item::run_effect(champ * parameter) {
 			parameter->nr_of_jumps_set = 2;
 		
 		break;
+		case(502):
+		
+			parameter->available_weapon_index.push_back(10);
+		
+		break;
+		case(503):
+		
+			parameter->available_weapon_index.push_back(20);
+		
+		break;
+		
 		
 		case(510):
 			
@@ -478,9 +635,12 @@ bool hitbox_object::hitbox_compare( hitbox_object &parameter ) {
 };
 
 
-weaponProfile::weaponProfile(int sprite_index, int sprite_index_rotation, int x_velocity, int y_velocity, int set_damage, int hitbox_type, int cycles) {
+weaponProfile::weaponProfile(int sprite_index, int sprite_index_rotation, int x_velocity, int y_velocity, int set_damage, int hitbox_type, int cycles, int weapon_index) {
 
 		cycles_to_terminate = cycles;
+		
+		weaponprofile_index = weapon_index;
+		
 
         weapon_sprite = sprite_index;
         weapon_sprite_rot = sprite_index_rotation;

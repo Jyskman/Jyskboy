@@ -32,6 +32,8 @@ internal_state = 7;
 gun_direction = 3;
 jump_counter = 1;
 current_gun = 1;
+current_gun_index = 20;
+
 //internal = &render_req;
 //setContactPoints();
 grab_left = false;
@@ -45,6 +47,27 @@ nr_of_jumps_set = 1;
 
 
 };
+
+void champ::cycle_weapon( button_input& parameter ) {
+
+	if ( parameter.getXstate_justpressed() == true ) {
+	
+		current_gun_cycle++;
+	
+	} else {
+	};
+	
+	if ( current_gun_cycle > (available_weapon_index.size() -1) ) {
+	
+		current_gun_cycle = 0;
+	
+	} else {
+	};
+	
+	current_gun_index = available_weapon_index.at(  current_gun_cycle  );
+
+};
+
 
 void champ::upgrade_animation() {
 	
@@ -175,7 +198,11 @@ void champ::check_items( int room ) {
 	
 };
 
-void champ::run_items() {
+void champ::run_items( game * parameter ) {
+	
+	
+	available_weapon_index.clear();
+	
 	
 
 	for ( int i = 0; i < hero_items.size(); i ++ ) {
@@ -183,14 +210,21 @@ void champ::run_items() {
 		//~ cout << hero_items.size() << " " << hero_items.at(i)->nr << endl;
 	
 		hero_items.at(i)->run_effect(this);
-		
 
-
-	
 	};
 	
 
+	for ( int i = 0; i < parameter->gameWProfiles.size(); i++ ) {
 	
+		if ( parameter->gameWProfiles.at(i).weaponprofile_index == current_gun_index ) {
+		
+			current_gun = i ;
+		
+		} else {
+		};
+	
+	
+	};
 
 	
 	

@@ -15,7 +15,7 @@
 //#include "render.h"
 // This is the content of the .h file, which is where the declarations go
 
-
+class game;
 
 
 class champ {
@@ -36,7 +36,12 @@ vector<hitbox_object> hero_hitbox;
 
 int internal_state;
 int current_gun;
-int current_gun_sprite_nr;
+int current_gun_index;
+int current_gun_cycle = 0;
+
+
+
+
 int current_legs;
 int current_torso;
 
@@ -62,6 +67,7 @@ bool general_contact;
 vector<int> contact_position;
 vector<render_state> RSV;
 vector<item*> hero_items;
+vector<int> available_weapon_index;
 
 //~ item * temp;
 
@@ -144,7 +150,8 @@ void setContactPoints();
 void setContact(int room);
 int grab_block_nr;
 void check_items( int room );
-void run_items();
+void run_items( game * parameter );
+void cycle_weapon( button_input& parameter );
 
 void upgrade_animation();
 bool upgrade_animation_trigger = false;

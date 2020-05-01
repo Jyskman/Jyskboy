@@ -526,15 +526,23 @@ animation_profiles.at(7).set_to_from_cycles(2);
 void game::setupWeaponprofiles(){
 
 
-weaponProfile * obj = new weaponProfile(201, 202 ,10, 10, 1, 3, 20);
+weaponProfile * obj = new weaponProfile(201, 202 ,10, 10, 1, 3, 20, 10);
 gameWProfiles.push_back(*obj);
 delete obj;
 
-weaponProfile * obj2 = new weaponProfile(203, 204 ,10, 10, 1, 1, 10);
+item * obj_b = new item(502, 10, 10 ) ;
+obj_b->setup();
+
+base_weapon.push_back(*obj_b);
+obj_b = 0;
+
+hero.hero_items.push_back( &base_weapon.at(0) );
+
+weaponProfile * obj2 = new weaponProfile(203, 204 ,10, 10, 1, 1, 10, 20);
 gameWProfiles.push_back(*obj2);
 delete obj2;
 
-weaponProfile * obj3 = new weaponProfile(205, 206 ,10, 10, 1, 1, 10);
+weaponProfile * obj3 = new weaponProfile(205, 206 ,10, 10, 1, 1, 10, 30);
 gameWProfiles.push_back(*obj3);
 delete obj3;
 
@@ -893,6 +901,30 @@ bool compare_entry_anim( const animation_requests & e1, const animation_requests
   return (e1.y < e2.y);
 }
 
+void game::destroy_animations_upon_roomswitch() {
+	
+	if ( game_room_switch() == true ) {
+	
+		for ( int i = 0; i < anime_req.size(); i++ ) {
+
+			anime_req.at(i).destroy = true;
+
+
+		};
+	
+	
+	
+	} else {
+	};
+	
+	// Remove animations
+    anime_req.erase(
+    std::remove_if(anime_req.begin(), anime_req.end(),
+    [](const animation_requests & o) { return o.destroy == true; }),
+    anime_req.end());
+	
+	
+};
 
 void game::animations_run_render() {
 
@@ -1067,6 +1099,7 @@ void game::check_lim_upon_roomswitch() {
 
 void game::game_main(){
 
+		destroy_animations_upon_roomswitch();
 		animations_run_render_back();
 
         if ( hero.hero_life > 0 ) {
@@ -1075,7 +1108,8 @@ void game::game_main(){
             hero.setPos(buttons, physics_objects.at( physics_current ));
             hero.setContact(room_current);
             hero.check_items(room_current);
-            hero.run_items();
+            hero.run_items(this);
+            hero.cycle_weapon(buttons);
 
 
         }

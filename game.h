@@ -36,6 +36,9 @@ void setup_animation_profiles();
 vector<weaponProfile> gameWProfiles;
 vector<attack> gameAttacks;
 vector<enemy> gameEnemys;
+
+vector<item> base_weapon;
+
 void createAttacks(button_input& parameter);
 void setXYfactor();
 int x_factor, y_factor;
@@ -64,6 +67,7 @@ void game_frame();
 bool game_room_switch();
 void check_lim();
 void check_lim_upon_roomswitch();
+void destroy_animations_upon_roomswitch();
 int current_lim = 0;
 // enemy functions
 

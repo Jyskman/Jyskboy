@@ -116,7 +116,7 @@ void setup_hitbox();
 
 class weaponProfile {
 public:
-weaponProfile(int sprite_index, int sprite_index_rotation, int x_velocity, int y_velocity, int set_damage, int hitbox_type, int cycles);
+weaponProfile(int sprite_index, int sprite_index_rotation, int x_velocity, int y_velocity, int set_damage, int hitbox_type, int cycles, int weapon_index);
 int hitbox_t;
 int weapon_sprite;
 int weapon_sprite_rot;
@@ -127,6 +127,9 @@ int cycles_to_terminate;
 
 int x_vel;
 int y_vel;
+
+int weaponprofile_index;
+
 };
 
 

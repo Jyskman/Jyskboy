@@ -40,6 +40,8 @@ bool getSelectState();
 bool getJumpstate_justpressed();
 bool getJumpstate_justreleased();
 
+bool getXstate_justpressed();
+
 void printAll();
 };
 
