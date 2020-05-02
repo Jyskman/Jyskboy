@@ -283,19 +283,25 @@ class item {
 	int nr;
 	int x_pos, y_pos;
 	int x_current, y_current;
-	
-	
+
 	int x_mid, y_mid;
 	
 	int x_v = 0;
 	int y_v = 0;
+
+	int weapon_index;
 	
 	float x_v_float = 0;
 	float y_v_float = 0;
 	
+	int x_symbol, y_symbol;
+	
+	int symbol_index = 0;
 	int sprite_index;
 	int sprite_nr;
+	int symbol_nr;
 	void render_item();
+	
 	// if animation need to hardcode the h w
 	int width, height;
 	

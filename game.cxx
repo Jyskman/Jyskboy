@@ -832,8 +832,6 @@ void game::enemy_manager() {
     }
 
 
-
-
 	remove_used_items();
 
 
@@ -928,18 +926,12 @@ void game::destroy_animations_upon_roomswitch() {
 
 void game::animations_run_render() {
 
-    //cout << " size before " << anime_req.size() << endl;
 
-//    sort( anime_req.begin(), anime_req.end(), compare_entry_anim );
-//
-//    anime_req.erase( unique(anime_req.begin(), anime_req.end(), comparefunction_anim ), anime_req.end()   );
-
-    //cout << " size after " << anime_req.size() << endl;
 
     for ( int i = 0; i < anime_req.size(); i++ ) {
 
-        //~ anime_req.at(i).render_animation();
-        //~ anime_req.at(i).update_position( physics_objects.at( physics_current), room_current );
+		//~ cout << anime_req.at(i).current_cycle  << endl;
+
 		if ( anime_req.at(i).front == true ) {
 			
 			anime_req.at(i).render_animation();
@@ -1098,6 +1090,8 @@ void game::check_lim_upon_roomswitch() {
 
 
 void game::game_main(){
+		
+		room_render_req(room_current, hero, physics_objects.at( physics_current ) ); // in environment
 
 		destroy_animations_upon_roomswitch();
 		animations_run_render_back();
@@ -1113,7 +1107,7 @@ void game::game_main(){
 
 
         }
-        room_render_req(room_current, hero, physics_objects.at( physics_current ) ); // in environment
+        //~ room_render_req(room_current, hero, physics_objects.at( physics_current ) ); // in environment
         hero.setRender(buttons, physics_objects.at( physics_current ), room_current );
 		check_lim();
 

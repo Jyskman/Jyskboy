@@ -86,7 +86,7 @@ void enemy::motion( physics &parameter ) {
     };
     
     
-            
+      
 
     parameter.calculate_velocity( y_v_float, x_v_float, 0.050, 1);
 
@@ -96,8 +96,13 @@ void enemy::motion( physics &parameter ) {
 
 
     //~ y_v_float = 0;
+
+    
     x_location = x_location + (int)x_v_float;
     y_location = y_location + (int)y_v_float;
+
+
+
 
     previous_x.push_back(x_location + width );
     previous_y.push_back(y_location + height );
@@ -408,8 +413,6 @@ bool hit = false;
 
 void enemy::setRender()  {
 
-// For mode 2
-//int y_test = 0;
 
     switch (render_req_mode) {
     case 0:
@@ -452,7 +455,8 @@ for ( int i = 0; i < RSV.size(); i++ ) {
     bool r = roof_contact;
 
     int x_mirror = 0;
-    int RSV_x, RSV_y;
+    int RSV_x = 0;
+    int RSV_y = 0;
 
 
 
@@ -464,9 +468,9 @@ for ( int i = 0; i < RSV.size(); i++ ) {
     vertical = current_sprite_v_direction;
     horisontal = current_sprite_direction;
     rot = 1;
+
     RSV_x = x_location+RSV.at(i).x_off;
     RSV_y = y_location+RSV.at(i).y_off;
-
 
 
 
@@ -532,6 +536,7 @@ for ( int i = 0; i < RSV.size(); i++ ) {
                     } else {
                     }
                     // based on rotation the xoffset is set
+                    
                     if ( current_sprite_direction == false &&  RSV.at(i).x_off > 0) {
                         switch (rot){
                             case 1:
@@ -550,6 +555,7 @@ for ( int i = 0; i < RSV.size(); i++ ) {
 
                     // transmitt the RSV and mirror values to the later attack creation
                     //cout << " width half " << width/2 << endl;
+                    //~ cout << " 3_ " << RSV_x << endl;
                     if ( RSV.at(i).is_g == true ) {
                         x_mirror_gun = x_mirror;
                         RSV_x_gun = RSV_x-x_location;
@@ -560,7 +566,7 @@ for ( int i = 0; i < RSV.size(); i++ ) {
                         gun_sprite_nr = RSV.at(i).sprite_nr;
                     }else {
                     }
-
+					//~ cout << " 4_ " << RSV_x << endl;
                     if ( RSV.at(i).use_special_offset == true ) {
 
                         switch (enemy_type) {
@@ -584,7 +590,7 @@ for ( int i = 0; i < RSV.size(); i++ ) {
                                 }
 
 
-
+								//~ cout << " 6_ " << RSV_x << endl;
                                 //cout << previous_x.at(6) << endl;
                                 x_mirror = 0;
                             break;
@@ -624,6 +630,7 @@ for ( int i = 0; i < RSV.size(); i++ ) {
 
                     };
 
+					//~ cout << " 8_ " << RSV_x << endl;
 
                     RSV.at(i).RSV_x_store = RSV_x-x_mirror;
                     RSV.at(i).RSV_y_store = RSV_y;
@@ -634,7 +641,7 @@ for ( int i = 0; i < RSV.size(); i++ ) {
 
 
 
-        //cout << fc << endl;
+					//~ cout << RSV_x << " _ " << RSV_y << endl;
     };
 
 

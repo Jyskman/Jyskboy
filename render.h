@@ -88,7 +88,13 @@ int state =1;
 bool right_orientation;
 bool up_orientation;
 
-float x_v_float, y_v_float, x_float, y_float;
+float x_v_float = 0;
+float y_v_float = 0;
+float x_float = 0;
+float y_float = 0;
+
+
+
 int x_offset;
 
 bool front = true;

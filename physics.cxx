@@ -30,8 +30,13 @@ void item::setup() {
 		}
 		case(502):{
 		
-			sprite_index = 118;
+			sprite_index = 418;
+			symbol_index = 418;
+			x_symbol = 200;  
+			y_symbol = 15;
+			weapon_index = 10;
 			sprite_nr = index_nr( sprite_index );
+			symbol_nr = index_nr( symbol_index );
 			
 			hitbox_object * obj_h = new hitbox_object(0,0, all_sprites.at( sprite_nr ).getWidth(), all_sprites.at( sprite_nr ).getHeight() );
 			item_hitbox.push_back( *obj_h );
@@ -44,8 +49,13 @@ void item::setup() {
 		break;
 		case(503):{
 		
-					sprite_index = 118;
+			sprite_index = 419;
+			symbol_index = 419;
+			x_symbol = 220;  
+			y_symbol = 15;
+			weapon_index = 20;
 			sprite_nr = index_nr( sprite_index );
+			symbol_nr = index_nr( symbol_index );
 			
 			hitbox_object * obj_h = new hitbox_object(0,0, all_sprites.at( sprite_nr ).getWidth(), all_sprites.at( sprite_nr ).getHeight() );
 			item_hitbox.push_back( *obj_h );
@@ -74,6 +84,24 @@ void item::setup() {
                 
 		break;
 		}
+		case (511): {
+			sprite_index = 422;
+			one_use = true;
+			sprite_nr = index_nr( sprite_index );
+			height = 8;
+			width = 8;
+			
+			hitbox_object * obj_h3 = new hitbox_object(0,0, all_sprites.at(sprite_nr).getWidth()/2, all_sprites.at(sprite_nr).getHeight()/2 );
+			item_hitbox.push_back( *obj_h3 );
+			delete obj_h3;
+			obj_h3 = 0;
+			
+			x_mid = x_pos + all_sprites.at(sprite_nr).getWidth()/2;
+			y_mid = y_pos + all_sprites.at(sprite_nr).getHeight()/2;
+		
+		break;
+		}
+		
 	};
 	
 	//~ x_mid = x_pos + all_sprites.at(sprite_nr).getWidth()/2;
@@ -107,6 +135,9 @@ void item::motion(physics &parameter) {
 
                 
 		break;
+		case (511):
+		break;
+		
 		}
 	};
 
@@ -240,7 +271,10 @@ void item::render_item() {
 				render_req.push_back(*obj);
 				delete obj;
 				
-				if ( (rand() % 10) >5 ) {
+				int temp = (rand() % 10);
+				//~ cout << temp << endl;
+				
+				if ( temp > 5 ) {
 				
 						animation_requests * obj = new animation_requests(16, x_mid, y_mid , (( rand() % 10 ) - ( rand() % 10 )), (( rand() % 10 ) - ( rand() % 10 )));
 						obj->update_position_case = 5;
@@ -295,8 +329,12 @@ void item::render_item() {
 				render_req.push_back(*obj);
 				delete obj;
 				
-				if ( (rand() % 10) >5 ) {
+				int temp = (rand() % 10);
+				//~ cout << temp << endl;
 				
+				if ( temp >8 ) {
+				
+						//~ animation_requests * obj = new animation_requests(16, x_mid, y_mid , 10, 10);
 						animation_requests * obj = new animation_requests(16, x_mid, y_mid , (( rand() % 10 ) - ( rand() % 10 )), (( rand() % 10 ) - ( rand() % 10 )));
 						obj->update_position_case = 5;
                         anime_req.push_back(*obj);
@@ -378,6 +416,65 @@ void item::render_item() {
 		
 		break;
 		
+		case(511):
+
+			y_current = y_pos + item_cycle.cycle();
+			
+			x_mid = x_pos + all_sprites.at(sprite_nr).getWidth()/2;
+			y_mid = y_current + all_sprites.at(sprite_nr).getHeight()/2;
+		
+		
+			if ( hit == true & active == true ) {
+				
+				//~ x_mid = x_pos + all_sprites.at(sprite_nr).getWidth()/2;
+				//~ y_mid = y_pos + all_sprites.at(sprite_nr).getHeight()/2;
+				
+				animation_requests * obj = new animation_requests(14, x_mid, y_mid , 0, 0);
+                anime_req.push_back(*obj);
+                delete obj;
+                
+                active = false;
+			
+			
+			} else {
+	
+			};
+
+			if ( active == true ) {
+
+
+				// cycler
+				
+				
+				render_requests * obj = new render_requests(sprite_nr, x_pos, y_current,1);
+
+				render_req.push_back(*obj);
+				delete obj;
+				
+				int temp = (rand() % 10);
+				//~ cout << temp << endl;
+				
+				if ( temp >8 ) {
+				
+						//~ animation_requests * obj = new animation_requests(16, x_mid, y_mid , 10, 10);
+						animation_requests * obj = new animation_requests(16, x_mid, y_mid , (( rand() % 10 ) - ( rand() % 10 )), (( rand() % 10 ) - ( rand() % 10 )));
+						obj->update_position_case = 5;
+                        anime_req.push_back(*obj);
+                        delete obj;
+                        obj = 0;
+				
+				} else {
+				};
+				
+				
+
+			} else {
+
+			};			
+		
+		
+		break;
+		
 		
 	};
 	
@@ -408,23 +505,41 @@ void item::run_effect(champ * parameter) {
 			parameter->nr_of_jumps_set = 2;
 		
 		break;
-		case(502):
+		case(502): {
 		
 			parameter->available_weapon_index.push_back(10);
+			render_requests * obj = new render_requests(symbol_nr, x_symbol, y_symbol,true);
+			render_req.push_back(*obj);
+			delete obj;
 		
 		break;
-		case(503):
+		}
+		case(503): {
 		
 			parameter->available_weapon_index.push_back(20);
+			render_requests * obj = new render_requests(symbol_nr, x_symbol, y_symbol,true);
+			render_req.push_back(*obj);
+			delete obj;
 		
 		break;
-		
+		}
 		
 		case(510):
 			
 			parameter->hero_life = parameter->hero_life + 10;
 			
 			
+		break;
+		
+		case(511):
+			
+			if (active == true) {
+				parameter->hero_max_life = parameter->hero_max_life + 5;
+			} else {
+			};
+			
+			
+		
 		break;
 		
 		
@@ -471,8 +586,11 @@ void animation_profile::set_sprite_numbers() {
 
 void animation_profile::set_to_from_cycles(int type) {
 
-    float lower, upper;
-    int lower_int, upper_int;
+    float lower = 0.00;
+    float upper = 0.00;
+    
+    int lower_int = 0;
+    int upper_int = 0;
 
     switch (type) {
 

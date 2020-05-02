@@ -209,7 +209,18 @@ void champ::run_items( game * parameter ) {
 	
 		//~ cout << hero_items.size() << " " << hero_items.at(i)->nr << endl;
 	
+		
+		
+		if ( current_gun_index == hero_items.at(i)->weapon_index ) {
+		
+			render_requests * obj = new render_requests(weapon_frame_nr, hero_items.at(i)->x_symbol - 2, hero_items.at(i)->y_symbol - 2, true);
+			render_req.push_back(*obj);
+			delete obj;
+		
+		} else {
+		};
 		hero_items.at(i)->run_effect(this);
+
 
 	};
 	
@@ -225,7 +236,14 @@ void champ::run_items( game * parameter ) {
 	
 	
 	};
-
+	
+	// correct life
+	if ( hero_life > hero_max_life ) {
+	
+		hero_life = hero_max_life;
+	
+	} else {
+	};
 	
 	
 };
@@ -363,6 +381,16 @@ bool champ::LineLineIntersect(double x1, double y1, //Line 1 start
 void champ::render_life() {
 
 	if ( hero_life > 0 ) {
+		
+		for ( int i = 0; i < hero_max_life; i++ ) {
+		
+			render_requests * obj3 = new render_requests(black_nr, 105 + 2*i, 12, true);
+
+			render_req.push_back(*obj3);
+			delete obj3;
+			
+		};
+		
 	
 		for ( int i = 0; i < hero_life; i++ ) {
 		
@@ -375,6 +403,10 @@ void champ::render_life() {
 	
 	} else {
 	};
+	
+	render_requests * obj2 = new render_requests(life_max_nr, 105 + 2*hero_max_life - 1, 10, true);
+	render_req.push_back(*obj2);
+	delete obj2;
 
 
 
@@ -387,7 +419,7 @@ void champ::setRender(button_input& parameter, physics &physics_parameter, int r
 // For mode 2
 //int y_test = 0;
 
-	render_life();
+
 
     switch (render_req_mode) {
     case 0:
@@ -706,7 +738,7 @@ if ( hero_life <= 0 && only_once == true ) {
 
 
 
-
+	render_life();
 
 };
 
@@ -1826,9 +1858,14 @@ void champ_setup(champ &parameter) {
     parameter.RSV.push_back(*state_frame);
     delete state_frame;
     
+    // weapon frame
+    parameter.weapon_frame_nr = parameter.Relation_Spritenr_type_dev( 421 );
     
+    // life max
+    parameter.life_max_nr = parameter.Relation_Spritenr_type_dev( 703 );
     
-    
+	// black
+    parameter.black_nr = parameter.Relation_Spritenr_type_dev( 704 );
     
 //    render_state * state_1_5 = new render_state(false, true, true, false, true, false, 2, 2, 2, 1, 2, 3, 4, 12, -12, 105 );
 //    parameter.RSV.push_back(*state_1_5);

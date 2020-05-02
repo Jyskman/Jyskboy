@@ -1008,7 +1008,7 @@ y = y_start;
 x_v = x_vel_start;
 y_v = y_vel_start;
 current_cycle = 0;
-
+cycles = 20;
 
 
 x_v_float = (float)x_v;

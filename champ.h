@@ -86,8 +86,20 @@ int width = 25;
 int life_bar_index = 701;
 int life_bar_nr;
 
+int life_max_index = 703;
+int life_max_nr;
+
+int weapon_frame_index = 421;
+int weapon_frame_nr;
+
+int black_index = 704;
+int black_nr;
+
 int destroy_counter = 0;
 int hero_life = 10;
+int hero_max_life = 5;
+
+
 int hero_invincible_counter = 0;
 bool hero_destroy = false;
 //vector<int> x_destroy_pos;
