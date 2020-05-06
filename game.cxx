@@ -527,6 +527,7 @@ void game::setupWeaponprofiles(){
 
 
 weaponProfile * obj = new weaponProfile(201, 202 ,10, 10, 1, 3, 20, 10);
+obj->weapon_cycle.counter_int_set = 2;
 gameWProfiles.push_back(*obj);
 delete obj;
 
@@ -539,10 +540,12 @@ obj_b = 0;
 hero.hero_items.push_back( &base_weapon.at(0) );
 
 weaponProfile * obj2 = new weaponProfile(203, 204 ,10, 10, 1, 1, 10, 20);
+obj2->weapon_cycle.counter_int_set = 5;
 gameWProfiles.push_back(*obj2);
 delete obj2;
 
 weaponProfile * obj3 = new weaponProfile(205, 206 ,10, 10, 1, 1, 10, 30);
+obj3->weapon_cycle.counter_int_set = 20;
 gameWProfiles.push_back(*obj3);
 delete obj3;
 
@@ -594,8 +597,15 @@ void game::createAttacks(button_input& parameter) {
 // champ hero is part of the game object
 
 
-    if ( parameter.getShootState() == true ) {
-        //cout << "attack" << endl;
+	gameWProfiles.at(hero.current_gun).weapon_cycle.idle();
+	attack_took_place = false;
+
+    if ( parameter.getShootState() == true && gameWProfiles.at(hero.current_gun).weapon_cycle.cycle() == 1  ) {
+		
+		attack_took_place = true;
+		
+		gameWProfiles.at(hero.current_gun).weapon_cycle.idle_count = 0;
+
         setXYfactor();
         //cout << hero.gun_direction << endl;
 
@@ -741,10 +751,7 @@ void game::createAttacks(button_input& parameter) {
         anime_req.push_back(*obj_2);
         delete obj_2;
 
-//        animation_requests * obj_3 = new animation_requests(1, 50, hero.x_location+ammo_location_x+1 , hero.y_location+ammo_location_y,
-//        ammo_v_x+(int)hero.x_velocity, ammo_v_y+hero.y_velocity );
-//        anime_req.push_back(*obj_3);
-//        delete obj_3;
+
 
     } else {
     };
@@ -1108,7 +1115,7 @@ void game::game_main(){
 
         }
         //~ room_render_req(room_current, hero, physics_objects.at( physics_current ) ); // in environment
-        hero.setRender(buttons, physics_objects.at( physics_current ), room_current );
+        hero.setRender(buttons, physics_objects.at( physics_current ), room_current, attack_took_place );
 		check_lim();
 
 

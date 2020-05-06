@@ -18,6 +18,8 @@ class game {
 
 public:
 
+bool attack_took_place;
+
 // Time tools
 bool game_is_running;
 bool initial_config = true;

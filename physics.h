@@ -114,8 +114,36 @@ vector<hitbox_object> attack_hitbox;
 void setup_hitbox();
 };
 
+class cycler {
+	
+	
+	public:
+	
+	cycler(int type);
+	
+	int cycle();
+	void idle();
+
+	
+	int cycle_type = 0;
+	double counter = 0;
+	int counter_int = 0;
+	int counter_int_set = 0;
+	
+	int idle_count = 0;
+	
+	
+	
+};
+
+
+
+
 class weaponProfile {
 public:
+
+cycler weapon_cycle;
+
 weaponProfile(int sprite_index, int sprite_index_rotation, int x_velocity, int y_velocity, int set_damage, int hitbox_type, int cycles, int weapon_index);
 int hitbox_t;
 int weapon_sprite;
@@ -254,21 +282,7 @@ float modifier_random_float( float number, int maximum, bool negative_possibilit
 
 // hitbox objects
 
-class cycler {
-	
-	
-	public:
-	
-	cycler(int type);
-	
-	int cycle();
-	
-	int cycle_type = 0;
-	double counter = 0;
-	int counter_int = 0;
-	int counter_int_set = 0;
-	
-};
+
 
 // Item updrade class
 class item {
@@ -300,6 +314,10 @@ class item {
 	int sprite_index;
 	int sprite_nr;
 	int symbol_nr;
+	
+	int drop_nr;
+	int drop_index;
+	
 	void render_item();
 	
 	// if animation need to hardcode the h w

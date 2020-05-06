@@ -145,6 +145,30 @@ unsigned char block_6[15 * 7 * 2 + 1] =
  "\001I\001I\001I\001I\001I\001I\001I\001I");
 
 
+int block_7_width = 15;
+int block_7_height = 15;
+int block_7_size = 15 * 15 * 2 + 1;
+unsigned char block_7[15 * 15 * 2 + 1] =
+("\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\241\201\"I\"I+\344+\344\204\252\204\252\204\252+\344aqaqaqaq"
+ "\"I\241\201\241\201\"IaqAiAi\204\252AiAi\204\252AiAiaqaqaq\241\201\241\201"
+ "aq+\344Ai+\344AiAi\204\252AiAi\204\252Aiaqaq\241\201\241\201aq\204\252Ai\204"
+ "\252\204\252Ai\204\252\204\252Ai\204\252aq+\344+\344\241\201Ai\204\252+\344"
+ "+\344\204\252\204\252\204\252\204\252\204\252\204\252\204\252Ai\204\252\204"
+ "\252AiAiaq+\344aq\204\252AiAi+\344+\344\204\252\204\252Ai\204\252AiAiAiaq"
+ "\204\252\204\252\204\252Ai\204\252Ai\204\252+\344\204\252Aiaq\204\252AiAi"
+ "aqaq\204\252\204\252Ai\204\252\204\252\204\252\204\252AiAiaq\204\252AiAia"
+ "qaqaq\204\252aq\204\252AiAiaqAiaqAiaqAiAiaqaqaqaqaqaqAiaqAiAiaqaqaqAiaqaq"
+ "+\344Ai+\344aqaqAiaqaqaq+\344+\344+\344Aiaq+\344Ai\204\252Aiaqaqaqaqaq+\344"
+ "\204\252+\344\204\252aqaqaqAi\204\252aqaqaqaqaqaqaq\204\252\204\252aqaqaq"
+ "aqaqaqaqaqaqaqaqaqaqaqaqaqaq");
+
+
+
+
+
+
+
  //* GIMP RGB C-Source image dump (champ_v3_torso.c) */
 int champ_torso_width = 25;
 int champ_torso_height = 17;
@@ -1709,25 +1733,36 @@ unsigned char weapon_symbol_3[11 * 11 * 2 + 1] =
  "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
  "\377");
 
-int weapon_frame_width = 15;
-int weapon_frame_height = 15;
-int weapon_frame_size = 15 * 15 * 2 + 1;
-unsigned char weapon_frame[15 * 15 * 2 + 1] =
+int weapon_frame_width = 17;
+int weapon_frame_height = 17;
+int weapon_frame_size = 17 * 17 * 2 + 1;
+unsigned char weapon_frame[17 * 17 * 2 + 1] =
 ("\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
- "\377\377\377\377\377\377\377\377\377\377\377\377\377OpOpOpOpOpOpOpOpOpOpO"
- "pOpOp\377\377\377\377Op\276\351\276\351\000\000\000\000\000\000\000\000\000\000\000\000\000\000\276\351"
- "\276\351Op\377\377\377\377Op\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000O"
- "p\377\377\377\377Op\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000Op\377\377"
- "\377\377Op\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000Op\377\377\377\377O"
- "p\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000Op\377\377\377\377Op\000\000\000\000"
- "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000Op\377\377\377\377Op\000\000\000\000\000\000\000\000\000"
- "\000\000\000\000\000\000\000\000\000\000\000\000\000Op\377\377\377\377Op\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
- "\000\000\000\000\000\000\000\000Op\377\377\377\377Op\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
- "\000\000\000Op\377\377\377\377Op\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000Op\377"
- "\377\377\377Op\276\351\276\351\000\000\000\000\000\000\000\000\000\000\000\000\000\000\276\351\276\351"
- "Op\377\377\377\377OpOpOpOpOpOpOpOpOpOpOpOpOp\377\377\377\377\377\377\377\377"
- "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
- "\377\377\377\377\377");
+ "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377OpOpO"
+ "pOpOpOpOpOpOpOpOpOpOpOpOp\377\377\377\377Op\276\351\276\351\276\351\276\351"
+ "\276\351\276\351\276\351\276\351\276\351\276\351\276\351\276\351\276\351O"
+ "p\377\377\377\377Op\276\351T\231T\231\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377T\231T\231\276\351Op\377\377\377\377Op\276\351T\231\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377T\231"
+ "\276\351Op\377\377\377\377Op\276\351\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\276\351Op\377\377\377\377"
+ "Op\276\351\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\276\351Op\377\377\377\377Op\276\351\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\276"
+ "\351Op\377\377\377\377Op\276\351\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\276\351Op\377\377\377\377Op\276"
+ "\351\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\276\351Op\377\377\377\377Op\276\351\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\276\351O"
+ "p\377\377\377\377Op\276\351\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\276\351Op\377\377\377\377Op\276\351"
+ "T\231\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377T\231\276\351Op\377\377\377\377Op\276\351T\231T\231\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377T\231T\231\276\351Op\377\377\377\377O"
+ "p\276\351\276\351\276\351\276\351\276\351\276\351\276\351\276\351\276\351"
+ "\276\351\276\351\276\351\276\351Op\377\377\377\377OpOpOpOpOpOpOpOpOpOpOpO"
+ "pOpOpOp\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
+ "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377");
 
 // Life max marker
 
@@ -1775,6 +1810,20 @@ unsigned char tank[13 * 13 * 2 + 1] =
  "\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377"
  "\377\377\377\377\377\377\377\377\377");
 
+// Black frame for item symbols
+
+int item_black_width = 11;
+int item_black_height = 11;
+int item_black_size = 11 * 11 * 2 + 1;
+unsigned char item_black[11 * 11 * 2 + 1] =
+("\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000");
+
 
 
 std::vector<sprite_objects> all_sprites;
@@ -1793,13 +1842,21 @@ void setup_sprites(render& parameter) {
     all_sprites.push_back(champ_body_still_v4);
     sprite_pointers.push_back(&champ_body_still_v4);
 
-    sprite_objects block5(1, (unsigned char*)block_5 ,block_5, block_5_size, block_5_width, block_5_height,1);
+    sprite_objects block5(1, (unsigned char*)block_5 ,block_5, block_5_size, block_5_width, block_5_height,4);
     all_sprites.push_back(block5);
     sprite_pointers.push_back(&block5);
 
     sprite_objects block6(1, (unsigned char*)block_6 ,block_6, block_6_size, block_6_width, block_6_height,3);
     all_sprites.push_back(block6);
     sprite_pointers.push_back(&block6);
+    
+    
+    sprite_objects block7(1, (unsigned char*)block_7 ,block_7, block_7_size, block_7_width, block_7_height,1);
+    all_sprites.push_back(block7);
+    sprite_pointers.push_back(&block7);
+    
+    
+    
 
     sprite_objects champtorso(1, (unsigned char*)champ_torso ,champ_torso, champ_torso_size, champ_torso_width, champ_torso_height,101);
     all_sprites.push_back(champtorso);
@@ -2157,6 +2214,13 @@ void setup_sprites(render& parameter) {
     sprite_pointers.push_back(etank);
     delete etank;
 
+	// Black backdrop
+    sprite_objects * bdrop = new sprite_objects(88, (unsigned char*)item_black ,item_black, item_black_size, item_black_width, item_black_height,705);
+    all_sprites.push_back(*bdrop);
+    sprite_pointers.push_back(bdrop);
+    delete bdrop;
+
+
 
     for (int i = 0; i < all_sprites.size(); i++) {
         all_sprites.at(i).Relation_Spritenr_type();
@@ -2172,6 +2236,10 @@ parameter.load_sprite_data((unsigned char*)block_4, block_4_width, block_4_heigh
 parameter.load_sprite_data((unsigned char*)champ_v4_still, champ_v4_still_width, champ_v4_still_height );
 parameter.load_sprite_data((unsigned char*)block_5, block_5_width, block_5_height );
 parameter.load_sprite_data((unsigned char*)block_6, block_6_width, block_6_height );
+parameter.load_sprite_data((unsigned char*)block_7, block_7_width, block_7_height );
+
+
+
 parameter.load_sprite_data((unsigned char*)champ_torso, champ_torso_width, champ_torso_height );
 parameter.load_sprite_data((unsigned char*)champ_legs, champ_legs_width, champ_legs_height );
 parameter.load_sprite_data((unsigned char*)champ_jump, champ_jump_width, champ_jump_height );
@@ -2285,6 +2353,9 @@ parameter.load_sprite_data((unsigned char*)black, black_width, black_height );
 
 // e tank
 parameter.load_sprite_data((unsigned char*)tank, tank_width, tank_height );
+
+// black backdrop for item
+parameter.load_sprite_data((unsigned char*)item_black, item_black_width, item_black_height );
 
 
 };

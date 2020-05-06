@@ -32,11 +32,14 @@ void item::setup() {
 		
 			sprite_index = 418;
 			symbol_index = 418;
+			
 			x_symbol = 200;  
 			y_symbol = 15;
 			weapon_index = 10;
 			sprite_nr = index_nr( sprite_index );
 			symbol_nr = index_nr( symbol_index );
+			drop_index = 705;
+			drop_nr = index_nr( drop_index );
 			
 			hitbox_object * obj_h = new hitbox_object(0,0, all_sprites.at( sprite_nr ).getWidth(), all_sprites.at( sprite_nr ).getHeight() );
 			item_hitbox.push_back( *obj_h );
@@ -56,6 +59,29 @@ void item::setup() {
 			weapon_index = 20;
 			sprite_nr = index_nr( sprite_index );
 			symbol_nr = index_nr( symbol_index );
+			drop_index = 705;
+			drop_nr = index_nr( drop_index );
+			
+			hitbox_object * obj_h = new hitbox_object(0,0, all_sprites.at( sprite_nr ).getWidth(), all_sprites.at( sprite_nr ).getHeight() );
+			item_hitbox.push_back( *obj_h );
+			delete obj_h;
+			obj_h = 0;
+			
+			x_mid = x_pos + all_sprites.at(sprite_nr).getWidth()/2;
+			y_mid = y_pos + all_sprites.at(sprite_nr).getHeight()/2;
+		}
+		break;
+		case(504):{
+		
+			sprite_index = 420;
+			symbol_index = 420;
+			x_symbol = 240;  
+			y_symbol = 15;
+			weapon_index = 30;
+			sprite_nr = index_nr( sprite_index );
+			symbol_nr = index_nr( symbol_index );
+			drop_index = 705;
+			drop_nr = index_nr( drop_index );
 			
 			hitbox_object * obj_h = new hitbox_object(0,0, all_sprites.at( sprite_nr ).getWidth(), all_sprites.at( sprite_nr ).getHeight() );
 			item_hitbox.push_back( *obj_h );
@@ -352,6 +378,64 @@ void item::render_item() {
 		
 		
 		break;
+		case(504):
+		
+		y_current = y_pos + item_cycle.cycle();
+			
+			x_mid = x_pos + all_sprites.at(sprite_nr).getWidth()/2;
+			y_mid = y_current + all_sprites.at(sprite_nr).getHeight()/2;
+		
+		
+			if ( hit == true & active == true ) {
+				
+				//~ x_mid = x_pos + all_sprites.at(sprite_nr).getWidth()/2;
+				//~ y_mid = y_pos + all_sprites.at(sprite_nr).getHeight()/2;
+				
+				animation_requests * obj = new animation_requests(14, x_mid, y_mid , 0, 0);
+                anime_req.push_back(*obj);
+                delete obj;
+                
+                active = false;
+			
+			
+			} else {
+	
+			};
+
+			if ( active == true ) {
+
+
+				// cycler
+				
+				
+				render_requests * obj = new render_requests(sprite_nr, x_pos, y_current,1);
+
+				render_req.push_back(*obj);
+				delete obj;
+				
+				int temp = (rand() % 10);
+				//~ cout << temp << endl;
+				
+				if ( temp >8 ) {
+				
+						//~ animation_requests * obj = new animation_requests(16, x_mid, y_mid , 10, 10);
+						animation_requests * obj = new animation_requests(16, x_mid, y_mid , (( rand() % 10 ) - ( rand() % 10 )), (( rand() % 10 ) - ( rand() % 10 )));
+						obj->update_position_case = 5;
+                        anime_req.push_back(*obj);
+                        delete obj;
+                        obj = 0;
+				
+				} else {
+				};
+				
+				
+
+			} else {
+
+			};	
+		
+		
+		break;
 		
 		case(510):
 		
@@ -508,6 +592,10 @@ void item::run_effect(champ * parameter) {
 		case(502): {
 		
 			parameter->available_weapon_index.push_back(10);
+			render_requests * obj_bd = new render_requests(drop_nr, x_symbol, y_symbol,true);
+			render_req.push_back(*obj_bd);
+			delete obj_bd;
+			
 			render_requests * obj = new render_requests(symbol_nr, x_symbol, y_symbol,true);
 			render_req.push_back(*obj);
 			delete obj;
@@ -517,6 +605,23 @@ void item::run_effect(champ * parameter) {
 		case(503): {
 		
 			parameter->available_weapon_index.push_back(20);
+			render_requests * obj_bd = new render_requests(drop_nr, x_symbol, y_symbol,true);
+			render_req.push_back(*obj_bd);
+			delete obj_bd;
+			
+			render_requests * obj = new render_requests(symbol_nr, x_symbol, y_symbol,true);
+			render_req.push_back(*obj);
+			delete obj;
+		
+		break;
+		}
+		case(504): {
+		
+			parameter->available_weapon_index.push_back(30);
+			render_requests * obj_bd = new render_requests(drop_nr, x_symbol, y_symbol,true);
+			render_req.push_back(*obj_bd);
+			delete obj_bd;
+			
 			render_requests * obj = new render_requests(symbol_nr, x_symbol, y_symbol,true);
 			render_req.push_back(*obj);
 			delete obj;
@@ -753,7 +858,7 @@ bool hitbox_object::hitbox_compare( hitbox_object &parameter ) {
 };
 
 
-weaponProfile::weaponProfile(int sprite_index, int sprite_index_rotation, int x_velocity, int y_velocity, int set_damage, int hitbox_type, int cycles, int weapon_index) {
+weaponProfile::weaponProfile(int sprite_index, int sprite_index_rotation, int x_velocity, int y_velocity, int set_damage, int hitbox_type, int cycles, int weapon_index) : weapon_cycle(2) {
 
 		cycles_to_terminate = cycles;
 		
@@ -1505,6 +1610,23 @@ cycler::cycler(int type) {
 
 	cycle_type = type;
 
+};
+
+
+void cycler::idle() {
+	
+	idle_count++;
+	
+	if (idle_count < counter_int_set ) {
+	
+		idle_count++;
+			
+	} else {
+	
+		counter_int = counter_int_set+1;
+	
+	};
+	
 };
 	
 

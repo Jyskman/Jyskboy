@@ -108,10 +108,10 @@ block::~block(){};
 
 void block::setContactpoints() {
 contact_points[0][0] = 0; // x
-contact_points[1][0] = 0; // y
+contact_points[1][0] = 0 + 3; // y
 
 contact_points[0][1] = all_sprites.at( sprite_nr ).getWidth();
-contact_points[1][1] = 0;
+contact_points[1][1] = 0 + 3;
 
 contact_points[0][2] = 0;
 contact_points[1][2] = all_sprites.at(sprite_nr).getHeight();

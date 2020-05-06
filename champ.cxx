@@ -213,7 +213,7 @@ void champ::run_items( game * parameter ) {
 		
 		if ( current_gun_index == hero_items.at(i)->weapon_index ) {
 		
-			render_requests * obj = new render_requests(weapon_frame_nr, hero_items.at(i)->x_symbol - 2, hero_items.at(i)->y_symbol - 2, true);
+			render_requests * obj = new render_requests(weapon_frame_nr, hero_items.at(i)->x_symbol - 3, hero_items.at(i)->y_symbol - 3, true);
 			render_req.push_back(*obj);
 			delete obj;
 		
@@ -384,7 +384,7 @@ void champ::render_life() {
 		
 		for ( int i = 0; i < hero_max_life; i++ ) {
 		
-			render_requests * obj3 = new render_requests(black_nr, 105 + 2*i, 12, true);
+			render_requests * obj3 = new render_requests(black_nr, lifepos_x + 2*i, lifepos_y+2, true);
 
 			render_req.push_back(*obj3);
 			delete obj3;
@@ -394,7 +394,7 @@ void champ::render_life() {
 	
 		for ( int i = 0; i < hero_life; i++ ) {
 		
-			render_requests * obj = new render_requests(life_bar_nr, 105 + 2*i, 13, true);
+			render_requests * obj = new render_requests(life_bar_nr, lifepos_x + 2*i, lifepos_y+3, true);
 
 			render_req.push_back(*obj);
 			delete obj;
@@ -404,7 +404,7 @@ void champ::render_life() {
 	} else {
 	};
 	
-	render_requests * obj2 = new render_requests(life_max_nr, 105 + 2*hero_max_life - 1, 10, true);
+	render_requests * obj2 = new render_requests(life_max_nr, lifepos_x + 2*hero_max_life - 1, lifepos_y, true);
 	render_req.push_back(*obj2);
 	delete obj2;
 
@@ -414,7 +414,7 @@ void champ::render_life() {
 
 
 
-void champ::setRender(button_input& parameter, physics &physics_parameter, int room)  {
+void champ::setRender(button_input& parameter, physics &physics_parameter, int room, bool attack_trigger)  {
 
 // For mode 2
 //int y_test = 0;
@@ -567,11 +567,11 @@ for ( int i = 0; i < RSV.size(); i++ ) {
                         vertical_gun = vertical;
                         rot_gun = rot;
                         gun_sprite_nr = RSV.at(i).sprite_nr;
-                            if ( parameter.getShootState() == true && rot == 1 ) {
+                            if ( parameter.getShootState() == true && rot == 1 && attack_trigger == true ) {
                                 modifier_random(RSV_x, 2, 1);
                             } else {
                             };
-                            if ( parameter.getShootState() == true && rot == 2 ) {
+                            if ( parameter.getShootState() == true && rot == 2 && attack_trigger == true ) {
                                 modifier_random(RSV_y, 2, 1);
                             } else {
                             };
@@ -747,6 +747,8 @@ void champ::setContactPoints() {
 float floater;
 
 // Setup of new contact points array
+
+int extra_offset = 3;
 
 
 // Below is from other data source

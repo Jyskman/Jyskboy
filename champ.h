@@ -156,8 +156,11 @@ bool LineLineIntersect(double x1, double y1, //Line 1 start
     double &ixOut, double &iyOut);
 
 unsigned char getChar(int x);
-void setRender(button_input& parameter, physics &physics_parameter, int room);
+void setRender(button_input& parameter, physics &physics_parameter, int room, bool attack_trigger);
 void render_life();
+int lifepos_x = 105;
+int lifepos_y = 10;
+
 void setContactPoints();
 void setContact(int room);
 int grab_block_nr;
