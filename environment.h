@@ -60,6 +60,7 @@ bool grabbed = false;
 
 
 int contact_points[2][4];
+int deflection_points[2][4];
 void setContactpoints();
 
 float friction_coeff;
@@ -69,6 +70,8 @@ int sprite_index;
 bool sprite_error;
 bool destructible;
 bool destroyed;
+bool active = true;
+
 
 block(int x_pos, int y_pos, int palette, int type);
 block(int x_pos, int y_pos, int type);

@@ -92,7 +92,7 @@ destroyed = false;
             destructible = true;
         break;
 		case(100):
-            sprite_index = 1;
+            sprite_index = 5;
             destructible = false;
             xvel = 1;
             yvel = 1;
@@ -119,6 +119,20 @@ contact_points[1][2] = all_sprites.at(sprite_nr).getHeight();
 contact_points[0][3] = all_sprites.at(sprite_nr).getWidth();
 contact_points[1][3] = all_sprites.at(sprite_nr).getHeight();
 
+// deflection surface
+
+deflection_points[0][0] = 0; // x
+deflection_points[1][0] = 0; // y
+
+deflection_points[0][1] = all_sprites.at( sprite_nr ).getWidth();
+deflection_points[1][1] = 0;
+
+deflection_points[0][2] = 0;
+deflection_points[1][2] = all_sprites.at(sprite_nr).getHeight();
+
+deflection_points[0][3] = all_sprites.at(sprite_nr).getWidth();
+deflection_points[1][3] = all_sprites.at(sprite_nr).getHeight();
+
 
 
 };
@@ -142,11 +156,14 @@ void block::destruction() {
 		int mid_x = x_location + contact_points[0][1]/2;
 		int mid_y = y_location + contact_points[1][2]/2;	
 	
-		if ( destroyed == true) {
-		animation_requests * anim = new animation_requests(11, mid_x, mid_y, 0, 0);
-		anime_req.push_back(*anim);
-		delete anim;
-		anim = 0;
+		if ( active == false && destroyed == false ) {
+			animation_requests * anim = new animation_requests(11, mid_x, mid_y, 0, 0);
+			anime_req.push_back(*anim);
+			delete anim;
+			anim = 0;
+			
+			destroyed = true;
+			
 		} 
 		else {
 		};
@@ -954,10 +971,10 @@ delete new_room2;
 void room_render_req(int roomnr, champ &parameter, physics &parameter_physics) {
 
     // remove dest room blocks
-    room_objects.at(roomnr).roomblocks.erase(
-    remove_if(room_objects.at(roomnr).roomblocks.begin(), room_objects.at(roomnr).roomblocks.end(),
-    [](const block & o) { return o.destroyed == true; }),
-    room_objects.at(roomnr).roomblocks.end());
+    //~ room_objects.at(roomnr).roomblocks.erase(
+    //~ remove_if(room_objects.at(roomnr).roomblocks.begin(), room_objects.at(roomnr).roomblocks.end(),
+    //~ [](const block & o) { return o.destroyed == true; }),
+    //~ room_objects.at(roomnr).roomblocks.end());
     
     
     //~ need to find the potentially grabbed block and reasign after potential block destruction
@@ -983,7 +1000,15 @@ void room_render_req(int roomnr, champ &parameter, physics &parameter_physics) {
 
 	for (int i = 0; i < room_objects.at(roomnr).roomblocks.size(); i++ ) {
 
-	room_objects.at(roomnr).roomblocks.at(i).setRender_Block();
+		if ( room_objects.at(roomnr).roomblocks.at(i).active == true ) {
+		
+				room_objects.at(roomnr).roomblocks.at(i).setRender_Block();
+		
+		} else {
+		};
+	
+	
+
 	};
 	
 	// items render
@@ -1042,7 +1067,7 @@ void roomblocks_attack_interaction( int room, vector<attack> &parameter ) {
 
                 }
 
-                if ( hit == false ) {
+                if ( hit == false &&  room_objects.at(room).roomblocks.at(i).active == true ) {
 
                     parameter.at(j).destroy = true;
 
@@ -1057,7 +1082,8 @@ void roomblocks_attack_interaction( int room, vector<attack> &parameter ) {
 
                     // if block destructible destroyed will become true
                     if ( room_objects.at(room).roomblocks.at(i).destructible == true ) {
-                        room_objects.at(room).roomblocks.at(i).destroyed = true;
+                        //~ room_objects.at(room).roomblocks.at(i).destroyed = true;
+                        room_objects.at(room).roomblocks.at(i).active = false;
                         room_objects.at(room).roomblocks.at(i).destruction();
                     } else {
                     }

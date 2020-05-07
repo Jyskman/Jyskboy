@@ -1109,10 +1109,12 @@ void animation_requests::update_position( physics &parameter, int room ) {
 //            x_v_float = x_v_float*parameter.air;
             //x_v_float = x_v_float*0.90;
             parameter.calculate_velocity(y_v_float, x_v_float, 0.1, 1);
-
+			
 
             x_float = x_float + x_v_float;
             y_float = y_float + y_v_float;
+            
+            
 
             x = (int)x_float;
 
@@ -1122,20 +1124,20 @@ void animation_requests::update_position( physics &parameter, int room ) {
 
             for ( int i = 0; i < room_objects.at(room).roomblocks.size(); i++ ) {
 
-            if ( x >= room_objects.at(room).roomblocks.at(i).contact_points[0][0]+room_objects.at(room).roomblocks.at(i).x_location && x <= room_objects.at(room).roomblocks.at(i).contact_points[0][1]+room_objects.at(room).roomblocks.at(i).x_location &&
-            y >= room_objects.at(room).roomblocks.at(i).contact_points[1][0]+room_objects.at(room).roomblocks.at(i).y_location && y <= room_objects.at(room).roomblocks.at(i).contact_points[1][3]+room_objects.at(room).roomblocks.at(i).y_location ) {
+				if ( room_objects.at(room).roomblocks.at(i).active == true && x >= room_objects.at(room).roomblocks.at(i).deflection_points[0][0]+room_objects.at(room).roomblocks.at(i).x_location && x <= room_objects.at(room).roomblocks.at(i).deflection_points[0][1]+room_objects.at(room).roomblocks.at(i).x_location &&
+				y >= room_objects.at(room).roomblocks.at(i).deflection_points[1][0]+room_objects.at(room).roomblocks.at(i).y_location && y <= room_objects.at(room).roomblocks.at(i).deflection_points[1][3]+room_objects.at(room).roomblocks.at(i).y_location ) {
 
-            y_v_float = -1*y_v_float;
-                if ( x <= room_objects.at(room).roomblocks.at(i).contact_points[0][0]+room_objects.at(room).roomblocks.at(i).x_location ||
-                x >= room_objects.at(room).roomblocks.at(i).contact_points[0][1]+room_objects.at(room).roomblocks.at(i).x_location ) {
-                    x_v_float = -1*x_v_float;
-                } else {
-                };
+				y_v_float = -1*y_v_float - parameter.new_g;
+					if ( x <= room_objects.at(room).roomblocks.at(i).deflection_points[0][0]+room_objects.at(room).roomblocks.at(i).x_location ||
+					x >= room_objects.at(room).roomblocks.at(i).deflection_points[0][1]+room_objects.at(room).roomblocks.at(i).x_location ) {
+						x_v_float = -1*x_v_float;
+					} else {
+					};
 
 
-            } else {
+				} else {
 
-            };
+				};
 
         };
     break;

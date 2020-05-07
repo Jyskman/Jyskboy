@@ -878,6 +878,8 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                     // Floor
                     for ( int i = 0; i < contact_position.size();i++ ){
                     int j = contact_position.at(i);
+                    
+                    bool active_block = room_objects.at(room).roomblocks.at(j).active;
 
                     int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
                     int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
@@ -885,7 +887,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                     int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
                     int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
 
-                        if ( contact_points_all[1][0]  + getY() >= P4_y && contact_points_all[1][0]  + getY() < P3_y && contact_points_all[0][0] + getX() >= P3_x && contact_points_all[0][0] + getX() <= P4_x ) {
+                        if ( active_block == true && contact_points_all[1][0]  + getY() >= P4_y && contact_points_all[1][0]  + getY() < P3_y && contact_points_all[0][0] + getX() >= P3_x && contact_points_all[0][0] + getX() <= P4_x ) {
                         //cout << " floor " << endl;
                         floor_contact = true;
                        
@@ -914,6 +916,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                     // Roof
                          for ( int i = 0; i < contact_position.size();i++ ){
                                 int j = contact_position.at(i);
+                                bool active_block = room_objects.at(room).roomblocks.at(j).active;
 
                                 int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
                                 int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
@@ -921,7 +924,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                 int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
                                 int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
 
-                                if ( contact_points_all[1][1]  + getY() >= P4_y && contact_points_all[1][1]  + getY() < P3_y && contact_points_all[0][1] + getX() >= P3_x && contact_points_all[0][1] + getX() <= P4_x ) {
+                                if ( active_block == true && contact_points_all[1][1]  + getY() >= P4_y && contact_points_all[1][1]  + getY() < P3_y && contact_points_all[0][1] + getX() >= P3_x && contact_points_all[0][1] + getX() <= P4_x ) {
                                 roof_contact = true;
 
                                 y_vel = 0;
@@ -938,6 +941,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                     // Right Side top
                      for ( int i = 0; i < contact_position.size();i++ ){
                             int j = contact_position.at(i);
+                            bool active_block = room_objects.at(room).roomblocks.at(j).active;
 
                             int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
@@ -945,7 +949,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                             int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
 
-                                if ( contact_points_all[1][2]  + getY() >= P4_y && contact_points_all[1][2]  + getY() <= P3_y && contact_points_all[0][2] + getX() >= P3_x && contact_points_all[0][2] + getX() <= P4_x ) {
+                                if (active_block == true && contact_points_all[1][2]  + getY() >= P4_y && contact_points_all[1][2]  + getY() <= P3_y && contact_points_all[0][2] + getX() >= P3_x && contact_points_all[0][2] + getX() <= P4_x ) {
 								
 									if ( current_sprite_direction == true ) {
 										grab_right = true;
@@ -1055,13 +1059,14 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                     // Right Side 1/4
                      for ( int i = 0; i < contact_position.size();i++ ){
                             int j = contact_position.at(i);
+                            bool active_block = room_objects.at(room).roomblocks.at(j).active;
 
                             int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
 
                             int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
-                            if ( contact_points_all[1][3]  + getY() >= P4_y && contact_points_all[1][3]  + getY() < P3_y && contact_points_all[0][3] + getX() >= P3_x && contact_points_all[0][3] + getX() <= P4_x ) {
+                            if (active_block == true && contact_points_all[1][3]  + getY() >= P4_y && contact_points_all[1][3]  + getY() < P3_y && contact_points_all[0][3] + getX() >= P3_x && contact_points_all[0][3] + getX() <= P4_x ) {
                             //x_velocity = 0;
                             contact_right = true;
                             //cout << "Z" << endl;
@@ -1078,13 +1083,14 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                     // Right Side 2/4
                      for ( int i = 0; i < contact_position.size();i++ ){
                             int j = contact_position.at(i);
+                            bool active_block = room_objects.at(room).roomblocks.at(j).active;
 
                             int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
 
                             int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
-                            if ( contact_points_all[1][4]  + getY() >= P4_y && contact_points_all[1][4]  + getY() < P3_y && contact_points_all[0][4] + getX() >= P3_x && contact_points_all[0][4] + getX() <= P4_x ) {
+                            if (active_block == true && contact_points_all[1][4]  + getY() >= P4_y && contact_points_all[1][4]  + getY() < P3_y && contact_points_all[0][4] + getX() >= P3_x && contact_points_all[0][4] + getX() <= P4_x ) {
                             x_velocity = 0;
                             contact_right = true;
                                 while ( contact_points_all[0][4]  + getX() >= P3_x ){
@@ -1100,13 +1106,14 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                      //Right Side 3/4
                      for ( int i = 0; i < contact_position.size();i++ ){
                             int j = contact_position.at(i);
+                            bool active_block = room_objects.at(room).roomblocks.at(j).active;
 
                             int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
 
                             int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
-                            if ( contact_points_all[1][5]  + getY() >= P4_y && contact_points_all[1][5]  + getY() < P3_y && contact_points_all[0][5] + getX() >= P3_x && contact_points_all[0][5] + getX() <= P4_x ) {
+                            if (active_block == true && contact_points_all[1][5]  + getY() >= P4_y && contact_points_all[1][5]  + getY() < P3_y && contact_points_all[0][5] + getX() >= P3_x && contact_points_all[0][5] + getX() <= P4_x ) {
                             x_velocity = 0;
                             contact_right = true;
                                 while ( contact_points_all[0][5]  + getX() >= P3_x ){
@@ -1122,13 +1129,14 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                     // Right Side 4/4
                      for ( int i = 0; i < contact_position.size();i++ ){
                             int j = contact_position.at(i);
+                            bool active_block = room_objects.at(room).roomblocks.at(j).active;
 
                             int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
 
                             int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
-                                if ( contact_points_all[1][6]  + getY() >= P4_y && contact_points_all[1][6]  + getY() <= P3_y && contact_points_all[0][6] + getX() >= P3_x && contact_points_all[0][6] + getX() <= P4_x ) {
+                                if (active_block == true && contact_points_all[1][6]  + getY() >= P4_y && contact_points_all[1][6]  + getY() <= P3_y && contact_points_all[0][6] + getX() >= P3_x && contact_points_all[0][6] + getX() <= P4_x ) {
                                     // champ pos
                                     float x_1 = x_location + width ;
                                     float y_1 = y_location + height;
@@ -1240,6 +1248,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                     // Left Side 0/4
                      for ( int i = 0; i < contact_position.size();i++ ){
                             int j = contact_position.at(i);
+                            bool active_block = room_objects.at(room).roomblocks.at(j).active;
 
                             int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
@@ -1248,7 +1257,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                             int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
 
                                     //cout << P4_x << "_" << getX() << endl;
-                                    if ( contact_points_all[1][7]  + getY() >= P4_y && contact_points_all[1][7]  + getY() <= P3_y && contact_points_all[0][7] + getX() >= P3_x && contact_points_all[0][7] + getX() <= P4_x ) {
+                                    if (active_block == true && contact_points_all[1][7]  + getY() >= P4_y && contact_points_all[1][7]  + getY() <= P3_y && contact_points_all[0][7] + getX() >= P3_x && contact_points_all[0][7] + getX() <= P4_x ) {
                                     grab_left = true;
                                     grab_block_nr = j;
                                     
@@ -1345,13 +1354,14 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                     // Left Side 1/4
                      for ( int i = 0; i < contact_position.size();i++ ){
                             int j = contact_position.at(i);
+                            bool active_block = room_objects.at(room).roomblocks.at(j).active;
 
                             int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
 
                             int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
-                            if ( contact_points_all[1][8]  + getY() >= P4_y && contact_points_all[1][8]  + getY() < P3_y && contact_points_all[0][8] + getX() >= P3_x && contact_points_all[0][8] + getX() <= P4_x ) {
+                            if (active_block == true && contact_points_all[1][8]  + getY() >= P4_y && contact_points_all[1][8]  + getY() < P3_y && contact_points_all[0][8] + getX() >= P3_x && contact_points_all[0][8] + getX() <= P4_x ) {
                             x_velocity = 0;
                             contact_left = true;
                                 while ( contact_points_all[0][8]  + getX() <= P4_x ){
@@ -1367,13 +1377,14 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                     // Left Side 2/4
                      for ( int i = 0; i < contact_position.size();i++ ){
                             int j = contact_position.at(i);
+                            bool active_block = room_objects.at(room).roomblocks.at(j).active;
 
                             int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
 
                             int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
-                            if ( contact_points_all[1][9]  + getY() >= P4_y && contact_points_all[1][9]  + getY() < P3_y && contact_points_all[0][9] + getX() >= P3_x && contact_points_all[0][9] + getX() <= P4_x ) {
+                            if (active_block == true && contact_points_all[1][9]  + getY() >= P4_y && contact_points_all[1][9]  + getY() < P3_y && contact_points_all[0][9] + getX() >= P3_x && contact_points_all[0][9] + getX() <= P4_x ) {
                             x_velocity = 0;
                             contact_left = true;
                                 while ( contact_points_all[0][9]  + getX() <= P4_x ){
@@ -1389,13 +1400,14 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                     // Left Side 3/4
                      for ( int i = 0; i < contact_position.size();i++ ){
                             int j = contact_position.at(i);
+                            bool active_block = room_objects.at(room).roomblocks.at(j).active;
 
                             int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
 
                             int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
-                            if ( contact_points_all[1][10]  + getY() >= P4_y && contact_points_all[1][10]  + getY() < P3_y && contact_points_all[0][10] + getX() >= P3_x && contact_points_all[0][10] + getX() <= P4_x ) {
+                            if (active_block == true && contact_points_all[1][10]  + getY() >= P4_y && contact_points_all[1][10]  + getY() < P3_y && contact_points_all[0][10] + getX() >= P3_x && contact_points_all[0][10] + getX() <= P4_x ) {
                             x_velocity = 0;
                             contact_left = true;
                             cout << "C" << endl;
@@ -1412,13 +1424,14 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                     // Left Side 4/4
                      for ( int i = 0; i < contact_position.size();i++ ){
                             int j = contact_position.at(i);
+                            bool active_block = room_objects.at(room).roomblocks.at(j).active;
 
                             int P3_x = room_objects.at(room).roomblocks.at(j).contact_points[0][2] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P3_y = room_objects.at(room).roomblocks.at(j).contact_points[1][2] + room_objects.at(room).roomblocks.at(j).y_location;
 
                             int P4_x = room_objects.at(room).roomblocks.at(j).contact_points[0][1] + room_objects.at(room).roomblocks.at(j).x_location;
                             int P4_y = room_objects.at(room).roomblocks.at(j).contact_points[1][1] + room_objects.at(room).roomblocks.at(j).y_location;
-                            if ( contact_points_all[1][11]  + getY() >= P4_y && contact_points_all[1][11]  + getY() <= P3_y && contact_points_all[0][11] + getX() >= P3_x && contact_points_all[0][11] + getX() <= P4_x ) {
+                            if (active_block == true && contact_points_all[1][11]  + getY() >= P4_y && contact_points_all[1][11]  + getY() <= P3_y && contact_points_all[0][11] + getX() >= P3_x && contact_points_all[0][11] + getX() <= P4_x ) {
                                     // champ pos
                                     float x_1 = x_location ;
                                     float y_1 = y_location + height;
