@@ -535,7 +535,7 @@ void room_object::create_blocks() {
                 //~ obj = 0;
                 
                 
-                cout << columns_storage.at(0).at(i) << endl;
+                //~ cout << columns_storage.at(0).at(i) << endl;
                 switch ( columns_storage.at(0).at(i) ) {
 					
 					case(1): {
@@ -920,8 +920,8 @@ void room_setup( game *parameter ) {
 //room_object * new_room1 = new room_object( (int*)room_1,room1_rows, room1_cols, room1_xlimit_upper, room1_xlimit_lower, room1_ylimit_upper, room1_ylimit_lower,0);
 room_object * new_room0 = new room_object( "room0.csv",0);
 new_room0->normal_block_sprite_index.push_back(1);
-new_room0->moving_block_sprite_index.push_back(5);
-new_room0->destructible_block_sprite_index.push_back(5);
+new_room0->moving_block_sprite_index.push_back(7);
+new_room0->destructible_block_sprite_index.push_back(6);
 new_room0->setup_functions();
 room_objects.push_back( *new_room0 );
 delete new_room0;

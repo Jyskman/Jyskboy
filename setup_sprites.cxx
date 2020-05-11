@@ -168,9 +168,45 @@ unsigned char block_7[15 * 15 * 2 + 1] =
  "}\256\374Ls\011s\011s\011\374L\374L}\256}\256s\011s\011\374L\374L\374L\374L\374"
  "L\374Ls\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011");
 
+int block_8_width = 15;
+int block_8_height = 15;
+int block_8_size = 15 * 15 * 2 + 1;
+unsigned char block_8[15 * 15 * 2 + 1] =
+("s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011\374L\374"
+ "L\374L\374L\374L\374Ls\011\374L\374L\374L\374L\374L\374Ls\011s\011\374L^\236"
+ "^\236}\256^\236s\011\374Ls\011^\236^\236^\236^\236\374Ls\011s\011\374L^\236}\256"
+ "}\256\374Ls\011\374Ls\011\374L}\256}\256^\236\374Ls\011s\011\374L^\236}\256\374"
+ "Ls\011\374L}\256\374Ls\011\374L^\236\374L\374Ls\011s\011\374L^\236}\256\374Ls"
+ "\011\374L}\256^\236s\011\374L\374Ls\011s\011s\011s\011\374L\374L\374Ls\011\374L}"
+ "\256}\256\374Ls\011s\011s\011^\236\374Ls\011s\011s\011s\011\374Ls\011\374L^\236\374"
+ "Ls\011\374L\374L\374L^\236\374Ls\011s\011\374L\374Ls\011\374L^\236\374Ls\011s\011"
+ "\374L^\236}\256}\256\374Ls\011s\011\374L^\236\374Ls\011s\011s\011\374L\374Ls\011"
+ "\374L^\236}\256\374Ls\011s\011\374L}\256}\256\374L\374Ls\011\374L^\236\374Ls"
+ "\011\374L}\256\374Ls\011s\011\374L^\236\374Ls\011s\011\374L^\236}\256^\236\374"
+ "Ls\011\374L\374Ls\011s\011\374L\374Ls\011\374L\374L^\236}\256}\256}\256^\236\374"
+ "Ls\011\374Ls\011s\011s\011s\011\374L\374L\374L\374L\374L\374L\374L\374L\374L\374"
+ "Ls\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011");
 
-
-
+int block_9_width = 15;
+int block_9_height = 15;
+int block_9_size = 15 * 15 * 2 + 1;
+unsigned char block_9[15 * 15 * 2 + 1] =
+("s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011s\011\374L"
+ "\374L\374L\374L\374L\374L\374L\374Ls\011\374L\374L\374Ls\011s\011\374Ls\011\374"
+ "L^\236^\236^\236^\236^\236\374Ls\011\374L^\236\374Ls\011s\011\374Ls\011\374L^"
+ "\236}\256}\256}\256^\236\374Ls\011\374L^\236\374Ls\011s\011\374L\374Ls\011\374"
+ "L^\236}\256}\256\374Ls\011\374L}\256}\256\374Ls\011s\011\374L}\256\374Ls\011\374"
+ "L}\256}\256\374Ls\011\374L}\256}\256\374Ls\011s\011\374L}\256\374Ls\011\374L^"
+ "\236}\256\374Ls\011s\011\374L}\256\374Ls\011s\011\374L\374L\374L\374Ls\011\374"
+ "L\374Ls\011\340\017\340\017s\011\374L\374Ls\011s\011\374Ls\011s\011s\011\340\017s\011"
+ "\374Ls\011\340\017\340\017\201%s\011\374Ls\011s\011\374L\323\234\201%\340\017\340"
+ "\017\201%s\011\201%\340\017\340\017\201%s\011\374Ls\011s\011s\011\353Z\201%\340\017"
+ "\201%\340\017\340\017\340\017\201%\340\017\201%\353Zs\011s\011\353Z\357{\323\234"
+ "\201%\201%\340\017\340\017\340\017\340\017\340\017\201%\201%\323\234\357{s\011\353"
+ "Z\357{\353Z\201%\201%\201%\201%\201%\201%\201%\201%\201%\353Z\357{\353Z\353"
+ "Z\357{\323\234\353Z\323\234\353Z\323\234\353Z\323\234\353Z\323\234\353Z\323"
+ "\234\357{\353Z\353Z\353Z\353Z\353Z\353Z\353Z\353Z\353Z\353Z\353Z\353Z\353"
+ "Z\353Z\353Z\353Z");
 
 
 
@@ -1847,6 +1883,7 @@ void setup_sprites(render& parameter) {
     all_sprites.push_back(champ_body_still_v4);
     sprite_pointers.push_back(&champ_body_still_v4);
 
+	//~ stone
     sprite_objects block5(1, (unsigned char*)block_5 ,block_5, block_5_size, block_5_width, block_5_height,5);
     all_sprites.push_back(block5);
     sprite_pointers.push_back(&block5);
@@ -1855,13 +1892,26 @@ void setup_sprites(render& parameter) {
     all_sprites.push_back(block6);
     sprite_pointers.push_back(&block6);
     
-    
+    // blue
     sprite_objects block7(1, (unsigned char*)block_7 ,block_7, block_7_size, block_7_width, block_7_height,1);
     all_sprites.push_back(block7);
     sprite_pointers.push_back(&block7);
     
+    // blue
+	sprite_objects block8(1, (unsigned char*)block_8 ,block_8, block_8_size, block_8_width, block_8_height,6);
+    all_sprites.push_back(block8);
+    sprite_pointers.push_back(&block8);
+	
+	// blue
+	sprite_objects block9(1, (unsigned char*)block_9 ,block_9, block_9_size, block_9_width, block_9_height,7);
+    all_sprites.push_back(block9);
+    sprite_pointers.push_back(&block9);
     
     
+    
+    
+    
+    ////
 
     sprite_objects champtorso(1, (unsigned char*)champ_torso ,champ_torso, champ_torso_size, champ_torso_width, champ_torso_height,101);
     all_sprites.push_back(champtorso);
@@ -2242,8 +2292,8 @@ parameter.load_sprite_data((unsigned char*)champ_v4_still, champ_v4_still_width,
 parameter.load_sprite_data((unsigned char*)block_5, block_5_width, block_5_height );
 parameter.load_sprite_data((unsigned char*)block_6, block_6_width, block_6_height );
 parameter.load_sprite_data((unsigned char*)block_7, block_7_width, block_7_height );
-
-
+parameter.load_sprite_data((unsigned char*)block_8, block_8_width, block_8_height );
+parameter.load_sprite_data((unsigned char*)block_9, block_9_width, block_9_height );
 
 parameter.load_sprite_data((unsigned char*)champ_torso, champ_torso_width, champ_torso_height );
 parameter.load_sprite_data((unsigned char*)champ_legs, champ_legs_width, champ_legs_height );
