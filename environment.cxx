@@ -65,6 +65,17 @@ sprite_nr = Relation_Spritenr_type();
 friction_coeff = setFriction(type);
 };
 
+block::block(int x_pos, int y_pos, int type, int sprite__index, bool special) {
+
+x_location = x_pos;
+y_location = y_pos;
+current_palette = 1;
+block_type = type; // also called index type/index
+sprite_index = sprite__index;
+sprite_nr = Relation_Spritenr_type();
+friction_coeff = setFriction(type);
+};
+
 // set index dependent on type, various types can have the same sprite
 void block::set_index() {
 destroyed = false;
@@ -88,6 +99,7 @@ destroyed = false;
             destructible = false;
         break;
         case(5):
+                     
             sprite_index = 1;
             destructible = true;
         break;
@@ -225,6 +237,8 @@ void block::convey_v( champ * parameter ) {
 
 	} else {
 	};
+	
+
 	
 
 	
@@ -415,6 +429,13 @@ void room_object::set_modifiers() {
 	
 };
 
+void room_object::setup_functions() {
+	room_object_setupCSV();
+	create_blocks();
+	set_limits();
+	set_modifiers();
+};
+
 
 room_object::room_object( string file, int room) : roomblocks(), columns_storage() {
 
@@ -422,11 +443,12 @@ name = file;
 room_nr = room;
 
 
-room_object_setupCSV();
-create_blocks();
-set_limits();
-set_modifiers();
+//~ room_object_setupCSV();
+//~ create_blocks();
+//~ set_limits();
+//~ set_modifiers();
 //cout << " end const " << endl;
+
 };
 
 
@@ -507,11 +529,51 @@ void room_object::create_blocks() {
 
         if ( columns_storage.at(0).at(i) > 0 && columns_storage.at(0).at(i) < 100 ) {
 
-                block * obj = new block(columns_storage.at(1).at(i), columns_storage.at(2).at(i), columns_storage.at(0).at(i) ) ;
-                obj->setContactpoints();
-                //cout << *( (adress_pal + i*cols) +ii ) << endl;
-                roomblocks.push_back(*obj);
-                obj = 0;
+                //~ block * obj = new block(columns_storage.at(1).at(i), columns_storage.at(2).at(i), columns_storage.at(0).at(i) ) ;
+                //~ obj->setContactpoints();
+                //~ roomblocks.push_back(*obj);
+                //~ obj = 0;
+                
+                
+                cout << columns_storage.at(0).at(i) << endl;
+                switch ( columns_storage.at(0).at(i) ) {
+					
+					case(1): {
+						
+						block * obj = new block(columns_storage.at(1).at(i), columns_storage.at(2).at(i), 1 ) ;
+						obj->sprite_index = normal_block_sprite_index.at(0);
+						obj->sprite_nr = obj->Relation_Spritenr_type(); 
+						obj->setContactpoints();
+						roomblocks.push_back(*obj);
+						obj = 0;
+						
+					break;
+					}
+					case(5): {
+						
+						block * obj = new block(columns_storage.at(1).at(i), columns_storage.at(2).at(i), 5 ) ;
+						obj->sprite_index = destructible_block_sprite_index.at(0);
+						obj->sprite_nr = obj->Relation_Spritenr_type();
+						obj->setContactpoints();
+						roomblocks.push_back(*obj);
+						obj = 0;
+						
+					break;
+					}
+					
+					default: {
+						block * obj = new block(columns_storage.at(1).at(i), columns_storage.at(2).at(i), 1 ) ;
+						obj->setContactpoints();
+						roomblocks.push_back(*obj);
+						obj = 0;
+						
+					break;
+					}
+					
+				};
+                
+                
+                
 
         } else {
         }
@@ -547,10 +609,7 @@ void room_object::create_blocks() {
     }
 
 	
-	//~ for ( int i = 0; i < block_temp.size(); i ++ ) {
-	
-		//~ cout << block_temp.at(i).block_type << endl;
-	//~ };
+
 
 	// Sort the temp vector
    sort(block_temp.begin(), block_temp.end(), [](const block& lhs, const block& rhs) {
@@ -571,6 +630,8 @@ void room_object::create_blocks() {
 		block * obj_m = new block(	block_temp.at( 0 + i*2 ).x_location , block_temp.at(0 + i*2).y_location, 100,
 									block_temp.at(0 + i*2).x_location, block_temp.at(1 + i*2).x_location, block_temp.at(0 + i*2).y_location, block_temp.at(1 + i*2).y_location ) ;
 		obj_m->setContactpoints();
+		obj_m->sprite_index = moving_block_sprite_index.at(0);
+		obj_m->sprite_nr = obj_m->Relation_Spritenr_type(); 
 		roomblocks.push_back(*obj_m);
 		obj_m = 0;
 	
@@ -858,36 +919,30 @@ void room_setup( game *parameter ) {
 
 //room_object * new_room1 = new room_object( (int*)room_1,room1_rows, room1_cols, room1_xlimit_upper, room1_xlimit_lower, room1_ylimit_upper, room1_ylimit_lower,0);
 room_object * new_room0 = new room_object( "room0.csv",0);
+new_room0->normal_block_sprite_index.push_back(1);
+new_room0->moving_block_sprite_index.push_back(5);
+new_room0->destructible_block_sprite_index.push_back(5);
+new_room0->setup_functions();
 room_objects.push_back( *new_room0 );
 delete new_room0;
 
-//~ // for attempt limit development
-
-//~ room_limits * new_lim_1 = new room_limits( 0, 0, 320, 240, 0, 0, 320, 240 );
-//~ room_objects.at(0).limits.push_back( *new_lim_1 );
-//~ delete new_lim_1;
-//~ new_lim_1 = 0;
-
-//~ room_limits * new_lim_2 = new room_limits( 320, 0, 1000, 240, 0, 0, 1000, 240 );
-//~ room_objects.at(0).limits.push_back( *new_lim_2 );
-//~ delete new_lim_2;
-//~ new_lim_2 = 0;
-
-//~ room_limits * new_lim_3 = new room_limits( 360, 240, 1000, 600, 375, 0, 1000, 615 );
-//~ room_objects.at(0).limits.push_back( *new_lim_3 );
-//~ delete new_lim_3;
-//~ new_lim_3 = 0;
-
-//~ // end dev
 
 
 //room_object * new_room2 = new room_object( (int*)room_2, room2_rows, room2_cols, room2_xlimit_upper, room2_xlimit_lower, room2_ylimit_upper, room2_ylimit_lower,1);
 room_object * new_room1 = new room_object( "room1.csv",1);
+new_room1->normal_block_sprite_index.push_back(1);
+new_room1->moving_block_sprite_index.push_back(1);
+new_room1->destructible_block_sprite_index.push_back(1);
+new_room1->setup_functions();
 room_objects.push_back( *new_room1 );
 delete new_room1;
 
 //room_object * new_room3 = new room_object( (int*)room_3, room3_rows, room3_cols, room3_xlimit_upper, room3_xlimit_lower, room3_ylimit_upper, room3_ylimit_lower,2);
 room_object * new_room2 = new room_object( "room2.csv",2);
+new_room2->normal_block_sprite_index.push_back(1);
+new_room2->moving_block_sprite_index.push_back(1);
+new_room2->destructible_block_sprite_index.push_back(1);
+new_room2->setup_functions();
 room_objects.push_back( *new_room2 );
 delete new_room2;
 
@@ -1042,10 +1097,10 @@ void roomblocks_attack_interaction( int room, vector<attack> &parameter ) {
 
                 // blocks
 
-                X_1_A = room_objects.at(room).roomblocks.at(i).contact_points[0][0]+room_objects.at(room).roomblocks.at(i).x_location ;
-                X_2_A = room_objects.at(room).roomblocks.at(i).contact_points[0][1]+room_objects.at(room).roomblocks.at(i).x_location ;
-                Y_1_A = room_objects.at(room).roomblocks.at(i).contact_points[1][0]+room_objects.at(room).roomblocks.at(i).y_location ;
-                Y_2_A = room_objects.at(room).roomblocks.at(i).contact_points[1][3]+room_objects.at(room).roomblocks.at(i).y_location ;
+                X_1_A = room_objects.at(room).roomblocks.at(i).deflection_points[0][0]+room_objects.at(room).roomblocks.at(i).x_location ;
+                X_2_A = room_objects.at(room).roomblocks.at(i).deflection_points[0][1]+room_objects.at(room).roomblocks.at(i).x_location ;
+                Y_1_A = room_objects.at(room).roomblocks.at(i).deflection_points[1][0]+room_objects.at(room).roomblocks.at(i).y_location ;
+                Y_2_A = room_objects.at(room).roomblocks.at(i).deflection_points[1][3]+room_objects.at(room).roomblocks.at(i).y_location ;
 
 
                 // Shot

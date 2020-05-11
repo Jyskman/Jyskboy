@@ -45,9 +45,6 @@ class room_portal {
 
 };
 
-
-
-
 class block {
 
 public:
@@ -75,6 +72,7 @@ bool active = true;
 
 block(int x_pos, int y_pos, int palette, int type);
 block(int x_pos, int y_pos, int type);
+block(int x_pos, int y_pos, int type, int sprite__index, bool special);
 block(int x_pos, int y_pos, int type, int x_start, int x_stop, int y_start, int y_stop );
 
 int xstart, xstop, ystart, ystop;
@@ -95,6 +93,9 @@ bool xvel_communicated;
 bool yvel_communicated;
 
 };
+
+
+
 
 extern vector<block> blocks;
 
@@ -139,10 +140,18 @@ class room_object {
     vector<int> x_temp;
     vector<int> y_temp;
     
+    
+    vector<int> normal_block_sprite_index;
+	vector<int> moving_block_sprite_index;
+	vector<int> destructible_block_sprite_index;
 
 	void update_limits( int xoff, int yoff, champ &parameter );
+	
+	void setup_functions();
 
 };
+
+
 
 extern vector<room_object> room_objects;
 extern vector<room_portal> room_portals;

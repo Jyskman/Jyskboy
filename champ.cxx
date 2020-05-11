@@ -1689,22 +1689,21 @@ void champ::updateV(button_input& parameter, physics& physics_parameter, int roo
 			};
 			
 
-			// jumpstuff
-
+			// jumpstuff & detack du to inactive
+			if ( room_objects.at(room).roomblocks.at( grab_block_nr ).active == false ) {
+			
+				room_objects.at(room).roomblocks.at( grab_block_nr ).grabbed = false;
+				grab_lock = false; 
+				grab_left = false;
+				grab_right = false;
+			} else {
+			};
+			
 
 			
             if (parameter.getJumpState() == true && jump_counter >= 0 && nr_of_jumps > 0) { ///
                 jump_counter--;
-                //~ if (jump_counter == 0) {
-					//~ nr_of_jumps--;
-					
-					//~ if ( nr_of_jumps > 0 ) {
-						//~ jump_counter = jump_counter_set;
-					//~ } else {
-					//~ }
-					
-				//~ } else{
-				//~ }
+
                 
 
                 //y_vel = y_vel -10;
@@ -1741,7 +1740,7 @@ void champ::updateV(button_input& parameter, physics& physics_parameter, int roo
             
 
             // Dev
-            if ( parameter.getUpState() == true ) {
+            if ( parameter.getUpState() == true && grab_lock == false ) {
                 y_vel--;
                 y_vel--;
                 y_vel--;
