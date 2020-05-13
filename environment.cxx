@@ -913,9 +913,9 @@ void room_portal::load_portalobject(portal &parameter) {
 
 void room_setup( game *parameter ) {
 
+// 1 - 7 - 6 is blue index
 
-
-
+// 5 3 8 9 is stone index
 
 //room_object * new_room1 = new room_object( (int*)room_1,room1_rows, room1_cols, room1_xlimit_upper, room1_xlimit_lower, room1_ylimit_upper, room1_ylimit_lower,0);
 room_object * new_room0 = new room_object( "room0.csv",0);
@@ -930,9 +930,9 @@ delete new_room0;
 
 //room_object * new_room2 = new room_object( (int*)room_2, room2_rows, room2_cols, room2_xlimit_upper, room2_xlimit_lower, room2_ylimit_upper, room2_ylimit_lower,1);
 room_object * new_room1 = new room_object( "room1.csv",1);
-new_room1->normal_block_sprite_index.push_back(1);
-new_room1->moving_block_sprite_index.push_back(1);
-new_room1->destructible_block_sprite_index.push_back(1);
+new_room1->normal_block_sprite_index.push_back(8);
+new_room1->moving_block_sprite_index.push_back(9);
+new_room1->destructible_block_sprite_index.push_back(5);
 new_room1->setup_functions();
 room_objects.push_back( *new_room1 );
 delete new_room1;
