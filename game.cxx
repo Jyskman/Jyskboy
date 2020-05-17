@@ -979,6 +979,41 @@ void game::animations_run_render_back() {
 
 };
 
+// check if champ is outside room termation lines
+void game::check_termination() {
+	
+		hero.hero_hitbox.at(0).load_base( hero.x_location, hero.y_location );
+	
+
+		//~ cout << room_objects.at(room_current).terminator_box.size() << endl;
+		for ( int i = 0; i < room_objects.at(room_current).terminator_box.size(); i++ ) {
+			
+				room_objects.at(room_current).terminator_box.at(i).load_base(0,0);
+			
+				if ( room_objects.at(room_current).terminator_box.at(i).hitbox_compare( hero.hero_hitbox.at(0) ) == false  ) {
+					
+
+
+						//~ cout << " CHECK " << endl;
+						
+					
+
+				} else {
+					
+					hero.hero_life = 0;
+					
+				}; 
+			
+
+		};
+	
+	
+	
+
+	
+};
+
+
 // checklim function below
 void game::check_lim() {
 
@@ -1021,6 +1056,82 @@ void game::check_lim() {
 	
 	
 };
+
+void game::check_lim_upon_continue() {
+
+	//cout << " current _" << room_current << endl;
+	
+	bool temp = true;
+	
+	if ( temp == true ) {
+	
+			for (int i = 0; i < room_objects.at(room_current).limits.size(); i++) {
+				
+				// if inside x-bounds
+				if ( (int)hero.x_location > room_objects.at(room_current).limits.at(i).x_down_left && (int)hero.x_location < room_objects.at(room_current).limits.at(i).x_up_right  ) {
+					// if inside y bound
+					if ( hero.y_location > room_objects.at(room_current).limits.at(i).y_down_left && hero.y_location < room_objects.at(room_current).limits.at(i).y_up_right ) {
+						//cout << "trigger" << endl;
+						//~ the set lim values will be set to that of the lim box identified by this condition
+						room_objects.at(room_current).xlim_low_set = room_objects.at(room_current).limits.at(i).x_down_left_set;
+						room_objects.at(room_current).ylim_low_set = room_objects.at(room_current).limits.at(i).y_down_left_set;
+						room_objects.at(room_current).xlim_up_set = room_objects.at(room_current).limits.at(i).x_up_right_set;
+						room_objects.at(room_current).ylim_up_set = room_objects.at(room_current).limits.at(i).y_up_right_set;
+						
+					} else {
+					};
+
+				} else {
+
+				};
+				
+			};
+			
+			room_objects.at(room_current).xlim_low = hero.x_location - 200;
+			room_objects.at(room_current).xlim_up = hero.x_location + 200;
+
+			room_objects.at(room_current).ylim_low = hero.y_location - 200;
+			room_objects.at(room_current).ylim_up = hero.y_location + 200;
+			
+
+			if ( room_objects.at(room_current).ylim_low < room_objects.at(room_current).ylim_low_set ) {
+				room_objects.at(room_current).ylim_low = room_objects.at(room_current).ylim_low_set;
+
+			} else {
+			}; 
+			if ( room_objects.at(room_current).ylim_up > room_objects.at(room_current).ylim_up_set ) {
+				room_objects.at(room_current).ylim_up = room_objects.at(room_current).ylim_up_set;
+
+			} else {
+			};
+			if ( room_objects.at(room_current).xlim_low < room_objects.at(room_current).xlim_low_set ) {
+				room_objects.at(room_current).xlim_low = room_objects.at(room_current).xlim_low_set;
+
+			} else {
+			}; 
+			if ( room_objects.at(room_current).xlim_up > room_objects.at(room_current).xlim_up_set ) {
+				room_objects.at(room_current).xlim_up = room_objects.at(room_current).xlim_up_set;
+
+			} else {
+			};
+
+	// remove all grabtrues to avoid potential error
+			for (int ij = 0; ij < room_objects.at(room_current).roomblocks.size(); ij++) {
+			
+				room_objects.at(room_current).roomblocks.at(ij).grabbed = false;
+			
+			};
+	
+	
+		
+	} else {
+	};
+
+	
+};
+
+
+
 
 // upon room switch the game will reset and correct the limits
 void game::check_lim_upon_roomswitch() {
@@ -1111,13 +1222,15 @@ void game::game_main(){
             hero.check_items(room_current);
             hero.run_items(this);
             hero.cycle_weapon(buttons);
+            
+            update_waypoint();
 
 
         }
         //~ room_render_req(room_current, hero, physics_objects.at( physics_current ) ); // in environment
         hero.setRender(buttons, physics_objects.at( physics_current ), room_current, attack_took_place );
 		check_lim();
-
+		check_termination();
 
         
 
@@ -1153,6 +1266,85 @@ room_prev = room_current;
 initial_config = false;
 };
 
+void game::update_waypoint() {
+
+	
+	hero.hero_hitbox.at(0).load_base( hero.x_location, hero.y_location );
+
+
+	//~ cout << room_objects.at(room_current).terminator_box.size() << endl;
+	for ( int i = 0; i < room_objects.at(room_current).room_waypoint.size(); i++ ) {
+		
+			room_objects.at(room_current).room_waypoint.at(i).waypoint_hitbox.load_base(0,0);
+		
+			if ( room_objects.at(room_current).room_waypoint.at(i).waypoint_hitbox.hitbox_compare( hero.hero_hitbox.at(0) ) == false  ) {
+				
+					for ( int j = 0; j < room_objects.at(room_current).room_waypoint.size(); j++ ) {
+					
+						room_objects.at(room_current).room_waypoint.at(j).active = false;
+					
+					
+					}; 
+				
+
+
+					room_objects.at(room_current).room_waypoint.at(i).active = true;
+					
+				
+
+			} else {
+				
+				//~ hero.hero_life = 0;
+				
+			}; 
+		
+
+	};
+	
+	
+	
+
+
+	
+};
+
+
+void game::game_reset() {
+	
+	hero.hero_life = hero.hero_max_life;
+	
+	for ( int i = 0; i < room_objects.at(room_current).room_waypoint.size() ; i++ ) {
+	
+		if ( room_objects.at(room_current).room_waypoint.at(i).active == true ) {
+			
+				hero.x_location = room_objects.at(room_current).room_waypoint.at(i).x_location;
+				hero.y_location = room_objects.at(room_current).room_waypoint.at(i).y_location;
+				
+		} else {
+		};
+	
+	}
+	
+	
+	
+
+	hero.hero_destroy = false;
+	hero.destroy_counter = 0;
+	hero.only_once = true;	
+	
+	hero.destroy_animation.clear();
+	hero.destroy_animation_extra.clear();
+	
+	hero.x_destroy_pos_float.clear();
+	hero.y_destroy_pos_float.clear();
+	hero.x_destroy_v_float.clear();
+	hero.y_destroy_v_float.clear();
+	
+
+	check_lim_upon_continue();
+
+};
+
 
 void game::game_loop() {
 
@@ -1169,6 +1361,14 @@ void game::game_loop() {
 
             case 0:
                 game_main();
+                
+                if ( hero.hero_life <= 0 && buttons.getStartState() == true ) {
+				
+					game_reset();
+				
+				} else {
+				};
+                
             break;
 
 

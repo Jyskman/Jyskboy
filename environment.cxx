@@ -347,6 +347,34 @@ void room_object::update_hitbox() {
 
 
 
+void room_object::set_terminator() {
+	
+	
+	for ( int i = 1; i < (columns_storage.size() / column_items); i++ ) {
+
+
+        if ( columns_storage.at(16).at(i) <= -100  ) {
+
+				hitbox_object * new_box_1 = new hitbox_object( columns_storage.at(20).at(i), columns_storage.at(21).at(i), columns_storage.at(22).at(i), columns_storage.at(23).at(i)  );
+				
+				
+				terminator_box.push_back( *new_box_1 );
+				delete new_box_1;
+				new_box_1 = 0;
+
+
+
+
+        } else {
+        }
+
+    }
+    
+    
+    
+};
+
+
 void room_object::set_limits() {
 
 	// For a static room you add 320 resp 240 to the low value of x and y eg xlim 0 -> xlim uo 320
@@ -433,6 +461,7 @@ void room_object::setup_functions() {
 	room_object_setupCSV();
 	create_blocks();
 	set_limits();
+	set_terminator();
 	set_modifiers();
 };
 
@@ -556,6 +585,17 @@ void room_object::create_blocks() {
 						obj->sprite_nr = obj->Relation_Spritenr_type();
 						obj->setContactpoints();
 						roomblocks.push_back(*obj);
+						obj = 0;
+						
+					break;
+					}
+					case(10): {
+						
+						//~ Here there will be waypoints
+						
+						waypoint * obj = new waypoint(columns_storage.at(1).at(i), columns_storage.at(2).at(i)) ;
+
+						room_waypoint.push_back(*obj);
 						obj = 0;
 						
 					break;

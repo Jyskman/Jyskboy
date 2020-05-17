@@ -125,6 +125,7 @@ class room_object {
 
     void create_blocks();
     void set_limits();
+    void set_terminator();
     void set_modifiers();
     void testfunc();
     int column_items;
@@ -134,6 +135,11 @@ class room_object {
     vector< stars > starfields ;
     vector< item > room_items;
     vector< item > room_drop_items;
+    
+    vector< waypoint > room_waypoint;
+    
+    vector< hitbox_object > terminator_box;
+    
     void update_hitbox();
     
     vector<int> type_temp;

@@ -45,6 +45,8 @@ void createAttacks(button_input& parameter);
 void setXYfactor();
 int x_factor, y_factor;
 
+
+
 int room_current;
 int room_max = 10; // 0 is a room
 int room_prev;
@@ -62,13 +64,20 @@ game(int a); // http://www.cplusplus.com/forum/beginner/34589/
 ~game();
 void game_loop();
 void game_main();
+void game_reset();
+
 void game_setup();
 void game_close();
 void game_fbp_clear();
 void game_frame();
 bool game_room_switch();
 void check_lim();
+void check_termination();
 void check_lim_upon_roomswitch();
+void check_lim_upon_continue();
+
+void update_waypoint();
+
 void destroy_animations_upon_roomswitch();
 int current_lim = 0;
 // enemy functions

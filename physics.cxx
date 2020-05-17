@@ -12,6 +12,19 @@
 
 using namespace std;
 
+waypoint::waypoint( int x, int y ) : waypoint_hitbox(x-100 , y-100 , x+100 , y+100) {
+	
+	x_location = x;
+	y_location = y; 
+	
+};
+
+
+
+
+
+
+
 void item::setup() {
 	switch (nr) {
 		case (501): {

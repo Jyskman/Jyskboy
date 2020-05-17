@@ -51,6 +51,13 @@ void set_to_from_cycles(int type);
 
 
 
+
+
+
+
+
+
+
 class hitbox_object {
 
 
@@ -76,7 +83,17 @@ void load_base( int x, int y );
 
 };
 
-
+class waypoint {
+	
+	public:
+	waypoint(int x, int y);
+	
+	int x_location, y_location;
+	bool active = false;
+	hitbox_object waypoint_hitbox;
+	
+	
+};
 
 
 class attack {
