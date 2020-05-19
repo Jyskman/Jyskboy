@@ -1624,6 +1624,7 @@ void champ::updateV(button_input& parameter, physics& physics_parameter, int roo
 
     switch (physics_parameter.state) {
         case 0:
+			
             if ( parameter.getLeftState() == true) {
 
                     x_velocity--;

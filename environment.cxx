@@ -907,6 +907,9 @@ void portal::transport( champ &parameter, int &game_room ) {
                 parameter.x_location = destination_x;
                 parameter.y_location = destination_y;
                 
+                // need to set this to zero to avoid crash
+                parameter.grab_block_nr = 0;
+                
 					for ( int i = 0; i < anime_req.size(); i++ ) {
 	
 						anime_req.at(i).destroy = true;
