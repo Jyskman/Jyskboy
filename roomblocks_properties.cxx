@@ -53,7 +53,7 @@ void stars::set_stars() {
 		
 		for ( int i = 0; i < total_pixels; i++ ) {
 			
-			if ( (rand() % 10000 + 1) > 9998 ) {
+			if ( (rand() % 10000 + 1) > 9999 ) {
 				
 				
 			x.push_back( (rand() %  (x_u - x_lo) + (x_lo + 1) ) );

@@ -1332,6 +1332,10 @@ void game::game_reset() {
 	hero.destroy_counter = 0;
 	hero.only_once = true;	
 	
+	hero.grab_lock = false;
+	hero.grab_left = false;
+	hero.grab_right = false;
+	
 	hero.destroy_animation.clear();
 	hero.destroy_animation_extra.clear();
 	

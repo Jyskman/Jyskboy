@@ -269,12 +269,25 @@ void enemy::item_drop(int room) {
 		
 		case(1): {
 		
-			item * obj = new item(510, x_location , y_location ) ;
-			obj->setup();
-			obj->x_v_float = (float)destroy_v_x;
-			obj->y_v_float = (float)destroy_v_y;
-			room_objects.at(room).room_drop_items.push_back(*obj);
-			obj = 0;
+			if ( ( rand() % 10 ) > 6 ) {
+				
+				item * obj = new item(510, x_location , y_location ) ;
+				obj->setup();
+				obj->x_v_float = (float)destroy_v_x;
+				obj->y_v_float = (float)destroy_v_y;
+				room_objects.at(room).room_drop_items.push_back(*obj);
+				obj = 0;
+				
+			} else {
+			};
+		
+		
+			//~ item * obj = new item(510, x_location , y_location ) ;
+			//~ obj->setup();
+			//~ obj->x_v_float = (float)destroy_v_x;
+			//~ obj->y_v_float = (float)destroy_v_y;
+			//~ room_objects.at(room).room_drop_items.push_back(*obj);
+			//~ obj = 0;
 
 		
 		
