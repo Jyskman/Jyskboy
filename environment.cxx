@@ -982,9 +982,9 @@ delete new_room1;
 
 //room_object * new_room3 = new room_object( (int*)room_3, room3_rows, room3_cols, room3_xlimit_upper, room3_xlimit_lower, room3_ylimit_upper, room3_ylimit_lower,2);
 room_object * new_room2 = new room_object( "room2.csv",2);
-new_room2->normal_block_sprite_index.push_back(1);
-new_room2->moving_block_sprite_index.push_back(1);
-new_room2->destructible_block_sprite_index.push_back(1);
+new_room2->normal_block_sprite_index.push_back(10);
+new_room2->moving_block_sprite_index.push_back(11);
+new_room2->destructible_block_sprite_index.push_back(12);
 new_room2->setup_functions();
 room_objects.push_back( *new_room2 );
 delete new_room2;
