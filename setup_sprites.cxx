@@ -2089,6 +2089,30 @@ unsigned char block_14[15 * 15 * 2 + 1] =
  "\354\276\354\276\354\377\362\276\354\276\354\276\354\276\354\036\352\036\352"
  "-`\377\377-`-`-`-`-`-`-`-`-`-`-`-`-`\377\377"); 
  
+int block_15_width = 15;
+int block_15_height = 15;
+int block_15_size = 15 * 15 * 2 + 1;
+unsigned char block_15[15 * 15 * 2 + 1] =
+("\377\377\377\377\377\377\377\377-`-`-`-`-`-`-`-`-`\377\377\377\377\377\377"
+ "\377\377-`-`\036\352\036\352\036\352\036\352\036\352\036\352\036\352\036\352\036\352"
+ "-`\377\377\377\377-`\036\352\036\352\036\352\036\352\276\354\276\354\036\352\036"
+ "\352\276\354\036\352\036\352\036\352-`-`\036\352\036\352\036\352\036\352\036\352\036"
+ "\352\276\354\036\352\036\352\276\354\276\354\036\352\036\352-`-`\036\352\276\354"
+ "\036\352\036\352\036\352\036\352\276\354\036\352\036\352\036\352\276\354\036\352\036"
+ "\352-`-`\036\352\276\354\276\354\036\352\036\352\036\352\276\354\036\352\036\352"
+ "\036\352\276\354\276\354\036\352-`-`\036\352\036\352\276\354\036\352\036\352\276"
+ "\354\276\354\036\352\036\352\036\352\036\352\276\354\036\352-`-`\036\352\276\354"
+ "\276\354\036\352\036\352\276\354\036\352\036\352\036\352\036\352\036\352\276\354"
+ "\036\352-`-`\036\352\036\352\276\354\276\354\036\352\276\354\276\354\036\352\036"
+ "\352\036\352\276\354\276\354\036\352-`-`\036\352\036\352\036\352\276\354\276\354"
+ "\276\354\276\354\276\354\276\354\276\354\036\352\036\352\036\352-`-`\036\352\036"
+ "\352\036\352\276\354\276\354\276\354\276\354\276\354\276\354\276\354\276\354"
+ "\036\352\036\352-`-`\036\352\036\352\036\352\276\354\276\354\276\354\036\352\276"
+ "\354\276\354\276\354\276\354\036\352\036\352-`\377\377-`\036\352\036\352\036\352"
+ "\276\354\276\354\036\352\276\354\276\354\036\352\276\354\036\352\036\352-`\377"
+ "\377\377\377-`-`\036\352\036\352\036\352\036\352\036\352\036\352\036\352\036\352\036"
+ "\352-`\377\377\377\377\377\377\377\377\377\377-`-`-`-`-`-`-`-`-`\377\377\377"
+ "\377");
  
  
  
@@ -2155,6 +2179,10 @@ void setup_sprites(render& parameter) {
     sprite_objects block14(1, (unsigned char*)block_14 ,block_14, block_14_size, block_14_width, block_14_height,12);
     all_sprites.push_back(block14);
     sprite_pointers.push_back(&block14);
+    
+	sprite_objects block15(1, (unsigned char*)block_15 ,block_15, block_15_size, block_15_width, block_15_height,13);
+    all_sprites.push_back(block15);
+    sprite_pointers.push_back(&block15);
     
     
     
@@ -2557,10 +2585,12 @@ void setup_sprites(render& parameter) {
 
 parameter.load_sprite_data((unsigned char*)block_4, block_4_width, block_4_height );
 parameter.load_sprite_data((unsigned char*)champ_v4_still, champ_v4_still_width, champ_v4_still_height );
+
 parameter.load_sprite_data((unsigned char*)block_5, block_5_width, block_5_height );
 parameter.load_sprite_data((unsigned char*)block_6, block_6_width, block_6_height );
 parameter.load_sprite_data((unsigned char*)block_7, block_7_width, block_7_height );
 parameter.load_sprite_data((unsigned char*)block_8, block_8_width, block_8_height );
+
 parameter.load_sprite_data((unsigned char*)block_9, block_9_width, block_9_height );
 parameter.load_sprite_data((unsigned char*)block_10, block_10_width, block_10_height );
 parameter.load_sprite_data((unsigned char*)block_11, block_11_width, block_11_height );
@@ -2568,7 +2598,7 @@ parameter.load_sprite_data((unsigned char*)block_11, block_11_width, block_11_he
 parameter.load_sprite_data((unsigned char*)block_12, block_12_width, block_12_height );
 parameter.load_sprite_data((unsigned char*)block_13, block_13_width, block_13_height );
 parameter.load_sprite_data((unsigned char*)block_14, block_14_width, block_14_height );
-
+parameter.load_sprite_data((unsigned char*)block_15, block_15_width, block_15_height );
 
 parameter.load_sprite_data((unsigned char*)champ_torso, champ_torso_width, champ_torso_height );
 parameter.load_sprite_data((unsigned char*)champ_legs, champ_legs_width, champ_legs_height );

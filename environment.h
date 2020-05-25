@@ -154,6 +154,9 @@ class room_object {
 	void update_limits( int xoff, int yoff, champ &parameter );
 	
 	void setup_functions();
+	
+	int random_vector_element( vector<int> &parameter );
+	
 
 };
 

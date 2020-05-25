@@ -548,6 +548,46 @@ column_items = 3; // redundant
 
 }
 
+
+int room_object::random_vector_element( vector<int> &parameter  ) {
+	
+	int return_value = 0;
+	
+	int roll = rand() % 100;
+	
+	int test_low = 0;
+	int test_high = 0;
+	
+	bool confirm = false;
+	
+	for ( int i = 0; i < parameter.size(); i++  ) {
+	
+		test_low = i * (100 / parameter.size() ) ;
+		test_high = (i + 1) * (100 / parameter.size() ) ;
+	
+	
+	
+		if (  roll > test_low && roll < test_high   ) {
+			confirm = true;
+		
+			return_value = i;
+		
+		} else {
+		};
+	
+	
+	};
+	
+	
+	
+return parameter.at( return_value );	
+	
+	
+};
+
+
+
+
 // Function will be separate for creating blocks
 
 void room_object::create_blocks() {
@@ -570,7 +610,9 @@ void room_object::create_blocks() {
 					case(1): {
 						
 						block * obj = new block(columns_storage.at(1).at(i), columns_storage.at(2).at(i), 1 ) ;
-						obj->sprite_index = normal_block_sprite_index.at(0);
+						//~ obj->sprite_index = normal_block_sprite_index.at(0);
+						obj->sprite_index = random_vector_element( normal_block_sprite_index ) ;
+						
 						obj->sprite_nr = obj->Relation_Spritenr_type(); 
 						obj->setContactpoints();
 						roomblocks.push_back(*obj);
@@ -983,6 +1025,7 @@ delete new_room1;
 //room_object * new_room3 = new room_object( (int*)room_3, room3_rows, room3_cols, room3_xlimit_upper, room3_xlimit_lower, room3_ylimit_upper, room3_ylimit_lower,2);
 room_object * new_room2 = new room_object( "room2.csv",2);
 new_room2->normal_block_sprite_index.push_back(10);
+new_room2->normal_block_sprite_index.push_back(13);
 new_room2->moving_block_sprite_index.push_back(11);
 new_room2->destructible_block_sprite_index.push_back(12);
 new_room2->setup_functions();
