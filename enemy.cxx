@@ -78,6 +78,27 @@ void enemy::motion( physics &parameter ) {
         break;
         case(2):
         break;
+        case(10):
+
+            y_v_float = y_v_float - parameter.new_g;
+
+            if ( perception_right == true ) {
+
+                x_v_float = x_v_float + main_v;
+            } else {
+                x_v_float = x_v_float - main_v;
+            }
+
+            if ( perception_above == true ) {
+
+                y_v_float = y_v_float - main_v;
+            } else {
+                y_v_float = y_v_float + main_v;
+            }
+
+
+
+        break;
         default:
         break;
 
@@ -148,6 +169,25 @@ void enemy::set_hitbox_set() {
         break;
         case (2):
         break;
+        case (10):
+
+            for ( int i = 0; i < RSV.size() ; i++ ) {
+
+                hitbox_object * obj_h = new hitbox_object(0,0, all_sprites.at( RSV.at(i).sprite_nr ).getWidth(), all_sprites.at( RSV.at(i).sprite_nr ).getHeight() );
+                enemy_hitbox_set.push_back( *obj_h );
+                delete obj_h;
+                obj_h = 0;
+
+                if ( RSV.at(i).use_special_offset == false ) {
+                    center_x = all_sprites.at( RSV.at(i).sprite_nr ).getWidth() / 2;
+                    center_y = all_sprites.at( RSV.at(i).sprite_nr ).getHeight() / 2;
+
+                } else {
+                };
+
+            };
+
+        break;
         default:
         break;
 
@@ -211,6 +251,32 @@ void enemy::RSV_setup() {
 
 
     }
+    
+    
+    if ( enemy_type == 10 ) {
+
+
+
+        render_state * state_1_3 = new render_state(false, 0, false, true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 0, 0, 208 );
+        RSV.push_back(*state_1_3);
+        delete state_1_3;
+        
+        render_state * state_1_4 = new render_state(false, 0, false, true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 8, 0, 208 );
+        RSV.push_back(*state_1_4);
+        delete state_1_4;
+        
+        render_state * state_1_5 = new render_state(false, 0, false, true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 16, 0, 208 );
+        RSV.push_back(*state_1_5);
+        delete state_1_5;
+
+
+        width = all_sprites.at(RSV.at(0).sprite_nr).getWidth();
+        height = all_sprites.at(RSV.at(0).sprite_nr).getHeight();
+
+
+
+
+    }
 
 
 }
@@ -224,6 +290,10 @@ void enemy::vulnerability_setup() {
             life = 1;
         break;
         case (2):
+        case (10):
+			can_take_damage = true;
+            life = 10;
+        break;
         break;
         default:
         break;
@@ -251,6 +321,9 @@ set_hitbox_set();
 destroy = false;
     switch (e_type) {
         case(1):
+            main_v = 0.20;
+        break;
+        case(10):
             main_v = 0.20;
         break;
 
@@ -637,6 +710,29 @@ for ( int i = 0; i < RSV.size(); i++ ) {
 
                             break;
                             case (2):
+                            break;
+                            case (10):
+                            
+								x_mirror = 0;
+								
+                                if ( abs(y_v_float) > abs(x_v_float)  ) {
+                                    
+                                    rot = 2;
+                                    
+                                    if ( (int)y_v_float < 0 ) {
+										horisontal = true;
+									} else {
+										horisontal = false;
+									};
+									
+										
+                                    
+                                    
+                                } else {
+									rot = 1;
+                                };
+
+
                             break;
                         };
 

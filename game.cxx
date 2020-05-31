@@ -64,7 +64,7 @@ game::game(int a) : buttons(1), screen(1), audio(), hero(1, (100 * 100 * 3 + 1),
 
 // when game is created these items are also
 game_state_current = 0;
-room_current = 0;
+room_current = 2;
 physics_current = 0;
 game_is_running = true;
 room_prev = room_current;

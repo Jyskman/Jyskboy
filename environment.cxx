@@ -623,7 +623,8 @@ void room_object::create_blocks() {
 					case(5): {
 						
 						block * obj = new block(columns_storage.at(1).at(i), columns_storage.at(2).at(i), 5 ) ;
-						obj->sprite_index = destructible_block_sprite_index.at(0);
+						//~ obj->sprite_index = destructible_block_sprite_index.at(0);
+						obj->sprite_index = random_vector_element( destructible_block_sprite_index ) ;
 						obj->sprite_nr = obj->Relation_Spritenr_type();
 						obj->setContactpoints();
 						roomblocks.push_back(*obj);
@@ -1005,8 +1006,10 @@ void room_setup( game *parameter ) {
 //room_object * new_room1 = new room_object( (int*)room_1,room1_rows, room1_cols, room1_xlimit_upper, room1_xlimit_lower, room1_ylimit_upper, room1_ylimit_lower,0);
 room_object * new_room0 = new room_object( "room0.csv",0);
 new_room0->normal_block_sprite_index.push_back(1);
+new_room0->normal_block_sprite_index.push_back(17);
 new_room0->moving_block_sprite_index.push_back(7);
 new_room0->destructible_block_sprite_index.push_back(6);
+new_room0->destructible_block_sprite_index.push_back(18);
 new_room0->setup_functions();
 room_objects.push_back( *new_room0 );
 delete new_room0;
@@ -1016,6 +1019,8 @@ delete new_room0;
 //room_object * new_room2 = new room_object( (int*)room_2, room2_rows, room2_cols, room2_xlimit_upper, room2_xlimit_lower, room2_ylimit_upper, room2_ylimit_lower,1);
 room_object * new_room1 = new room_object( "room1.csv",1);
 new_room1->normal_block_sprite_index.push_back(8);
+new_room1->normal_block_sprite_index.push_back(15);
+new_room1->normal_block_sprite_index.push_back(14);
 new_room1->moving_block_sprite_index.push_back(9);
 new_room1->destructible_block_sprite_index.push_back(5);
 new_room1->setup_functions();

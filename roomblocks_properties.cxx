@@ -67,6 +67,26 @@ void stars::set_stars() {
 			
 		};
 	break;
+	
+	case(4):
+		total_pixels = ( x_u - x_lo ) * ( y_u - y_lo ) ;
+		
+		for ( int i = 0; i < total_pixels; i++ ) {
+			
+			if ( (rand() % 10000 + 1) > 9999 ) {
+				
+				
+			x.push_back( (rand() %  (x_u - x_lo) + (x_lo + 1) ) );
+			y.push_back( (rand() %  (y_u - y_lo) + (y_lo + 1) ) );
+			nr.push_back( sprite_nr.at( ((rand() % (sprite_index.size()) + 0)) ) );
+
+			} else {
+			} ;
+			
+
+			
+		};
+	break;
 		
 	default:
 	break; 
@@ -96,6 +116,13 @@ void stars::sprite_config() {
 			sprite_index.push_back( 424 );
 			sprite_index.push_back( 425 );
 			
+		break;
+		
+		case(4):
+			sprite_index.push_back( 426 );
+			sprite_index.push_back( 427 );
+			sprite_index.push_back( 428 );
+		
 		break;
 		
 	};
