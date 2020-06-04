@@ -40,8 +40,98 @@ float param_y = (float)center_y + (float)y_location;
             perception_right = false;
             //cout << "C is left" << endl;
         }
+        
+        
+        float x_1 = param_x ;
+		float y_1 = param_y ;
+		
+		
+		float x_2 = parameter.x_center ;
+		float y_2 = parameter.y_center ;
 
 
+		float length = sqrt( ( x_1 - x_2 )*( x_1 - x_2 )+( y_1 - y_2 )*( y_1 - y_2 ) ) ;
+		//cout << "L_" << length << endl;
+
+		float cos_alfa = (  ( x_2 - x_1 )/( length )  );
+		float a_cos = acos( cos_alfa );
+
+
+		perception_angle = a_cos;
+		//~ cout << a_cos << endl;
+		
+		
+		switch (enemy_type) {
+			case(1):
+			break;
+			
+			case(10):
+			
+				if ( 	( (perception_angle > 0.00 && perception_angle < ( M_PI/8.00 ) ) || 
+						(perception_angle > 7*( M_PI/8.00 ) && perception_angle < 8*( M_PI/8.00 )) ) && perception_above == true)  {
+					
+					gun_direction = 3;
+					
+				} else {
+				};
+				
+				if ( 	( (perception_angle > 0.00 && perception_angle < ( M_PI/8.00 ) ) || 
+						(perception_angle > 7*( M_PI/8.00 ) && perception_angle < 8*( M_PI/8.00 )) ) && perception_above == false)  {
+					
+					gun_direction = 3;
+					
+				} else {
+				};
+
+				
+				
+				
+				if ( ((perception_angle > ( M_PI/8.00 ) && perception_angle < 3*( M_PI/8.00 )) ||
+						(perception_angle > 5*( M_PI/8.00 ) && perception_angle < 7*( M_PI/8.00 )) ) && perception_above == true ) {
+					
+					gun_direction = 2;
+					
+				} else {
+				}
+				
+
+				
+				
+				if ( (perception_angle > 3*( M_PI/8.00 ) && perception_angle < 5*( M_PI/8.00 )) && perception_above == true ) {
+					
+					gun_direction = 1;
+					
+				} else {
+				}
+				
+				if ( (perception_angle > 3*( M_PI/8.00 ) && perception_angle < 5*( M_PI/8.00 )) && perception_above == false ) {
+					
+					gun_direction = 5;
+					
+				} else {
+				}
+				
+				
+				if ( ((perception_angle > ( M_PI/8.00 ) && perception_angle < 3*( M_PI/8.00 )) ||
+						(perception_angle > 5*( M_PI/8.00 ) && perception_angle < 7*( M_PI/8.00 )) ) && perception_above == false ) {
+					
+					gun_direction = 4;
+					
+				} else {
+				}
+				
+				
+
+
+			
+			break;
+			
+			
+			
+		};
+
+
+	cout << gun_direction << endl;
 
 };
 
@@ -257,17 +347,44 @@ void enemy::RSV_setup() {
 
 
 
-        render_state * state_1_3 = new render_state(false, 0, false, true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 0, 0, 208 );
+        //~ render_state * state_1_3 = new render_state(false, 0, false, true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 0, 0, 209 );
+        //~ RSV.push_back(*state_1_3);
+        //~ delete state_1_3;
+        
+        
+        
+        
+        render_state * state_1_3 = new render_state(false, 0, false, true, false, true, false, true, false, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 0, 0, 209 );
         RSV.push_back(*state_1_3);
         delete state_1_3;
         
-        render_state * state_1_4 = new render_state(false, 0, false, true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 8, 0, 208 );
+        render_state * state_1_4 = new render_state(false, 0, false, true, false, true, false, true, false, 3, 3, 3, 3, 3, 1, 2, 3, 4, 5, 6, 7, 0, 0, 209 );
         RSV.push_back(*state_1_4);
         delete state_1_4;
         
-        render_state * state_1_5 = new render_state(false, 0, false, true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 16, 0, 208 );
-        RSV.push_back(*state_1_5);
-        delete state_1_5;
+       
+        render_state * state_1_6 = new render_state(false, 0, false, true, false, true, false, true, false, 5, 5, 5, 5, 5, 1, 2, 3, 4, 5, 6, 7, 0, 0, 209 );
+        RSV.push_back(*state_1_6);
+        delete state_1_6;
+        
+        
+        render_state * state_1_7 = new render_state(false, 0, false, true, false, true, false, true, false, 2, 2, 2, 2, 2, 1, 2, 3, 4, 5, 6, 7, 0, 0, 210 );
+        RSV.push_back(*state_1_7);
+        delete state_1_7;
+        
+        render_state * state_1_8 = new render_state(false, 0, false, true, false, true, false, true, false, 4, 4, 4, 4, 4, 1, 2, 3, 4, 5, 6, 7, 0, 0, 210 );
+        RSV.push_back(*state_1_8);
+        delete state_1_8;
+        
+        
+        
+        //~ render_state * state_1_4 = new render_state(false, 0, false, true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 8, 0, 208 );
+        //~ RSV.push_back(*state_1_4);
+        //~ delete state_1_4;
+        
+        //~ render_state * state_1_5 = new render_state(false, 0, false, true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 16, 0, 208 );
+        //~ RSV.push_back(*state_1_5);
+        //~ delete state_1_5;
 
 
         width = all_sprites.at(RSV.at(0).sprite_nr).getWidth();
@@ -557,6 +674,39 @@ for ( int i = 0; i < RSV.size(); i++ ) {
 
     RSV_x = x_location+RSV.at(i).x_off;
     RSV_y = y_location+RSV.at(i).y_off;
+    
+				switch (enemy_type) {
+						case (1):
+							if ( abs(y_v_float) > abs(x_v_float)  ) {
+								
+								rot = 2;
+								
+								if ( (int)y_v_float < 0 ) {
+									horisontal = true;
+								} else {
+									horisontal = false;
+								};
+								
+									
+								
+								
+							} else {
+								rot = 1;
+							};
+
+
+						break;
+						case (2):
+						break;
+						case (10):
+						
+							x_mirror = 0;
+							
+							
+
+
+						break;
+					};
 
 
 
@@ -568,14 +718,14 @@ for ( int i = 0; i < RSV.size(); i++ ) {
                             if ( current_sprite_direction == true ) {
                                 rot = 2;
                                 horisontal = false;
-                                RSV_y = RSV_y - 20;
+                                RSV_y = RSV_y;
                             } else {
                             }
                             if ( current_sprite_direction == false ) {
                                 rot = 2;
                                 horisontal = false;
                                 vertical = false;
-                                RSV_y = RSV_y - 20;
+                                RSV_y = RSV_y;
                             } else {
                             }
 
@@ -588,14 +738,14 @@ for ( int i = 0; i < RSV.size(); i++ ) {
                                 rot = 2;
                                 horisontal = true;
                                 vertical = false;
-                                RSV_y = RSV_y + 1;
+                                RSV_y = RSV_y;
                             } else {
                             }
                             if ( current_sprite_direction == false ) {
                                 rot = 2;
                                 horisontal = true;
                                 vertical = true;
-                                RSV_y = RSV_y + 1;
+                                RSV_y = RSV_y;
                             } else {
                             }
 
@@ -688,53 +838,53 @@ for ( int i = 0; i < RSV.size(); i++ ) {
                     } else {
 						
 						
-                        switch (enemy_type) {
-                            case (1):
-                                if ( abs(y_v_float) > abs(x_v_float)  ) {
+                        //~ switch (enemy_type) {
+                            //~ case (1):
+                                //~ if ( abs(y_v_float) > abs(x_v_float)  ) {
                                     
-                                    rot = 2;
+                                    //~ rot = 2;
                                     
-                                    if ( (int)y_v_float < 0 ) {
-										horisontal = true;
-									} else {
-										horisontal = false;
-									};
+                                    //~ if ( (int)y_v_float < 0 ) {
+										//~ horisontal = true;
+									//~ } else {
+										//~ horisontal = false;
+									//~ };
 									
 										
                                     
                                     
-                                } else {
-									rot = 1;
-                                };
+                                //~ } else {
+									//~ rot = 1;
+                                //~ };
 
 
-                            break;
-                            case (2):
-                            break;
-                            case (10):
+                            //~ break;
+                            //~ case (2):
+                            //~ break;
+                            //~ case (10):
                             
-								x_mirror = 0;
+								//~ x_mirror = 0;
 								
-                                if ( abs(y_v_float) > abs(x_v_float)  ) {
+                                //~ if ( abs(y_v_float) > abs(x_v_float)  ) {
                                     
-                                    rot = 2;
+                                    //~ rot = 2;
                                     
-                                    if ( (int)y_v_float < 0 ) {
-										horisontal = true;
-									} else {
-										horisontal = false;
-									};
+                                    //~ if ( (int)y_v_float < 0 ) {
+										//~ horisontal = true;
+									//~ } else {
+										//~ horisontal = false;
+									//~ };
 									
 										
                                     
                                     
-                                } else {
-									rot = 1;
-                                };
+                                //~ } else {
+									//~ rot = 1;
+                                //~ };
 
 
-                            break;
-                        };
+                            //~ break;
+                        //~ };
 
 
                     };

@@ -27,10 +27,12 @@ void motion( physics &parameter );
 float main_v;
 
 
-float perception_angle;
+
 float perception_distance;
 bool perception_above;
 bool perception_right;
+
+float perception_angle = 0.00;
 
 int center_x, center_y;
 int enemy_type;
