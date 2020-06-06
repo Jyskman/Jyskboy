@@ -354,38 +354,30 @@ void enemy::RSV_setup() {
         
         
         
-        render_state * state_1_3 = new render_state(false, 0, false, true, false, true, false, true, false, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 0, 0, 209 );
+        render_state * state_1_3 = new render_state(true, false, true, false, true, false, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 0, 0, 209 );
         RSV.push_back(*state_1_3);
         delete state_1_3;
         
-        render_state * state_1_4 = new render_state(false, 0, false, true, false, true, false, true, false, 3, 3, 3, 3, 3, 1, 2, 3, 4, 5, 6, 7, 0, 0, 209 );
+        render_state * state_1_4 = new render_state(true, false, true, false, true, false, 3, 3, 3, 3, 3, 1, 2, 3, 4, 5, 6, 7, 0, 0, 209 );
         RSV.push_back(*state_1_4);
         delete state_1_4;
         
        
-        render_state * state_1_6 = new render_state(false, 0, false, true, false, true, false, true, false, 5, 5, 5, 5, 5, 1, 2, 3, 4, 5, 6, 7, 0, 0, 209 );
+        render_state * state_1_6 = new render_state(true, false, true, false, true, false, 5, 5, 5, 5, 5, 1, 2, 3, 4, 5, 6, 7, 0, 0, 209 );
         RSV.push_back(*state_1_6);
         delete state_1_6;
         
         
-        render_state * state_1_7 = new render_state(false, 0, false, true, false, true, false, true, false, 2, 2, 2, 2, 2, 1, 2, 3, 4, 5, 6, 7, 0, 0, 210 );
+        render_state * state_1_7 = new render_state(true, false, true, false, true, false, 2, 2, 2, 2, 2, 1, 2, 3, 4, 5, 6, 7, 0, 0, 210 );
         RSV.push_back(*state_1_7);
         delete state_1_7;
         
-        render_state * state_1_8 = new render_state(false, 0, false, true, false, true, false, true, false, 4, 4, 4, 4, 4, 1, 2, 3, 4, 5, 6, 7, 0, 0, 210 );
+        render_state * state_1_8 = new render_state( true, false, true, false, true, false, 4, 4, 4, 4, 4, 1, 2, 3, 4, 5, 6, 7, 0, 0, 210 );
         RSV.push_back(*state_1_8);
         delete state_1_8;
         
         
         
-        //~ render_state * state_1_4 = new render_state(false, 0, false, true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 8, 0, 208 );
-        //~ RSV.push_back(*state_1_4);
-        //~ delete state_1_4;
-        
-        //~ render_state * state_1_5 = new render_state(false, 0, false, true, false, true, false, true, false, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 16, 0, 208 );
-        //~ RSV.push_back(*state_1_5);
-        //~ delete state_1_5;
-
 
         width = all_sprites.at(RSV.at(0).sprite_nr).getWidth();
         height = all_sprites.at(RSV.at(0).sprite_nr).getHeight();
@@ -711,20 +703,21 @@ for ( int i = 0; i < RSV.size(); i++ ) {
 
 
 
-
+					cout << " RSV " << endl;
                         // gun direction
                     if ( RSV.at(i).gu_1 == 1 && RSV.at(i).gu_2 == 1 && RSV.at(i).gu_3 == 1 && RSV.at(i).gu_4 == 1 && RSV.at(i).gu_5 == 1) {
 
                             if ( current_sprite_direction == true ) {
                                 rot = 2;
-                                horisontal = false;
+                                horisontal = true;
                                 RSV_y = RSV_y;
+                                vertical = true;
                             } else {
                             }
                             if ( current_sprite_direction == false ) {
                                 rot = 2;
-                                horisontal = false;
-                                vertical = false;
+                                horisontal = true;
+                                vertical = true;
                                 RSV_y = RSV_y;
                             } else {
                             }
@@ -734,16 +727,16 @@ for ( int i = 0; i < RSV.size(); i++ ) {
                     // gun down
                     if ( RSV.at(i).gu_1 == 5 && RSV.at(i).gu_2 == 5 && RSV.at(i).gu_3 == 5 && RSV.at(i).gu_4 == 5 && RSV.at(i).gu_5 == 5) {
 
-                            if ( current_sprite_direction == true ) {
+                           if ( current_sprite_direction == true ) {
                                 rot = 2;
-                                horisontal = true;
-                                vertical = false;
+                                horisontal = false;
                                 RSV_y = RSV_y;
+                                vertical = true;
                             } else {
                             }
                             if ( current_sprite_direction == false ) {
                                 rot = 2;
-                                horisontal = true;
+                                horisontal = false;
                                 vertical = true;
                                 RSV_y = RSV_y;
                             } else {
@@ -756,15 +749,15 @@ for ( int i = 0; i < RSV.size(); i++ ) {
 
                             if ( current_sprite_direction == true ) {
                                 rot = 2;
-                                horisontal = true;
-                                vertical = false;
+                                //~ horisontal = true;
+                                //~ vertical = false;
                                 RSV_y = RSV_y + 0;
                             } else {
                             }
                             if ( current_sprite_direction == false ) {
                                 rot = 2;
-                                horisontal = true;
-                                vertical = true;
+                                //~ horisontal = true;
+                                //~ vertical = true;
                                 RSV_y = RSV_y + 0;
                             } else {
                             }
