@@ -22,6 +22,9 @@ class champ {
 
 
 public:
+
+int hero_id = 1;
+
 metronome runcycle;
 //champ(int a, unsigned char sprites[], int size, int Height, int Width, std::vector<sprite_objects>& parameter);
 champ(int a, int size, int Height, int Width);	// constructor
@@ -163,7 +166,7 @@ int lifepos_y = 10;
 
 void setContactPoints();
 void setContact(int room);
-int grab_block_nr;
+int grab_block_nr = 0;
 void check_items( int room );
 void run_items( game * parameter );
 void cycle_weapon( button_input& parameter );

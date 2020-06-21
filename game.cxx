@@ -549,6 +549,14 @@ obj3->weapon_cycle.counter_int_set = 20;
 gameWProfiles.push_back(*obj3);
 delete obj3;
 
+
+
+weaponProfile * obj4 = new weaponProfile( true ,16 ,15, 15, 1, 4, 10, 40);
+obj4->weapon_cycle.counter_int_set = 20;
+gameWProfiles.push_back(*obj4);
+delete obj4;
+
+
 };
 
 void game::setXYfactor() {
@@ -757,6 +765,34 @@ void game::createAttacks(button_input& parameter) {
     };
 
 
+	// Enemy attack create
+	//////////////////////////////////////////////////////////////////////////////
+
+	
+	for ( int i = 0; i < gameEnemys.size() ; i++ )	{
+		
+		
+		gameEnemys.at(i).create_Enemy_attacks(this);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	};
+
+
+
+
+
+
+
+
+
+
     // if room switch true destroy all attacks
     //cout << "1  " << room_prev << " " << room_current << " " << game_room_switch() << endl;
     if ( game_room_switch() == true ) {
@@ -818,13 +854,14 @@ void game::enemy_manager() {
 
         create_and_reset_enemies(room_current, gameEnemys);
 
-
+		set_RSV_hitbox_relation(gameEnemys);
 
     } else {
     }
 
 
     for ( int i = 0 ; i < gameEnemys.size() ; i++ ) {
+        
         gameEnemys.at(i).resolve_damage( gameAttacks, hero );
         gameEnemys.at(i).setRender();
 
@@ -1209,16 +1246,27 @@ void game::check_lim_upon_roomswitch() {
 
 void game::game_main(){
 		
+		
+		
 		room_render_req(room_current, hero, physics_objects.at( physics_current ) ); // in environment
+		
+		
 
 		destroy_animations_upon_roomswitch();
 		animations_run_render_back();
+		
+		
 
         if ( hero.hero_life > 0 ) {
+			
+			
             createAttacks(buttons);
+            
             hero.updateV( buttons, physics_objects.at( physics_current ), room_current );
+            
             hero.setPos(buttons, physics_objects.at( physics_current ));
             hero.setContact(room_current);
+            
             hero.check_items(room_current);
             hero.run_items(this);
             hero.cycle_weapon(buttons);
@@ -1227,6 +1275,7 @@ void game::game_main(){
 
 
         }
+        
         //~ room_render_req(room_current, hero, physics_objects.at( physics_current ) ); // in environment
         hero.setRender(buttons, physics_objects.at( physics_current ), room_current, attack_took_place );
 		check_lim();
@@ -1240,7 +1289,10 @@ void game::game_main(){
 
 
         //~ room_render_req(room_current, hero); // in environment
+        
 		enemy_manager();
+		
+
 
 		animations_run_render();
 
@@ -1264,6 +1316,9 @@ check_lim_upon_roomswitch();
 //~ room_objects.at(room_current).update_limits_upon_room_switch(hero, game_room_switch(), screen );
 room_prev = room_current;
 initial_config = false;
+
+
+
 };
 
 void game::update_waypoint() {
@@ -1352,7 +1407,7 @@ void game::game_reset() {
 
 void game::game_loop() {
 
-//testfunc();
+
 
     while ( game_is_running == true ) {
         auto start = std::chrono::system_clock::now();
@@ -1361,11 +1416,15 @@ void game::game_loop() {
         buttons.updateState();
 
 
+
         switch (game_state_current) {
 
             case 0:
+
+
                 game_main();
-                
+
+
                 if ( hero.hero_life <= 0 && buttons.getStartState() == true ) {
 				
 					game_reset();

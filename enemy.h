@@ -15,6 +15,8 @@ class enemy {
 public:
 enemy(int e_type, int start_x, int start_y);
 
+int _id = 100;
+
 int x_location, y_location, x_v_int, y_v_int, x_location_prev, y_location_prev;
 float x_float = 0;
 
@@ -33,6 +35,9 @@ bool perception_above;
 bool perception_right;
 
 float perception_angle = 0.00;
+float motion_angle = 0.00;
+int grid_distance = 15;
+
 
 int center_x, center_y;
 int enemy_type;
@@ -82,11 +87,15 @@ int RSV_x_end, RSV_y_end;
 void RSV_setup();
 void vulnerability_setup();
 
+
+
 int enemy_offset[2][10];
 
 void resolve_damage( vector<attack> &parameter, champ &hero_parameter );
 
 void item_drop(int room);
+
+void create_Enemy_attacks( game * parameter );
 
 
 };
@@ -94,6 +103,7 @@ void item_drop(int room);
 
 void create_and_reset_enemies( int room_nr, vector<enemy>& parameter );
 
+void set_RSV_hitbox_relation( vector<enemy>& parameter );
 
 
 

@@ -69,7 +69,8 @@ int y_u_left;
 int x_l_right;
 int y_l_right;
 
-int x_base, y_base;
+int x_base = 0;
+int y_base = 0;
 
 int x_u_left_plusbase;
 int y_u_left_plusbase;
@@ -80,6 +81,12 @@ void test();
 bool hitbox_compare( hitbox_object &parameter );
 void load_base( int x, int y );
 
+// work-around variable 
+
+bool mark = false;
+bool sub_unit = false; 
+
+bool test_ = false;
 
 };
 
@@ -102,6 +109,12 @@ public:
 void render_attacks();
 void update();
 attack( int type, int damage, int x_pos, int y_pos, int x_vel, int y_vel, int rotation, bool horisontal, bool vertical, int gun_sprite_nr, bool cross, bool shoot_direction, int hitboxtype, int cycles );
+
+attack( bool animation, int animation_index ,int damage, int x_pos, int y_pos, int x_vel, int y_vel, int hitboxtype, int cycles );
+
+
+bool a_animation = false;
+int a_animation_index = 0;
 
 int a_rot;
 int a_damage;
@@ -126,6 +139,10 @@ int a_y_vel;
 int mid_x, mid_y;
 
 bool destroy;
+
+int who_fired_med_id = 0;
+bool once = false;
+
 
 vector<hitbox_object> attack_hitbox;
 void setup_hitbox();
@@ -162,6 +179,9 @@ public:
 cycler weapon_cycle;
 
 weaponProfile(int sprite_index, int sprite_index_rotation, int x_velocity, int y_velocity, int set_damage, int hitbox_type, int cycles, int weapon_index);
+weaponProfile(bool animation_, int animation_index_, int x_velocity, int y_velocity, int set_damage, int hitbox_type, int cycles, int weapon_index);
+
+
 int hitbox_t;
 int weapon_sprite;
 int weapon_sprite_rot;
@@ -174,6 +194,9 @@ int x_vel;
 int y_vel;
 
 int weaponprofile_index;
+
+bool animation = false;
+int animation_index = 0;
 
 };
 
@@ -213,6 +236,14 @@ render_state(  bool is_gun ,bool f_c1, bool f_c2, bool w_c1, bool w_c2, bool r_c
 
 render_state( bool special_offset, int special_index, bool is_gun ,bool f_c1, bool f_c2, bool w_c1, bool w_c2, bool r_c1, bool r_c2,int g_1, int g_2, int g_3, int g_4, int g_5, int i_1, int i_2, int i_3, int i_4, int i_5, int i_6, int i_7, int x_offset, int y_offset, int sprite_index);
 
+// spherical coord
+render_state( bool special_offset, int special_index, bool is_gun ,bool f_c1, bool f_c2, bool w_c1, bool w_c2, bool r_c1, bool r_c2,int g_1, int g_2, int g_3, int g_4, int g_5, int i_1, int i_2, int i_3, int i_4, int i_5, int i_6, int i_7, bool spherical, int length, float angle, int sprite_index);
+
+float RSV_angle = 0.00;
+int RSV_length = 0;
+
+bool is_main = false;
+bool is_sub = false;
 
 bool is_g;
 
@@ -240,8 +271,11 @@ int int_7;
 int index;
 int sprite_nr;
 
-int x_off;
-int y_off;
+int x_off = 0;
+int y_off = 0;
+
+int x_mid = 0;
+int y_mid = 0;
 
 bool use_special_offset;
 int use_special_index;
@@ -254,6 +288,11 @@ int RSV_x_store, RSV_y_store;
 bool Advanced;  
 bool grab;
 bool static_;
+
+// experiment with included hitbox 
+hitbox_object * hit_box;
+int hitbox_nr = 0;
+
 
 };
 

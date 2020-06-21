@@ -1619,7 +1619,7 @@ void champ::setPos(button_input& parameter, physics& physics_parameter){
 
 void champ::updateV(button_input& parameter, physics& physics_parameter, int room){
 
-//cout << internal_state << endl;
+cout << grab_block_nr << endl;
 
 
     switch (physics_parameter.state) {

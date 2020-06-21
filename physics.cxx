@@ -904,6 +904,24 @@ weaponProfile::weaponProfile(int sprite_index, int sprite_index_rotation, int x_
 
 };
 
+weaponProfile::weaponProfile(bool animation_, int animation_index_, int x_velocity, int y_velocity, int set_damage, int hitbox_type, int cycles, int weapon_index) : weapon_cycle(2) {
+
+		cycles_to_terminate = cycles;
+		
+		weaponprofile_index = weapon_index;
+		
+
+
+        damage = set_damage;
+        x_vel = x_velocity;
+        y_vel = y_velocity;
+        hitbox_t = hitbox_type;
+
+		animation = true;
+		animation_index = animation_index_;
+
+
+};
 
 void attack::setup_hitbox() {
         int x_base = 0;
@@ -1160,7 +1178,16 @@ switch (hitbox_type) {
 
 
     break;
-
+    
+    case(4):
+    // Animation case prototype
+    
+    x_base = 0;
+    y_base = 0;
+    x_off = 5;
+    y_off = 5;
+    
+	break;
 
 
 };
@@ -1202,6 +1229,39 @@ attack::attack(int type, int damage, int x_pos, int y_pos, int x_vel, int y_vel,
 
 };
 
+attack::attack( bool animation, int animation_index ,int damage, int x_pos, int y_pos, int x_vel, int y_vel, int hitboxtype, int cycles ) {
+
+    //~ a_cross = cross;
+    //~ a_type = type;
+    a_x_pos = x_pos;
+    a_y_pos = y_pos;
+    a_x_vel = x_vel;
+    a_y_vel = y_vel;
+    hitbox_type = hitboxtype;
+    a_damage = damage;
+    
+    a_animation = animation;
+    a_animation_index = animation_index;
+    //~ shooter_direction = shoot_direction;
+
+    //~ a_horisontal = horisontal;
+    //~ a_vertical = vertical;
+
+    //~ a_rot = rotation;
+    setup_hitbox();
+
+    destroy = false;
+    
+    cycles_to_terminate = cycles;
+
+
+
+};
+
+
+
+
+
 void attack::update() {
    
     // move according to velocity
@@ -1235,9 +1295,46 @@ void attack::render_attacks() {
     //~ mid_x = ( ( attack_hitbox.at(0).x_l_right + attack_hitbox.at(0).x_u_left ) / 2 ) + a_x_pos;
     //~ mid_y = ( ( attack_hitbox.at(0).y_l_right + attack_hitbox.at(0).y_u_left ) / 2 ) + a_y_pos;
 
-    render_requests * obj = new render_requests(a_type, a_x_pos, a_y_pos, 1, a_horisontal, a_vertical, a_rot);
-    render_req.push_back(*obj);
-    delete obj;
+
+    
+    
+    if ( a_animation == true  ) {
+		
+		
+		if (  once == false  ) {
+		
+				animation_requests * obj = new animation_requests(16, a_x_pos, a_y_pos , a_x_vel, a_y_vel);
+				anime_req.push_back(*obj);
+				delete obj;
+		
+				once = true;
+		
+		
+		} else {
+		}
+		
+		
+		
+
+		
+		
+	} else {
+		
+		render_requests * obj = new render_requests(a_type, a_x_pos, a_y_pos, 1, a_horisontal, a_vertical, a_rot);
+		render_req.push_back(*obj);
+		delete obj;
+		
+	}
+	
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     //render_primitive_line(a_x_pos + attack_hitbox.at(0).x_u_left, a_y_pos + attack_hitbox.at(0).y_u_left, a_x_pos + attack_hitbox.at(0).x_l_right , a_y_pos+attack_hitbox.at(0).y_l_right, 1, 401);
 
@@ -1444,6 +1541,60 @@ index = sprite_index;
 
             };
         };
+
+};
+
+// spherical
+render_state::render_state( bool special_offset, int special_index, bool is_gun, bool f_c1, bool f_c2, bool w_c1, bool w_c2, bool r_c1, bool r_c2,int g_1, int g_2, int g_3, int g_4, int g_5, int i_1, int i_2, int i_3, int i_4, int i_5, int i_6, int i_7, bool spherical ,int length, float angle, int sprite_index) {
+
+RSV_angle = angle;
+RSV_length = length;
+
+is_g = is_gun; // for use with weapon profile and attack offset
+use_special_offset = special_offset;
+use_special_index = special_index;
+
+f_1 = f_c1;
+f_2 = f_c2;
+w_1 = w_c1;
+w_2 = w_c2;
+r_1 = r_c1;
+r_2 = w_c2;
+
+gu_1 = g_1;
+gu_2 = g_2;
+gu_3 = g_3;
+gu_4 = g_4;
+gu_5 = g_5;
+
+int_1 = i_1;
+int_2 = i_2;
+int_3 = i_3;
+int_4 = i_4;
+int_5 = i_5;
+int_6 = i_6;
+int_7 = i_7;
+
+is_g = is_gun;
+Advanced = false;
+x_off = 0;
+y_off = 0;
+index = sprite_index;
+        for (int i=0; i < all_sprites.size(); i++) {
+            if ( all_sprites.at(i).sprite_index == index ) {
+                sprite_nr = i;
+                //sprite_error = false;
+                //width = all_sprites.at(i).getWidth();
+                //height = all_sprites.at(i).getHeight();
+
+            } else {
+
+            };
+        };
+
+x_mid = x_off + -1 * all_sprites.at(sprite_nr).getWidth()/2;
+y_mid = y_off + -1 * all_sprites.at(sprite_nr).getHeight()/2;
+
 
 };
 
