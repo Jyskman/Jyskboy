@@ -923,11 +923,51 @@ weaponProfile::weaponProfile(bool animation_, int animation_index_, int x_veloci
 
 };
 
+void weaponProfile::external_animation_setup() {
+	
+			switch (animation_index) {
+
+			case(16):
+			
+				
+			
+				nominel_height = 4;
+				nominel_width = 4;
+				
+				for ( int i = 0; i < animation_profiles.size(); i++ ) {
+
+					if ( animation_index == animation_profiles.at(i).animation_index ) {
+					
+						//~ cout << "ffg" << animation_profiles.at(i).animation_index << endl;
+					
+						nominel_center_x_correction = all_sprites.at( animation_profiles.at(i).animate_main_nr.at(0) ).getWidth() /2;
+						nominel_center_y_correction = all_sprites.at( animation_profiles.at(i).animate_main_nr.at(0) ).getHeight() /2;
+						
+						
+						nominel_height = all_sprites.at( animation_profiles.at(i).animate_main_nr.at(0) ).getHeight();
+						nominel_width = all_sprites.at( animation_profiles.at(i).animate_main_nr.at(0) ).getWidth();
+						//~ cout << "ffg__" << nominel_center_x_correction << endl;
+					
+					} else {
+					};
+				
+				
+				};
+				
+			
+			break;
+			
+			
+		};
+	
+};
+
+
 void attack::setup_hitbox() {
-        int x_base = 0;
-        int y_base = 0;
-        int x_off = 0 ;
-        int y_off = 0;
+        //~ int x_base = 0;
+        //~ int y_base = 0;
+        //~ int x_off = 0 ;
+        //~ int y_off = 0;
 
 
 
@@ -1182,10 +1222,11 @@ switch (hitbox_type) {
     case(4):
     // Animation case prototype
     
-    x_base = 0;
-    y_base = 0;
-    x_off = 5;
-    y_off = 5;
+
+    //~ x_base = 0;
+    //~ y_base = 0;
+    //~ x_off = 5;
+    //~ y_off = 5;
     
 	break;
 
@@ -1248,7 +1289,7 @@ attack::attack( bool animation, int animation_index ,int damage, int x_pos, int 
     //~ a_vertical = vertical;
 
     //~ a_rot = rotation;
-    setup_hitbox();
+    //~ setup_hitbox();
 
     destroy = false;
     

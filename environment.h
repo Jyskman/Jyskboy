@@ -136,6 +136,8 @@ class room_object {
     vector< item > room_items;
     vector< item > room_drop_items;
     
+    bool boss_room = false;
+    
     vector< waypoint > room_waypoint;
     
     vector< hitbox_object > terminator_box;

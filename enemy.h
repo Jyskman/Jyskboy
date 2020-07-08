@@ -17,6 +17,8 @@ enemy(int e_type, int start_x, int start_y);
 
 int _id = 100;
 
+bool triggered = false;
+
 int x_location, y_location, x_v_int, y_v_int, x_location_prev, y_location_prev;
 float x_float = 0;
 
@@ -28,6 +30,8 @@ void perception(champ &parameter);
 void motion( physics &parameter );
 float main_v;
 
+int shot_x_vel_factor = 1;
+int shot_y_vel_factor = 1;
 
 
 float perception_distance;

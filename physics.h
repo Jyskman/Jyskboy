@@ -146,6 +146,16 @@ bool once = false;
 
 vector<hitbox_object> attack_hitbox;
 void setup_hitbox();
+
+
+
+int x_base = 0;
+int y_base = 0;
+int x_off = 0 ;
+int y_off = 0;
+        
+        
+        
 };
 
 class cycler {
@@ -197,6 +207,14 @@ int weaponprofile_index;
 
 bool animation = false;
 int animation_index = 0;
+
+int nominel_width = 0;
+int nominel_height = 0;
+
+int nominel_center_x_correction = 0;
+int nominel_center_y_correction = 0;
+
+void external_animation_setup();
 
 };
 

@@ -138,8 +138,10 @@ void game::game_setup() {
     setup_sprites(screen);
     room_setup( this );
     physics_setup();
-    setupWeaponprofiles();
+    
     setup_animation_profiles();
+    setupWeaponprofiles();
+    
     all_sprites.at(0).sprite_test();
 
 
@@ -551,8 +553,9 @@ delete obj3;
 
 
 
-weaponProfile * obj4 = new weaponProfile( true ,16 ,15, 15, 1, 4, 10, 40);
+weaponProfile * obj4 = new weaponProfile( true ,16 ,12, 12, 1, 4, 10, 40);
 obj4->weapon_cycle.counter_int_set = 20;
+obj4->external_animation_setup();
 gameWProfiles.push_back(*obj4);
 delete obj4;
 

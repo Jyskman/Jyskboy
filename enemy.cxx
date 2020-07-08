@@ -63,14 +63,31 @@ float param_y = (float)center_y + (float)y_location;
 		
 		switch (enemy_type) {
 			case(1):
+			
+				if ( (int)perception_distance < 100 && triggered == false ) {
+					triggered = true;
+				} else {
+				}; 
+			
+			
 			break;
 			
 			case(10):
+			
+				if ( (int)perception_distance < 100 && triggered == false ) {
+					triggered = true;
+				} else {
+				}; 
+			
+			
+			
 			
 				if ( 	( (perception_angle > 0.00 && perception_angle < ( M_PI/8.00 ) ) || 
 						(perception_angle > 7*( M_PI/8.00 ) && perception_angle < 8*( M_PI/8.00 )) ) && perception_above == true)  {
 					
 					gun_direction = 3;
+					shot_x_vel_factor = 1;
+					shot_y_vel_factor = 0;
 					
 				} else {
 				};
@@ -79,6 +96,8 @@ float param_y = (float)center_y + (float)y_location;
 						(perception_angle > 7*( M_PI/8.00 ) && perception_angle < 8*( M_PI/8.00 )) ) && perception_above == false)  {
 					
 					gun_direction = 3;
+					shot_x_vel_factor = 1;
+					shot_y_vel_factor = 0;
 					
 				} else {
 				};
@@ -90,6 +109,8 @@ float param_y = (float)center_y + (float)y_location;
 						(perception_angle > 5*( M_PI/8.00 ) && perception_angle < 7*( M_PI/8.00 )) ) && perception_above == true ) {
 					
 					gun_direction = 2;
+					shot_x_vel_factor = 1;
+					shot_y_vel_factor = -1;
 					
 				} else {
 				}
@@ -100,6 +121,8 @@ float param_y = (float)center_y + (float)y_location;
 				if ( (perception_angle > 3*( M_PI/8.00 ) && perception_angle < 5*( M_PI/8.00 )) && perception_above == true ) {
 					
 					gun_direction = 1;
+					shot_x_vel_factor = 0;
+					shot_y_vel_factor = -1;
 					
 				} else {
 				}
@@ -107,6 +130,8 @@ float param_y = (float)center_y + (float)y_location;
 				if ( (perception_angle > 3*( M_PI/8.00 ) && perception_angle < 5*( M_PI/8.00 )) && perception_above == false ) {
 					
 					gun_direction = 5;
+					shot_x_vel_factor = 0;
+					shot_y_vel_factor = 1;
 					
 				} else {
 				}
@@ -116,9 +141,21 @@ float param_y = (float)center_y + (float)y_location;
 						(perception_angle > 5*( M_PI/8.00 ) && perception_angle < 7*( M_PI/8.00 )) ) && perception_above == false ) {
 					
 					gun_direction = 4;
+					shot_x_vel_factor = 1;
+					shot_y_vel_factor = 1;
 					
 				} else {
 				}
+				
+				
+				// For shot
+				if ( perception_right == true ) {
+					 
+				
+				} else {
+				shot_x_vel_factor = shot_x_vel_factor * -1; 
+				
+				};
 				
 				
 
@@ -148,21 +185,46 @@ void enemy::motion( physics &parameter ) {
         case(1):
 
             y_v_float = y_v_float - parameter.new_g;
+            
+            if ( triggered == true ) {
+			
+				if ( perception_right == true  ) {
 
-            if ( perception_right == true ) {
+					x_v_float = x_v_float + main_v;
+				} else {
+					
+				}
+				
+				if ( perception_right == false  ) {
 
-                x_v_float = x_v_float + main_v;
-            } else {
-                x_v_float = x_v_float - main_v;
-            }
+					x_v_float = x_v_float - main_v;
+				} else {
+					
+				}
+				
+				if ( perception_above == true  ) {
 
-            if ( perception_above == true ) {
+					y_v_float = y_v_float - main_v;
+				} else {
+					
+				}
+				
+				if ( perception_above == false  ) {
 
-                y_v_float = y_v_float - main_v;
-            } else {
-                y_v_float = y_v_float + main_v;
-            }
+					y_v_float = y_v_float + main_v;
+				} else {
+					
+				}
+			
+			
+			
+			} else {
+			};
+            
+            
+            
 
+            
 
 
         break;
@@ -170,23 +232,153 @@ void enemy::motion( physics &parameter ) {
         break;
         case(10):
 
-			main_v = 0.00;
+			//~ main_v = 0.00;
+			y_v_float = y_v_float - parameter.new_g;
+			if ( triggered == true ) {
+			
+				
+				
+				
 
-            y_v_float = y_v_float - parameter.new_g;
+				
 
-            if ( perception_right == true ) {
+				if ( perception_right == true && (int)perception_distance > enemy_offset[0][2] ) {
 
-                x_v_float = x_v_float + main_v;
-            } else {
-                x_v_float = x_v_float - main_v;
-            }
+					x_v_float = x_v_float + main_v;
+				} else {
+					
+				}
+				
+				if ( perception_right == false && (int)perception_distance > enemy_offset[0][2] ) {
 
-            if ( perception_above == true ) {
+					x_v_float = x_v_float - main_v;
+				} else {
+					
+				}
+				
+				if ( perception_above == true && (int)perception_distance > enemy_offset[0][2] ) {
 
-                y_v_float = y_v_float - main_v;
-            } else {
-                y_v_float = y_v_float + main_v;
-            }
+					y_v_float = y_v_float - main_v;
+				} else {
+					
+				}
+				
+				if ( perception_above == false && (int)perception_distance > enemy_offset[0][2] ) {
+
+					y_v_float = y_v_float + main_v;
+				} else {
+					
+				}
+				
+				//**
+				
+				if ( perception_right == true && (int)perception_distance < enemy_offset[0][2] ) {
+
+					x_v_float = x_v_float - 4*main_v;
+				} else {
+					
+				}
+				
+				if ( perception_right == false && (int)perception_distance < enemy_offset[0][2] ) {
+
+					x_v_float = x_v_float + 4*main_v;
+				} else {
+					
+				}
+				
+				if ( perception_above == true && (int)perception_distance < enemy_offset[0][2] ) {
+
+					y_v_float = y_v_float - 4*main_v;
+				} else {
+					
+				}
+				
+				if ( perception_above == false && (int)perception_distance < enemy_offset[0][2] ) {
+
+					y_v_float = y_v_float + 4*main_v;
+				} else {
+					
+				}
+				
+				//~ cout << (int)perception_distance << endl;
+				
+				
+				//**
+				
+				if ( (int)perception_distance < enemy_offset[0][2]/2 ) {
+				
+				
+					y_v_float = y_v_float + 3*main_v;
+				
+
+				
+					
+				
+				} else {
+				}
+				
+				
+				
+				// behavior 
+					
+				
+				if ( enemy_offset[1][0] <= enemy_offset[0][0] && enemy_offset[1][1] <= 0 ) {
+				
+					enemy_offset[1][0] = enemy_offset[1][0] + 1 ;
+
+				} else {
+				}
+				
+				if ( enemy_offset[1][0] > enemy_offset[0][0] && enemy_offset[1][1] <= 0 ) {
+				
+					enemy_offset[1][1] = enemy_offset[0][1] ;
+					
+					enemy_offset[1][0] = 0;
+
+				} else {
+				}
+				
+				// special motion event	
+				if ( rand() % 100 > 98 ) {
+				
+					enemy_offset[0][3] = rand() % 3 + 1;
+					enemy_offset[1][3] = rand() % 5 + 50;
+				
+				} else {
+				};
+				switch(enemy_offset[0][3]) {
+					case(0):
+					break;
+					case(1):
+						x_v_float = x_v_float + 2*main_v;
+					break;
+					case(2):
+						x_v_float = x_v_float - 2*main_v;
+					break;
+					case(3):
+						y_v_float = y_v_float - 2*main_v;
+					break;
+				
+				
+				};
+				if ( enemy_offset[1][3] > 0 ) {
+					enemy_offset[1][3]--;
+				} else {
+				};
+				if ( enemy_offset[1][3] == 0 ) {
+					enemy_offset[0][3] = 0 ;
+				} else {
+				};
+
+
+
+			
+			
+			
+			} else {
+			};
+			
+
 
 
 			
@@ -510,6 +702,33 @@ void enemy::vulnerability_setup() {
         case (10):
 			can_take_damage = true;
             life = 10;
+            
+            // Behavior experiment
+            
+            // cycles between shots 
+            enemy_offset[0][0] = 200 ;
+            
+            // current cycle
+            enemy_offset[1][0] = 0 ;
+            
+            // shots until cycle reset
+            enemy_offset[0][1] = 5 ;
+            
+            // current shot
+            enemy_offset[1][1] = 0 ;
+            
+            // Typical distance from hero
+            enemy_offset[0][2] = 60 ;
+            
+            // Special state index 
+            enemy_offset[0][3] = 0;
+            
+            // Special state counter 
+            enemy_offset[1][3] = 0;
+            
+            
+            
+            
         break;
         break;
         default:
@@ -544,7 +763,7 @@ destroy = false;
             main_v = 0.20;
         break;
         case(10):
-            main_v = 0.20;
+            main_v = 0.15;
         break;
 
     };
@@ -606,7 +825,8 @@ void enemy::item_drop(int room) {
 
 void enemy::resolve_damage( vector<attack> &parameter, champ &hero_parameter ) {
 
-
+int enemy_explosion_x = 0;
+int enemy_explosion_y = 0;
 
 //E
 int X_1_A = 0;
@@ -680,7 +900,7 @@ bool hit = false;
             Y_1_B = parameter.at(j).a_y_pos + parameter.at(j).attack_hitbox.at(0).y_u_left;
             Y_2_B = parameter.at(j).a_y_pos + parameter.at(j).attack_hitbox.at(0).y_l_right;;
 
-			render_primitive_line(X_1_B, Y_1_B, X_2_B, Y_2_B, 1, 401  );
+			//~ render_primitive_line(X_1_B, Y_1_B, X_2_B, Y_2_B, 1, 401  );
 
                 hit = true;
             if (  X_1_B < X_2_A && X_2_B > X_1_A && Y_1_B < Y_2_A && Y_2_B > Y_1_A ) {
@@ -695,6 +915,9 @@ bool hit = false;
                 cout << "hit" << endl;
                 life = life - parameter.at(j).a_damage ;
                 parameter.at(j).destroy = true;
+                enemy_explosion_x = (X_1_A + X_2_A)/2 ;
+                enemy_explosion_y = (Y_1_A + Y_2_A)/2;
+                
                 if ( life <= 0 ) {
                     destroy = true;
 
@@ -709,6 +932,10 @@ bool hit = false;
                 animation_requests * obj = new animation_requests(12, x_location + center_x, y_location + center_y , 0, 0);
                 anime_req.push_back(*obj);
                 delete obj;
+                
+                animation_requests * obj2 = new animation_requests(12, enemy_explosion_x, enemy_explosion_y , 0, 0);
+                anime_req.push_back(*obj2);
+                delete obj2;
 
             } else {
             }
@@ -747,7 +974,7 @@ bool hit = false;
 
 
 
-			animation_requests * obj = new animation_requests(12, x_location + center_x, y_location + center_y , 0, 0);
+			animation_requests * obj = new animation_requests(12, hero_parameter.x_location + hero_parameter.getWidth()/2, hero_parameter.y_location + hero_parameter.getHeight()/2 , 0, 0);
 			anime_req.push_back(*obj);
 			delete obj;
 
@@ -781,27 +1008,51 @@ void enemy::create_Enemy_attacks( game * parameter ) {
 		case(10): {
 		
 		
-				//~ attack( bool animation, int animation_index ,int damage, int x_pos, int y_pos, int x_vel, int y_vel, int hitboxtype, int cycles );
-		
-		
-				if ( rand() % 100 > 95 ) {
-					
-						//~ cout << "htype  " << parameter->gameWProfiles.at(3).hitbox_t << endl;
-					
-						attack * obj = new attack( true, parameter->gameWProfiles.at(3).animation_index,parameter->gameWProfiles.at(3).damage, x_location, y_location,
-						parameter->gameWProfiles.at(3).x_vel, parameter->gameWProfiles.at(3).y_vel,
-						parameter->gameWProfiles.at(3).hitbox_t,
-						parameter->gameWProfiles.at(3).cycles_to_terminate );
-						
-						obj->who_fired_med_id = _id;
-						
-						parameter->gameAttacks.push_back(*obj);
-						delete obj;
-						
 
+				//~ render_primitive_line(	x_location + parameter->gameWProfiles.at(3).nominel_center_x_correction + width/2, 
+										//~ y_location + parameter->gameWProfiles.at(3).nominel_center_y_correction + height/2,
+										//~ ((x_location + parameter->gameWProfiles.at(3).nominel_center_x_correction + width/2)) + 40,
+										//~ ((y_location + parameter->gameWProfiles.at(3).nominel_center_y_correction + height/2)) - 0, 1, 401  );
+		
+		
+				if (  enemy_offset[1][1] > 0) {
+				
+					if ( rand() % 100 > 80 ) {
 						
+							//~ cout << "htype  " << parameter->gameWProfiles.at(3).hitbox_t << endl;
+						
+							attack * obj = new attack( true, parameter->gameWProfiles.at(3).animation_index,parameter->gameWProfiles.at(3).damage,
+							x_location + parameter->gameWProfiles.at(3).nominel_center_x_correction + width/2,
+							y_location + parameter->gameWProfiles.at(3).nominel_center_y_correction + height/2,
+							parameter->gameWProfiles.at(3).x_vel * shot_x_vel_factor, parameter->gameWProfiles.at(3).y_vel * shot_y_vel_factor,
+							parameter->gameWProfiles.at(3).hitbox_t,
+							parameter->gameWProfiles.at(3).cycles_to_terminate );
+							
+							obj->who_fired_med_id = _id;
+							obj->x_base = 0;
+							obj->y_base = 0;
+							obj->x_off = parameter->gameWProfiles.at(3).nominel_width/4;
+							obj->y_off = parameter->gameWProfiles.at(3).nominel_height/4;
+							
+							obj->setup_hitbox();
+							
+							parameter->gameAttacks.push_back(*obj);
+							delete obj;
+							
+
+					enemy_offset[1][1] = enemy_offset[1][1] - 1;	
+					
+					} else {
+					}
+					
+
+				
+				
 				} else {
-				}
+				};
+		
+		
+
 		
 		
 
@@ -1081,8 +1332,23 @@ for ( int i = 0; i < RSV.size(); i++ ) {
                             break;
                             case(10):
                             
-								motion_angle = motion_angle + M_PI/120;
-								//~ motion_angle = motion_angle + 0;	
+								
+								//~ motion_angle = motion_angle + 0;
+
+								if ( enemy_offset[1][1] > 0 || enemy_offset[1][0] > 3*(enemy_offset[0][0]/4) ) {
+								} else {
+									
+									if ( triggered == true ) {
+									
+										motion_angle = motion_angle + M_PI/120;
+										
+									} else {
+									};
+									
+									
+								};
+								
+								
 								
 								RSV_x = RSV_x +  RSV.at(i).RSV_length * cos( RSV.at(i).RSV_angle + motion_angle );
 								RSV_y = RSV_y +  RSV.at(i).RSV_length * sin( RSV.at(i).RSV_angle + motion_angle );
@@ -1175,7 +1441,7 @@ for ( int i = 0; i < RSV.size(); i++ ) {
 }
 if (destroy == true) {
 particle_generator( this, 0, 0, 50);
-cout << "kkl" << endl;
+
 } else {
 }
 

@@ -150,10 +150,18 @@ void champ::check_items( int room ) {
 			if ( room_objects.at(room).room_items.at(i).item_hitbox.at(0).hitbox_compare( hero_hitbox.at(0) ) == false && room_objects.at(room).room_items.at(i).active == true ) {
 				
 
+				if ( room_objects.at(room).boss_room == false ) {
+				
 					hero_items.push_back( &room_objects.at(room).room_items.at(i) );
 					upgrade_animation_trigger = true;
 
-					room_objects.at(room).room_items.at(i).hit = true;
+					room_objects.at(room).room_items.at(i).hit = true;				
+				
+				
+				} else {
+				};
+
+
 					
 				
 
@@ -1619,7 +1627,7 @@ void champ::setPos(button_input& parameter, physics& physics_parameter){
 
 void champ::updateV(button_input& parameter, physics& physics_parameter, int room){
 
-cout << grab_block_nr << endl;
+//cout << grab_block_nr << endl;
 
 
     switch (physics_parameter.state) {

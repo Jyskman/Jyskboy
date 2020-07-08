@@ -353,7 +353,7 @@ void room_object::set_terminator() {
 	for ( int i = 1; i < (columns_storage.size() / column_items); i++ ) {
 
 
-        if ( columns_storage.at(16).at(i) <= -100  ) {
+        if ( columns_storage.at(16).at(i) <= -100 && columns_storage.at(16).at(i) != -666 ) {
 
 				hitbox_object * new_box_1 = new hitbox_object( columns_storage.at(20).at(i), columns_storage.at(21).at(i), columns_storage.at(22).at(i), columns_storage.at(23).at(i)  );
 				
@@ -1160,7 +1160,17 @@ void room_render_req(int roomnr, champ &parameter, physics &parameter_physics) {
 	// items render
 	for (int i = 0; i < room_objects.at(roomnr).room_items.size(); i++ ) {
 
-		room_objects.at(roomnr).room_items.at(i).render_item();
+		
+		
+		// For boss rooms all room items will render after boss room == false
+		if ( room_objects.at(roomnr).boss_room == false ) {
+		
+			room_objects.at(roomnr).room_items.at(i).render_item();
+		
+		} else {
+		};
+		
+		
 
 	};
 	

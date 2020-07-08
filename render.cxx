@@ -48,43 +48,136 @@ void particle_generator( enemy *parameter, int x_pos, int y_pos, int cycles ) {
 
     int animation_type = 5;
 
-    for ( int i = 0; i < parameter->RSV.size() ; i++ ) {
 
 
-    if ( parameter->destroy_v_x != 0 ) {
-        vx = parameter->destroy_v_x / abs(parameter->destroy_v_x);
-    } else {
-    };
-    if ( parameter->destroy_v_y != 0 ) {
-        vy = -1*parameter->destroy_v_y / abs(parameter->destroy_v_y);
-        if ( rand() % 2 == 1 ) {
-            vx = vx *-1;
-        } else {
-        }
-    } else {
-    };
+	switch ( parameter->enemy_type ) {
+	
+		case(1): {
+			
+			for ( int i = 0; i < parameter->RSV.size() ; i++ ) {
+
+
+				if ( parameter->destroy_v_x != 0 ) {
+					vx = parameter->destroy_v_x / abs(parameter->destroy_v_x);
+				} else {
+				};
+				if ( parameter->destroy_v_y != 0 ) {
+					vy = -1*parameter->destroy_v_y / abs(parameter->destroy_v_y);
+					if ( rand() % 2 == 1 ) {
+						vx = vx *-1;
+					} else {
+					}
+				} else {
+				};
 
 
 
-        //cout << parameter->RSV.at(i).f_2 << "hej" << endl;
-        animation_requests * obj_e1 = new animation_requests(parameter->RSV.at(i).index, 6, 1,
-        true, true,
-        cycles,
-        parameter->RSV.at(i).RSV_x_store, parameter->RSV.at(i).RSV_y_store ,
-        vx * (explosion_v + rand() % 6 ), -1* (explosion_v + rand() % 6 )*vy  );
-        anime_req.push_back(*obj_e1);
-        delete obj_e1;
-        obj_e1 = 0;
+				//cout << parameter->RSV.at(i).f_2 << "hej" << endl;
+				animation_requests * obj_e1 = new animation_requests(parameter->RSV.at(i).index, 6, 1,
+				true, true,
+				cycles,
+				parameter->RSV.at(i).RSV_x_store, parameter->RSV.at(i).RSV_y_store ,
+				vx * (explosion_v + rand() % 6 ), -1* (explosion_v + rand() % 6 )*vy  );
+				anime_req.push_back(*obj_e1);
+				delete obj_e1;
+				obj_e1 = 0;
 
 
-        animation_requests * obj_e = new animation_requests(12, parameter->RSV.at(i).RSV_x_store + all_sprites.at(parameter->RSV.at(i).sprite_nr).getWidth()/2,
-        parameter->RSV.at(i).RSV_y_store + all_sprites.at(parameter->RSV.at(i).sprite_nr).getHeight()/2 , 0, 0);
-        anime_req.push_back(*obj_e);
-        delete obj_e;
+				animation_requests * obj_e = new animation_requests(12, parameter->RSV.at(i).RSV_x_store + all_sprites.at(parameter->RSV.at(i).sprite_nr).getWidth()/2,
+				parameter->RSV.at(i).RSV_y_store + all_sprites.at(parameter->RSV.at(i).sprite_nr).getHeight()/2 , 0, 0);
+				anime_req.push_back(*obj_e);
+				delete obj_e;
 
-    }
+			}
+			
+			
+			
+			
+			
+			
+		break;
+		}
+		case(10): {
+			
+			
+			for ( int i = 0; i < parameter->RSV.size() ; i++ ) {
 
 
+				if ( parameter->destroy_v_x != 0 ) {
+					vx = parameter->destroy_v_x / abs(parameter->destroy_v_x);
+				} else {
+				};
+				if ( parameter->destroy_v_y != 0 ) {
+					vy = -1*parameter->destroy_v_y / abs(parameter->destroy_v_y);
+					if ( rand() % 2 == 1 ) {
+						vx = vx *-1;
+					} else {
+					}
+				} else {
+				};
+
+
+
+				//cout << parameter->RSV.at(i).f_2 << "hej" << endl;
+				//~ animation_requests * obj_e1 = new animation_requests(parameter->RSV.at(i).index, 6, 1,
+				//~ true, true,
+				//~ cycles,
+				//~ parameter->RSV.at(i).RSV_x_store, parameter->RSV.at(i).RSV_y_store ,
+				//~ vx * (explosion_v + rand() % 6 ), -1* (explosion_v + rand() % 6 )*vy  );
+				//~ anime_req.push_back(*obj_e1);
+				//~ delete obj_e1;
+				//~ obj_e1 = 0;
+				
+				if ( parameter->RSV.at(i).is_sub == true ) {
+					
+					animation_requests * obj_e1 = new animation_requests(parameter->RSV.at(i).index, 6, 1,
+					true, true,
+					cycles,
+					parameter->RSV.at(i).RSV_x_store, parameter->RSV.at(i).RSV_y_store ,
+					vx * (explosion_v + rand() % 6 ), -1* (explosion_v + rand() % 6 )*vy  );
+					anime_req.push_back(*obj_e1);
+					delete obj_e1;
+					obj_e1 = 0;					
+					
+					
+					
+				} else {
+				};
+				if ( parameter->RSV.at(i).is_sub == false && parameter->RSV.at(i).gu_1 == parameter->gun_direction ) {
+					
+					animation_requests * obj_e1 = new animation_requests(parameter->RSV.at(i).index, 6, 1,
+					true, true,
+					cycles,
+					parameter->RSV.at(i).RSV_x_store, parameter->RSV.at(i).RSV_y_store ,
+					vx * (explosion_v + rand() % 6 ), -1* (explosion_v + rand() % 6 )*vy  );
+					anime_req.push_back(*obj_e1);
+					delete obj_e1;
+					obj_e1 = 0;					
+					
+					
+					
+				} else {
+				};
+
+
+				animation_requests * obj_e = new animation_requests(12, parameter->RSV.at(i).RSV_x_store + all_sprites.at(parameter->RSV.at(i).sprite_nr).getWidth()/2,
+				parameter->RSV.at(i).RSV_y_store + all_sprites.at(parameter->RSV.at(i).sprite_nr).getHeight()/2 , 0, 0);
+				anime_req.push_back(*obj_e);
+				delete obj_e;
+
+			}
+			
+						
+			
+			
+			
+			
+			
+		break;
+		}
+		
+		
+	};
 
 
 };
