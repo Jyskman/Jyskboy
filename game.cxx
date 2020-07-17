@@ -889,6 +889,17 @@ void game::enemy_manager() {
     gameEnemys.end());
 
 
+
+
+	// if all enemies died and boss room is true, the it becomes false
+	if ( gameEnemys.size() == 0 && room_objects.at(room_current).boss_room == true ) {
+		room_objects.at(room_current).boss_room = false;
+		cout << room_objects.at(room_current).room_items.size() << endl;
+	
+	} else {
+	};
+
+
 };
 
 // room switched true false
@@ -1249,7 +1260,7 @@ void game::check_lim_upon_roomswitch() {
 
 void game::game_main(){
 		
-		
+		cout << room_objects.at(room_current).boss_room << "l" << endl;
 		
 		room_render_req(room_current, hero, physics_objects.at( physics_current ) ); // in environment
 		

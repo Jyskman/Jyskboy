@@ -367,6 +367,13 @@ void room_object::set_terminator() {
 
         } else {
         }
+        
+        if ( columns_storage.at(16).at(i) == -666 ) {
+			boss_room = true;
+			cout << " once " << endl;
+		
+		} else {
+		};
 
     }
     
@@ -1121,6 +1128,12 @@ void room_render_req(int roomnr, champ &parameter, physics &parameter_physics) {
     //~ remove_if(room_objects.at(roomnr).roomblocks.begin(), room_objects.at(roomnr).roomblocks.end(),
     //~ [](const block & o) { return o.destroyed == true; }),
     //~ room_objects.at(roomnr).roomblocks.end());
+    
+    
+    
+    
+    
+    
     
     
     //~ need to find the potentially grabbed block and reasign after potential block destruction

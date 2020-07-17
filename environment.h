@@ -138,6 +138,7 @@ class room_object {
     
     bool boss_room = false;
     
+    
     vector< waypoint > room_waypoint;
     
     vector< hitbox_object > terminator_box;
