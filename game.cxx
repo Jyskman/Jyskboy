@@ -750,7 +750,11 @@ void game::createAttacks(button_input& parameter) {
         gameWProfiles.at(hero.current_gun).x_vel*x_factor, gameWProfiles.at(hero.current_gun).y_vel*y_factor,
         hero.rot_gun, hero.horisontal_gun, hero.vertical_gun, hero.gun_sprite_nr, cross, hero.current_sprite_direction, gameWProfiles.at(hero.current_gun).hitbox_t,
         gameWProfiles.at(hero.current_gun).cycles_to_terminate );
+        
+        obj->who_fired_med_id = hero.hero_id;
         gameAttacks.push_back(*obj);
+             
+        
         delete obj;
 
         //render_primitive_line(hero.x_location+ammo_location_x, hero.y_location+ammo_location_y, hero.x_location+ammo_location_x+5, hero.y_location+ammo_location_y-5, 1, 401  );
