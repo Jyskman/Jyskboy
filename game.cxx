@@ -64,7 +64,7 @@ game::game(int a) : buttons(1), screen(1), audio(), hero(1, (100 * 100 * 3 + 1),
 
 // when game is created these items are also
 game_state_current = 0;
-room_current = 2;
+room_current = 0;
 physics_current = 0;
 game_is_running = true;
 room_prev = room_current;
@@ -1264,7 +1264,7 @@ void game::check_lim_upon_roomswitch() {
 
 void game::game_main(){
 		
-		cout << room_objects.at(room_current).boss_room << "l" << endl;
+		//cout << room_objects.at(room_current).boss_room << "l" << endl;
 		
 		room_render_req(room_current, hero, physics_objects.at( physics_current ) ); // in environment
 		

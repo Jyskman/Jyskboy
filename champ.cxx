@@ -1330,7 +1330,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                                         ///////////////
                                         //~ There is a bug here.. prev 2020 03 26 code was x_location_intersection_int >= P4_x
                                         
-										cout << P4_x << " " <<  P3_y << endl;
+										//cout << P4_x << " " <<  P3_y << endl;
                                         if (x_location_intersection_int <= P4_x && y_location_intersection_int < P3_y ) {
 
                                             x_location_intersection_int = P4_x+1;
@@ -1418,7 +1418,7 @@ for ( int i = 0; i < room_objects.at(room).roomblocks.size() ; i++ ) {
                             if (active_block == true && contact_points_all[1][10]  + getY() >= P4_y && contact_points_all[1][10]  + getY() < P3_y && contact_points_all[0][10] + getX() >= P3_x && contact_points_all[0][10] + getX() <= P4_x ) {
                             x_velocity = 0;
                             contact_left = true;
-                            cout << "C" << endl;
+                            //cout << "C" << endl;
                                 while ( contact_points_all[0][10]  + getX() <= P4_x ){
 
                                 setX( getX() +1 ); //
